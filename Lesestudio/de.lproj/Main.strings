@@ -1,0 +1,396 @@
+
+
+
+
+/* Class = "NSMenuItem"; title = "Aufnahmen exportieren..."; ObjectID = "1KR-st-R0C"; */
+"1KR-st-R0C.title" = "Aufnahmen exportieren...";
+
+/* Class = "NSButtonCell"; title = "|<"; ObjectID = "1LD-JH-hrW"; */
+"1LD-JH-hrW.title" = "|<";
+
+/* Class = "NSMenuItem"; title = "Lesestudio"; ObjectID = "1Xt-HY-uBw"; */
+"1Xt-HY-uBw.title" = "Lesestudio";
+
+/* Class = "NSMenu"; title = "Find"; ObjectID = "1b7-l0-nxx"; */
+"1b7-l0-nxx.title" = "Find";
+
+/* Class = "NSMenuItem"; title = "Passwortliste bearbeiten..."; ObjectID = "2HD-98-4Db"; */
+"2HD-98-4Db.title" = "Passwortliste bearbeiten...";
+
+/* Class = "NSTextFieldCell"; title = "Recorder"; ObjectID = "2m6-6q-An6"; */
+"2m6-6q-An6.title" = "Recorder";
+
+/* Class = "NSMenuItem"; title = "Transformations"; ObjectID = "2oI-Rn-ZJC"; */
+"2oI-Rn-ZJC.title" = "Transformations";
+
+/* Class = "NSMenu"; title = "Spelling"; ObjectID = "3IN-sU-3Bg"; */
+"3IN-sU-3Bg.title" = "Spelling";
+
+/* Class = "NSMenu"; title = "Speech"; ObjectID = "3rS-ZA-NoH"; */
+"3rS-ZA-NoH.title" = "Speech";
+
+/* Class = "NSMenuItem"; title = "Find"; ObjectID = "4EN-yA-p0u"; */
+"4EN-yA-p0u.title" = "Find";
+
+/* Class = "NSTextFieldCell"; title = "Projekt:"; ObjectID = "4dV-Vb-6pN"; */
+"4dV-Vb-6pN.title" = "Projekt:";
+
+/* Class = "NSMenuItem"; title = "Edit"; ObjectID = "5QF-Oa-p0T"; */
+"5QF-Oa-p0T.title" = "Edit";
+
+/* Class = "NSMenu"; title = "OtherViews"; ObjectID = "6My-rd-4zI"; */
+"6My-rd-4zI.title" = "OtherViews";
+
+/* Class = "NSMenuItem"; title = "Redo"; ObjectID = "6dh-zS-Vam"; */
+"6dh-zS-Vam.title" = "Redo";
+
+/* Class = "NSBox"; title = "Anmerkungen"; ObjectID = "6l0-jb-erR"; */
+"6l0-jb-erR.title" = "Anmerkungen";
+
+/* Class = "NSMenuItem"; title = "Correct Spelling Automatically"; ObjectID = "78Y-hA-62v"; */
+"78Y-hA-62v.title" = "Correct Spelling Automatically";
+
+/* Class = "NSMenuItem"; title = "Substitutions"; ObjectID = "9ic-FL-obx"; */
+"9ic-FL-obx.title" = "Substitutions";
+
+/* Class = "NSMenuItem"; title = "Smart Copy/Paste"; ObjectID = "9yt-4B-nSM"; */
+"9yt-4B-nSM.title" = "Smart Copy/Paste";
+
+/* Class = "NSMenu"; title = "Main Menu"; ObjectID = "AYu-sK-qS6"; */
+"AYu-sK-qS6.title" = "Main Menu";
+
+/* Class = "NSTabViewItem"; label = "Archiv"; ObjectID = "AeG-hu-08V"; */
+"AeG-hu-08V.label" = "Archiv";
+
+/* Class = "NSTextFieldCell"; title = "Abspielzeit"; ObjectID = "B95-BJ-WnR"; */
+"B95-BJ-WnR.title" = "Abspielzeit";
+
+/* Class = "NSTextFieldCell"; title = "Start"; ObjectID = "BH6-rG-vBs"; */
+"BH6-rG-vBs.title" = "Start";
+
+/* Class = "NSBox"; title = "Anmerkungen zur letzten Aufnahme"; ObjectID = "BiD-t5-8Xn"; */
+"BiD-t5-8Xn.title" = "Anmerkungen zur letzten Aufnahme";
+
+/* Class = "NSMenuItem"; title = "Save As…"; ObjectID = "Bw7-FT-i3A"; */
+"Bw7-FT-i3A.title" = "Save As…";
+
+/* Class = "NSMenuItem"; title = "Session aktualisieren"; ObjectID = "CnF-VR-Kn7"; */
+"CnF-VR-Kn7.title" = "Session aktualisieren";
+
+/* Class = "NSButtonCell"; title = "|<"; ObjectID = "CwM-lA-UqJ"; */
+"CwM-lA-UqJ.title" = "|<";
+
+/* Class = "NSMenuItem"; title = "Close"; ObjectID = "DVo-aG-piG"; */
+"DVo-aG-piG.title" = "Close";
+
+/* Class = "NSMenuItem"; title = "Spelling and Grammar"; ObjectID = "Dv1-io-Yv7"; */
+"Dv1-io-Yv7.title" = "Spelling and Grammar";
+
+/* Class = "NSTextFieldCell"; title = "Lesestudio"; ObjectID = "E6N-wg-CP8"; */
+"E6N-wg-CP8.title" = "Lesestudio";
+
+/* Class = "NSTextFieldCell"; title = "Stop"; ObjectID = "EIG-r4-P9y"; */
+"EIG-r4-P9y.title" = "Stop";
+
+/* Class = "NSMenu"; title = "Help"; ObjectID = "F2S-fz-NVQ"; */
+"F2S-fz-NVQ.title" = "Help";
+
+/* Class = "NSMenuItem"; title = "Lesestudio Help"; ObjectID = "FKE-Sm-Kum"; */
+"FKE-Sm-Kum.title" = "Lesestudio Help";
+
+/* Class = "NSMenuItem"; title = "Admin"; ObjectID = "Fal-I4-PZk"; */
+"Fal-I4-PZk.title" = "Admin";
+
+/* Class = "NSMenu"; title = "Substitutions"; ObjectID = "FeM-D8-WVr"; */
+"FeM-D8-WVr.title" = "Substitutions";
+
+/* Class = "NSMenu"; title = "Modus"; ObjectID = "GEO-Iw-cKr"; */
+"GEO-Iw-cKr.title" = "Modus";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "GRe-dV-lXN"; */
+"GRe-dV-lXN.title" = "Box";
+
+/* Class = "NSMenuItem"; title = "Aufnehmen"; ObjectID = "Gi5-1S-RQB"; */
+"Gi5-1S-RQB.title" = "Aufnehmen";
+
+/* Class = "NSMenuItem"; title = "Admin"; ObjectID = "H8h-7b-M4v"; */
+"H8h-7b-M4v.title" = "Admin";
+
+/* Class = "NSMenuItem"; title = "Text Replacement"; ObjectID = "HFQ-gK-NFA"; */
+"HFQ-gK-NFA.title" = "Text Replacement";
+
+/* Class = "NSMenuItem"; title = "Show Spelling and Grammar"; ObjectID = "HFo-cy-zxI"; */
+"HFo-cy-zxI.title" = "Show Spelling and Grammar";
+
+/* Class = "NSMenuItem"; title = "Open…"; ObjectID = "IAo-SY-fd9"; */
+"IAo-SY-fd9.title" = "Open…";
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "IQv-IB-iLA"; */
+"IQv-IB-iLA.title" = "Window";
+
+/* Class = "NSMenuItem"; title = "Aufnahmeliste aktualisieren"; ObjectID = "Ji7-O3-P84"; */
+"Ji7-O3-P84.title" = "Aufnahmeliste aktualisieren";
+
+/* Class = "NSMenuItem"; title = "Passwort ändern"; ObjectID = "Jut-dI-uKF"; */
+"Jut-dI-uKF.title" = "Passwort ändern";
+
+/* Class = "NSMenuItem"; title = "Revert to Saved"; ObjectID = "KaW-ft-85H"; */
+"KaW-ft-85H.title" = "Revert to Saved";
+
+/* Class = "NSTextFieldCell"; title = "Zurück"; ObjectID = "Kvu-3n-zGC"; */
+"Kvu-3n-zGC.title" = "Zurück";
+
+/* Class = "NSButtonCell"; title = "Aufnahme sichern"; ObjectID = "MEa-Md-9lt"; */
+"MEa-Md-9lt.title" = "Aufnahme sichern";
+
+/* Class = "NSMenuItem"; title = "Projektliste bearbeiten..."; ObjectID = "Nfz-1q-LvL"; */
+"Nfz-1q-LvL.title" = "Projektliste bearbeiten...";
+
+/* Class = "NSMenuItem"; title = "Namenliste bearbeiten..."; ObjectID = "Nhg-9Z-LlQ"; */
+"Nhg-9Z-LlQ.title" = "Namenliste bearbeiten...";
+
+/* Class = "NSMenuItem"; title = "Titelliste bearbeiten..."; ObjectID = "OaM-kv-9jd"; */
+"OaM-kv-9jd.title" = "Titelliste bearbeiten...";
+
+/* Class = "NSMenuItem"; title = "Passwort ändern"; ObjectID = "OrJ-we-hkX"; */
+"OrJ-we-hkX.title" = "Passwort ändern";
+
+/* Class = "NSMenuItem"; title = "Find Previous"; ObjectID = "OwM-mh-QMV"; */
+"OwM-mh-QMV.title" = "Find Previous";
+
+/* Class = "NSMenuItem"; title = "Stop Speaking"; ObjectID = "Oyz-dy-DGm"; */
+"Oyz-dy-DGm.title" = "Stop Speaking";
+
+/* Class = "NSButtonCell"; title = "+"; ObjectID = "P5G-eR-J5y"; */
+"P5G-eR-J5y.title" = "+";
+
+/* Class = "NSMenuItem"; title = "Alle Markierungen löschen"; ObjectID = "QU0-5f-HjK"; */
+"QU0-5f-HjK.title" = "Alle Markierungen löschen";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "QZC-TT-zVa"; */
+"QZC-TT-zVa.title" = "Text Cell";
+
+/* Class = "NSMenuItem"; title = "Select All"; ObjectID = "Ruw-6m-B2m"; */
+"Ruw-6m-B2m.title" = "Select All";
+
+/* Class = "NSMenuItem"; title = "Jump to Selection"; ObjectID = "S0p-oC-mLd"; */
+"S0p-oC-mLd.title" = "Jump to Selection";
+
+/* Class = "NSMenu"; title = "Recorder"; ObjectID = "Td7-aD-5lo"; */
+"Td7-aD-5lo.title" = "Recorder";
+
+/* Class = "NSMenuItem"; title = "Capitalize"; ObjectID = "UEZ-Bs-lqG"; */
+"UEZ-Bs-lqG.title" = "Capitalize";
+
+/* Class = "NSTextFieldCell"; title = "Datum"; ObjectID = "VQW-Qe-oEv"; */
+"VQW-Qe-oEv.title" = "Datum";
+
+/* Class = "NSTextFieldCell"; title = "Bewertung"; ObjectID = "Vxu-mT-3oJ"; */
+"Vxu-mT-3oJ.title" = "Bewertung";
+
+/* Class = "NSMenu"; title = "Edit"; ObjectID = "W48-6f-4Dl"; */
+"W48-6f-4Dl.title" = "Edit";
+
+/* Class = "NSTextFieldCell"; title = "Titel:"; ObjectID = "WIA-DE-r46"; */
+"WIA-DE-r46.title" = "Titel:";
+
+/* Class = "NSMenuItem"; title = "New"; ObjectID = "Was-JA-tGl"; */
+"Was-JA-tGl.title" = "New";
+
+/* Class = "NSMenuItem"; title = "Paste and Match Style"; ObjectID = "WeT-3V-zwk"; */
+"WeT-3V-zwk.title" = "Paste and Match Style";
+
+/* Class = "NSMenuItem"; title = "Einstellungen"; ObjectID = "XOt-aw-0Ru"; */
+"XOt-aw-0Ru.title" = "Einstellungen";
+
+/* Class = "NSButtonCell"; title = "START"; ObjectID = "XSb-7M-gme"; */
+"XSb-7M-gme.title" = "START";
+
+/* Class = "NSButtonCell"; title = "Logout"; ObjectID = "Xkr-Nv-Yen"; */
+"Xkr-Nv-Yen.title" = "Logout";
+
+/* Class = "NSMenuItem"; title = "Find…"; ObjectID = "Xz5-n4-O0W"; */
+"Xz5-n4-O0W.title" = "Find…";
+
+/* Class = "NSMenuItem"; title = "Find and Replace…"; ObjectID = "YEy-JH-Tfz"; */
+"YEy-JH-Tfz.title" = "Find and Replace…";
+
+/* Class = "NSMenuItem"; title = "Start Speaking"; ObjectID = "Ynk-f8-cLZ"; */
+"Ynk-f8-cLZ.title" = "Start Speaking";
+
+/* Class = "NSMenuItem"; title = "Markierungen löschen"; ObjectID = "a1T-hq-b0g"; */
+"a1T-hq-b0g.title" = "Markierungen löschen";
+
+/* Class = "NSMenuItem"; title = "Print…"; ObjectID = "aTl-1u-JFS"; */
+"aTl-1u-JFS.title" = "Print…";
+
+/* Class = "NSMenuItem"; title = "Recorder"; ObjectID = "aUF-d1-5bR"; */
+"aUF-d1-5bR.title" = "Recorder";
+
+/* Class = "NSTabViewItem"; label = "Recorder"; ObjectID = "aVR-bk-8Ft"; */
+"aVR-bk-8Ft.label" = "Recorder";
+
+/* Class = "NSTextFieldCell"; title = "Titel"; ObjectID = "aZp-hW-Jvu"; */
+"aZp-hW-Jvu.title" = "Titel";
+
+/* Class = "NSMenuItem"; title = "Lesebox neu ordnen"; ObjectID = "bci-hl-wR1"; */
+"bci-hl-wR1.title" = "Lesebox neu ordnen";
+
+/* Class = "NSMenu"; title = "File"; ObjectID = "bib-Uj-vzu"; */
+"bib-Uj-vzu.title" = "File";
+
+/* Class = "NSMenuItem"; title = "Use Selection for Find"; ObjectID = "buJ-ug-pKt"; */
+"buJ-ug-pKt.title" = "Use Selection for Find";
+
+/* Class = "NSMenuItem"; title = "Einstellungen"; ObjectID = "c0s-mD-jLx"; */
+"c0s-mD-jLx.title" = "Einstellungen";
+
+/* Class = "NSMenu"; title = "Transformations"; ObjectID = "c8a-y6-VQd"; */
+"c8a-y6-VQd.title" = "Transformations";
+
+/* Class = "NSTextFieldCell"; title = "START"; ObjectID = "c8j-Xm-CBm"; */
+"c8j-Xm-CBm.title" = "START";
+
+/* Class = "NSTextFieldCell"; title = "Note"; ObjectID = "cO8-te-Umi"; */
+"cO8-te-Umi.title" = "Note";
+
+/* Class = "NSBox"; title = "Bisherige Aufnahmen"; ObjectID = "cWw-8k-234"; */
+"cWw-8k-234.title" = "Bisherige Aufnahmen";
+
+/* Class = "NSMenuItem"; title = "Smart Links"; ObjectID = "cwL-P1-jid"; */
+"cwL-P1-jid.title" = "Smart Links";
+
+/* Class = "NSMenuItem"; title = "Make Lower Case"; ObjectID = "d9M-CD-aMd"; */
+"d9M-CD-aMd.title" = "Make Lower Case";
+
+/* Class = "NSMenuItem"; title = "File"; ObjectID = "dMs-cI-mzQ"; */
+"dMs-cI-mzQ.title" = "File";
+
+/* Class = "NSMenuItem"; title = "Undo"; ObjectID = "dRJ-4n-Yzg"; */
+"dRJ-4n-Yzg.title" = "Undo";
+
+/* Class = "NSMenuItem"; title = "Leser wählen"; ObjectID = "dZh-hV-X04"; */
+"dZh-hV-X04.title" = "Leser wählen";
+
+/* Class = "NSMenu"; title = "Admin"; ObjectID = "eWg-KM-wNl"; */
+"eWg-KM-wNl.title" = "Admin";
+
+/* Class = "NSMenuItem"; title = "Neue Session"; ObjectID = "eeK-rz-nm4"; */
+"eeK-rz-nm4.title" = "Neue Session";
+
+/* Class = "NSMenu"; title = "Admin"; ObjectID = "fBT-0b-Tq1"; */
+"fBT-0b-Tq1.title" = "Admin";
+
+/* Class = "NSMenuItem"; title = "Aufnahmen löschen..."; ObjectID = "fj0-kf-Yzw"; */
+"fj0-kf-Yzw.title" = "Aufnahmen löschen...";
+
+/* Class = "NSMenuItem"; title = "Anmerkungen"; ObjectID = "flb-aI-81M"; */
+"flb-aI-81M.title" = "Anmerkungen";
+
+/* Class = "NSMenuItem"; title = "Paste"; ObjectID = "gVA-U4-sdL"; */
+"gVA-U4-sdL.title" = "Paste";
+
+/* Class = "NSMenuItem"; title = "Settings"; ObjectID = "glm-gg-jmR"; */
+"glm-gg-jmR.title" = "Settings";
+
+/* Class = "NSMenuItem"; title = "Smart Quotes"; ObjectID = "hQb-2v-fYv"; */
+"hQb-2v-fYv.title" = "Smart Quotes";
+
+/* Class = "NSMenuItem"; title = "Check Document Now"; ObjectID = "hz2-CU-CR7"; */
+"hz2-CU-CR7.title" = "Check Document Now";
+
+/* Class = "NSMenuItem"; title = "Modus"; ObjectID = "jxT-CU-nIS"; */
+"jxT-CU-nIS.title" = "Modus";
+
+/* Class = "NSButtonCell"; title = ">"; ObjectID = "kfV-rw-2yR"; */
+"kfV-rw-2yR.title" = ">";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "luh-Y3-sHC"; */
+"luh-Y3-sHC.title" = "Box";
+
+/* Class = "NSMenuItem"; title = "Check Grammar With Spelling"; ObjectID = "mK6-2p-4JG"; */
+"mK6-2p-4JG.title" = "Check Grammar With Spelling";
+
+/* Class = "NSTextFieldCell"; title = "Aufnahmezeit"; ObjectID = "mP4-kt-MOb"; */
+"mP4-kt-MOb.title" = "Aufnahmezeit";
+
+/* Class = "NSBox"; title = "Box"; ObjectID = "mfg-UO-7Re"; */
+"mfg-UO-7Re.title" = "Box";
+
+/* Class = "NSButtonCell"; title = "||"; ObjectID = "n7G-H7-V8m"; */
+"n7G-H7-V8m.title" = "||";
+
+/* Class = "NSMenu"; title = "Open Recent"; ObjectID = "oas-Oc-fiZ"; */
+"oas-Oc-fiZ.title" = "Open Recent";
+
+/* Class = "NSMenuItem"; title = "Delete"; ObjectID = "pa3-QI-u2k"; */
+"pa3-QI-u2k.title" = "Delete";
+
+/* Class = "NSMenuItem"; title = "Save…"; ObjectID = "pxx-59-PXV"; */
+"pxx-59-PXV.title" = "Save…";
+
+/* Class = "NSMenuItem"; title = "Find Next"; ObjectID = "q09-fT-Sye"; */
+"q09-fT-Sye.title" = "Find Next";
+
+/* Class = "NSMenuItem"; title = "Page Setup…"; ObjectID = "qIS-W8-SiK"; */
+"qIS-W8-SiK.title" = "Page Setup…";
+
+/* Class = "NSButtonCell"; title = "▼ Abspielen"; ObjectID = "qRX-Pa-ba1"; */
+"qRX-Pa-ba1.title" = "▼ Abspielen";
+
+/* Class = "NSTextFieldCell"; title = "Projekt"; ObjectID = "qf5-mr-rVm"; */
+"qf5-mr-rVm.title" = "Projekt";
+
+/* Class = "NSButtonCell"; title = "||"; ObjectID = "raP-fL-Qb1"; */
+"raP-fL-Qb1.title" = "||";
+
+/* Class = "NSMenuItem"; title = "Check Spelling While Typing"; ObjectID = "rbD-Rh-wIN"; */
+"rbD-Rh-wIN.title" = "Check Spelling While Typing";
+
+/* Class = "NSMenuItem"; title = "Smart Dashes"; ObjectID = "rgM-f4-ycn"; */
+"rgM-f4-ycn.title" = "Smart Dashes";
+
+/* Class = "NSMenuItem"; title = "Data Detectors"; ObjectID = "tRr-pd-1PS"; */
+"tRr-pd-1PS.title" = "Data Detectors";
+
+/* Class = "NSMenuItem"; title = "Open Recent"; ObjectID = "tXI-mr-wws"; */
+"tXI-mr-wws.title" = "Open Recent";
+
+/* Class = "NSMenuItem"; title = "Cut"; ObjectID = "uRl-iY-unG"; */
+"uRl-iY-unG.title" = "Cut";
+
+/* Class = "NSBox"; title = "Player"; ObjectID = "vE6-N5-wf9"; */
+"vE6-N5-wf9.title" = "Player";
+
+/* Class = "NSMenuItem"; title = "Projekt auswählen"; ObjectID = "vKf-Fh-dPz"; */
+"vKf-Fh-dPz.title" = "Projekt auswählen";
+
+/* Class = "NSMenuItem"; title = "Clear Menu"; ObjectID = "vNY-rz-j42"; */
+"vNY-rz-j42.title" = "Clear Menu";
+
+/* Class = "NSMenuItem"; title = "Make Upper Case"; ObjectID = "vmV-6d-7jI"; */
+"vmV-6d-7jI.title" = "Make Upper Case";
+
+/* Class = "NSTextFieldCell"; title = "Abspielzeit"; ObjectID = "wZ2-dv-re9"; */
+"wZ2-dv-re9.title" = "Abspielzeit";
+
+/* Class = "NSMenuItem"; title = "Help"; ObjectID = "wpr-3q-Mcd"; */
+"wpr-3q-Mcd.title" = "Help";
+
+/* Class = "NSMenuItem"; title = "Copy"; ObjectID = "x3v-GG-iWU"; */
+"x3v-GG-iWU.title" = "Copy";
+
+/* Class = "NSTextFieldCell"; title = "Best:"; ObjectID = "xVt-Vg-cnj"; */
+"xVt-Vg-cnj.title" = "Best:";
+
+/* Class = "NSMenuItem"; title = "Speech"; ObjectID = "xrE-MZ-jX0"; */
+"xrE-MZ-jX0.title" = "Speech";
+
+/* Class = "NSButtonCell"; title = "Zurücklegen ▲"; ObjectID = "xwc-2B-DDz"; */
+"xwc-2B-DDz.title" = "Zurücklegen ▲";
+
+/* Class = "NSMenuItem"; title = "Show Substitutions"; ObjectID = "z6F-FW-3nz"; */
+"z6F-FW-3nz.title" = "Show Substitutions";
+
+/* Class = "NSButtonCell"; title = ">"; ObjectID = "zvO-hI-HIz"; */
+"zvO-hI-HIz.title" = ">";
