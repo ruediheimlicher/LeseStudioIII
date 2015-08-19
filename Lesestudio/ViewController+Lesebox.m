@@ -374,7 +374,8 @@
    
    //NSMutableArray* test=[self OrdnernamenArrayVonKlassenliste];
    [Utils setPListBusy:NO anPfad:self.LeseboxPfad];
-   
+   [[self.view window] makeKeyAndOrderFront:self];
+   [[self.view window] setOrderedIndex:0];
    return YES;
 }
 

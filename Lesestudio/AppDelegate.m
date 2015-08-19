@@ -76,6 +76,7 @@ enum
    
    NSImage* ProgrammImage = [NSImage imageNamed: @"MicroIcon"];
    [NSApp setApplicationIconImage: ProgrammImage];
+   [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints"];
 
    /*
 [[self AblaufMenu]setDelegate:self];

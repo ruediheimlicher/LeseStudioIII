@@ -52,6 +52,21 @@
       // Create a capture session
       session = [[AVCaptureSession alloc] init];
       
+      
+      // Attach preview to session
+      CALayer *previewViewLayer = [[self previewView] layer];
+      [previewViewLayer setBackgroundColor:CGColorGetConstantColor(kCGColorBlack)];
+      AVCaptureVideoPreviewLayer *newPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:[self session]];
+      [newPreviewLayer setFrame:[previewViewLayer bounds]];
+      [newPreviewLayer setAutoresizingMask:kCALayerWidthSizable | kCALayerHeightSizable];
+      [previewViewLayer addSublayer:newPreviewLayer];
+      [self setPreviewLayer:newPreviewLayer];
+      
+      // Start the session
+      [[self session] startRunning];
+      
+
+      
       // Capture Notification Observers
       NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
       id runtimeErrorObserver = [notificationCenter addObserverForName:AVCaptureSessionRuntimeErrorNotification

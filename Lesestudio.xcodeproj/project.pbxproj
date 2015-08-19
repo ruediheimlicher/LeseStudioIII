@@ -17,6 +17,7 @@
 		BD20B1471B7E72CC00DBD210 /* LesestudioTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BD20B1461B7E72CC00DBD210 /* LesestudioTests.m */; };
 		BD27FC261B8452A1000FD24A /* AVRecorderController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD27FC241B8452A1000FD24A /* AVRecorderController.m */; };
 		BD27FC271B8452A1000FD24A /* AVRecorderController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD27FC251B8452A1000FD24A /* AVRecorderController.xib */; };
+		BD27FC2A1B845525000FD24A /* ViewController+AVRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = BD27FC291B845525000FD24A /* ViewController+AVRecorder.m */; };
 		BD354CF51B8372C800AC54EC /* AVCaptureDeviceFormat_AVRecorderAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BD354CF01B8372C800AC54EC /* AVCaptureDeviceFormat_AVRecorderAdditions.m */; };
 		BD354CF61B8372C800AC54EC /* AVFrameRateRange_AVRecorderAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BD354CF21B8372C800AC54EC /* AVFrameRateRange_AVRecorderAdditions.m */; };
 		BD354CF71B8372C800AC54EC /* AVRecorder-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD354CF31B8372C800AC54EC /* AVRecorder-Info.plist */; };
@@ -124,6 +125,8 @@
 		BD27FC231B8452A1000FD24A /* AVRecorderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AVRecorderController.h; path = RecPlayRecorder/AVRecorderController.h; sourceTree = SOURCE_ROOT; };
 		BD27FC241B8452A1000FD24A /* AVRecorderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AVRecorderController.m; path = RecPlayRecorder/AVRecorderController.m; sourceTree = SOURCE_ROOT; };
 		BD27FC251B8452A1000FD24A /* AVRecorderController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AVRecorderController.xib; path = RecPlayRecorder/AVRecorderController.xib; sourceTree = SOURCE_ROOT; };
+		BD27FC281B845525000FD24A /* ViewController+AVRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ViewController+AVRecorder.h"; sourceTree = "<group>"; };
+		BD27FC291B845525000FD24A /* ViewController+AVRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+AVRecorder.m"; sourceTree = "<group>"; };
 		BD354CEF1B8372C800AC54EC /* AVCaptureDeviceFormat_AVRecorderAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AVCaptureDeviceFormat_AVRecorderAdditions.h; path = RecPlayRecorder/AVCaptureDeviceFormat_AVRecorderAdditions.h; sourceTree = SOURCE_ROOT; };
 		BD354CF01B8372C800AC54EC /* AVCaptureDeviceFormat_AVRecorderAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AVCaptureDeviceFormat_AVRecorderAdditions.m; path = RecPlayRecorder/AVCaptureDeviceFormat_AVRecorderAdditions.m; sourceTree = SOURCE_ROOT; };
 		BD354CF11B8372C800AC54EC /* AVFrameRateRange_AVRecorderAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AVFrameRateRange_AVRecorderAdditions.h; path = RecPlayRecorder/AVFrameRateRange_AVRecorderAdditions.h; sourceTree = SOURCE_ROOT; };
@@ -291,6 +294,8 @@
 				BD20B1321B7E72CC00DBD210 /* ViewController.m */,
 				BD794DCC1B831772000670F6 /* ViewController+Lesebox.h */,
 				BD794DCD1B831772000670F6 /* ViewController+Lesebox.m */,
+				BD27FC281B845525000FD24A /* ViewController+AVRecorder.h */,
+				BD27FC291B845525000FD24A /* ViewController+AVRecorder.m */,
 				BD8139911B7F675F008DF420 /* RecPlayController */,
 				BD81395B1B7F4A09008DF420 /* RecPlayRecorder */,
 				BD8139B31B7F677F008DF420 /* rUtils.h */,
@@ -336,10 +341,10 @@
 			isa = PBXGroup;
 			children = (
 				BD794DBA1B81E99C000670F6 /* rAVRecorder.h */,
+				BD794DBB1B81E99C000670F6 /* rAVRecorder.m */,
 				BD27FC231B8452A1000FD24A /* AVRecorderController.h */,
 				BD27FC241B8452A1000FD24A /* AVRecorderController.m */,
 				BD27FC251B8452A1000FD24A /* AVRecorderController.xib */,
-				BD794DBB1B81E99C000670F6 /* rAVRecorder.m */,
 				BD354CEF1B8372C800AC54EC /* AVCaptureDeviceFormat_AVRecorderAdditions.h */,
 				BD354CF01B8372C800AC54EC /* AVCaptureDeviceFormat_AVRecorderAdditions.m */,
 				BD354CF11B8372C800AC54EC /* AVFrameRateRange_AVRecorderAdditions.h */,
@@ -663,6 +668,7 @@
 				BDE51B091B7F8F5800DBE045 /* rClean.m in Sources */,
 				BD20B1331B7E72CC00DBD210 /* ViewController.m in Sources */,
 				BD8139C21B7F677F008DF420 /* rProjektListePanel.m in Sources */,
+				BD27FC2A1B845525000FD24A /* ViewController+AVRecorder.m in Sources */,
 				BD8139BC1B7F677F008DF420 /* rPasswortDialog.m in Sources */,
 				BD354CF61B8372C800AC54EC /* AVFrameRateRange_AVRecorderAdditions.m in Sources */,
 				BDE51B141B7F91F300DBE045 /* AdminPlayerController.m in Sources */,

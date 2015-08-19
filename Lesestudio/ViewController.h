@@ -67,7 +67,7 @@
 @property (weak)IBOutlet NSMenu*             ModusMenu;
 @property (weak)IBOutlet NSMenu*					ProjektMenu;
 
-@property (weak) IBOutlet AVPlayerView *playerView;
+@property (weak) IBOutlet AVPlayerView       *playerView;
 @property AVPlayer *player;
 
 @property (weak) IBOutlet AVAudioPlayer *_audioPlayer;
@@ -75,8 +75,8 @@
 @property (weak) IBOutlet NSButton* StartKnopf;
 
 
-@property (weak) IBOutlet rAbspielanzeige*			ArchivAbspielanzeige;
-@property (weak) IBOutlet NSLevelIndicator	*LevelMeter;
+@property (weak) IBOutlet rAbspielanzeige*	ArchivAbspielanzeige;
+@property (weak) IBOutlet NSLevelIndicator   *LevelMeter;
 
 
 @property NSMutableData*						RPDevicedaten;
@@ -226,10 +226,8 @@
 @property int									aktuellAnzAufnahmen;
 
 - (IBAction)startPlay:(id)sender;
-- (IBAction)startAVRecord:(id)sender;
+
 - (IBAction)stopPlay:(id)sender;
-- (IBAction)stopAVRecord:(id)sender;
-- (IBAction)startAVStop:(id)sender;
 - (IBAction)goStart:(id)sender;
 - (void)setLevel:(int)derLevel;
 - (IBAction)showSettingsDialog:(id)sender;
@@ -245,6 +243,8 @@
 - (IBAction)showProjektStart:(id)sender;
 - (IBAction)savePListAktion:(id)sender;
 - (IBAction)anderesProjektMitTitel:(NSString*)derTitel;
+
+
 @end
 
 
@@ -280,5 +280,14 @@
 - (void)saveSessionForUser:(NSString*)derUser inProjekt:(NSString*)dasProjekt;
 - (BOOL)anderesProjektEinrichtenMit:(NSString*)dasProjekt;
 - (NSArray*)SessionLeserListeVonProjekt:(NSString*)dasProjekt;
-@end
+@end // Lesebox
+
+// Category AVRecorder
+@interface ViewController (AVRecorder)
+
+- (IBAction)startAVRecord:(id)sender;
+- (IBAction)stopAVRecord:(id)sender;
+- (IBAction)startAVStop:(id)sender;
+- (BOOL)isRecording;
+@end // AVRecorder
 
