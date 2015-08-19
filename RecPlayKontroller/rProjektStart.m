@@ -1,7 +1,4 @@
 #import "rProjektStart.h"
-extern NSString* projekt;
-extern NSString* projektpfad;
-extern NSString* OK;
 
 extern const int StartmitRecPlay;//=0;
 extern const int StartmitAdmin;//=1;
@@ -75,15 +72,15 @@ extern const int StartmitDialog;//=2;
  //[self reportNeuesProjekt:NULL];
  }
  */
-- (int) anzOrdner
+- (long) anzOrdner
 {
    return [ProjektArray count];
 }
 
 - (void)selectProjekt:(NSString*)dasProjekt
 {
-   int index=[[ProjektArray valueForKey:@"projekt"]indexOfObject:dasProjekt];
-   if (index<NSNotFound)
+   long index=[[ProjektArray valueForKey:@"projekt"]indexOfObject:dasProjekt];
+   if (index<(int)NSNotFound)
    {
       [ProjektTable selectRowIndexes:[NSIndexSet indexSetWithIndex:index] byExtendingSelection:NO];
       [ProjektTable  reloadData];
@@ -128,7 +125,7 @@ extern const int StartmitDialog;//=2;
 - (IBAction)reportClose:(id)sender
 {
    
-   int ProjektIndex=[ProjektTable selectedRow];
+   long ProjektIndex=[ProjektTable selectedRow];
    //NSLog(@"reportClose");
    
    if (ProjektIndex>=0)
@@ -146,11 +143,11 @@ extern const int StartmitDialog;//=2;
       
       // String* UmgebungString=[SegmentTaste Segment]label];
       
-      [NotificationDic setObject:[NSNumber numberWithInt:[sender tag]] forKey:@"umgebung"];	// Aufnehmen: 0, Admin: 1
+      [NotificationDic setObject:[NSNumber numberWithLong:[sender tag]] forKey:@"umgebung"];	// Aufnehmen: 0, Admin: 1
       [NotificationDic setObject:[NSNumber numberWithInt:3] forKey:@"aktion"];
       NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
-      [NotificationDic setObject:ProjektString forKey:projekt];
-      //NSLog(@"reportClose1: NotificationDic: \n%@",[NotificationDic description]);
+      [NotificationDic setObject:ProjektString forKey:@"projekt"];
+      //NSLog(@"Projektstart reportClose1: NotificationDic: \n%@",[NotificationDic description]);
       [nc postNotificationName:@"ProjektStart" object:self userInfo:NotificationDic];
       
       [NSApp stopModalWithCode:1];
@@ -188,7 +185,7 @@ extern const int StartmitDialog;//=2;
       }
    }
    
-	[NotificationDic setObject:[NSNumber numberWithInt:1] forKey:@"ok"];
+	[NotificationDic setObject:[NSNumber numberWithInt:1] forKey:@"OK"];
 	[NotificationDic setObject:[NSNumber numberWithInt:0] forKey:@"mituserpw"];
 	[NotificationDic setObject:[NSNumber numberWithInt:0] forKey:@"fix"];
 	[NotificationDic setObject:[NSNumber numberWithInt:1] forKey:@"umgebung"];
@@ -239,14 +236,17 @@ extern const int StartmitDialog;//=2;
          //while(einProjektDic=[ProjektEnum nextObject])
       {
          einProjektDic = [derProjektArray objectAtIndex:i];
-         NSString* tempProjektString=[einProjektDic objectForKey:projekt];
+         NSString* tempProjektString=[einProjektDic objectForKey:@"projekt"];
          //NSLog(@"setProjektArray: tempProjektString: %@",tempProjektString);
-         if ([einProjektDic objectForKey:projekt])
-            if ([[einProjektDic objectForKey:projekt]length]&&[[einProjektDic objectForKey:OK]boolValue])
+         if ([einProjektDic objectForKey:@"projekt"])
+            if ([[einProjektDic objectForKey:@"projekt"]length])
             {
-               [ProjektArray addObject:[einProjektDic copy]];
+               if (([einProjektDic objectForKey:@"OK"]&&[[einProjektDic objectForKey:@"OK"]boolValue])
+                   ||([einProjektDic objectForKey:@"ok"]&&[[einProjektDic objectForKey:@"ok"]boolValue]))
+               {
+                  [ProjektArray addObject:[einProjektDic copy]];
+               }
             }
-         
       }//while
 		//NSLog(@"ProjektStartPanel setProjektArray:ProjektArray nach: %@",[ProjektArray description]);
       

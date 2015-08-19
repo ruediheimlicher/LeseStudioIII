@@ -1,10 +1,4 @@
 #import "rProjektListe.h"
-extern NSString* projekt;
-extern NSString* projektpfad;
-extern NSString* projektarray;
-extern NSString* OK;
-extern NSString* fix;
-extern NSString* mituserpw;
 
 @implementation rProjektListe
 - (id) init
@@ -51,7 +45,7 @@ extern NSString* mituserpw;
 
 	[ProjektTable setDataSource:self];
 	[ProjektTable setDelegate: self];
-	[[[ProjektTable tableColumnWithIdentifier:@"ok"]dataCell]setAction:@selector(okAktion:)];
+	[[[ProjektTable tableColumnWithIdentifier:@"OK"]dataCell]setAction:@selector(okAktion:)];
 	NSFont* RecPlayfont;
 	RecPlayfont=[NSFont fontWithName:@"Helvetica" size: 32];
 	NSColor * RecPlayFarbe=[NSColor grayColor];
@@ -86,12 +80,12 @@ extern NSString* mituserpw;
 int z=[sender selectedRow];
 NSString* tempProjektString=[[ProjektArray objectAtIndex:z]objectForKey:@"projekt"];
 BOOL istProjektZeile=[tempProjektString isEqualToString:aktuellesProjekt];
-BOOL istAktiviert=[[[ProjektArray objectAtIndex:z]objectForKey:@"ok"]boolValue];
+BOOL istAktiviert=[[[ProjektArray objectAtIndex:z]objectForKey:@"OK"]boolValue];
 
 [AuswahlenTaste setEnabled:!istProjektZeile&&!istAktiviert];
 
 [EntfernenTaste setEnabled:!(istProjektZeile)];
-[[ProjektArray objectAtIndex:z]setObject:[NSNumber numberWithBool:!istAktiviert] forKey:@"ok"];
+[[ProjektArray objectAtIndex:z]setObject:[NSNumber numberWithBool:!istAktiviert] forKey:@"OK"];
 [ProjektTable reloadData];
 NSLog(@"okAktion: Zeile %d    istAktiviert: %d",z,istAktiviert);
 
@@ -118,7 +112,7 @@ NSLog(@"okAktion: Zeile %d    istAktiviert: %d",z,istAktiviert);
 {
 	NSString* neueZeileString=@"neues Projekt:";
 	NSMutableDictionary* tempneuesProjektDic=[NSMutableDictionary dictionaryWithObject:neueZeileString forKey:@"projekt"];
-	[tempneuesProjektDic setObject: [NSNumber numberWithInt:1] forKey:@"ok"];
+	[tempneuesProjektDic setObject: [NSNumber numberWithInt:1] forKey:@"OK"];
 	[ProjektArray addObject: tempneuesProjektDic];
 	[ProjektTable reloadData];
 	[[[ProjektTable tableColumnWithIdentifier:@"projekt"]dataCellForRow:0]setPlaceholderString:@"projekt"];
@@ -203,7 +197,7 @@ vomStart=NO;
   NSLog(@"reportEntfernen");
   if ([ProjektTable selectedRow]>=0)
   {
-	  NSString* ProjektEntfernenString=[[ProjektArray objectAtIndex:ProjektIndex]objectForKey:projekt];//Name des neuen Projekts
+	  NSString* ProjektEntfernenString=[[ProjektArray objectAtIndex:ProjektIndex]objectForKey:@"projekt"];//Name des neuen Projekts
 	  
 	  NSAlert *Warnung = [[NSAlert alloc] init];
 	  NSString* s3=NSLocalizedString(@"What should be done with the project folder %@?",@"Was soll mit dem  Projektordner %@ geschehen?");
@@ -276,7 +270,7 @@ vomStart=NO;
   NSLog(@"\n\nProjektliste reportClose: ProjektArray: %@",[ProjektArray description]);
   NSMutableDictionary* NotificationDic=[[NSMutableDictionary alloc]initWithCapacity:0];
 
-	[NotificationDic setObject:ProjektArray forKey:projektarray];//eventuell sind Aktivierungen geŠndert
+	[NotificationDic setObject:ProjektArray forKey:@"projektarray"];//eventuell sind Aktivierungen geŠndert
 	
 	int ProjektIndex=[ProjektTable selectedRow];
 	if ([ProjektTable selectedRow]>=0)
@@ -323,9 +317,9 @@ vomStart=NO;
      NSMutableIndexSet* neuerProjektNameIndex=[NSMutableIndexSet indexSet];
      //NSMutableDictionary* neuesProjektDic=[NSMutableDictionary dictionaryWithObject:[EingabeFeld stringValue] forKey:@"projekt"];
      [neuesProjektDic setObject:[EingabeFeld stringValue] forKey:@"projekt"];
-     [neuesProjektDic setObject: [NSNumber numberWithInt:1] forKey:OK];
-     [neuesProjektDic setObject: [NSNumber numberWithInt:[FixTaste state]] forKey:fix];
-     [neuesProjektDic setObject: [NSNumber numberWithInt:[PWTaste state]] forKey:mituserpw];
+     [neuesProjektDic setObject: [NSNumber numberWithInt:1] forKey:@"OK"];
+     [neuesProjektDic setObject: [NSNumber numberWithInt:[FixTaste state]] forKey:@"fix"];
+     [neuesProjektDic setObject: [NSNumber numberWithInt:[PWTaste state]] forKey:@"mituserpw"];
      [neuesProjektDic setObject: [NSNumber numberWithInt:0] forKey:@"definitiv"];
      [neueProjekteArray addObject:neuesProjektDic];
      //[NotificationDic setObject:ProjektArray forKey:@"projektarray"];
@@ -401,7 +395,7 @@ vomStart=NO;
 	 [neuesProjektDic setObject: [NSNumber numberWithInt:[PWTaste state]] forKey:mituserpw];
 	 */
 	[neuesProjektDic setObject: [NSNumber numberWithInt:1] forKey:@"definitiv"];
-	[neuesProjektDic setObject: [NSNumber numberWithInt:1] forKey:@"ok"];
+	[neuesProjektDic setObject: [NSNumber numberWithInt:1] forKey:@"OK"];
 	
 	[ProjektArray insertObject: neuesProjektDic atIndex:[ProjektArray count]];
 	[neuerProjektNameIndex addIndex:[ProjektArray count]-1];
@@ -480,7 +474,7 @@ vomStart=NO;
   {
 	  //NSLog(@"ProjektPfad: %@",[einProjektDic objectForKey:projektpfad]);
 	  
-	  NSString* tempTitel=[einProjektDic objectForKey:projekt];
+	  NSString* tempTitel=[einProjektDic objectForKey:@"projekt"];
 	  if (tempTitel)//das Projekt hat einen Namen
 	  {
 		  if ([tempTitel isEqualToString:dasProjekt])
@@ -489,38 +483,38 @@ vomStart=NO;
 		  }	
 		  NSMutableDictionary* tempDic=[[NSMutableDictionary alloc]initWithCapacity:0];
 		  
-		  NSNumber* tempOK=[einProjektDic objectForKey:OK];
+		  NSNumber* tempOK=[einProjektDic objectForKey:@"OK"];
 		  if (tempOK)
 		  {
-			  [tempDic setObject:tempOK forKey:OK];
+			  [tempDic setObject:tempOK forKey:@"OK"];
 		  }
 		  else
 		  {
-			  [tempDic setObject:[NSNumber numberWithBool:YES] forKey:OK];
+			  [tempDic setObject:[NSNumber numberWithBool:YES] forKey:@"OK"];
 		  }
-		  [tempDic setObject:tempTitel forKey:projekt];
+		  [tempDic setObject:tempTitel forKey:@"projekt"];
 		  
-		  NSNumber* tempFix=[einProjektDic objectForKey:fix];
+		  NSNumber* tempFix=[einProjektDic objectForKey:@"fix"];
 		  if (tempFix)
 		  {
-			  [tempDic setObject:tempFix forKey:fix];
+			  [tempDic setObject:tempFix forKey:@"fix"];
 		  }
 		  else
 		  {
-			  [tempDic setObject:[NSNumber numberWithBool:NO] forKey:fix];
+			  [tempDic setObject:[NSNumber numberWithBool:NO] forKey:@"fix"];
 		  }
 
-		  NSNumber* tempMitUserPW=[einProjektDic objectForKey:mituserpw];
+		  NSNumber* tempMitUserPW=[einProjektDic objectForKey:@"mituserpw"];
 		  if (tempMitUserPW)
 		  {
-			  [tempDic setObject:tempMitUserPW forKey:mituserpw];
+			  [tempDic setObject:tempMitUserPW forKey:@"mituserpw"];
 		  }
 		  else
 		  {
-			  [tempDic setObject:[NSNumber numberWithBool:YES] forKey:mituserpw];
+			  [tempDic setObject:[NSNumber numberWithBool:YES] forKey:@"mituserpw"];
 		  }
 		  
-		  [tempDic setObject:tempTitel forKey:projekt];
+		  [tempDic setObject:tempTitel forKey:@"projekt"];
 		  
 		  NSArray* tempTitelArray=[einProjektDic objectForKey:@"titelarray"];
 		  if (tempTitelArray)
@@ -557,14 +551,14 @@ vomStart=NO;
 
 
 
-		  NSString* tempProjektPfad=[einProjektDic objectForKey:projektpfad];
+		  NSString* tempProjektPfad=[einProjektDic objectForKey:@"projektpfad"];
 		  if (tempProjektPfad)
 		  {
-		  [tempDic setObject:tempProjektPfad forKey:projektpfad];
+		  [tempDic setObject:tempProjektPfad forKey:@"projektpfad"];
 		  }
 		  else
 		  {
-		  [tempDic setObject:[NSString string] forKey:projektpfad];
+		  [tempDic setObject:[NSString string] forKey:@"projektpfad"];
 
 		  }
 		  
@@ -682,7 +676,7 @@ vomStart=derStatus;
   //NSLog(@"shouldSelectRow");
 		//if(tableView ==[window firstResponder])
   NSString* tempProjektString=[[ProjektArray objectAtIndex:row]objectForKey:@"projekt"];
-  BOOL istAktiviert=[[[ProjektArray objectAtIndex:row]objectForKey:@"ok"]boolValue];
+  BOOL istAktiviert=[[[ProjektArray objectAtIndex:row]objectForKey:@"OK"]boolValue];
   //NSLog(@"istAktiviert: %d",istAktiviert);
   BOOL istProjektZeile=[tempProjektString isEqualToString:aktuellesProjekt];
   if ([tableView numberOfSelectedRows]&&(!istProjektZeile))
@@ -725,7 +719,7 @@ vomStart=derStatus;
 	//NSLog(@"ProjektListe willDisplayCell Zeile: %d, numberOfSelectedRows:%d", row ,[tableView numberOfSelectedRows]);
 	NSString* tempProjektString=[[ProjektArray objectAtIndex:row]objectForKey:@"projekt"];
 	BOOL istProjektZeile=[tempProjektString isEqualToString:aktuellesProjekt];
-	if ([[tableColumn identifier] isEqualToString:OK])
+	if ([[tableColumn identifier] isEqualToString:@"OK"])
 	{
 		//[cell setEnabled:!istProjektZeile];
 		

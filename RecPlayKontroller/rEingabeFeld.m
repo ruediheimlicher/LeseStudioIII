@@ -29,7 +29,7 @@
 	if ([[Taste description]isEqualToString:@"\r"]) 
 	  {
 		NSMutableDictionary* neuesProjektDic=[NSMutableDictionary dictionaryWithObject:[self stringValue] forKey:@"projekt"];
-		[neuesProjektDic setObject: [NSNumber numberWithInt:1] forKey:@"ok"];
+		[neuesProjektDic setObject: [NSNumber numberWithInt:1] forKey:@"OK"];
 		
 		//NSString* EnterKeyQuelle;
 		

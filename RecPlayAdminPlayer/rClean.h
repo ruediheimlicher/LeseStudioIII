@@ -1,7 +1,7 @@
 /* rClean */
 
 #import <Cocoa/Cocoa.h>
-#include "Quicktime/Quicktime.h"
+//#include "Quicktime/Quicktime.h"
 @interface rClean : NSWindowController <NSComboBoxDataSource>
 {
 	NSMutableArray *rowData;

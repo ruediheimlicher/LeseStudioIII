@@ -1,7 +1,4 @@
 #import "rProjektNamen.h"
-extern NSString* projekt;
-extern NSString* projektpfad;
-extern NSString* OK;
 
 @implementation rProjektNamen
 - (id) init

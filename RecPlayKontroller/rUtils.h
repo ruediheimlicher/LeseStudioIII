@@ -5,7 +5,7 @@
 //  Created by sysadmin on 26.06.05.
 //  Copyright 2005 __MyCompanyName__. All rights reserved.
 //
-#import <QuickTime/QuickTime.h>
+//#import <QuickTime/QuickTime.h>
 #import <Cocoa/Cocoa.h>
 #import "rProjektNamen.h"
 #import "rNamenListe.h"

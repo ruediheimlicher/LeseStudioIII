@@ -341,10 +341,10 @@
 	NSNumber* n=[NSNumber numberWithBool:NO];
 	NSMutableDictionary* LeseboxDic=[NSMutableDictionary dictionaryWithObject:n forKey:@"LeseboxDa"];
 	NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
-	[nc postNotificationName:@"VolumeWahl" object:self userInfo:LeseboxDic];
+//	[nc postNotificationName:@"VolumeWahl" object:self userInfo:LeseboxDic];
 	
     [NSApp stopModalWithCode:0];
-	
+	[[self window] orderOut:NULL];
 }
 
 - (IBAction)HomeDirectory:(id)sender

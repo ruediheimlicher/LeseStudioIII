@@ -1,0 +1,904 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BD002B701B83A772002F224F /* AVRecorderDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD002B6F1B83A772002F224F /* AVRecorderDocument.xib */; };
+		BD20B12E1B7E72CC00DBD210 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BD20B12D1B7E72CC00DBD210 /* AppDelegate.m */; };
+		BD20B1301B7E72CC00DBD210 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BD20B12F1B7E72CC00DBD210 /* main.m */; };
+		BD20B1331B7E72CC00DBD210 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD20B1321B7E72CC00DBD210 /* ViewController.m */; };
+		BD20B1361B7E72CC00DBD210 /* Lesestudio.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BD20B1341B7E72CC00DBD210 /* Lesestudio.xcdatamodeld */; };
+		BD20B1381B7E72CC00DBD210 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD20B1371B7E72CC00DBD210 /* Images.xcassets */; };
+		BD20B13B1B7E72CC00DBD210 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD20B1391B7E72CC00DBD210 /* Main.storyboard */; };
+		BD20B1471B7E72CC00DBD210 /* LesestudioTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BD20B1461B7E72CC00DBD210 /* LesestudioTests.m */; };
+		BD27FC261B8452A1000FD24A /* AVRecorderController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD27FC241B8452A1000FD24A /* AVRecorderController.m */; };
+		BD27FC271B8452A1000FD24A /* AVRecorderController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD27FC251B8452A1000FD24A /* AVRecorderController.xib */; };
+		BD354CF51B8372C800AC54EC /* AVCaptureDeviceFormat_AVRecorderAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BD354CF01B8372C800AC54EC /* AVCaptureDeviceFormat_AVRecorderAdditions.m */; };
+		BD354CF61B8372C800AC54EC /* AVFrameRateRange_AVRecorderAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BD354CF21B8372C800AC54EC /* AVFrameRateRange_AVRecorderAdditions.m */; };
+		BD354CF71B8372C800AC54EC /* AVRecorder-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD354CF31B8372C800AC54EC /* AVRecorder-Info.plist */; };
+		BD354CFD1B838DF400AC54EC /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD354CFB1B838DF400AC54EC /* AudioToolbox.framework */; };
+		BD354CFE1B838DF400AC54EC /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD354CFC1B838DF400AC54EC /* CoreMedia.framework */; };
+		BD794DBC1B81E99C000670F6 /* rAVRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = BD794DBB1B81E99C000670F6 /* rAVRecorder.m */; };
+		BD794DBF1B821C66000670F6 /* rTHRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = BD794DBE1B821C66000670F6 /* rTHRecorder.m */; };
+		BD794DCB1B82244D000670F6 /* THMemo.m in Sources */ = {isa = PBXBuildFile; fileRef = BD794DCA1B82244D000670F6 /* THMemo.m */; };
+		BD794DCE1B831772000670F6 /* ViewController+Lesebox.m in Sources */ = {isa = PBXBuildFile; fileRef = BD794DCD1B831772000670F6 /* ViewController+Lesebox.m */; };
+		BD8139591B7E8B3C008DF420 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD8139571B7E8B3C008DF420 /* AVFoundation.framework */; };
+		BD81395A1B7E8B3C008DF420 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD8139581B7E8B3C008DF420 /* AVKit.framework */; };
+		BD81395E1B7F4A87008DF420 /* rAbspielanzeige.m in Sources */ = {isa = PBXBuildFile; fileRef = BD81395D1B7F4A87008DF420 /* rAbspielanzeige.m */; };
+		BD8139611B7F599E008DF420 /* rLevelmeter.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8139601B7F599E008DF420 /* rLevelmeter.m */; };
+		BD81397B1B7F5E90008DF420 /* Back.gif in Resources */ = {isa = PBXBuildFile; fileRef = BD8139651B7F5E90008DF420 /* Back.gif */; };
+		BD81397C1B7F5E90008DF420 /* Back.icns in Resources */ = {isa = PBXBuildFile; fileRef = BD8139661B7F5E90008DF420 /* Back.icns */; };
+		BD81397D1B7F5E90008DF420 /* Back.psd in Resources */ = {isa = PBXBuildFile; fileRef = BD8139671B7F5E90008DF420 /* Back.psd */; };
+		BD81397E1B7F5E90008DF420 /* Back.tif in Resources */ = {isa = PBXBuildFile; fileRef = BD8139681B7F5E90008DF420 /* Back.tif */; };
+		BD81397F1B7F5E90008DF420 /* BackImg.gif in Resources */ = {isa = PBXBuildFile; fileRef = BD8139691B7F5E90008DF420 /* BackImg.gif */; };
+		BD8139801B7F5E90008DF420 /* BoxImg.tif in Resources */ = {isa = PBXBuildFile; fileRef = BD81396A1B7F5E90008DF420 /* BoxImg.tif */; };
+		BD8139811B7F5E90008DF420 /* CrossImg.tif in Resources */ = {isa = PBXBuildFile; fileRef = BD81396B1B7F5E90008DF420 /* CrossImg.tif */; };
+		BD8139821B7F5E90008DF420 /* MarkOffImg.tif in Resources */ = {isa = PBXBuildFile; fileRef = BD81396C1B7F5E90008DF420 /* MarkOffImg.tif */; };
+		BD8139831B7F5E90008DF420 /* MarkOnImg.tif in Resources */ = {isa = PBXBuildFile; fileRef = BD81396D1B7F5E90008DF420 /* MarkOnImg.tif */; };
+		BD8139841B7F5E90008DF420 /* MicroIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = BD81396E1B7F5E90008DF420 /* MicroIcon.icns */; };
+		BD8139851B7F5E90008DF420 /* MicroIcon.pct in Resources */ = {isa = PBXBuildFile; fileRef = BD81396F1B7F5E90008DF420 /* MicroIcon.pct */; };
+		BD8139861B7F5E90008DF420 /* MicroIcon.tif in Resources */ = {isa = PBXBuildFile; fileRef = BD8139701B7F5E90008DF420 /* MicroIcon.tif */; };
+		BD8139871B7F5E90008DF420 /* RecPlayIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = BD8139711B7F5E90008DF420 /* RecPlayIcon.icns */; };
+		BD8139881B7F5E90008DF420 /* RecPlayIcon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BD8139721B7F5E90008DF420 /* RecPlayIcon.jpg */; };
+		BD8139891B7F5E90008DF420 /* RecPlayIcon.pct in Resources */ = {isa = PBXBuildFile; fileRef = BD8139731B7F5E90008DF420 /* RecPlayIcon.pct */; };
+		BD81398A1B7F5E90008DF420 /* RecPlayIcon.tif in Resources */ = {isa = PBXBuildFile; fileRef = BD8139741B7F5E90008DF420 /* RecPlayIcon.tif */; };
+		BD81398B1B7F5E90008DF420 /* Start PlayImg.cwk in Resources */ = {isa = PBXBuildFile; fileRef = BD8139751B7F5E90008DF420 /* Start PlayImg.cwk */; };
+		BD81398C1B7F5E90008DF420 /* StartPlayImg.gif in Resources */ = {isa = PBXBuildFile; fileRef = BD8139761B7F5E90008DF420 /* StartPlayImg.gif */; };
+		BD81398D1B7F5E90008DF420 /* StartPlayImg.tif in Resources */ = {isa = PBXBuildFile; fileRef = BD8139771B7F5E90008DF420 /* StartPlayImg.tif */; };
+		BD81398E1B7F5E90008DF420 /* StartRecordImg.tif in Resources */ = {isa = PBXBuildFile; fileRef = BD8139781B7F5E90008DF420 /* StartRecordImg.tif */; };
+		BD81398F1B7F5E90008DF420 /* StopPlayImg.tif in Resources */ = {isa = PBXBuildFile; fileRef = BD8139791B7F5E90008DF420 /* StopPlayImg.tif */; };
+		BD8139901B7F5E90008DF420 /* StopRecordImg.tif in Resources */ = {isa = PBXBuildFile; fileRef = BD81397A1B7F5E90008DF420 /* StopRecordImg.tif */; };
+		BD8139B71B7F677F008DF420 /* rArchivView.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8139931B7F677F008DF420 /* rArchivView.m */; };
+		BD8139B81B7F677F008DF420 /* rEingabeFeld.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8139951B7F677F008DF420 /* rEingabeFeld.m */; };
+		BD8139B91B7F677F008DF420 /* rEinstellungen.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8139971B7F677F008DF420 /* rEinstellungen.m */; };
+		BD8139BA1B7F677F008DF420 /* rEinzelNamen.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8139991B7F677F008DF420 /* rEinzelNamen.m */; };
+		BD8139BB1B7F677F008DF420 /* rNamenListe.m in Sources */ = {isa = PBXBuildFile; fileRef = BD81399B1B7F677F008DF420 /* rNamenListe.m */; };
+		BD8139BC1B7F677F008DF420 /* rPasswortDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = BD81399D1B7F677F008DF420 /* rPasswortDialog.m */; };
+		BD8139BD1B7F677F008DF420 /* rPasswortEingabeFeld.m in Sources */ = {isa = PBXBuildFile; fileRef = BD81399F1B7F677F008DF420 /* rPasswortEingabeFeld.m */; };
+		BD8139BE1B7F677F008DF420 /* rPasswortListe.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8139A11B7F677F008DF420 /* rPasswortListe.m */; };
+		BD8139BF1B7F677F008DF420 /* rPasswortRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8139A31B7F677F008DF420 /* rPasswortRequest.m */; };
+		BD8139C01B7F677F008DF420 /* rProjektListe.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8139A51B7F677F008DF420 /* rProjektListe.m */; };
+		BD8139C21B7F677F008DF420 /* rProjektListePanel.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8139A81B7F677F008DF420 /* rProjektListePanel.m */; };
+		BD8139C31B7F677F008DF420 /* rProjektNamen.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8139AA1B7F677F008DF420 /* rProjektNamen.m */; };
+		BD8139C41B7F677F008DF420 /* rProjektStart.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8139AC1B7F677F008DF420 /* rProjektStart.m */; };
+		BD8139C61B7F677F008DF420 /* rTimeoutDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8139B01B7F677F008DF420 /* rTimeoutDialog.m */; };
+		BD8139C71B7F677F008DF420 /* rTitelListe.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8139B21B7F677F008DF420 /* rTitelListe.m */; };
+		BD8139C81B7F677F008DF420 /* rUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8139B41B7F677F008DF420 /* rUtils.m */; };
+		BD8139C91B7F677F008DF420 /* rVolumes.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8139B61B7F677F008DF420 /* rVolumes.m */; };
+		BDBD1EE31B80BA9E00BE58DA /* RPVolumes.nib in Resources */ = {isa = PBXBuildFile; fileRef = BDBD1EE21B80BA9E00BE58DA /* RPVolumes.nib */; };
+		BDBD1EF41B80C4E900BE58DA /* RPAdmin.nib in Resources */ = {isa = PBXBuildFile; fileRef = BDBD1EE41B80C4E900BE58DA /* RPAdmin.nib */; };
+		BDBD1EF51B80C4E900BE58DA /* RPClean.nib in Resources */ = {isa = PBXBuildFile; fileRef = BDBD1EE51B80C4E900BE58DA /* RPClean.nib */; };
+		BDBD1EF61B80C4E900BE58DA /* RPEinstellungen.nib in Resources */ = {isa = PBXBuildFile; fileRef = BDBD1EE61B80C4E900BE58DA /* RPEinstellungen.nib */; };
+		BDBD1EF71B80C4E900BE58DA /* RPEinzelNamen.nib in Resources */ = {isa = PBXBuildFile; fileRef = BDBD1EE71B80C4E900BE58DA /* RPEinzelNamen.nib */; };
+		BDBD1EF81B80C4E900BE58DA /* RPEntfernen.nib in Resources */ = {isa = PBXBuildFile; fileRef = BDBD1EE81B80C4E900BE58DA /* RPEntfernen.nib */; };
+		BDBD1EF91B80C4E900BE58DA /* RPKommentar.nib in Resources */ = {isa = PBXBuildFile; fileRef = BDBD1EE91B80C4E900BE58DA /* RPKommentar.nib */; };
+		BDBD1EFA1B80C4E900BE58DA /* RPMarkierung.nib in Resources */ = {isa = PBXBuildFile; fileRef = BDBD1EEA1B80C4E900BE58DA /* RPMarkierung.nib */; };
+		BDBD1EFB1B80C4E900BE58DA /* RPNamenListe.nib in Resources */ = {isa = PBXBuildFile; fileRef = BDBD1EEB1B80C4E900BE58DA /* RPNamenListe.nib */; };
+		BDBD1EFC1B80C4E900BE58DA /* RPPasswortDialog.nib in Resources */ = {isa = PBXBuildFile; fileRef = BDBD1EEC1B80C4E900BE58DA /* RPPasswortDialog.nib */; };
+		BDBD1EFD1B80C4E900BE58DA /* RPPasswortListe.nib in Resources */ = {isa = PBXBuildFile; fileRef = BDBD1EED1B80C4E900BE58DA /* RPPasswortListe.nib */; };
+		BDBD1EFE1B80C4E900BE58DA /* RPProjektListe.nib in Resources */ = {isa = PBXBuildFile; fileRef = BDBD1EEE1B80C4E900BE58DA /* RPProjektListe.nib */; };
+		BDBD1EFF1B80C4E900BE58DA /* RPProjektNamen.nib in Resources */ = {isa = PBXBuildFile; fileRef = BDBD1EEF1B80C4E900BE58DA /* RPProjektNamen.nib */; };
+		BDBD1F001B80C4E900BE58DA /* RPProjektPanel.nib in Resources */ = {isa = PBXBuildFile; fileRef = BDBD1EF01B80C4E900BE58DA /* RPProjektPanel.nib */; };
+		BDBD1F011B80C4E900BE58DA /* RPProjektStart.nib in Resources */ = {isa = PBXBuildFile; fileRef = BDBD1EF11B80C4E900BE58DA /* RPProjektStart.nib */; };
+		BDBD1F021B80C4E900BE58DA /* RPTimeoutDialog.nib in Resources */ = {isa = PBXBuildFile; fileRef = BDBD1EF21B80C4E900BE58DA /* RPTimeoutDialog.nib */; };
+		BDBD1F031B80C4E900BE58DA /* RPTitelListe.nib in Resources */ = {isa = PBXBuildFile; fileRef = BDBD1EF31B80C4E900BE58DA /* RPTitelListe.nib */; };
+		BDE51B051B7F8F5800DBE045 /* rAdminDS.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE51AF21B7F8F5800DBE045 /* rAdminDS.m */; };
+		BDE51B061B7F8F5800DBE045 /* rAdminListe.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE51AF41B7F8F5800DBE045 /* rAdminListe.m */; };
+		BDE51B091B7F8F5800DBE045 /* rClean.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE51AF91B7F8F5800DBE045 /* rClean.m */; };
+		BDE51B0B1B7F8F5800DBE045 /* rEntfernen.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE51AFC1B7F8F5800DBE045 /* rEntfernen.m */; };
+		BDE51B0D1B7F8F5800DBE045 /* rKommentar.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE51AFF1B7F8F5800DBE045 /* rKommentar.m */; };
+		BDE51B0F1B7F8F5800DBE045 /* rMarkierung.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE51B021B7F8F5800DBE045 /* rMarkierung.m */; };
+		BDE51B141B7F91F300DBE045 /* AdminPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE51B121B7F91F300DBE045 /* AdminPlayerController.m */; };
+		BDE51B181B7FAD2F00DBE045 /* rArchivDS.m in Sources */ = {isa = PBXBuildFile; fileRef = BDE51B171B7FAD2F00DBE045 /* rArchivDS.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BD20B1411B7E72CC00DBD210 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BD20B11F1B7E72CC00DBD210 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BD20B1261B7E72CC00DBD210;
+			remoteInfo = Lesestudio;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		BD002B6F1B83A772002F224F /* AVRecorderDocument.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AVRecorderDocument.xib; path = nibs/AVRecorderDocument.xib; sourceTree = SOURCE_ROOT; };
+		BD20B1271B7E72CC00DBD210 /* Lesestudio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lesestudio.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD20B12B1B7E72CC00DBD210 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BD20B12C1B7E72CC00DBD210 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		BD20B12D1B7E72CC00DBD210 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		BD20B12F1B7E72CC00DBD210 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		BD20B1311B7E72CC00DBD210 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		BD20B1321B7E72CC00DBD210 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		BD20B1351B7E72CC00DBD210 /* Lesestudio.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Lesestudio.xcdatamodel; sourceTree = "<group>"; };
+		BD20B1371B7E72CC00DBD210 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		BD20B13A1B7E72CC00DBD210 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		BD20B1401B7E72CC00DBD210 /* LesestudioTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LesestudioTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD20B1451B7E72CC00DBD210 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BD20B1461B7E72CC00DBD210 /* LesestudioTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LesestudioTests.m; sourceTree = "<group>"; };
+		BD27FC231B8452A1000FD24A /* AVRecorderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AVRecorderController.h; path = RecPlayRecorder/AVRecorderController.h; sourceTree = SOURCE_ROOT; };
+		BD27FC241B8452A1000FD24A /* AVRecorderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AVRecorderController.m; path = RecPlayRecorder/AVRecorderController.m; sourceTree = SOURCE_ROOT; };
+		BD27FC251B8452A1000FD24A /* AVRecorderController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AVRecorderController.xib; path = RecPlayRecorder/AVRecorderController.xib; sourceTree = SOURCE_ROOT; };
+		BD354CEF1B8372C800AC54EC /* AVCaptureDeviceFormat_AVRecorderAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AVCaptureDeviceFormat_AVRecorderAdditions.h; path = RecPlayRecorder/AVCaptureDeviceFormat_AVRecorderAdditions.h; sourceTree = SOURCE_ROOT; };
+		BD354CF01B8372C800AC54EC /* AVCaptureDeviceFormat_AVRecorderAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AVCaptureDeviceFormat_AVRecorderAdditions.m; path = RecPlayRecorder/AVCaptureDeviceFormat_AVRecorderAdditions.m; sourceTree = SOURCE_ROOT; };
+		BD354CF11B8372C800AC54EC /* AVFrameRateRange_AVRecorderAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AVFrameRateRange_AVRecorderAdditions.h; path = RecPlayRecorder/AVFrameRateRange_AVRecorderAdditions.h; sourceTree = SOURCE_ROOT; };
+		BD354CF21B8372C800AC54EC /* AVFrameRateRange_AVRecorderAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AVFrameRateRange_AVRecorderAdditions.m; path = RecPlayRecorder/AVFrameRateRange_AVRecorderAdditions.m; sourceTree = SOURCE_ROOT; };
+		BD354CF31B8372C800AC54EC /* AVRecorder-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "AVRecorder-Info.plist"; path = "RecPlayRecorder/AVRecorder-Info.plist"; sourceTree = SOURCE_ROOT; };
+		BD354CF41B8372C800AC54EC /* AVRecorder-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AVRecorder-Prefix.pch"; path = "RecPlayRecorder/AVRecorder-Prefix.pch"; sourceTree = SOURCE_ROOT; };
+		BD354CFB1B838DF400AC54EC /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = ../../../../../../System/Library/Frameworks/AudioToolbox.framework; sourceTree = "<group>"; };
+		BD354CFC1B838DF400AC54EC /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = ../../../../../../System/Library/Frameworks/CoreMedia.framework; sourceTree = "<group>"; };
+		BD794DBA1B81E99C000670F6 /* rAVRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rAVRecorder.h; path = RecPlayRecorder/rAVRecorder.h; sourceTree = SOURCE_ROOT; };
+		BD794DBB1B81E99C000670F6 /* rAVRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = rAVRecorder.m; path = RecPlayRecorder/rAVRecorder.m; sourceTree = SOURCE_ROOT; };
+		BD794DBD1B821C66000670F6 /* rTHRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rTHRecorder.h; path = RecPlayRecorder/rTHRecorder.h; sourceTree = SOURCE_ROOT; };
+		BD794DBE1B821C66000670F6 /* rTHRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = rTHRecorder.m; path = RecPlayRecorder/rTHRecorder.m; sourceTree = SOURCE_ROOT; };
+		BD794DC91B82244D000670F6 /* THMemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = THMemo.h; path = RecPlayRecorder/THMemo.h; sourceTree = SOURCE_ROOT; };
+		BD794DCA1B82244D000670F6 /* THMemo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = THMemo.m; path = RecPlayRecorder/THMemo.m; sourceTree = SOURCE_ROOT; };
+		BD794DCC1B831772000670F6 /* ViewController+Lesebox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ViewController+Lesebox.h"; sourceTree = "<group>"; };
+		BD794DCD1B831772000670F6 /* ViewController+Lesebox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+Lesebox.m"; sourceTree = "<group>"; };
+		BD8139571B7E8B3C008DF420 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = ../../../../../../System/Library/Frameworks/AVFoundation.framework; sourceTree = "<group>"; };
+		BD8139581B7E8B3C008DF420 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = ../../../../../../System/Library/Frameworks/AVKit.framework; sourceTree = "<group>"; };
+		BD81395C1B7F4A87008DF420 /* rAbspielanzeige.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rAbspielanzeige.h; path = RecPlayRecorder/rAbspielanzeige.h; sourceTree = SOURCE_ROOT; };
+		BD81395D1B7F4A87008DF420 /* rAbspielanzeige.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = rAbspielanzeige.m; path = RecPlayRecorder/rAbspielanzeige.m; sourceTree = SOURCE_ROOT; };
+		BD81395F1B7F599E008DF420 /* rLevelmeter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rLevelmeter.h; path = RecPlayRecorder/rLevelmeter.h; sourceTree = SOURCE_ROOT; };
+		BD8139601B7F599E008DF420 /* rLevelmeter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = rLevelmeter.m; path = RecPlayRecorder/rLevelmeter.m; sourceTree = SOURCE_ROOT; };
+		BD8139651B7F5E90008DF420 /* Back.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = Back.gif; path = Icons/Back.gif; sourceTree = SOURCE_ROOT; };
+		BD8139661B7F5E90008DF420 /* Back.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = Back.icns; path = Icons/Back.icns; sourceTree = SOURCE_ROOT; };
+		BD8139671B7F5E90008DF420 /* Back.psd */ = {isa = PBXFileReference; lastKnownFileType = file; name = Back.psd; path = Icons/Back.psd; sourceTree = SOURCE_ROOT; };
+		BD8139681B7F5E90008DF420 /* Back.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = Back.tif; path = Icons/Back.tif; sourceTree = SOURCE_ROOT; };
+		BD8139691B7F5E90008DF420 /* BackImg.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = BackImg.gif; path = Icons/BackImg.gif; sourceTree = SOURCE_ROOT; };
+		BD81396A1B7F5E90008DF420 /* BoxImg.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = BoxImg.tif; path = Icons/BoxImg.tif; sourceTree = SOURCE_ROOT; };
+		BD81396B1B7F5E90008DF420 /* CrossImg.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = CrossImg.tif; path = Icons/CrossImg.tif; sourceTree = SOURCE_ROOT; };
+		BD81396C1B7F5E90008DF420 /* MarkOffImg.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = MarkOffImg.tif; path = Icons/MarkOffImg.tif; sourceTree = SOURCE_ROOT; };
+		BD81396D1B7F5E90008DF420 /* MarkOnImg.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = MarkOnImg.tif; path = Icons/MarkOnImg.tif; sourceTree = SOURCE_ROOT; };
+		BD81396E1B7F5E90008DF420 /* MicroIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = MicroIcon.icns; path = Icons/MicroIcon.icns; sourceTree = SOURCE_ROOT; };
+		BD81396F1B7F5E90008DF420 /* MicroIcon.pct */ = {isa = PBXFileReference; lastKnownFileType = image.pict; name = MicroIcon.pct; path = Icons/MicroIcon.pct; sourceTree = SOURCE_ROOT; };
+		BD8139701B7F5E90008DF420 /* MicroIcon.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = MicroIcon.tif; path = Icons/MicroIcon.tif; sourceTree = SOURCE_ROOT; };
+		BD8139711B7F5E90008DF420 /* RecPlayIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = RecPlayIcon.icns; path = Icons/RecPlayIcon.icns; sourceTree = SOURCE_ROOT; };
+		BD8139721B7F5E90008DF420 /* RecPlayIcon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = RecPlayIcon.jpg; path = Icons/RecPlayIcon.jpg; sourceTree = SOURCE_ROOT; };
+		BD8139731B7F5E90008DF420 /* RecPlayIcon.pct */ = {isa = PBXFileReference; lastKnownFileType = image.pict; name = RecPlayIcon.pct; path = Icons/RecPlayIcon.pct; sourceTree = SOURCE_ROOT; };
+		BD8139741B7F5E90008DF420 /* RecPlayIcon.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = RecPlayIcon.tif; path = Icons/RecPlayIcon.tif; sourceTree = SOURCE_ROOT; };
+		BD8139751B7F5E90008DF420 /* Start PlayImg.cwk */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Start PlayImg.cwk"; path = "Icons/Start PlayImg.cwk"; sourceTree = SOURCE_ROOT; };
+		BD8139761B7F5E90008DF420 /* StartPlayImg.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = StartPlayImg.gif; path = Icons/StartPlayImg.gif; sourceTree = SOURCE_ROOT; };
+		BD8139771B7F5E90008DF420 /* StartPlayImg.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = StartPlayImg.tif; path = Icons/StartPlayImg.tif; sourceTree = SOURCE_ROOT; };
+		BD8139781B7F5E90008DF420 /* StartRecordImg.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = StartRecordImg.tif; path = Icons/StartRecordImg.tif; sourceTree = SOURCE_ROOT; };
+		BD8139791B7F5E90008DF420 /* StopPlayImg.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = StopPlayImg.tif; path = Icons/StopPlayImg.tif; sourceTree = SOURCE_ROOT; };
+		BD81397A1B7F5E90008DF420 /* StopRecordImg.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = StopRecordImg.tif; path = Icons/StopRecordImg.tif; sourceTree = SOURCE_ROOT; };
+		BD8139921B7F677F008DF420 /* rArchivView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rArchivView.h; path = RecPlayKontroller/rArchivView.h; sourceTree = SOURCE_ROOT; };
+		BD8139931B7F677F008DF420 /* rArchivView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = rArchivView.m; path = RecPlayKontroller/rArchivView.m; sourceTree = SOURCE_ROOT; };
+		BD8139941B7F677F008DF420 /* rEingabeFeld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rEingabeFeld.h; path = RecPlayKontroller/rEingabeFeld.h; sourceTree = SOURCE_ROOT; };
+		BD8139951B7F677F008DF420 /* rEingabeFeld.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = rEingabeFeld.m; path = RecPlayKontroller/rEingabeFeld.m; sourceTree = SOURCE_ROOT; };
+		BD8139961B7F677F008DF420 /* rEinstellungen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rEinstellungen.h; path = RecPlayKontroller/rEinstellungen.h; sourceTree = SOURCE_ROOT; };
+		BD8139971B7F677F008DF420 /* rEinstellungen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = rEinstellungen.m; path = RecPlayKontroller/rEinstellungen.m; sourceTree = SOURCE_ROOT; };
+		BD8139981B7F677F008DF420 /* rEinzelNamen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rEinzelNamen.h; path = RecPlayKontroller/rEinzelNamen.h; sourceTree = SOURCE_ROOT; };
+		BD8139991B7F677F008DF420 /* rEinzelNamen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = rEinzelNamen.m; path = RecPlayKontroller/rEinzelNamen.m; sourceTree = SOURCE_ROOT; };
+		BD81399A1B7F677F008DF420 /* rNamenListe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rNamenListe.h; path = RecPlayKontroller/rNamenListe.h; sourceTree = SOURCE_ROOT; };
+		BD81399B1B7F677F008DF420 /* rNamenListe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = rNamenListe.m; path = RecPlayKontroller/rNamenListe.m; sourceTree = SOURCE_ROOT; };
+		BD81399C1B7F677F008DF420 /* rPasswortDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rPasswortDialog.h; path = RecPlayKontroller/rPasswortDialog.h; sourceTree = SOURCE_ROOT; };
+		BD81399D1B7F677F008DF420 /* rPasswortDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = rPasswortDialog.m; path = RecPlayKontroller/rPasswortDialog.m; sourceTree = SOURCE_ROOT; };
+		BD81399E1B7F677F008DF420 /* rPasswortEingabeFeld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rPasswortEingabeFeld.h; path = RecPlayKontroller/rPasswortEingabeFeld.h; sourceTree = SOURCE_ROOT; };
+		BD81399F1B7F677F008DF420 /* rPasswortEingabeFeld.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = rPasswortEingabeFeld.m; path = RecPlayKontroller/rPasswortEingabeFeld.m; sourceTree = SOURCE_ROOT; };
+		BD8139A01B7F677F008DF420 /* rPasswortListe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rPasswortListe.h; path = RecPlayKontroller/rPasswortListe.h; sourceTree = SOURCE_ROOT; };
+		BD8139A11B7F677F008DF420 /* rPasswortListe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = rPasswortListe.m; path = RecPlayKontroller/rPasswortListe.m; sourceTree = SOURCE_ROOT; };
+		BD8139A21B7F677F008DF420 /* rPasswortRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rPasswortRequest.h; path = RecPlayKontroller/rPasswortRequest.h; sourceTree = SOURCE_ROOT; };
+		BD8139A31B7F677F008DF420 /* rPasswortRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = rPasswortRequest.m; path = RecPlayKontroller/rPasswortRequest.m; sourceTree = SOURCE_ROOT; };
+		BD8139A41B7F677F008DF420 /* rProjektListe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rProjektListe.h; path = RecPlayKontroller/rProjektListe.h; sourceTree = SOURCE_ROOT; };
+		BD8139A51B7F677F008DF420 /* rProjektListe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = rProjektListe.m; path = RecPlayKontroller/rProjektListe.m; sourceTree = SOURCE_ROOT; };
+		BD8139A71B7F677F008DF420 /* rProjektListePanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rProjektListePanel.h; path = RecPlayKontroller/rProjektListePanel.h; sourceTree = SOURCE_ROOT; };
+		BD8139A81B7F677F008DF420 /* rProjektListePanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = rProjektListePanel.m; path = RecPlayKontroller/rProjektListePanel.m; sourceTree = SOURCE_ROOT; };
+		BD8139A91B7F677F008DF420 /* rProjektNamen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rProjektNamen.h; path = RecPlayKontroller/rProjektNamen.h; sourceTree = SOURCE_ROOT; };
+		BD8139AA1B7F677F008DF420 /* rProjektNamen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = rProjektNamen.m; path = RecPlayKontroller/rProjektNamen.m; sourceTree = SOURCE_ROOT; };
+		BD8139AB1B7F677F008DF420 /* rProjektStart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rProjektStart.h; path = RecPlayKontroller/rProjektStart.h; sourceTree = SOURCE_ROOT; };
+		BD8139AC1B7F677F008DF420 /* rProjektStart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = rProjektStart.m; path = RecPlayKontroller/rProjektStart.m; sourceTree = SOURCE_ROOT; };
+		BD8139AF1B7F677F008DF420 /* rTimeoutDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rTimeoutDialog.h; path = RecPlayKontroller/rTimeoutDialog.h; sourceTree = SOURCE_ROOT; };
+		BD8139B01B7F677F008DF420 /* rTimeoutDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = rTimeoutDialog.m; path = RecPlayKontroller/rTimeoutDialog.m; sourceTree = SOURCE_ROOT; };
+		BD8139B11B7F677F008DF420 /* rTitelListe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rTitelListe.h; path = RecPlayKontroller/rTitelListe.h; sourceTree = SOURCE_ROOT; };
+		BD8139B21B7F677F008DF420 /* rTitelListe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = rTitelListe.m; path = RecPlayKontroller/rTitelListe.m; sourceTree = SOURCE_ROOT; };
+		BD8139B31B7F677F008DF420 /* rUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rUtils.h; path = RecPlayKontroller/rUtils.h; sourceTree = SOURCE_ROOT; };
+		BD8139B41B7F677F008DF420 /* rUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = rUtils.m; path = RecPlayKontroller/rUtils.m; sourceTree = SOURCE_ROOT; };
+		BD8139B51B7F677F008DF420 /* rVolumes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rVolumes.h; path = RecPlayKontroller/rVolumes.h; sourceTree = SOURCE_ROOT; };
+		BD8139B61B7F677F008DF420 /* rVolumes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = rVolumes.m; path = RecPlayKontroller/rVolumes.m; sourceTree = SOURCE_ROOT; };
+		BDBD1EE01B80B61E00BE58DA /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
+		BDBD1EE21B80BA9E00BE58DA /* RPVolumes.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = RPVolumes.nib; path = nibs/RPVolumes.nib; sourceTree = SOURCE_ROOT; };
+		BDBD1EE41B80C4E900BE58DA /* RPAdmin.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = RPAdmin.nib; path = nibs/RPAdmin.nib; sourceTree = SOURCE_ROOT; };
+		BDBD1EE51B80C4E900BE58DA /* RPClean.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = RPClean.nib; path = nibs/RPClean.nib; sourceTree = SOURCE_ROOT; };
+		BDBD1EE61B80C4E900BE58DA /* RPEinstellungen.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = RPEinstellungen.nib; path = nibs/RPEinstellungen.nib; sourceTree = SOURCE_ROOT; };
+		BDBD1EE71B80C4E900BE58DA /* RPEinzelNamen.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = RPEinzelNamen.nib; path = nibs/RPEinzelNamen.nib; sourceTree = SOURCE_ROOT; };
+		BDBD1EE81B80C4E900BE58DA /* RPEntfernen.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = RPEntfernen.nib; path = nibs/RPEntfernen.nib; sourceTree = SOURCE_ROOT; };
+		BDBD1EE91B80C4E900BE58DA /* RPKommentar.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = RPKommentar.nib; path = nibs/RPKommentar.nib; sourceTree = SOURCE_ROOT; };
+		BDBD1EEA1B80C4E900BE58DA /* RPMarkierung.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = RPMarkierung.nib; path = nibs/RPMarkierung.nib; sourceTree = SOURCE_ROOT; };
+		BDBD1EEB1B80C4E900BE58DA /* RPNamenListe.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = RPNamenListe.nib; path = nibs/RPNamenListe.nib; sourceTree = SOURCE_ROOT; };
+		BDBD1EEC1B80C4E900BE58DA /* RPPasswortDialog.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = RPPasswortDialog.nib; path = nibs/RPPasswortDialog.nib; sourceTree = SOURCE_ROOT; };
+		BDBD1EED1B80C4E900BE58DA /* RPPasswortListe.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = RPPasswortListe.nib; path = nibs/RPPasswortListe.nib; sourceTree = SOURCE_ROOT; };
+		BDBD1EEE1B80C4E900BE58DA /* RPProjektListe.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = RPProjektListe.nib; path = nibs/RPProjektListe.nib; sourceTree = SOURCE_ROOT; };
+		BDBD1EEF1B80C4E900BE58DA /* RPProjektNamen.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = RPProjektNamen.nib; path = nibs/RPProjektNamen.nib; sourceTree = SOURCE_ROOT; };
+		BDBD1EF01B80C4E900BE58DA /* RPProjektPanel.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = RPProjektPanel.nib; path = nibs/RPProjektPanel.nib; sourceTree = SOURCE_ROOT; };
+		BDBD1EF11B80C4E900BE58DA /* RPProjektStart.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = RPProjektStart.nib; path = nibs/RPProjektStart.nib; sourceTree = SOURCE_ROOT; };
+		BDBD1EF21B80C4E900BE58DA /* RPTimeoutDialog.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = RPTimeoutDialog.nib; path = nibs/RPTimeoutDialog.nib; sourceTree = SOURCE_ROOT; };
+		BDBD1EF31B80C4E900BE58DA /* RPTitelListe.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = RPTitelListe.nib; path = nibs/RPTitelListe.nib; sourceTree = SOURCE_ROOT; };
+		BDE51AF11B7F8F5800DBE045 /* rAdminDS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rAdminDS.h; path = RecPlayAdminPlayer/rAdminDS.h; sourceTree = SOURCE_ROOT; };
+		BDE51AF21B7F8F5800DBE045 /* rAdminDS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = rAdminDS.m; path = RecPlayAdminPlayer/rAdminDS.m; sourceTree = SOURCE_ROOT; };
+		BDE51AF31B7F8F5800DBE045 /* rAdminListe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rAdminListe.h; path = RecPlayAdminPlayer/rAdminListe.h; sourceTree = SOURCE_ROOT; };
+		BDE51AF41B7F8F5800DBE045 /* rAdminListe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = rAdminListe.m; path = RecPlayAdminPlayer/rAdminListe.m; sourceTree = SOURCE_ROOT; };
+		BDE51AF81B7F8F5800DBE045 /* rClean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rClean.h; path = RecPlayAdminPlayer/rClean.h; sourceTree = SOURCE_ROOT; };
+		BDE51AF91B7F8F5800DBE045 /* rClean.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = rClean.m; path = RecPlayAdminPlayer/rClean.m; sourceTree = SOURCE_ROOT; };
+		BDE51AFB1B7F8F5800DBE045 /* rEntfernen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rEntfernen.h; path = RecPlayAdminPlayer/rEntfernen.h; sourceTree = SOURCE_ROOT; };
+		BDE51AFC1B7F8F5800DBE045 /* rEntfernen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = rEntfernen.m; path = RecPlayAdminPlayer/rEntfernen.m; sourceTree = SOURCE_ROOT; };
+		BDE51AFE1B7F8F5800DBE045 /* rKommentar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rKommentar.h; path = RecPlayAdminPlayer/rKommentar.h; sourceTree = SOURCE_ROOT; };
+		BDE51AFF1B7F8F5800DBE045 /* rKommentar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = rKommentar.m; path = RecPlayAdminPlayer/rKommentar.m; sourceTree = SOURCE_ROOT; };
+		BDE51B011B7F8F5800DBE045 /* rMarkierung.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rMarkierung.h; path = RecPlayAdminPlayer/rMarkierung.h; sourceTree = SOURCE_ROOT; };
+		BDE51B021B7F8F5800DBE045 /* rMarkierung.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = rMarkierung.m; path = RecPlayAdminPlayer/rMarkierung.m; sourceTree = SOURCE_ROOT; };
+		BDE51B031B7F8F5800DBE045 /* rMovieView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rMovieView.h; path = RecPlayAdminPlayer/rMovieView.h; sourceTree = SOURCE_ROOT; };
+		BDE51B111B7F91F300DBE045 /* AdminPlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdminPlayerController.h; sourceTree = "<group>"; };
+		BDE51B121B7F91F300DBE045 /* AdminPlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdminPlayerController.m; sourceTree = "<group>"; };
+		BDE51B161B7FAD2F00DBE045 /* rArchivDS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rArchivDS.h; path = RecPlayRecorder/rArchivDS.h; sourceTree = SOURCE_ROOT; };
+		BDE51B171B7FAD2F00DBE045 /* rArchivDS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = rArchivDS.m; path = RecPlayRecorder/rArchivDS.m; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BD20B1241B7E72CC00DBD210 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD354CFE1B838DF400AC54EC /* CoreMedia.framework in Frameworks */,
+				BD81395A1B7E8B3C008DF420 /* AVKit.framework in Frameworks */,
+				BD8139591B7E8B3C008DF420 /* AVFoundation.framework in Frameworks */,
+				BD354CFD1B838DF400AC54EC /* AudioToolbox.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BD20B13D1B7E72CC00DBD210 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BD20B11E1B7E72CC00DBD210 = {
+			isa = PBXGroup;
+			children = (
+				BD20B1291B7E72CC00DBD210 /* Lesestudio */,
+				BD20B1431B7E72CC00DBD210 /* LesestudioTests */,
+				BD8139621B7F5E59008DF420 /* Icons */,
+				BD20B1281B7E72CC00DBD210 /* Products */,
+				BD8139271B7E8207008DF420 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		BD20B1281B7E72CC00DBD210 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BD20B1271B7E72CC00DBD210 /* Lesestudio.app */,
+				BD20B1401B7E72CC00DBD210 /* LesestudioTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BD20B1291B7E72CC00DBD210 /* Lesestudio */ = {
+			isa = PBXGroup;
+			children = (
+				BDBD1EE11B80BA8C00BE58DA /* nibs */,
+				BD20B12C1B7E72CC00DBD210 /* AppDelegate.h */,
+				BD20B12D1B7E72CC00DBD210 /* AppDelegate.m */,
+				BD20B1311B7E72CC00DBD210 /* ViewController.h */,
+				BD20B1321B7E72CC00DBD210 /* ViewController.m */,
+				BD794DCC1B831772000670F6 /* ViewController+Lesebox.h */,
+				BD794DCD1B831772000670F6 /* ViewController+Lesebox.m */,
+				BD8139911B7F675F008DF420 /* RecPlayController */,
+				BD81395B1B7F4A09008DF420 /* RecPlayRecorder */,
+				BD8139B31B7F677F008DF420 /* rUtils.h */,
+				BD8139B41B7F677F008DF420 /* rUtils.m */,
+				BD20B1371B7E72CC00DBD210 /* Images.xcassets */,
+				BD20B1391B7E72CC00DBD210 /* Main.storyboard */,
+				BDE51B111B7F91F300DBE045 /* AdminPlayerController.h */,
+				BDE51B121B7F91F300DBE045 /* AdminPlayerController.m */,
+				BDE51AF01B7F8F3000DBE045 /* RecPlayAdminPlayer */,
+				BD20B1341B7E72CC00DBD210 /* Lesestudio.xcdatamodeld */,
+				BD20B12A1B7E72CC00DBD210 /* Supporting Files */,
+			);
+			path = Lesestudio;
+			sourceTree = "<group>";
+		};
+		BD20B12A1B7E72CC00DBD210 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BD20B12B1B7E72CC00DBD210 /* Info.plist */,
+				BD20B12F1B7E72CC00DBD210 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BD20B1431B7E72CC00DBD210 /* LesestudioTests */ = {
+			isa = PBXGroup;
+			children = (
+				BD20B1461B7E72CC00DBD210 /* LesestudioTests.m */,
+				BD20B1441B7E72CC00DBD210 /* Supporting Files */,
+			);
+			path = LesestudioTests;
+			sourceTree = "<group>";
+		};
+		BD20B1441B7E72CC00DBD210 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BD20B1451B7E72CC00DBD210 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BD354CEE1B8372A500AC54EC /* AVRecorder */ = {
+			isa = PBXGroup;
+			children = (
+				BD794DBA1B81E99C000670F6 /* rAVRecorder.h */,
+				BD27FC231B8452A1000FD24A /* AVRecorderController.h */,
+				BD27FC241B8452A1000FD24A /* AVRecorderController.m */,
+				BD27FC251B8452A1000FD24A /* AVRecorderController.xib */,
+				BD794DBB1B81E99C000670F6 /* rAVRecorder.m */,
+				BD354CEF1B8372C800AC54EC /* AVCaptureDeviceFormat_AVRecorderAdditions.h */,
+				BD354CF01B8372C800AC54EC /* AVCaptureDeviceFormat_AVRecorderAdditions.m */,
+				BD354CF11B8372C800AC54EC /* AVFrameRateRange_AVRecorderAdditions.h */,
+				BD354CF21B8372C800AC54EC /* AVFrameRateRange_AVRecorderAdditions.m */,
+				BD354CF31B8372C800AC54EC /* AVRecorder-Info.plist */,
+				BD354CF41B8372C800AC54EC /* AVRecorder-Prefix.pch */,
+			);
+			name = AVRecorder;
+			sourceTree = "<group>";
+		};
+		BD354CF81B837AE800AC54EC /* THRecorder */ = {
+			isa = PBXGroup;
+			children = (
+				BD794DBD1B821C66000670F6 /* rTHRecorder.h */,
+				BD794DBE1B821C66000670F6 /* rTHRecorder.m */,
+			);
+			name = THRecorder;
+			sourceTree = "<group>";
+		};
+		BD8139271B7E8207008DF420 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BD354CFB1B838DF400AC54EC /* AudioToolbox.framework */,
+				BD354CFC1B838DF400AC54EC /* CoreMedia.framework */,
+				BD8139571B7E8B3C008DF420 /* AVFoundation.framework */,
+				BD8139581B7E8B3C008DF420 /* AVKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BD81395B1B7F4A09008DF420 /* RecPlayRecorder */ = {
+			isa = PBXGroup;
+			children = (
+				BD354CEE1B8372A500AC54EC /* AVRecorder */,
+				BD354CF81B837AE800AC54EC /* THRecorder */,
+				BD794DC91B82244D000670F6 /* THMemo.h */,
+				BD794DCA1B82244D000670F6 /* THMemo.m */,
+				BD81395F1B7F599E008DF420 /* rLevelmeter.h */,
+				BD8139601B7F599E008DF420 /* rLevelmeter.m */,
+				BD81395D1B7F4A87008DF420 /* rAbspielanzeige.m */,
+				BD81395C1B7F4A87008DF420 /* rAbspielanzeige.h */,
+			);
+			name = RecPlayRecorder;
+			sourceTree = "<group>";
+		};
+		BD8139621B7F5E59008DF420 /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				BD8139651B7F5E90008DF420 /* Back.gif */,
+				BD8139661B7F5E90008DF420 /* Back.icns */,
+				BD8139671B7F5E90008DF420 /* Back.psd */,
+				BD8139681B7F5E90008DF420 /* Back.tif */,
+				BD8139691B7F5E90008DF420 /* BackImg.gif */,
+				BD81396A1B7F5E90008DF420 /* BoxImg.tif */,
+				BD81396B1B7F5E90008DF420 /* CrossImg.tif */,
+				BD81396C1B7F5E90008DF420 /* MarkOffImg.tif */,
+				BD81396D1B7F5E90008DF420 /* MarkOnImg.tif */,
+				BD81396E1B7F5E90008DF420 /* MicroIcon.icns */,
+				BD81396F1B7F5E90008DF420 /* MicroIcon.pct */,
+				BD8139701B7F5E90008DF420 /* MicroIcon.tif */,
+				BD8139711B7F5E90008DF420 /* RecPlayIcon.icns */,
+				BD8139721B7F5E90008DF420 /* RecPlayIcon.jpg */,
+				BD8139731B7F5E90008DF420 /* RecPlayIcon.pct */,
+				BD8139741B7F5E90008DF420 /* RecPlayIcon.tif */,
+				BD8139751B7F5E90008DF420 /* Start PlayImg.cwk */,
+				BD8139761B7F5E90008DF420 /* StartPlayImg.gif */,
+				BD8139771B7F5E90008DF420 /* StartPlayImg.tif */,
+				BD8139781B7F5E90008DF420 /* StartRecordImg.tif */,
+				BD8139791B7F5E90008DF420 /* StopPlayImg.tif */,
+				BD81397A1B7F5E90008DF420 /* StopRecordImg.tif */,
+			);
+			name = Icons;
+			path = Lesestudio;
+			sourceTree = "<group>";
+		};
+		BD8139911B7F675F008DF420 /* RecPlayController */ = {
+			isa = PBXGroup;
+			children = (
+				BDE51B161B7FAD2F00DBE045 /* rArchivDS.h */,
+				BDE51B171B7FAD2F00DBE045 /* rArchivDS.m */,
+				BD8139921B7F677F008DF420 /* rArchivView.h */,
+				BD8139931B7F677F008DF420 /* rArchivView.m */,
+				BD8139941B7F677F008DF420 /* rEingabeFeld.h */,
+				BD8139951B7F677F008DF420 /* rEingabeFeld.m */,
+				BD8139961B7F677F008DF420 /* rEinstellungen.h */,
+				BD8139971B7F677F008DF420 /* rEinstellungen.m */,
+				BD8139981B7F677F008DF420 /* rEinzelNamen.h */,
+				BD8139991B7F677F008DF420 /* rEinzelNamen.m */,
+				BD81399A1B7F677F008DF420 /* rNamenListe.h */,
+				BD81399B1B7F677F008DF420 /* rNamenListe.m */,
+				BD81399C1B7F677F008DF420 /* rPasswortDialog.h */,
+				BD81399D1B7F677F008DF420 /* rPasswortDialog.m */,
+				BD81399E1B7F677F008DF420 /* rPasswortEingabeFeld.h */,
+				BD81399F1B7F677F008DF420 /* rPasswortEingabeFeld.m */,
+				BD8139A01B7F677F008DF420 /* rPasswortListe.h */,
+				BD8139A11B7F677F008DF420 /* rPasswortListe.m */,
+				BD8139A21B7F677F008DF420 /* rPasswortRequest.h */,
+				BD8139A31B7F677F008DF420 /* rPasswortRequest.m */,
+				BD8139A41B7F677F008DF420 /* rProjektListe.h */,
+				BD8139A51B7F677F008DF420 /* rProjektListe.m */,
+				BD8139A71B7F677F008DF420 /* rProjektListePanel.h */,
+				BD8139A81B7F677F008DF420 /* rProjektListePanel.m */,
+				BD8139A91B7F677F008DF420 /* rProjektNamen.h */,
+				BD8139AA1B7F677F008DF420 /* rProjektNamen.m */,
+				BD8139AB1B7F677F008DF420 /* rProjektStart.h */,
+				BD8139AC1B7F677F008DF420 /* rProjektStart.m */,
+				BD8139AF1B7F677F008DF420 /* rTimeoutDialog.h */,
+				BD8139B01B7F677F008DF420 /* rTimeoutDialog.m */,
+				BD8139B11B7F677F008DF420 /* rTitelListe.h */,
+				BD8139B21B7F677F008DF420 /* rTitelListe.m */,
+				BD8139B51B7F677F008DF420 /* rVolumes.h */,
+				BD8139B61B7F677F008DF420 /* rVolumes.m */,
+			);
+			name = RecPlayController;
+			sourceTree = "<group>";
+		};
+		BDBD1EE11B80BA8C00BE58DA /* nibs */ = {
+			isa = PBXGroup;
+			children = (
+				BD002B6F1B83A772002F224F /* AVRecorderDocument.xib */,
+				BDBD1EE41B80C4E900BE58DA /* RPAdmin.nib */,
+				BDBD1EE51B80C4E900BE58DA /* RPClean.nib */,
+				BDBD1EE61B80C4E900BE58DA /* RPEinstellungen.nib */,
+				BDBD1EE71B80C4E900BE58DA /* RPEinzelNamen.nib */,
+				BDBD1EE81B80C4E900BE58DA /* RPEntfernen.nib */,
+				BDBD1EE91B80C4E900BE58DA /* RPKommentar.nib */,
+				BDBD1EEA1B80C4E900BE58DA /* RPMarkierung.nib */,
+				BDBD1EEB1B80C4E900BE58DA /* RPNamenListe.nib */,
+				BDBD1EEC1B80C4E900BE58DA /* RPPasswortDialog.nib */,
+				BDBD1EED1B80C4E900BE58DA /* RPPasswortListe.nib */,
+				BDBD1EEE1B80C4E900BE58DA /* RPProjektListe.nib */,
+				BDBD1EEF1B80C4E900BE58DA /* RPProjektNamen.nib */,
+				BDBD1EF01B80C4E900BE58DA /* RPProjektPanel.nib */,
+				BDBD1EF11B80C4E900BE58DA /* RPProjektStart.nib */,
+				BDBD1EF21B80C4E900BE58DA /* RPTimeoutDialog.nib */,
+				BDBD1EF31B80C4E900BE58DA /* RPTitelListe.nib */,
+				BDBD1EE21B80BA9E00BE58DA /* RPVolumes.nib */,
+			);
+			name = nibs;
+			sourceTree = "<group>";
+		};
+		BDE51AF01B7F8F3000DBE045 /* RecPlayAdminPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				BDE51AF11B7F8F5800DBE045 /* rAdminDS.h */,
+				BDE51AF21B7F8F5800DBE045 /* rAdminDS.m */,
+				BDE51AF31B7F8F5800DBE045 /* rAdminListe.h */,
+				BDE51AF41B7F8F5800DBE045 /* rAdminListe.m */,
+				BDE51AF81B7F8F5800DBE045 /* rClean.h */,
+				BDE51AF91B7F8F5800DBE045 /* rClean.m */,
+				BDE51AFB1B7F8F5800DBE045 /* rEntfernen.h */,
+				BDE51AFC1B7F8F5800DBE045 /* rEntfernen.m */,
+				BDE51AFE1B7F8F5800DBE045 /* rKommentar.h */,
+				BDE51AFF1B7F8F5800DBE045 /* rKommentar.m */,
+				BDE51B011B7F8F5800DBE045 /* rMarkierung.h */,
+				BDE51B021B7F8F5800DBE045 /* rMarkierung.m */,
+				BDE51B031B7F8F5800DBE045 /* rMovieView.h */,
+			);
+			name = RecPlayAdminPlayer;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BD20B1261B7E72CC00DBD210 /* Lesestudio */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BD20B14A1B7E72CC00DBD210 /* Build configuration list for PBXNativeTarget "Lesestudio" */;
+			buildPhases = (
+				BD20B1231B7E72CC00DBD210 /* Sources */,
+				BD20B1241B7E72CC00DBD210 /* Frameworks */,
+				BD20B1251B7E72CC00DBD210 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Lesestudio;
+			productName = Lesestudio;
+			productReference = BD20B1271B7E72CC00DBD210 /* Lesestudio.app */;
+			productType = "com.apple.product-type.application";
+		};
+		BD20B13F1B7E72CC00DBD210 /* LesestudioTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BD20B14D1B7E72CC00DBD210 /* Build configuration list for PBXNativeTarget "LesestudioTests" */;
+			buildPhases = (
+				BD20B13C1B7E72CC00DBD210 /* Sources */,
+				BD20B13D1B7E72CC00DBD210 /* Frameworks */,
+				BD20B13E1B7E72CC00DBD210 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BD20B1421B7E72CC00DBD210 /* PBXTargetDependency */,
+			);
+			name = LesestudioTests;
+			productName = LesestudioTests;
+			productReference = BD20B1401B7E72CC00DBD210 /* LesestudioTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BD20B11F1B7E72CC00DBD210 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = "Ruedi Heimlicher";
+				TargetAttributes = {
+					BD20B1261B7E72CC00DBD210 = {
+						CreatedOnToolsVersion = 6.3.2;
+					};
+					BD20B13F1B7E72CC00DBD210 = {
+						CreatedOnToolsVersion = 6.3.2;
+						TestTargetID = BD20B1261B7E72CC00DBD210;
+					};
+				};
+			};
+			buildConfigurationList = BD20B1221B7E72CC00DBD210 /* Build configuration list for PBXProject "Lesestudio" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = BD20B11E1B7E72CC00DBD210;
+			productRefGroup = BD20B1281B7E72CC00DBD210 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BD20B1261B7E72CC00DBD210 /* Lesestudio */,
+				BD20B13F1B7E72CC00DBD210 /* LesestudioTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BD20B1251B7E72CC00DBD210 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BDBD1EF51B80C4E900BE58DA /* RPClean.nib in Resources */,
+				BD8139821B7F5E90008DF420 /* MarkOffImg.tif in Resources */,
+				BD8139831B7F5E90008DF420 /* MarkOnImg.tif in Resources */,
+				BDBD1F021B80C4E900BE58DA /* RPTimeoutDialog.nib in Resources */,
+				BD8139871B7F5E90008DF420 /* RecPlayIcon.icns in Resources */,
+				BDBD1EF41B80C4E900BE58DA /* RPAdmin.nib in Resources */,
+				BDBD1EE31B80BA9E00BE58DA /* RPVolumes.nib in Resources */,
+				BDBD1EFD1B80C4E900BE58DA /* RPPasswortListe.nib in Resources */,
+				BDBD1EFE1B80C4E900BE58DA /* RPProjektListe.nib in Resources */,
+				BD81398E1B7F5E90008DF420 /* StartRecordImg.tif in Resources */,
+				BD81397F1B7F5E90008DF420 /* BackImg.gif in Resources */,
+				BDBD1EFF1B80C4E900BE58DA /* RPProjektNamen.nib in Resources */,
+				BD8139851B7F5E90008DF420 /* MicroIcon.pct in Resources */,
+				BDBD1EF61B80C4E900BE58DA /* RPEinstellungen.nib in Resources */,
+				BDBD1EFC1B80C4E900BE58DA /* RPPasswortDialog.nib in Resources */,
+				BD354CF71B8372C800AC54EC /* AVRecorder-Info.plist in Resources */,
+				BDBD1F001B80C4E900BE58DA /* RPProjektPanel.nib in Resources */,
+				BD8139801B7F5E90008DF420 /* BoxImg.tif in Resources */,
+				BD20B1381B7E72CC00DBD210 /* Images.xcassets in Resources */,
+				BD81398A1B7F5E90008DF420 /* RecPlayIcon.tif in Resources */,
+				BD81398B1B7F5E90008DF420 /* Start PlayImg.cwk in Resources */,
+				BDBD1EFA1B80C4E900BE58DA /* RPMarkierung.nib in Resources */,
+				BDBD1EF91B80C4E900BE58DA /* RPKommentar.nib in Resources */,
+				BD81398C1B7F5E90008DF420 /* StartPlayImg.gif in Resources */,
+				BD8139881B7F5E90008DF420 /* RecPlayIcon.jpg in Resources */,
+				BDBD1F031B80C4E900BE58DA /* RPTitelListe.nib in Resources */,
+				BD81397D1B7F5E90008DF420 /* Back.psd in Resources */,
+				BD8139891B7F5E90008DF420 /* RecPlayIcon.pct in Resources */,
+				BDBD1EFB1B80C4E900BE58DA /* RPNamenListe.nib in Resources */,
+				BD81398F1B7F5E90008DF420 /* StopPlayImg.tif in Resources */,
+				BD81397C1B7F5E90008DF420 /* Back.icns in Resources */,
+				BD8139811B7F5E90008DF420 /* CrossImg.tif in Resources */,
+				BD002B701B83A772002F224F /* AVRecorderDocument.xib in Resources */,
+				BD8139841B7F5E90008DF420 /* MicroIcon.icns in Resources */,
+				BD20B13B1B7E72CC00DBD210 /* Main.storyboard in Resources */,
+				BD81398D1B7F5E90008DF420 /* StartPlayImg.tif in Resources */,
+				BD8139901B7F5E90008DF420 /* StopRecordImg.tif in Resources */,
+				BDBD1EF81B80C4E900BE58DA /* RPEntfernen.nib in Resources */,
+				BD81397E1B7F5E90008DF420 /* Back.tif in Resources */,
+				BD81397B1B7F5E90008DF420 /* Back.gif in Resources */,
+				BD8139861B7F5E90008DF420 /* MicroIcon.tif in Resources */,
+				BDBD1EF71B80C4E900BE58DA /* RPEinzelNamen.nib in Resources */,
+				BD27FC271B8452A1000FD24A /* AVRecorderController.xib in Resources */,
+				BDBD1F011B80C4E900BE58DA /* RPProjektStart.nib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BD20B13E1B7E72CC00DBD210 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BD20B1231B7E72CC00DBD210 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD81395E1B7F4A87008DF420 /* rAbspielanzeige.m in Sources */,
+				BD354CF51B8372C800AC54EC /* AVCaptureDeviceFormat_AVRecorderAdditions.m in Sources */,
+				BD8139C41B7F677F008DF420 /* rProjektStart.m in Sources */,
+				BD794DCE1B831772000670F6 /* ViewController+Lesebox.m in Sources */,
+				BD8139B81B7F677F008DF420 /* rEingabeFeld.m in Sources */,
+				BD8139C31B7F677F008DF420 /* rProjektNamen.m in Sources */,
+				BD8139611B7F599E008DF420 /* rLevelmeter.m in Sources */,
+				BD794DCB1B82244D000670F6 /* THMemo.m in Sources */,
+				BD27FC261B8452A1000FD24A /* AVRecorderController.m in Sources */,
+				BD8139C71B7F677F008DF420 /* rTitelListe.m in Sources */,
+				BDE51B0D1B7F8F5800DBE045 /* rKommentar.m in Sources */,
+				BD794DBC1B81E99C000670F6 /* rAVRecorder.m in Sources */,
+				BD8139C81B7F677F008DF420 /* rUtils.m in Sources */,
+				BD20B1361B7E72CC00DBD210 /* Lesestudio.xcdatamodeld in Sources */,
+				BD8139C61B7F677F008DF420 /* rTimeoutDialog.m in Sources */,
+				BDE51B181B7FAD2F00DBE045 /* rArchivDS.m in Sources */,
+				BDE51B0B1B7F8F5800DBE045 /* rEntfernen.m in Sources */,
+				BDE51B061B7F8F5800DBE045 /* rAdminListe.m in Sources */,
+				BDE51B091B7F8F5800DBE045 /* rClean.m in Sources */,
+				BD20B1331B7E72CC00DBD210 /* ViewController.m in Sources */,
+				BD8139C21B7F677F008DF420 /* rProjektListePanel.m in Sources */,
+				BD8139BC1B7F677F008DF420 /* rPasswortDialog.m in Sources */,
+				BD354CF61B8372C800AC54EC /* AVFrameRateRange_AVRecorderAdditions.m in Sources */,
+				BDE51B141B7F91F300DBE045 /* AdminPlayerController.m in Sources */,
+				BD8139BA1B7F677F008DF420 /* rEinzelNamen.m in Sources */,
+				BD8139B71B7F677F008DF420 /* rArchivView.m in Sources */,
+				BD8139C91B7F677F008DF420 /* rVolumes.m in Sources */,
+				BDE51B051B7F8F5800DBE045 /* rAdminDS.m in Sources */,
+				BD20B1301B7E72CC00DBD210 /* main.m in Sources */,
+				BD8139BB1B7F677F008DF420 /* rNamenListe.m in Sources */,
+				BD8139B91B7F677F008DF420 /* rEinstellungen.m in Sources */,
+				BD8139BF1B7F677F008DF420 /* rPasswortRequest.m in Sources */,
+				BD8139C01B7F677F008DF420 /* rProjektListe.m in Sources */,
+				BD8139BE1B7F677F008DF420 /* rPasswortListe.m in Sources */,
+				BD8139BD1B7F677F008DF420 /* rPasswortEingabeFeld.m in Sources */,
+				BDE51B0F1B7F8F5800DBE045 /* rMarkierung.m in Sources */,
+				BD20B12E1B7E72CC00DBD210 /* AppDelegate.m in Sources */,
+				BD794DBF1B821C66000670F6 /* rTHRecorder.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BD20B13C1B7E72CC00DBD210 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD20B1471B7E72CC00DBD210 /* LesestudioTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		BD20B1421B7E72CC00DBD210 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BD20B1261B7E72CC00DBD210 /* Lesestudio */;
+			targetProxy = BD20B1411B7E72CC00DBD210 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		BD20B1391B7E72CC00DBD210 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BD20B13A1B7E72CC00DBD210 /* Base */,
+				BDBD1EE01B80B61E00BE58DA /* de */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		BD20B1481B7E72CC00DBD210 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		BD20B1491B7E72CC00DBD210 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		BD20B14B1B7E72CC00DBD210 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Lesestudio/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		BD20B14C1B7E72CC00DBD210 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Lesestudio/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		BD20B14E1B7E72CC00DBD210 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = LesestudioTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Lesestudio.app/Contents/MacOS/Lesestudio";
+			};
+			name = Debug;
+		};
+		BD20B14F1B7E72CC00DBD210 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = LesestudioTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Lesestudio.app/Contents/MacOS/Lesestudio";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BD20B1221B7E72CC00DBD210 /* Build configuration list for PBXProject "Lesestudio" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BD20B1481B7E72CC00DBD210 /* Debug */,
+				BD20B1491B7E72CC00DBD210 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BD20B14A1B7E72CC00DBD210 /* Build configuration list for PBXNativeTarget "Lesestudio" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BD20B14B1B7E72CC00DBD210 /* Debug */,
+				BD20B14C1B7E72CC00DBD210 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BD20B14D1B7E72CC00DBD210 /* Build configuration list for PBXNativeTarget "LesestudioTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BD20B14E1B7E72CC00DBD210 /* Debug */,
+				BD20B14F1B7E72CC00DBD210 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		BD20B1341B7E72CC00DBD210 /* Lesestudio.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				BD20B1351B7E72CC00DBD210 /* Lesestudio.xcdatamodel */,
+			);
+			currentVersion = BD20B1351B7E72CC00DBD210 /* Lesestudio.xcdatamodel */;
+			path = Lesestudio.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = BD20B11F1B7E72CC00DBD210 /* Project object */;
+}

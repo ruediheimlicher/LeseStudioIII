@@ -76,7 +76,7 @@
 {
 	NSString* neueZeileString=@"neues Projekt:";
 	NSMutableDictionary* neuesProjektDic=[NSMutableDictionary dictionaryWithObject:neueZeileString forKey:@"projekt"];
-	[neuesProjektDic setObject: [NSNumber numberWithInt:1] forKey:@"ok"];
+	[neuesProjektDic setObject: [NSNumber numberWithInt:1] forKey:@"OK"];
 	[ProjektArray addObject: neuesProjektDic];
 	[ProjektTable reloadData];
 	[[[ProjektTable tableColumnWithIdentifier:@"projekt"]dataCellForRow:0]setPlaceholderString:@"projekt"];
@@ -117,7 +117,7 @@
 	  {
 		
 		NSMutableDictionary* neuesProjektDic=[NSMutableDictionary dictionaryWithObject:[EingabeFeld stringValue] forKey:@"projekt"];
-		[neuesProjektDic setObject: [NSNumber numberWithInt:1] forKey:@"ok"];
+		[neuesProjektDic setObject: [NSNumber numberWithInt:1] forKey:@"OK"];
 		[ProjektArray addObject: neuesProjektDic];
 		[EingabeFeld setStringValue:@""];
 		[InListeTaste setEnabled:NO];

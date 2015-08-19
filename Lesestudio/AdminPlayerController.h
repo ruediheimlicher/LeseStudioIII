@@ -18,8 +18,14 @@
 
 
 
-@interface AdminPlayerController : NSViewController <NSWindowDelegate, NSTabViewDelegate>
 
+@interface AdminPlayerController : NSViewController <NSWindowDelegate, NSTabViewDelegate>
+{
+   NSView						*previewView;
+  
+   NSLevelIndicator			*LevelMeter;
+
+}
 
    @property  (weak)  IBOutlet NSWindow*			AdminFenster;
    @property  (weak)  IBOutlet NSTextField*		TitelString;
@@ -90,7 +96,7 @@
    @property  int                               ProjektNamenOption;
    @property  int                               ProjektAuswahlOption;
    @property  int                               nurMarkierteOption;
-   @property  NSString*                         OptionAString;
+   @property  (assign) NSString*                         OptionAString;
    @property  NSString*                         OptionBString;
    @property  NSString*                         ProjektPfadOptionString;
    @property  NSString*                         TitelOptionString;
@@ -132,7 +138,7 @@
 - (void)setProjektPopMenu:(NSArray*)derProjektArray;
 - (IBAction)setNeuesAdminProjekt:(id)sender;
 
-- (IBAction)setLeser:(id)sender;
+- (IBAction)setzeLeser:(id)sender;
 - (void)setLeserFuerZeile:(int)dieZeile;
 - (BOOL)setPfadFuerLeser:(NSString*) derLeser FuerAufnahme:(NSString*)dieAufnahme;
 - (BOOL)setKommentarFuerLeser:(NSString*) derLeser FuerAufnahme:(NSString*)dieAufnahme;

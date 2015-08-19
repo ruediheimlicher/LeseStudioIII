@@ -21,16 +21,43 @@
 
 #import "rArchivDS.h"
 #import "rArchivView.h"
+#import "rAVRecorder.h"
+#import "rTHRecorder.h"
+
+
+
 
 @protocol ExportProgressWindowControllerDelegate;
 @class AVAssetExportSession;
 
+
+
+
 @interface ViewController : NSViewController <NSTabViewDelegate, NSWindowDelegate, NSMenuDelegate>
 
 {
+   
+   // Panels
    rUtils*  Utils;
-   rVolumes*							VolumesPanel;
-   rProjektStart*						ProjektStartPanel;
+   rVolumes*                        VolumesPanel;
+   rProjektStart*                   ProjektStartPanel;
+   rProjektListe*                   ProjektPanel;
+   rProjektNamen*                   ProjektNamenPanel;
+   rEinstellungen*						EinstellungenFenster;
+   rPasswortListe*						PasswortListePanel;
+   rTitelListe*                     TitelListePanel;
+   rAVRecorder*                     AVRecorder;
+   rTHRecorder*                     THRecorder;
+   NSString*	RPAufnahmenDirIDKey;;
+   NSString *	Wert1Key;
+   NSString *	Wert2Key;
+   NSString *	RPModusKey;
+   NSString *	RPBewertungKey;
+   NSString *	RPNoteKey;
+   NSString *	RPStartStatusKey;
+
+
+
 }
 
 
@@ -49,7 +76,7 @@
 
 
 @property (weak) IBOutlet rAbspielanzeige*			ArchivAbspielanzeige;
-@property (weak) IBOutlet NSLevelIndicator	*audioLevelMeter;
+@property (weak) IBOutlet NSLevelIndicator	*LevelMeter;
 
 
 @property NSMutableData*						RPDevicedaten;
@@ -170,15 +197,6 @@
 
 
 
-// Panels
-@property (nonatomic,strong) rEinstellungen*						EinstellungenFenster;
-//@property (nonatomic,strong) rVolumes*							VolumesPanel;
-@property (nonatomic,strong) rProjektListe*						ProjektPanel;
-@property (nonatomic,strong) rProjektNamen*						ProjektNamenPanel;
-
-@property (nonatomic,strong) rPasswortListe*						PasswortListePanel;
-@property (nonatomic,strong) rTitelListe*						TitelListePanel;
-
 
 //@property (weak) IBOutlet rAdminPlayer* AdminPlayer;
 @property (weak) 	IBOutlet rArchivView*			ArchivView;
@@ -217,14 +235,50 @@
 - (IBAction)showSettingsDialog:(id)sender;
 - (IBAction)restoreSettings:(id)sender;
 - (IBAction)saveSettings:(id)sender;
-- (IBAction)setLeser:(id)sender;
+- (IBAction)setzeLeser:(id)sender;
 - (IBAction)setLesebox:(id)sender;
 - (IBAction)resetLesebox:(id)sender;
 - (void)ListeAktualisierenAktion:(NSNotification*)note;
 - (IBAction)setLeserliste:(id)sender;
 - (IBAction)Logout:(id)sender;
 - (IBAction)setTitel:(id)sender;
+- (IBAction)showProjektStart:(id)sender;
+- (IBAction)savePListAktion:(id)sender;
+- (IBAction)anderesProjektMitTitel:(NSString*)derTitel;
+@end
 
 
+// Category Lesebox
+
+@interface ViewController (Lesebox)
+- (IBAction)beginAdminPlayer:(id)sender;
+- (IBAction)terminate:(id)sender;
+- (IBAction)ArchivZurListe:(id)sender;
+
+
+
+- (BOOL)Leseboxvorbereiten;
+- (NSString*) chooseLeseboxPfadMitUserArray:(NSArray*)derUserArray undNetworkArray:(NSArray*)derNetworkArray;
+
+- (BOOL)NamenListeValidAnPfad:(NSString*)derProjektPfad;
+- (BOOL)ProjektListeValidAnPfad:(NSString*)derArchivPfad;
+- (void)checkSessionDatumFor:(NSString*)dasProjekt;
+- (NSArray*)AufnahmeRetten;
+- (void)updateProjektArray;
+- (void)updatePasswortListe;
+- (void)setProjektMenu;
+- (void)setArchivNamenPop;
+- (BOOL)checkAdminPW;
+- (BOOL)checkAdminZugang;
+- (void)resetRecPlay;
+- (void)saveUserPasswortDic:(NSDictionary*)derPasswortDic;
+- (void)saveNeuesProjekt:(NSDictionary*)derProjektDic;
+- (void)saveNeuenProjektArray:(NSArray*)derProjektArray;
+- (void)saveUserPasswortArray:(NSArray*)derPasswortArray;
+- (void)SessionListeAktualisieren;
+
+- (void)saveSessionForUser:(NSString*)derUser inProjekt:(NSString*)dasProjekt;
+- (BOOL)anderesProjektEinrichtenMit:(NSString*)dasProjekt;
+- (NSArray*)SessionLeserListeVonProjekt:(NSString*)dasProjekt;
 @end
 

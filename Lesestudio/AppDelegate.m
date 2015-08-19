@@ -15,7 +15,7 @@ const int StartmitAdmin=1;
 const int StartmitDialog=2;
 
 //const short kAdminUmgebung=1;
-//const short kRecPlayUmgebung=0;
+//const short 0=0;
 
 
 

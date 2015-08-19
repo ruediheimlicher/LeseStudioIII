@@ -51,6 +51,8 @@
 					<characters key="NS.bytes">View</characters>
 				</object>
 				<nil key="NSUserInterfaceItemIdentifier"/>
+				<string key="NSWindowContentMaxSize">{478, 600}</string>
+				<string key="NSWindowContentMinSize">{477, 352}</string>
 				<object class="NSView" key="NSWindowView" id="739897707">
 					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
@@ -166,10 +168,10 @@
 														<int key="NSCellFlags">75497536</int>
 														<int key="NSCellFlags2">2048</int>
 														<string key="NSContents">OK</string>
-														<object class="NSFont" key="NSSupport" id="28">
+														<object class="NSFont" key="NSSupport" id="69127785">
 															<bool key="IBIsSystemFont">YES</bool>
 															<double key="NSSize">12</double>
-															<int key="NSfFlags">4883</int>
+															<int key="NSfFlags">787</int>
 														</object>
 														<object class="NSColor" key="NSBackgroundColor" id="646983504">
 															<int key="NSColorSpace">3</int>
@@ -186,7 +188,7 @@
 														<int key="NSCellFlags">67108864</int>
 														<int key="NSCellFlags2">0</int>
 														<string key="NSContents"/>
-														<reference key="NSSupport" ref="28"/>
+														<reference key="NSSupport" ref="69127785"/>
 														<reference key="NSControlView" ref="110868270"/>
 														<int key="NSButtonFlags">1211912448</int>
 														<int key="NSButtonFlags2">2</int>
@@ -215,7 +217,7 @@
 														<int key="NSCellFlags">75497536</int>
 														<int key="NSCellFlags2">2048</int>
 														<string key="NSContents">Projekt</string>
-														<reference key="NSSupport" ref="28"/>
+														<reference key="NSSupport" ref="69127785"/>
 														<reference key="NSBackgroundColor" ref="646983504"/>
 														<reference key="NSTextColor" ref="346243810"/>
 													</object>
@@ -316,7 +318,6 @@
 							<reference key="NSHScroller" ref="603631770"/>
 							<reference key="NSContentView" ref="235591105"/>
 							<reference key="NSHeaderClipView" ref="711993698"/>
-							<reference key="NSCornerView" ref="701299270"/>
 							<bytes key="NSScrollAmts">QSAAAEEgAABBmAAAQZgAAA</bytes>
 							<double key="NSMinMagnification">0.25</double>
 							<double key="NSMaxMagnification">4</double>
@@ -380,7 +381,7 @@
 								<int key="NSCellFlags">-1804599231</int>
 								<int key="NSCellFlags2">4195328</int>
 								<string key="NSContents"/>
-								<reference key="NSSupport" ref="28"/>
+								<reference key="NSSupport" ref="69127785"/>
 								<reference key="NSControlView" ref="676585529"/>
 								<bool key="NSDrawsBackground">YES</bool>
 								<object class="NSColor" key="NSBackgroundColor">

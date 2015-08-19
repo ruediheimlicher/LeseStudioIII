@@ -140,12 +140,6 @@ NSString* anzleser=@"anzleser";
 NSString*	RPExportdatenKey=	@"RPExportdaten";
 NSString*	RPExportformatKey=	@"RPExportformat";
 
-extern NSString* projekt;//=@"projekt";
-extern NSString* projektpfad;//=@"projektpfad";
-extern NSString* archivpfad;//=@"archivpfad";
-extern NSString* leseboxpfad;//=@"leseboxpfad";
-extern NSString* projektarray;//=@"projektarray";
-extern NSString* OK;//=@"ok";
 
 
 
@@ -371,7 +365,7 @@ extern NSString* OK;//=@"ok";
    
    NSNotificationCenter * nc=[NSNotificationCenter defaultCenter];
    NSMutableDictionary* NotificationDic=[[NSMutableDictionary alloc]initWithCapacity:0];
-   [NotificationDic setObject:self.AdminProjektPfad forKey:projektpfad];
+   [NotificationDic setObject:self.AdminProjektPfad forKey:@"projektpfad"];
    [nc postNotificationName:@"Utils" object:self userInfo:NotificationDic];
    
    
@@ -459,10 +453,10 @@ extern NSString* OK;//=@"ok";
    NSMutableArray* AufnahmeFilesArray;
    
    [self.LesernamenPop removeAllItems];
-   [self.LesernamenPop insertItemWithTitle:NSLocalizedString(@"Choose Name:",@"Namen wählen") atIndex:0];
+   [self.LesernamenPop insertItemWithTitle:NSLocalizedString(@"Namen wählen:",@"Namen wählen") atIndex:0];
    //NSLog(@"\nAdminProjektNamenArray: %@\n\n",[AdminProjektNamenArray description]);
    NSArray* SessionNamenArray=[NSArray array];
-   int ProjektIndex=[[self.AdminProjektArray valueForKey:@"projekt"]indexOfObject:dasProjekt];
+   NSUInteger ProjektIndex=[[self.AdminProjektArray valueForKey:@"projekt"]indexOfObject:dasProjekt];
    if (ProjektIndex<NSNotFound)
    {
       NSDictionary* tempProjektDic=[self.AdminProjektArray objectAtIndex:ProjektIndex];
@@ -515,7 +509,7 @@ extern NSString* OK;//=@"ok";
       int Kommentarzeile=-1;
       
       //Kommentarordner aus Liste entfernen
-      NSString* KommentarString=[NSString stringWithString:NSLocalizedString(@"Comments",@"Anmerkungen")];
+      NSString* KommentarString=[NSString stringWithString:NSLocalizedString(@"Anmerkungen",@"Anmerkungen")];
       for(k=0;k<tempAnzAufnahmen;k++)
       {
          if ([[[tempAufnahmenliste objectAtIndex:k]description]isEqualToString: KommentarString])
@@ -597,7 +591,7 @@ extern NSString* OK;//=@"ok";
       
       for (m=0;m<tempAnzAufnahmen;m++)
       {
-         NSString* tempAnmerkungPfad=[tempLeserPfad stringByAppendingPathComponent:NSLocalizedString(@"Comments",@"Anmerkungen")];
+         NSString* tempAnmerkungPfad=[tempLeserPfad stringByAppendingPathComponent:NSLocalizedString(@"Anmerkungen",@"Anmerkungen")];
          tempAnmerkungPfad=[tempAnmerkungPfad stringByAppendingPathComponent:[tempAufnahmenliste objectAtIndex:m]];
          BOOL AdminMark=NO;
          //
@@ -775,7 +769,7 @@ extern NSString* OK;//=@"ok";
             [self.ProjektPop addItemWithTitle:tempTitel];
             //NSLog(@"*setProjektPopMenu einProjektDic: %@",einProjektDic);
             
-            if ([[einProjektDic objectForKey:OK]boolValue])
+            if ([[einProjektDic objectForKey:@"OK"]boolValue])
             {
                NSImage* CrossImg=[NSImage imageNamed:@"CrossImg.tif"];
                [[self.ProjektPop itemWithTitle:tempTitel]setImage:CrossImg];
@@ -1056,7 +1050,7 @@ extern NSString* OK;//=@"ok";
    //NSLog(@"setKommentarFuerLeser:%@		FuerAufnahme:%@",derLeser, dieAufnahme);
    BOOL istDirectory;
    NSString* tempKommentarPfad=[NSString stringWithString:self.AdminProjektPfad];
-   NSString* KommentarOrdnerString=NSLocalizedString(@"Comments",@"Anmerkungen");
+   NSString* KommentarOrdnerString=NSLocalizedString(@"Anmerkungen",@"Anmerkungen");
    NSString* KommentarString;
    tempKommentarPfad=[tempKommentarPfad stringByAppendingPathComponent:Leser];
    [self.AdminKommentarView setString:@""];
@@ -1171,7 +1165,7 @@ extern NSString* OK;//=@"ok";
       }
       
    }
-   NSString* KommentarOrdnerString=NSLocalizedString(@"Comments",@"Anmerkungen");
+   NSString* KommentarOrdnerString=NSLocalizedString(@"Anmerkungen",@"Anmerkungen");
    NSString* tempAdminKommentarPfad=[[self.AdminProjektPfad copy] stringByAppendingPathComponent:tempLeser];
    NSString* tempKommentarString;
    NSString* tempKopfString;
@@ -1381,7 +1375,7 @@ extern NSString* OK;//=@"ok";
    NSString* tempAdminAufnahmePfad=[NSString stringWithString:self.AdminProjektPfad];
    tempAdminAufnahmePfad=[tempAdminAufnahmePfad stringByAppendingPathComponent:tempLeser];
    
-   NSString* KommentarOrdnerString=NSLocalizedString(@"Comments",@"Anmerkungen");
+   NSString* KommentarOrdnerString=NSLocalizedString(@"Anmerkungen",@"Anmerkungen");
    NSString* tempAdminKommentarPfad=[[self.AdminProjektPfad copy] stringByAppendingPathComponent:tempLeser];
    NSString* tempKommentarString;
    NSString* tempKopfString;
@@ -1456,7 +1450,7 @@ extern NSString* OK;//=@"ok";
       tempAdminAufnahmePfad=[tempAdminAufnahmePfad stringByAppendingPathComponent:tempAufnahme];
       
    }
-   NSString* KommentarOrdnerString=NSLocalizedString(@"Comments",@"Anmerkungen");
+   NSString* KommentarOrdnerString=NSLocalizedString(@"Anmerkungen",@"Anmerkungen");
    NSString* tempAdminKommentarPfad=[[self.AdminProjektPfad copy] stringByAppendingPathComponent:tempLeser];
    NSString* tempKommentarString;
    NSString* tempKopfString;
@@ -1825,7 +1819,7 @@ extern NSString* OK;//=@"ok";
 {
    BOOL istMarkiert=NO;
    NSFileManager *Filemanager=[NSFileManager defaultManager];
-   NSString* AnmerkungenPfad=[[derAufnahmePfad stringByDeletingLastPathComponent] stringByAppendingPathComponent:NSLocalizedString(@"Comments",@"Anmerkungen")];
+   NSString* AnmerkungenPfad=[[derAufnahmePfad stringByDeletingLastPathComponent] stringByAppendingPathComponent:NSLocalizedString(@"Anmerkungen",@"Anmerkungen")];
    
    AnmerkungenPfad=[AnmerkungenPfad stringByAppendingPathComponent:[derAufnahmePfad lastPathComponent]];
    
@@ -1932,7 +1926,7 @@ extern NSString* OK;//=@"ok";
    if ([Filemanager fileExistsAtPath:tempLeserArchivPfad isDirectory:&istOrdner]&&istOrdner)//Ordner ist da
    {
       // Markierung in Anmerkungen loeschen
-      NSString* tempAnmerkungenPfad=[tempLeserArchivPfad stringByAppendingPathComponent:NSLocalizedString(@"Comments",@"Anmerkungen")];
+      NSString* tempAnmerkungenPfad=[tempLeserArchivPfad stringByAppendingPathComponent:NSLocalizedString(@"Anmerkungen",@"Anmerkungen")];
       if ([Filemanager fileExistsAtPath:tempAnmerkungenPfad isDirectory:&istOrdner]&&istOrdner)//Ordner ist da
       {
          NSLog(@"Anmerkungen sind da");
@@ -1944,9 +1938,9 @@ extern NSString* OK;//=@"ok";
             {
                [tempAnmerkungenArray removeObjectAtIndex:0];
             }
-            if ([tempAnmerkungenArray containsObject:NSLocalizedString(@"Comments",@"Anmerkungen")]) // Ordner Kommentar entfernen
+            if ([tempAnmerkungenArray containsObject:NSLocalizedString(@"Anmerkungen",@"Anmerkungen")]) // Ordner Kommentar entfernen
             {
-               [tempAnmerkungenArray removeObject:NSLocalizedString(@"Comments",@"Anmerkungen")];
+               [tempAnmerkungenArray removeObject:NSLocalizedString(@"Anmerkungen",@"Anmerkungen")];
             }
             
             NSEnumerator* AnmerkungenEnum=[tempAnmerkungenArray objectEnumerator];
@@ -1985,9 +1979,9 @@ extern NSString* OK;//=@"ok";
          {
             [tempAufnahmenArray removeObjectAtIndex:0];
          }
-         if ([tempAufnahmenArray containsObject:NSLocalizedString(@"Comments",@"Anmerkungen")]) // Ordner Kommentar entfernen
+         if ([tempAufnahmenArray containsObject:NSLocalizedString(@"Anmerkungen",@"Anmerkungen")]) // Ordner Kommentar entfernen
          {
-            [tempAufnahmenArray removeObject:NSLocalizedString(@"Comments",@"Anmerkungen")];
+            [tempAufnahmenArray removeObject:NSLocalizedString(@"Anmerkungen",@"Anmerkungen")];
          }
          
       }//count
@@ -2206,7 +2200,7 @@ extern NSString* OK;//=@"ok";
          int result=[self fileInPapierkorb:tempAufnahmePfad];//0 ist OK
          NSLog(@"inPapierkorb result von Aufnahme: %d",result);
       }
-      NSString* tempKommentarPfad=[tempLeserPfad stringByAppendingPathComponent:NSLocalizedString(@"Comments",@"Anmerkungen")];
+      NSString* tempKommentarPfad=[tempLeserPfad stringByAppendingPathComponent:NSLocalizedString(@"Anmerkungen",@"Anmerkungen")];
       if ([Filemanager fileExistsAtPath:tempKommentarPfad isDirectory:&istDirectory]&&istDirectory)
       {
          tempKommentarPfad=[tempKommentarPfad stringByAppendingPathComponent:self.AdminAktuelleAufnahme];
@@ -2238,7 +2232,7 @@ extern NSString* OK;//=@"ok";
          int result=[self fileInPapierkorb:tempAufnahmePfad];//0 ist OK
          //NSLog(@"inPapierkorb result von Aufnahme: %d",result);
       }
-      NSString* tempKommentarOrdnerPfad=[tempLeserOrdnerPfad stringByAppendingPathComponent:NSLocalizedString(@"Comments",@"Anmerkungen")];
+      NSString* tempKommentarOrdnerPfad=[tempLeserOrdnerPfad stringByAppendingPathComponent:NSLocalizedString(@"Anmerkungen",@"Anmerkungen")];
       if ([Filemanager fileExistsAtPath:tempKommentarOrdnerPfad isDirectory:&istDirectory]&&istDirectory)
       {
          NSString* tempKommentarPfad=[tempKommentarOrdnerPfad stringByAppendingPathComponent:[tempAufnahmePfad lastPathComponent]];
@@ -2291,7 +2285,7 @@ extern NSString* OK;//=@"ok";
          BOOL result=[Filemanager moveItemAtURL:[NSURL fileURLWithPath:tempAufnahmePfad]  toURL:[NSURL fileURLWithPath:tempZielPfad] error:nil];
          NSLog(@"result von Aufnahme insMagazin: %d",result);
       }
-      NSString* tempMagazinKommentarPfad=[tempLeserPfad stringByAppendingPathComponent:NSLocalizedString(@"Comments",@"Anmerkungen")];
+      NSString* tempMagazinKommentarPfad=[tempLeserPfad stringByAppendingPathComponent:NSLocalizedString(@"Anmerkungen",@"Anmerkungen")];
       NSArray* Inhalt=[Filemanager contentsOfDirectoryAtPath:tempMagazinKommentarPfad error:NULL];
       //NSLog(@"tempKommentarPfad: %@",[Inhalt description]);
       
@@ -2359,7 +2353,7 @@ extern NSString* OK;//=@"ok";
                  
                  NSLog(@"result von Aufnahme insMagazin: %d",result);
               }
-      NSString* tempMagazinKommentarPfad=[tempLeserPfad stringByAppendingPathComponent:NSLocalizedString(@"Comments",@"Anmerkungen")];
+      NSString* tempMagazinKommentarPfad=[tempLeserPfad stringByAppendingPathComponent:NSLocalizedString(@"Anmerkungen",@"Anmerkungen")];
       NSArray* Inhalt=[Filemanager contentsOfDirectoryAtPath:tempMagazinKommentarPfad error:NULL];
       //NSLog(@"tempKommentarPfad: %@",[Inhalt description]);
       
@@ -2404,7 +2398,7 @@ extern NSString* OK;//=@"ok";
          int result=[Filemanager removeItemAtURL:[NSURL fileURLWithPath:tempAufnahmePfad] error:nil];
          NSLog(@"result von Aufnahme: %d",result);
       }
-      NSString* tempKommentarPfad=[tempLeserPfad stringByAppendingPathComponent:NSLocalizedString(@"Comments",@"Anmerkungen")];
+      NSString* tempKommentarPfad=[tempLeserPfad stringByAppendingPathComponent:NSLocalizedString(@"Anmerkungen",@"Anmerkungen")];
       if ([Filemanager fileExistsAtPath:tempKommentarPfad isDirectory:&istDirectory]&&istDirectory)
       {
          tempKommentarPfad=[tempKommentarPfad stringByAppendingPathComponent:self.AdminAktuelleAufnahme];
@@ -2436,7 +2430,7 @@ extern NSString* OK;//=@"ok";
          int result=[Filemanager removeItemAtURL:[NSURL fileURLWithPath:tempAufnahmePfad]error:nil];
          NSLog(@"ex: result von Aufnahme: %d",result);
       }
-      NSString* tempKommentarPfad=[tempLeserPfad stringByAppendingPathComponent:NSLocalizedString(@"Comments",@"Anmerkungen")];
+      NSString* tempKommentarPfad=[tempLeserPfad stringByAppendingPathComponent:NSLocalizedString(@"Anmerkungen",@"Anmerkungen")];
       if ([Filemanager fileExistsAtPath:tempKommentarPfad isDirectory:&istDirectory]&&istDirectory)
       {
          tempKommentarPfad=[tempKommentarPfad stringByAppendingPathComponent:[tempAufnahmePfad lastPathComponent]];
@@ -2500,7 +2494,7 @@ extern NSString* OK;//=@"ok";
    
    if ([Filemanager fileExistsAtPath:LeserPfad isDirectory:&istDirectory]&&istDirectory)
 	  {
-        NSString* LeserKommentarPfad=[LeserPfad stringByAppendingPathComponent:NSLocalizedString(@"Comments",@"Anmerkungen")];//Kommentarordner des Lesers
+        NSString* LeserKommentarPfad=[LeserPfad stringByAppendingPathComponent:NSLocalizedString(@"Anmerkungen",@"Anmerkungen")];//Kommentarordner des Lesers
         NSMutableArray* AufnahmenArray=[[Filemanager contentsOfDirectoryAtPath:LeserPfad error:NULL]mutableCopy];
         if ([AufnahmenArray count])
         {
@@ -2509,7 +2503,7 @@ extern NSString* OK;//=@"ok";
               [AufnahmenArray removeObjectAtIndex:0];
            }
            int Kommentarindex=-1;
-           Kommentarindex=[AufnahmenArray indexOfObject:NSLocalizedString(@"Comments",@"Anmerkungen")];
+           Kommentarindex=[AufnahmenArray indexOfObject:NSLocalizedString(@"Anmerkungen",@"Anmerkungen")];
            if (!(Kommentarindex==-1))
            {
               NSLog(@"Kommentarordner da");
@@ -2632,7 +2626,7 @@ extern NSString* OK;//=@"ok";
 - (void)alertDidEnd:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo
 {
    //NSLog(@"returnCode: %d  contextInfo: %@: ",returnCode,contextInfo);
-   NSString* locKommentar=NSLocalizedString(@"Comments",@"Anmerkungen");
+   NSString* locKommentar=NSLocalizedString(@"Anmerkungen",@"Anmerkungen");
    NSFileManager *Filemanager=[NSFileManager defaultManager];
    if ([(__bridge NSString*)contextInfo isEqualToString:@"TextchangedWarnung"])
 	  {
@@ -2721,7 +2715,7 @@ extern NSString* OK;//=@"ok";
                     [self.zurListeTaste setEnabled:NO];
                  }
                  NSString* KommentarPfad=[[self.AdminPlayPfad copy] stringByDeletingLastPathComponent];
-                 KommentarPfad=[KommentarPfad stringByAppendingPathComponent:NSLocalizedString(@"Comments",@"Anmerkungen")];
+                 KommentarPfad=[KommentarPfad stringByAppendingPathComponent:NSLocalizedString(@"Anmerkungen",@"Anmerkungen")];
                  if ([Filemanager fileExistsAtPath:KommentarPfad])
                  {
                     KommentarPfad=[KommentarPfad stringByAppendingPathComponent:[self.AdminPlayPfad lastPathComponent]];
@@ -3294,7 +3288,7 @@ extern NSString* OK;//=@"ok";
    
    if (self.Textchanged)
    {
-      NSString* s1=NSLocalizedString(@"Comments",@"Anmerkungen");
+      NSString* s1=NSLocalizedString(@"Anmerkungen",@"Anmerkungen");
       NSString* s2=NSLocalizedString(@"Save",@"Sichern");
       NSString* s3=NSLocalizedString(@"Don't Save",@"Nicht sichern");
       NSString* s4=NSLocalizedString(@"The Comments for the actuel record are not yet saved",@"Die Anmerkungen für die aktuelle Aufnahme sind noch nicht gesichert.");
@@ -3614,7 +3608,7 @@ extern NSString* OK;//=@"ok";
    NSString* titel=NSLocalizedString(@"Title:",@"Titel:");
    NSString* bewertung=NSLocalizedString(@"Assessment:",@"Bewertung:");
    
-   NSString* anmerkungen=NSLocalizedString(@"Comments",@"Anmerkungen:");
+   NSString* anmerkungen=NSLocalizedString(@"Anmerkungen",@"Anmerkungen:");
    NSString* note=NSLocalizedString(@"Mark:",@"Note:");
    NSString* tabSeparator=@"\t";
    NSString* crSeparator=@"\r";
@@ -4002,9 +3996,9 @@ extern NSString* OK;//=@"ok";
          while (einProjektDic=[ProjektArrayEnum nextObject])
          {
             //NSLog(@"		Nur aktive Projekte: %@",[einProjektDic description]);
-            if ([einProjektDic objectForKey:@"ok"])
+            if ([einProjektDic objectForKey:@"OK"])
             {
-               if ([[einProjektDic objectForKey:@"ok"]boolValue]&&[einProjektDic objectForKey:@"projektpfad"])
+               if ([[einProjektDic objectForKey:@"OK"]boolValue]&&[einProjektDic objectForKey:@"projektpfad"])
                {
                   NSString* tempProjektName=[[einProjektDic objectForKey:@"projektpfad"]lastPathComponent];
                   NSString* tempProjektPfad=[einProjektDic objectForKey:@"projektpfad"];
@@ -4027,7 +4021,7 @@ extern NSString* OK;//=@"ok";
          while (einProjektDic=[ProjektArrayEnum nextObject])
          {
             //NSLog(@"		alle Projekte: %@",[einProjektDic description]);
-            if ([einProjektDic objectForKey:@"ok"])
+            if ([einProjektDic objectForKey:@"OK"])
             {
                if ([einProjektDic objectForKey:@"projektpfad"])
                {
@@ -4129,9 +4123,9 @@ extern NSString* OK;//=@"ok";
                   while (einProjektDic=[ProjektArrayEnum nextObject])
                   {
                      //NSLog(@"		Nur aktive Projekte: %@",[einProjektDic description]);
-                     if ([einProjektDic objectForKey:@"ok"])
+                     if ([einProjektDic objectForKey:@"OK"])
                      {
-                        if ([[einProjektDic objectForKey:@"ok"]boolValue]&&[einProjektDic objectForKey:@"projektpfad"])
+                        if ([[einProjektDic objectForKey:@"OK"]boolValue]&&[einProjektDic objectForKey:@"projektpfad"])
                         {
                            NSString* tempProjektName=[[einProjektDic objectForKey:@"projektpfad"]lastPathComponent];
                            NSString* tempProjektPfad=[einProjektDic objectForKey:@"projektpfad"];
@@ -4372,9 +4366,9 @@ extern NSString* OK;//=@"ok";
             while (einProjektDic=[ProjektArrayEnum nextObject])
             {
                //NSLog(@"		Nur aktive Projekte: %@",[einProjektDic description]);
-               if ([einProjektDic objectForKey:@"ok"])
+               if ([einProjektDic objectForKey:@"OK"])
                {
-                  if ([[einProjektDic objectForKey:@"ok"]boolValue]&&[einProjektDic objectForKey:@"projektpfad"])
+                  if ([[einProjektDic objectForKey:@"OK"]boolValue]&&[einProjektDic objectForKey:@"projektpfad"])
                   {
                      NSString* tempProjektName=[[einProjektDic objectForKey:@"projektpfad"]lastPathComponent];
                      NSString* tempProjektPfad=[einProjektDic objectForKey:@"projektpfad"];
@@ -4415,7 +4409,7 @@ extern NSString* OK;//=@"ok";
             while (einProjektDic=[ProjektArrayEnum nextObject])
             {
                //NSLog(@"		Alle Projekte: %@",[einProjektDic description]);
-               if ([einProjektDic objectForKey:@"ok"])
+               if ([einProjektDic objectForKey:@"OK"])
                {
                   if ([einProjektDic objectForKey:@"projektpfad"])
                   {
@@ -4473,9 +4467,9 @@ extern NSString* OK;//=@"ok";
          while (einProjektDic=[ProjektArrayEnum nextObject])
          {
             //NSLog(@"		Nur aktive Projekte: %@",[einProjektDic description]);
-            if ([einProjektDic objectForKey:@"ok"])
+            if ([einProjektDic objectForKey:@"OK"])
             {
-               if ([[einProjektDic objectForKey:@"ok"]boolValue]&&[einProjektDic objectForKey:@"projektpfad"])
+               if ([[einProjektDic objectForKey:@"OK"]boolValue]&&[einProjektDic objectForKey:@"projektpfad"])
                {
                   NSString* tempProjektName=[[einProjektDic objectForKey:@"projektpfad"]lastPathComponent];
                   NSString* tempProjektPfad=[einProjektDic objectForKey:@"projektpfad"];
@@ -4498,7 +4492,7 @@ extern NSString* OK;//=@"ok";
          while (einProjektDic=[ProjektArrayEnum nextObject])
          {
             //NSLog(@"		Nur aktive Projekte: %@",[einProjektDic description]);
-            if ([einProjektDic objectForKey:@"ok"])
+            if ([einProjektDic objectForKey:@"OK"])
             {
                if ([einProjektDic objectForKey:@"projektpfad"])
                {
@@ -4542,7 +4536,7 @@ extern NSString* OK;//=@"ok";
    BOOL erfolg;
    BOOL istDirectory;
    NSString* crSeparator=@"\r";
-   NSString* locKommentar=NSLocalizedString(@"Comments",@"Anmerkungen");
+   NSString* locKommentar=NSLocalizedString(@"Anmerkungen",@"Anmerkungen");
    
    NSFileManager *Filemanager=[NSFileManager defaultManager];
    //NSLog(@"KommentareVonLeser : LeserPfad: %@ mitTitel: %@",derLeser,derTitel);
@@ -4557,7 +4551,7 @@ extern NSString* OK;//=@"ok";
         //NSLog(@":   tempAufnahmen roh: %@",[tempAufnahmen description]);
         if ([tempAufnahmen count])//Aufnahmen vorhanden
         {
-           int KommentarIndex=NSNotFound;
+           NSUInteger KommentarIndex=NSNotFound;
            KommentarIndex=[tempAufnahmen indexOfObject:locKommentar];
            if (!(KommentarIndex==NSNotFound))
            {
@@ -4650,7 +4644,7 @@ extern NSString* OK;//=@"ok";
    NSFileManager *Filemanager=[NSFileManager defaultManager];
    //NSLog(@"KommentarZuAufnahme: dieAufnahme: %@  derLeser: %@ ",dieAufnahme,derLeser);
    //NSMutableArray* KommentareMitTitelVonLeserArray=[[NSMutableArray alloc]initWithCapacity:0];
-   NSString* locKommentar=NSLocalizedString(@"Comments",@"Anmerkungen");
+   NSString* locKommentar=NSLocalizedString(@"Anmerkungen",@"Anmerkungen");
    NSString* tempProjektPfad=[self.AdminArchivPfad stringByAppendingPathComponent:[derProjektPfad lastPathComponent]];
    
    NSString* LeserPfad=[tempProjektPfad stringByAppendingPathComponent:derLeser];
@@ -4661,7 +4655,7 @@ extern NSString* OK;//=@"ok";
         //NSLog(@":   tempAufnahmen roh: %@",[tempAufnahmen description]);
         if ([tempAufnahmen count])//Aufnahmen vorhanden
         {
-           int KommentarIndex=NSNotFound;
+           NSUInteger KommentarIndex=NSNotFound;
            KommentarIndex=[tempAufnahmen indexOfObject:locKommentar];
            if (!(KommentarIndex==NSNotFound))
            {
@@ -4700,7 +4694,7 @@ extern NSString* OK;//=@"ok";
    NSFileManager *Filemanager=[NSFileManager defaultManager];
    //NSLog(@"KommentareMitTitel: mitTitel: %@  LeserPfad: %@ ",derTitel,derLeser);
    NSMutableArray* KommentareMitTitelVonLeserArray=[[NSMutableArray alloc]initWithCapacity:0];
-   NSString* locKommentar=NSLocalizedString(@"Comments",@"Anmerkungen");
+   NSString* locKommentar=NSLocalizedString(@"Anmerkungen",@"Anmerkungen");
    NSString* tempProjektPfad=[self.AdminArchivPfad stringByAppendingPathComponent:[derProjektPfad lastPathComponent]];
    
    NSString* LeserPfad=[tempProjektPfad stringByAppendingPathComponent:derLeser];
@@ -4710,9 +4704,9 @@ extern NSString* OK;//=@"ok";
         //NSLog(@":   tempAufnahmen roh: %@",[tempAufnahmen description]);
         if ([tempAufnahmen count])//Aufnahmen vorhanden
         {
-           int KommentarIndex=NSNotFound;
+           NSUInteger KommentarIndex=NSNotFound;
            KommentarIndex=[tempAufnahmen indexOfObject:locKommentar];
-           if (!(KommentarIndex==NSNotFound))
+           if (!(KommentarIndex == NSNotFound))
            {
               [tempAufnahmen removeObjectAtIndex:KommentarIndex];//Kommentarordner aus Array entfernen
            }
@@ -4781,7 +4775,7 @@ extern NSString* OK;//=@"ok";
    NSLog(@"alleKommentareZuTitel: Titel: %@",derTitel);
    BOOL erfolg;
    BOOL istDirectory;
-   NSString* locKommentar=NSLocalizedString(@"Comments",@"Anmerkungen");
+   NSString* locKommentar=NSLocalizedString(@"Anmerkungen",@"Anmerkungen");
    NSMutableArray* alleKommentareArray=[[NSMutableArray alloc]initWithCapacity:0];
    
    NSFileManager *Filemanager=[NSFileManager defaultManager];
@@ -4906,7 +4900,7 @@ extern NSString* OK;//=@"ok";
 {
    BOOL erfolg;
    BOOL istDirectory;
-   NSString* locKommentar=NSLocalizedString(@"Comments",@"Anmerkungen");
+   NSString* locKommentar=NSLocalizedString(@"Anmerkungen",@"Anmerkungen");
    
    NSFileManager *Filemanager=[NSFileManager defaultManager];
    NSLog(@"lastKommentarVon: LeserPfad: %@ anPfad: %@",derLeser,derProjektPfad);
@@ -4924,9 +4918,9 @@ extern NSString* OK;//=@"ok";
         if (tempAufnahmen && [tempAufnahmen count])//Aufnahmen vorhanden
         {
            NSLog(@"tempAufnahmen: %@",[tempAufnahmen description]);
-           int KommentarIndex=NSNotFound;
+           NSUInteger KommentarIndex = NSNotFound;
            KommentarIndex=[tempAufnahmen indexOfObject:locKommentar];
-           if (!(KommentarIndex==NSNotFound))
+           if (!(KommentarIndex == NSNotFound))
            {
               //[tempAufnahmen removeObjectAtIndex:KommentarIndex];
            }
@@ -5005,7 +4999,7 @@ extern NSString* OK;//=@"ok";
    NSString* crSeparator=@"\r";
    if ([Filemanager fileExistsAtPath:LeserPfad])//Ordner des Lesers ist da
 	  {
-        NSString* LeserKommentarPfad=[LeserPfad stringByAppendingPathComponent:NSLocalizedString(@"Comments",@"Anmerkungen")];
+        NSString* LeserKommentarPfad=[LeserPfad stringByAppendingPathComponent:NSLocalizedString(@"Anmerkungen",@"Anmerkungen")];
         //Kommentarordner des Lesers
         //NSLog(@"alleKommentareVonLeser: LeserPfad: %@",LeserKommentarPfad);
         if ([Filemanager fileExistsAtPath:LeserKommentarPfad isDirectory:&istDirectory]&&istDirectory)//Ordner des Lesers ist da)
@@ -5155,7 +5149,7 @@ extern NSString* OK;//=@"ok";
    NSString* LeserPfad=[self.AdminProjektPfad stringByAppendingPathComponent:derLeser];//Leserordner im Archiv
    if ([Filemanager fileExistsAtPath:LeserPfad])
 	  {
-        NSString* LeserKommentarPfad=[LeserPfad stringByAppendingPathComponent:NSLocalizedString(@"Comments",@"Anmerkungen")];//Kommentarordner des Lesers
+        NSString* LeserKommentarPfad=[LeserPfad stringByAppendingPathComponent:NSLocalizedString(@"Anmerkungen",@"Anmerkungen")];//Kommentarordner des Lesers
         //NSLog(@"lastKommentarVon: LeserPfad: %@",LeserKommentarPfad);
         if ([Filemanager fileExistsAtPath:LeserKommentarPfad isDirectory:&istDirectory]&&istDirectory)//Ordner des Lesers ist da)
         {
@@ -5258,7 +5252,7 @@ extern NSString* OK;//=@"ok";
    NSFileManager *Filemanager=[NSFileManager defaultManager];
    
    NSMutableArray* tempTitelArray=[[NSMutableArray alloc]initWithCapacity:0];
-   NSString* locKommentar=NSLocalizedString(@"Comments",@"Anmerkungen");
+   NSString* locKommentar=NSLocalizedString(@"Anmerkungen",@"Anmerkungen");
    NSString* tempProjektPfad=[self.AdminArchivPfad stringByAppendingPathComponent:[derProjektPfad lastPathComponent]];
    
    NSString* LeserPfad=[tempProjektPfad stringByAppendingPathComponent:derLeser];
@@ -5270,9 +5264,9 @@ extern NSString* OK;//=@"ok";
         tempAufnahmenArray=(NSMutableArray*)[Filemanager contentsOfDirectoryAtPath:LeserPfad error:NULL];
         if ([tempAufnahmenArray count])//Aufnahmen vorhanden
         {
-           int KommentarIndex=NSNotFound;
+           int KommentarIndex=(int)NSNotFound;
            KommentarIndex=[tempAufnahmenArray indexOfObject:locKommentar];
-           if (!(KommentarIndex==NSNotFound))
+           if (!(KommentarIndex==(int)NSNotFound))
            {
               [tempAufnahmenArray removeObjectAtIndex:KommentarIndex];//Kommentarordner aus Liste entfernen
            }
@@ -5337,11 +5331,11 @@ extern NSString* OK;//=@"ok";
    NSFileManager *Filemanager=[NSFileManager defaultManager];
    
    NSMutableArray* tempTitelArray=[[NSMutableArray alloc]initWithCapacity:0];
-   NSString* locKommentar=NSLocalizedString(@"Comments",@"Anmerkungen");
+   NSString* locKommentar=NSLocalizedString(@"Anmerkungen",@"Anmerkungen");
    NSString* tempProjektPfad=[self.AdminArchivPfad stringByAppendingPathComponent:[derProjektPfad lastPathComponent]];
    
    NSString* LeserPfad=[tempProjektPfad stringByAppendingPathComponent:derLeser];
-   NSString* KommentarString=NSLocalizedString(@"Comments",@"Anmerkungen");
+   NSString* KommentarString=NSLocalizedString(@"Anmerkungen",@"Anmerkungen");
    NSString* LeserKommentarPfad=[LeserPfad stringByAppendingPathComponent:KommentarString];//Kommentarordner des Lesers
    BOOL KommentarordnerDa=[Filemanager fileExistsAtPath:LeserKommentarPfad];
    if ([Filemanager fileExistsAtPath:LeserPfad]&&KommentarordnerDa)//Ordner des Lesers und der Kommentarordner ist da
@@ -5350,9 +5344,9 @@ extern NSString* OK;//=@"ok";
         tempAufnahmenArray=(NSMutableArray*)[Filemanager contentsOfDirectoryAtPath:LeserPfad error:NULL];
         if ([tempAufnahmenArray count])//Aufnahmen vorhanden
         {
-           int KommentarIndex=NSNotFound;
+           int KommentarIndex=(int)NSNotFound;
            KommentarIndex=[tempAufnahmenArray indexOfObject:locKommentar];
-           if (!(KommentarIndex==NSNotFound))
+           if (!(KommentarIndex==(int)NSNotFound))
            {
               [tempAufnahmenArray removeObjectAtIndex:KommentarIndex];//Zeile mit Kommentarordner aus Liste entfernen
            }
@@ -5481,7 +5475,7 @@ extern NSString* OK;//=@"ok";
    NSFileManager *Filemanager=[NSFileManager defaultManager];
    
    NSMutableArray* tempLeserArray=[[NSMutableArray alloc]initWithCapacity:0];
-   NSString* locKommentar=NSLocalizedString(@"Comments",@"Anmerkungen");
+   NSString* locKommentar=NSLocalizedString(@"Anmerkungen",@"Anmerkungen");
    
    NSEnumerator* enumerator=[self.AdminProjektNamenArray objectEnumerator];
    id einLeser;
@@ -5496,9 +5490,9 @@ extern NSString* OK;//=@"ok";
          tempAufnahmenArray=(NSMutableArray*)[Filemanager contentsOfDirectoryAtPath:LeserPfad error:NULL];
          if ([tempAufnahmenArray count])//Aufnahmen vorhanden
          {
-            int KommentarIndex=NSNotFound;
+            int KommentarIndex=(int)NSNotFound;
             KommentarIndex=[tempAufnahmenArray indexOfObject:locKommentar];
-            if (!(KommentarIndex==NSNotFound))
+            if (!(KommentarIndex==(int)NSNotFound))
             {
                [tempAufnahmenArray removeObjectAtIndex:KommentarIndex];//Kommentarordner aus Liste entfernen
             }
@@ -5569,7 +5563,7 @@ extern NSString* OK;//=@"ok";
    NSFileManager *Filemanager=[NSFileManager defaultManager];
    
    NSMutableArray* tempLeserArray=[[NSMutableArray alloc]initWithCapacity:0];
-   //NSString* locKommentar=NSLocalizedString(@"Comments",@"Anmerkungen");
+   //NSString* locKommentar=NSLocalizedString(@"Anmerkungen",@"Anmerkungen");
    
    NSMutableArray* tempProjektNamenArray=[[NSMutableArray alloc]initWithCapacity:0];
    
@@ -5596,7 +5590,7 @@ extern NSString* OK;//=@"ok";
    NSFileManager *Filemanager=[NSFileManager defaultManager];
    
    NSMutableArray* tempLeserArray=[[NSMutableArray alloc]initWithCapacity:0];
-   NSString* locKommentar=NSLocalizedString(@"Comments",@"Anmerkungen");
+   NSString* locKommentar=NSLocalizedString(@"Anmerkungen",@"Anmerkungen");
    
    NSMutableArray* tempProjektNamenArray=[[NSMutableArray alloc]initWithCapacity:0];
    NSString* tempProjektPfad=[self.AdminArchivPfad stringByAppendingPathComponent:[derProjektPfad lastPathComponent]];
@@ -5624,9 +5618,9 @@ extern NSString* OK;//=@"ok";
             tempAufnahmenArray=(NSMutableArray*)[Filemanager contentsOfDirectoryAtPath:LeserPfad error:NULL];
             if ([tempAufnahmenArray count])//Aufnahmen vorhanden
             {
-               int KommentarIndex=NSNotFound;
+               int KommentarIndex=(int)NSNotFound;
                KommentarIndex=[tempAufnahmenArray indexOfObject:locKommentar];
-               if (!(KommentarIndex==NSNotFound))
+               if (!(KommentarIndex==(int)NSNotFound))
                {
                   [tempAufnahmenArray removeObjectAtIndex:KommentarIndex];//Kommentarordner aus Liste entfernen
                }
@@ -5701,16 +5695,16 @@ extern NSString* OK;//=@"ok";
    NSLog(@"lastKommentarVonLeser: LeserPfad: %@ mitTitel: %@",derLeser,derTitel);
    NSString* letzteAufnahme=@"xxx";
    NSString* lastKommentarMitTitelString=[NSString string];
-   NSString* locKommentar=NSLocalizedString(@"Comments",@"Anmerkungen");
+   NSString* locKommentar=NSLocalizedString(@"Anmerkungen",@"Anmerkungen");
    NSString* LeserPfad=[self.AdminProjektPfad stringByAppendingPathComponent:derLeser];
    if ([Filemanager fileExistsAtPath:LeserPfad])//Ordner des Lesers ist da
 	  {
         NSMutableArray* tempAufnahmen=(NSMutableArray*)[Filemanager contentsOfDirectoryAtPath:LeserPfad error:NULL];
         if ([tempAufnahmen count])//Aufnahmen vorhanden
         {
-           int KommentarIndex=NSNotFound;
+           int KommentarIndex=(int)NSNotFound;
            KommentarIndex=[tempAufnahmen indexOfObject:locKommentar];
-           if (!(KommentarIndex==NSNotFound))
+           if (!(KommentarIndex==(int)NSNotFound))
            {
               [tempAufnahmen removeObjectAtIndex:KommentarIndex];//Kommentarordner aus Array entfernen
            }
@@ -5776,7 +5770,7 @@ extern NSString* OK;//=@"ok";
    
    NSMutableArray* tempTitelArray=[[NSMutableArray alloc]initWithCapacity:0];
    NSMutableArray* tempTitelDicArray=[[NSMutableArray alloc]initWithCapacity:0];
-   NSString* locKommentar=NSLocalizedString(@"Comments",@"Anmerkungen");
+   NSString* locKommentar=NSLocalizedString(@"Anmerkungen",@"Anmerkungen");
    NSString* LeserPfad=[self.AdminProjektPfad stringByAppendingPathComponent:derLeser];
    //NSString* LeserKommentarPfad=[LeserPfad stringByAppendingPathComponent:kommentar];//Kommentarordner des Lesers
    
@@ -5787,9 +5781,9 @@ extern NSString* OK;//=@"ok";
         tempAufnahmenArray=(NSMutableArray*)[Filemanager contentsOfDirectoryAtPath:LeserPfad error:NULL];
         if ([tempAufnahmenArray count])//Aufnahmen vorhanden
         {
-           int KommentarIndex=NSNotFound;
+           int KommentarIndex=(int)NSNotFound;
            KommentarIndex=[tempAufnahmenArray indexOfObject:locKommentar];
-           if (!(KommentarIndex==NSNotFound))
+           if (!(KommentarIndex==(int)NSNotFound))
            {
               [tempAufnahmenArray removeObjectAtIndex:KommentarIndex];//Kommentarordner aus Liste entfernen
            }
@@ -5887,7 +5881,7 @@ extern NSString* OK;//=@"ok";
    
    NSMutableArray* tempTitelArray=[[NSMutableArray alloc]initWithCapacity:0];
    NSMutableArray* tempTitelDicArray=[[NSMutableArray alloc]initWithCapacity:0];
-   NSString* locKommentar=NSLocalizedString(@"Comments",@"Anmerkungen");
+   NSString* locKommentar=NSLocalizedString(@"Anmerkungen",@"Anmerkungen");
    NSString* tempProjektPfad=[self.AdminArchivPfad stringByAppendingPathComponent:[derProjektPfad lastPathComponent]];
    
    NSString* LeserPfad=[tempProjektPfad stringByAppendingPathComponent:derLeser];
@@ -5900,9 +5894,9 @@ extern NSString* OK;//=@"ok";
         tempAufnahmenArray=(NSMutableArray*)[Filemanager contentsOfDirectoryAtPath:LeserPfad error:NULL];
         if ([tempAufnahmenArray count])//Aufnahmen vorhanden
         {
-           int KommentarIndex=NSNotFound;
+           int KommentarIndex=(int)NSNotFound;
            KommentarIndex=[tempAufnahmenArray indexOfObject:locKommentar];
-           if (!(KommentarIndex==NSNotFound))
+           if (!(KommentarIndex==(int)NSNotFound))
            {
               [tempAufnahmenArray removeObjectAtIndex:KommentarIndex];//Kommentarordner aus Liste entfernen
            }
@@ -6527,13 +6521,13 @@ extern NSString* OK;//=@"ok";
    if (tempAufnahmenArray)
    {
       [tempAufnahmenArray removeObject:@".DS_Store"];
-      [tempAufnahmenArray removeObject:NSLocalizedString(@"Comments",@"Anmerkungen")];
+      [tempAufnahmenArray removeObject:NSLocalizedString(@"Anmerkungen",@"Anmerkungen")];
    }
    
    //NSLog(@"tempAufnahmenArray: %@",[tempAufnahmenArray description]);
    
    
-   NSString* tempLeserKommentarPfad=[tempLeserPfad stringByAppendingPathComponent:NSLocalizedString(@"Comments",@"Anmerkungen")];
+   NSString* tempLeserKommentarPfad=[tempLeserPfad stringByAppendingPathComponent:NSLocalizedString(@"Anmerkungen",@"Anmerkungen")];
    //NSLog(@"tempLeserKommentarPfad: %@",tempLeserKommentarPfad);
    NSMutableArray* tempKommentarArray=[[NSMutableArray alloc] initWithArray:[Filemanager contentsOfDirectoryAtPath:tempLeserKommentarPfad error:NULL]];
    if (tempKommentarArray)
@@ -7572,9 +7566,9 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
                     {
                        [tempAufnahmenArray removeObjectAtIndex:0];
                     }
-                    if ([tempAufnahmenArray containsObject:NSLocalizedString(@"Comments",@"Anmerkungen")]) // Ordner Kommentar entfernen
+                    if ([tempAufnahmenArray containsObject:NSLocalizedString(@"Anmerkungen",@"Anmerkungen")]) // Ordner Kommentar entfernen
                     {
-                       [tempAufnahmenArray removeObject:NSLocalizedString(@"Comments",@"Anmerkungen")];
+                       [tempAufnahmenArray removeObject:NSLocalizedString(@"Anmerkungen",@"Anmerkungen")];
                     }
                     //NSLog(@"Clean*** tempAufnahmenArray: %@",[tempAufnahmenArray description]);
                     //tempAufnahmenArray=(NSMutableArray*)[self sortNachNummer:tempAufnahmenArray];
@@ -9154,9 +9148,9 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
                   {
                      [tempAufnahmenArray removeObjectAtIndex:0];
                   }
-                  if ([tempAufnahmenArray containsObject:NSLocalizedString(@"Comments",@"Anmerkungen")]) // Ordner Kommentar entfernen
+                  if ([tempAufnahmenArray containsObject:NSLocalizedString(@"Anmerkungen",@"Anmerkungen")]) // Ordner Kommentar entfernen
                   {
-                     [tempAufnahmenArray removeObject:NSLocalizedString(@"Comments",@"Anmerkungen")];
+                     [tempAufnahmenArray removeObject:NSLocalizedString(@"Anmerkungen",@"Anmerkungen")];
                   }
                   //NSLog(@"Clean*** tempAufnahmenArray: %@",[tempAufnahmenArray description]);
                   //tempAufnahmenArray=(NSMutableArray*)[self sortNachNummer:tempAufnahmenArray];

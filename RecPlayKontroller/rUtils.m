@@ -14,7 +14,7 @@ extern NSString* projektpfad;//=@"projektpfad";
 extern NSString* archivpfad;//=@"archivpfad";
 extern NSString* leseboxpfad;//=@"leseboxpfad";
 extern NSString* projektarray;//=@"projektarray";
-extern NSString* OK;//=@"ok";
+extern NSString* OK;//=@"OK";
 */
 @implementation rUtils
 
@@ -210,7 +210,7 @@ Die Dics enthalten den Pfad und eine Anzeige für die Lesebox
 
 	NSString* lb=NSLocalizedString(@"Lesebox",@"Lesebox");
    //NSString* lb=@"Lesebox";
-	NSString* cb=NSLocalizedString(@"Comments",@"Anmerkungen");
+	NSString* cb=NSLocalizedString(@"Anmerkungen",@"Anmerkungen");
 	
 	NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
 	NSMutableArray * UserMitLeseboxArray=[NSMutableArray arrayWithCapacity:0];
@@ -222,18 +222,18 @@ Die Dics enthalten den Pfad und eine Anzeige für die Lesebox
 	[HomeDic setObject:HomeLeseboxPfad forKey:@"userleseboxpfad"];
 	[HomeDic setObject:[NSNumber numberWithBool:YES] forKey:@"loginOK"];
 //HomeLeseboxPfad = @"/Users/ruediheimlicher/Documents/Lesebox";
-	NSLog(@"cb: %@  Lesebox: %@ HomeLeseboxPfad: %@",cb,lb,HomeLeseboxPfad);
+	//NSLog(@"cb: %@  Lesebox: %@ HomeLeseboxPfad: %@",cb,lb,HomeLeseboxPfad);
 	
 	int HomeLeseboxOK=0;
 	if ([Filemanager fileExistsAtPath:HomeLeseboxPfad isDirectory:&istOrdner]&&istOrdner)//Lesebox vorhaanden auf home
 		{
-			NSLog(@"HomeLeseboxPfad: %@",HomeLeseboxPfad);
+			NSLog(@"Utils HomeLeseboxPfad: %@",HomeLeseboxPfad);
 			HomeLeseboxOK=2;//Lesebox ist da
 			NSDictionary *HomeAttrs = [Filemanager attributesOfItemAtPath:HomeLeseboxPfad error:NULL];
 			  if (HomeAttrs) 
 				{
                NSString* AccountName = [HomeAttrs objectForKey:NSFileOwnerAccountName];
-               NSLog(@"HomeLeseboxPfad: AccountName: %@",AccountName);
+               //NSLog(@"Utils HomeLeseboxPfad: AccountName: %@",AccountName);
 				//NSLog(@"HomeLeseboxPfad: HomeAttrs: %@",[HomeAttrs description]);
 				  
 				}
@@ -1698,7 +1698,7 @@ return versionOK;
 					//NSLog(@"tempNamenordnerPfad: %@ erfolg: %d",tempNamenordnerPfad, erfolg);
 					if (erfolg)
 					{
-						NSString* tempAnmerkungenOrdnerPfad= [tempNamenordnerPfad stringByAppendingPathComponent:NSLocalizedString(@"Comments",@"Anmerkungen")];
+						NSString* tempAnmerkungenOrdnerPfad= [tempNamenordnerPfad stringByAppendingPathComponent:NSLocalizedString(@"Anmerkungen",@"Anmerkungen")];
 						erfolg=[Filemanager createDirectoryAtPath:tempAnmerkungenOrdnerPfad  withIntermediateDirectories:NO attributes:NULL error:NULL];
 						//NSLog(@"tempAnmerkungenOrdnerPfad: %@ erfolg: %d",tempNamenordnerPfad, erfolg);
 					
@@ -2178,7 +2178,7 @@ NSLog(@"EinzelNamenArray>: %@",[a description]);
 				id einProjekt;
 				while (einProjekt=[ProjektEnum nextObject])
 				{
-					if ([[einProjekt objectForKey:@"ok"]intValue]==1)
+					if ([[einProjekt objectForKey:@"OK"]intValue]==1)
 					{
 						NSString* tempProjektPfad=[UArchivPfad stringByAppendingPathComponent:[einProjekt objectForKey:@"projekt"]];
 						NSEnumerator* NamenEnum=[tempNeueNamenArray objectEnumerator];
@@ -2210,7 +2210,7 @@ NSLog(@"EinzelNamenArray>: %@",[a description]);
 					id einProjekt;
 					while (einProjekt=[ProjektEnum nextObject])
 					{
-						//if ([[einProjekt objectForKey:@"ok"]intValue]==1)
+						//if ([[einProjekt objectForKey:@"OK"]intValue]==1)
 						{
 							NSString* tempProjektPfad=[UArchivPfad stringByAppendingPathComponent:[einProjekt objectForKey:@"projekt"]];
 							NSEnumerator* NamenEnum=[tempNeueNamenArray objectEnumerator];
@@ -2468,7 +2468,7 @@ if (UTimeoutDialogPanel)
 	}
 	NSString* tempAufnahme=[derAufnahmePfad lastPathComponent];	//Name der Aufnahme
 	NSString* tempLeserOrdnerPfad=[derAufnahmePfad stringByDeletingLastPathComponent];	//Leserordnerpfad
-	NSString* KommentarOrdnerString=NSLocalizedString(@"Comments",@"Anmerkungen");
+	NSString* KommentarOrdnerString=NSLocalizedString(@"Anmerkungen",@"Anmerkungen");
 	NSString* tempKommentarOrdnerPfad=[tempLeserOrdnerPfad stringByAppendingPathComponent:KommentarOrdnerString];
 				//Pfad des Anmerkungen-Ordners
 	if (![Filemanager fileExistsAtPath:tempKommentarOrdnerPfad isDirectory:&istDirectory])//noch kein Kommentarordner des Lesers ist da
