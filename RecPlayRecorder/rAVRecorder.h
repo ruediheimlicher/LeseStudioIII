@@ -40,9 +40,8 @@
    NSURL *  tempfileURL;
    NSString* tempDirPfad;
    float AufnahmeLevelWert;
-   NSTimer* AufnahmeTimer;
-   NSTimer* WiedergabeTimer;
 
+   
 
 }
 

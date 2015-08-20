@@ -212,7 +212,12 @@ extern  NSMenu*                      ProjektMenu;
           selector:@selector(LevelmeterAktion:)
               name:@"levelmeter"
             object:nil];
-   
+
+   [nc addObserver:self
+          selector:@selector(RecordingAktion:)
+              name:@"recording"
+            object:nil];
+
    
    [nc addObserver:self
           selector:@selector(ListeAktualisierenAktion:)
@@ -220,8 +225,10 @@ extern  NSMenu*                      ProjektMenu;
             object:nil];
    
    
-   
-   
+   [nc addObserver:self
+          selector:@selector(RecordingAktion2:)
+              name:@"AVCaptureSessionDidStartRunningNotification"
+            object:nil];
 
 
    BOOL success = NO;
@@ -499,6 +506,38 @@ extern  NSMenu*                      ProjektMenu;
   // AVRecorder
    
 
+   
+}
+
+
+- (void)RecordingAktion2:(NSNotification*)note{
+   NSLog(@"RecordingAktion note: %@",note);
+   if ([[note userInfo ]objectForKey:@"record"])
+   {
+      switch([[[note userInfo ] objectForKey:@"record"]intValue])
+      {
+         case 0:
+         {
+            NSLog(@"RecordingAktion Aufnahme stop");
+            if ([AufnahmeTimer isValid])
+            {
+               NSLog(@"RecordingAktion Timer valid");
+               [AufnahmeTimer invalidate];
+            }
+         }break;
+            
+         case 1:
+         {
+            NSLog(@"RecordingAktion Aufnahme start");
+            
+            AufnahmeTimer=[NSTimer scheduledTimerWithTimeInterval:1.0
+                                                           target:self
+                                                         selector:@selector(AufnahmeTimerFunktion:)
+                                                         userInfo:nil
+                                                          repeats:YES];
+         }break;
+      }// switch
+   }
    
 }
 
@@ -862,11 +901,7 @@ extern  NSMenu*                      ProjektMenu;
    }
    
    
-   if ([self.AufnahmezeitTimer isValid])
-   {
-      [self.AufnahmezeitTimer invalidate];
-   }
-   /*
+    /*
     AufnahmezeitTimer=[NSTimer scheduledTimerWithTimeInterval:1.0
     target:self
     selector:@selector(setAufnahmetimerfunktion:)

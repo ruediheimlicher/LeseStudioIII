@@ -12,14 +12,49 @@
 
 - (void)AufnahmeTimerFunktion:(NSTimer*)derTimer
 {
-   NSLog(@"AufnahmeTimerFunktion");
+  // NSLog(@"AufnahmeTimerFunktion");
+   if (aufnahmetimerstatus)
+   {
+      AufnahmeZeit++;
+      
+      int Minuten = AufnahmeZeit/60;
+      int Sekunden =AufnahmeZeit%60;
+      
+      NSString* MinutenString;
+      
+      NSString* SekundenString;
+      if (Sekunden<10)
+      {
+         SekundenString=[NSString stringWithFormat:@"0%d",Sekunden];
+      }
+      else
+      {
+         SekundenString=[NSString stringWithFormat:@"%d",Sekunden];
+      }
+      if (Minuten<10)
+      {
+         MinutenString=[NSString stringWithFormat:@"0%d",Minuten];
+      }
+      else
+      {
+         MinutenString=[NSString stringWithFormat:@"%d",Minuten];
+      }
+      [self.Zeitfeld setStringValue:[NSString stringWithFormat:@"%@:%@",MinutenString, SekundenString]];
+   }
+   
 }
 
 
 - (IBAction)startAVRecord:(id)sender
 {
+  AufnahmeTimer=[NSTimer scheduledTimerWithTimeInterval:1.0
+                                                       target:self
+                                                     selector:@selector(AufnahmeTimerFunktion:)
+                                                     userInfo:nil
+                                                      repeats:YES];
+   aufnahmetimerstatus=0;
    
-   if ([self isRecording])
+   if ([AVRecorder isRecording])
    {
       NSLog(@"Aufnahme in Gang");
       return;
@@ -42,13 +77,13 @@
    {
       AVRecorder.RecorderFenster = [self.view window];
       [AVRecorder setRecording:YES];
-   } // if AVRecorder
-   NSTimer* AufnahmeTimer=[NSTimer scheduledTimerWithTimeInterval:1.0
-                                                  target:self
-                                                selector:@selector(AufnahmeTimerFunktion:)
-                                                userInfo:nil
-                                                 repeats:YES];
-
+    // if AVRecorder
+      AufnahmeZeit=0;
+   
+  
+   }
+   
+   
    return;
    /*
     [RecordQTKitPlayer setMovie:[QTMovie movie]];
@@ -191,7 +226,7 @@
 
 - (BOOL)isRecording
 {
-   return 0;//([mCaptureMovieFileOutput outputFileURL] != nil);
+   return [AVRecorder isRecording];//([mCaptureMovieFileOutput outputFileURL] != nil);
 }
 
 #pragma mark startAVStop
@@ -240,39 +275,46 @@
    
    float l=0;
    
-   return;
-   //NSLog(@"updateAudioLevels l: %2.1f",l);
    
    
    
-   NSString* TimeString=@"";
-   // 0:00:00:15.18434/22050
-   NSArray* TimeArray=[TimeString componentsSeparatedByString:@":"];
-   
-   NSString* MinutenString=[TimeArray objectAtIndex:2];
-   int Sekunden=[[TimeArray objectAtIndex:3]intValue];
-   NSString* SekundenString;
-   if (Sekunden<10)
-   {
-      SekundenString=[NSString stringWithFormat:@"0%d",Sekunden];
-   }
-   else
-   {
-      SekundenString=[NSString stringWithFormat:@"%d",Sekunden];
-   }
-   //NSLog(@"updateAudioLevels Min: %@ Sek: %@",MinutenString, SekundenString);
-   
-   
-   //QTTime aktuelleZeit = [mCaptureMovieFileOutput  recordedDuration];
-   //float floatZeit=(float)aktuelleZeit.timeValue/aktuelleZeit.timeScale;
-   //NSLog(@"floatZeit : %2.0f",floatZeit );
-   //NSString* ZeitString=[NSString stringWithFormat:@"%2.0f",floatZeit];
-   //NSLog(@"ZeitString: %@",ZeitString);
-   //	NSLog(@"recordedDuration: %2.2f",(float)[mCaptureMovieFileOutput  recordedDuration].timeValue/1000);
-   //	NSValue* ZeitVal=[NSValue valueWithQTTime:aktuelleZeit];
-   //NSLog(@"aktuelleZeit timescale: %d",aktuelleZeit.timeScale );
-   [self.Zeitfeld setStringValue:[NSString stringWithFormat:@"%@:%@",MinutenString, SekundenString]];
-   // recordedDuration
 }
 
+- (void)RecordingAktion:(NSNotification*)note{
+   NSLog(@"RecordingAktion note: %@",note);
+   if ([[note userInfo ]objectForKey:@"record"])
+   {
+      switch([[[note userInfo ] objectForKey:@"record"]intValue])
+      {
+         case 0:
+         {
+            NSLog(@"RecordingAktion Aufnahme stop");
+            aufnahmetimerstatus=0;
+            if ([AufnahmeTimer isValid])
+            {
+               NSLog(@"RecordingAktion Timer valid");
+           //    [AufnahmeTimer invalidate];
+            }
+         }break;
+            
+         case 1:
+         {
+            NSLog(@"RecordingAktion Aufnahme start");
+            aufnahmetimerstatus=1;
+            AufnahmeZeit = 0;
+/*
+            AufnahmeTimer=[NSTimer scheduledTimerWithTimeInterval:1.0
+                                                           target:self
+                                                         selector:@selector(AufnahmeTimerFunktion:)
+                                                         userInfo:nil
+                                                         repeats:YES];
+  */
+         }break;
+      }// switch
+   }
+   
+}
+-(void)onTick:(NSTimer *)timer {
+   NSLog(@"AufnahmeTimerFunktion");
+}
 @end

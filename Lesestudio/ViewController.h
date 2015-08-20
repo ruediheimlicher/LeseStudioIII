@@ -57,7 +57,12 @@
    NSString *	RPStartStatusKey;
 
 
-
+//   NSTimer* AufnahmeTimer;
+   NSTimer* WiedergabeTimer;
+   int      AufnahmeZeit;
+   int      WiedergabeZeit;
+   NSTimer *AufnahmeTimer;
+   int aufnahmetimerstatus;
 }
 
 
@@ -172,12 +177,18 @@
 @property BOOL									InputDeviceOK;
 
 @property NSTimer *							timer;
-@property NSTimer *							AufnahmezeitTimer;
+
+
 @property NSTimer *							AbspielzeitTimer;
 @property UInt32								GesamtAufnahmezeit;
 @property NSTimer								*audioLevelTimer;
 @property NSTimer								*playBalkenTimer;
 @property NSTimer								*playArchivBalkenTimer;
+
+@property(nonatomic, retain) NSTimer *	tempTimer;
+
+
+
 
 @property UInt32								Aufnahmedauer;
 @property UInt32								GesamtAbspielzeit;
@@ -226,6 +237,8 @@
 @property int									RPDevicedatenlaenge;
 @property int									Wert1, Wert2, Wert3;
 @property int									aktuellAnzAufnahmen;
+
+
 
 - (IBAction)startPlay:(id)sender;
 
@@ -292,5 +305,6 @@
 - (IBAction)startAVStop:(id)sender;
 - (BOOL)isRecording;
 - (void)updateAudioLevels:(float)level;
+- (void)RecordingAktion:(NSNotification*)note;
 @end // AVRecorder
 

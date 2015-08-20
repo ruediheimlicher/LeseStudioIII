@@ -216,7 +216,9 @@
          dispatch_async(dispatch_get_main_queue(), ^(void) {
             [NSApp presentError:error];
          });
-      } else {
+      }
+      else
+      {
          if (![selectedVideoDevice supportsAVCaptureSessionPreset:[session sessionPreset]])
             [[self session] setSessionPreset:AVCaptureSessionPresetHigh];
          
@@ -247,7 +249,8 @@
       [self setAudioDeviceInput:nil];
    }
    
-   if (selectedAudioDevice && ![self selectedVideoDeviceProvidesAudio]) {
+   if (selectedAudioDevice && ![self selectedVideoDeviceProvidesAudio])
+   {
       NSError *error = nil;
       
       // Create a device input for the device and add it to the session
@@ -256,7 +259,9 @@
          dispatch_async(dispatch_get_main_queue(), ^(void) {
             [NSApp presentError:error];
          });
-      } else {
+      }
+      else
+      {
          if (![selectedAudioDevice supportsAVCaptureSessionPreset:[session sessionPreset]])
             [[self session] setSessionPreset:AVCaptureSessionPresetHigh];
          
@@ -404,7 +409,7 @@
 {
    if (record)
    {
-      
+     // [self refreshDevices];
      // NSString* tempPfad =[[tempDirPfad stringByAppendingPathComponent:@"tempAufnahme"] stringByAppendingPathExtension:@"mov"];
      NSString* tempPfad =[tempDirPfad  stringByAppendingPathExtension:@"mov"];
       
@@ -419,12 +424,12 @@
       [[self session] stopRunning];
       
       // Set movie file output delegate to nil to avoid a dangling pointer
-      [[self movieFileOutput] setDelegate:nil];
+     // [[self movieFileOutput] setDelegate:nil];
       
       // Remove Observers
       NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-      for (id observer in [self observers])
-         [notificationCenter removeObserver:observer];
+      //for (id observer in [self observers])
+       //  [notificationCenter removeObserver:observer];
 
    }
 }
@@ -594,27 +599,25 @@ NSError *error = nil;
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didStartRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections
 {
    NSLog(@"Did start recording to %@", [fileURL description]);
-   if ([AufnahmeTimer isValid])
-   {
-      [AufnahmeTimer invalidate];
-   }
-   AufnahmeTimer=[NSTimer scheduledTimerWithTimeInterval:1.0
-                                                       target:self
-                                                     selector:@selector(AufnahmeTimerFunktion:)
-                                                     userInfo:nil
-                                                      repeats:YES];
   
-   NSLog(@"Did start recording nach timer");
+   NSNotificationCenter * nc=[NSNotificationCenter defaultCenter];
+   [nc postNotificationName:@"recording" object:self userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:1] forKey:@"record"]];
+
 }
 
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didPauseRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections
 {
    NSLog(@"Did pause recording to %@", [fileURL description]);
+   
+   
 }
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didResumeRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections
 {
+   NSNotificationCenter * nc=[NSNotificationCenter defaultCenter];
+   [nc postNotificationName:@"recording" object:self userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:2] forKey:@"record"]];
+
    NSLog(@"Did resume recording to %@", [fileURL description]);
 }
 
@@ -627,6 +630,11 @@ NSError *error = nil;
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)recordError
 {
+   NSLog(@"didFinishRecordingToOutputFileAtURL");
+   NSNotificationCenter * nc=[NSNotificationCenter defaultCenter];
+   [nc postNotificationName:@"recording" object:self userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:0] forKey:@"record"]];
+
+   
    if (recordError != nil && [[[recordError userInfo] objectForKey:AVErrorRecordingSuccessfullyFinishedKey] boolValue] == NO)
    {
       [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:nil];
@@ -637,6 +645,7 @@ NSError *error = nil;
    else
    
    {
+      
       // Move the recorded temporary file to a user-specified location
       //     NSSavePanel *savePanel = [NSSavePanel savePanel];
       //  [savePanel setAllowedFileTypes:[NSArray arrayWithObject:AVFileTypeQuickTimeMovie]];
@@ -670,7 +679,9 @@ NSError *error = nil;
        }];
       
    }
-   [[self session] stopRunning];
+   AVCaptureInput* input = [[self session].inputs objectAtIndex:0];
+   //[[self session] removeInput:input];
+   //[[self session] stopRunning];
 }
 
 - (BOOL)captureOutputShouldProvideSampleAccurateRecordingStart:(AVCaptureOutput *)captureOutput

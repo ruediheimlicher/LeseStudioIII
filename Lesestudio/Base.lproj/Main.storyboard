@@ -480,7 +480,7 @@
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="196" y="240" width="480" height="799"/>
+                        <rect key="contentRect" x="196" y="240" width="480" height="388"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
                         <connections>
                             <outlet property="delegate" destination="B8D-0N-5wS" id="yd3-zY-82N"/>
@@ -493,7 +493,7 @@
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="35" y="492.5"/>
+            <point key="canvasLocation" x="35" y="287"/>
         </scene>
         <!--Admin Player Controller-->
         <scene sceneID="Y1Q-uc-aBh">
@@ -550,7 +550,7 @@
                                                                     <button verticalHuggingPriority="750" id="g7c-nT-Ggg">
                                                                         <rect key="frame" x="18" y="30" width="227" height="25"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
-                                                                        <buttonCell key="cell" type="squareTextured" title="START" bezelStyle="texturedSquare" image="AFC991DC-321E-4639-9C08-151513A80754" imagePosition="only" alignment="justified" borderStyle="border" inset="2" id="XSb-7M-gme">
+                                                                        <buttonCell key="cell" type="squareTextured" title="START" bezelStyle="texturedSquare" image="DF57C756-4E7A-4CD8-AB5C-40E95E33C50B" imagePosition="only" alignment="justified" borderStyle="border" inset="2" id="XSb-7M-gme">
                                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                             <font key="font" metaFont="system"/>
                                                                             <string key="keyEquivalent">r</string>
@@ -563,7 +563,7 @@
                                                                     <button verticalHuggingPriority="750" id="T2J-tL-6Tw">
                                                                         <rect key="frame" x="181" y="2" width="67" height="25"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
-                                                                        <buttonCell key="cell" type="squareTextured" title="STOP" bezelStyle="texturedSquare" image="B7960EDF-691D-4978-8DDC-3EA041596157" imagePosition="overlaps" alignment="justified" borderStyle="border" inset="2" id="Ai7-HV-adA">
+                                                                        <buttonCell key="cell" type="squareTextured" title="STOP" bezelStyle="texturedSquare" image="63551365-FDF1-4EB5-8B83-82E79F293913" imagePosition="overlaps" alignment="justified" borderStyle="border" inset="2" id="Ai7-HV-adA">
                                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                             <font key="font" metaFont="system"/>
                                                                             <string key="keyEquivalent">r</string>
@@ -608,7 +608,7 @@
                                                                     <button verticalHuggingPriority="750" id="WaE-Ry-p4Q">
                                                                         <rect key="frame" x="18" y="1" width="67" height="25"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
-                                                                        <buttonCell key="cell" type="squareTextured" title="START" bezelStyle="texturedSquare" image="B627783C-23D1-41C8-BCE7-3258A79B172D" imagePosition="overlaps" alignment="justified" borderStyle="border" inset="2" id="MaY-Od-qAq">
+                                                                        <buttonCell key="cell" type="squareTextured" title="START" bezelStyle="texturedSquare" image="A1C7418B-613A-4E6C-BA18-50102B203F87" imagePosition="overlaps" alignment="justified" borderStyle="border" inset="2" id="MaY-Od-qAq">
                                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                             <font key="font" metaFont="system"/>
                                                                             <string key="keyEquivalent">r</string>
@@ -1194,7 +1194,7 @@
                         <outlet property="StartPlayKnopf" destination="nhz-X7-zQD" id="euE-ey-1ra"/>
                         <outlet property="StopPlayKnopf" destination="jGr-kK-oIS" id="PqZ-0l-qZp"/>
                         <outlet property="TitelPop" destination="lRt-I6-2KK" id="GyQ-xF-DbS"/>
-                        <outlet property="Zeitfeld" destination="PYR-dB-vrZ" id="wbl-ug-cvi"/>
+                        <outlet property="Zeitfeld" destination="Ddc-uw-6ac" id="G5i-gY-S3R"/>
                         <outlet property="audioLevelMeter" destination="zOr-VQ-C0f" id="gMI-Ty-KGP"/>
                         <outlet property="playerView" destination="nrD-HQ-Z3B" id="FSP-aW-RWm"/>
                     </connections>
@@ -1205,7 +1205,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="AFC991DC-321E-4639-9C08-151513A80754" width="1" height="1">
+        <image name="63551365-FDF1-4EB5-8B83-82E79F293913" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -1223,7 +1223,7 @@ AhACGAIlAioCLAIuAjMCOwI+AkMCSwJOAmACYwJoAAAAAAAAAgEAAAAAAAAAQgAAAAAAAAAAAAAAAAAA
 Amo
 </mutableData>
         </image>
-        <image name="B627783C-23D1-41C8-BCE7-3258A79B172D" width="1" height="1">
+        <image name="A1C7418B-613A-4E6C-BA18-50102B203F87" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -1241,7 +1241,7 @@ AhACGAIlAioCLAIuAjMCOwI+AkMCSwJOAmACYwJoAAAAAAAAAgEAAAAAAAAAQgAAAAAAAAAAAAAAAAAA
 Amo
 </mutableData>
         </image>
-        <image name="B7960EDF-691D-4978-8DDC-3EA041596157" width="1" height="1">
+        <image name="DF57C756-4E7A-4CD8-AB5C-40E95E33C50B" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
