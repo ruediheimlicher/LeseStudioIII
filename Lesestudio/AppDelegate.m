@@ -114,6 +114,10 @@ enum
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
    // Insert code here to tear down your application
+   NSMutableDictionary* BeendenDic=[[NSMutableDictionary alloc]initWithCapacity:0];
+   [BeendenDic setObject:[NSNumber numberWithInt:1] forKey:@"beenden"];
+   NSNotificationCenter* beendennc=[NSNotificationCenter defaultCenter];
+   [beendennc postNotificationName:@"externbeenden" object:self userInfo:BeendenDic];
 }
 
 #pragma mark - Core Data stack
@@ -125,6 +129,7 @@ enum
 - (NSURL *)applicationDocumentsDirectory {
     // The directory the application uses to store the Core Data store file. This code uses a directory named "RH.Lesestudio" in the user's Application Support directory.
     NSURL *appSupportURL = [[[NSFileManager defaultManager] URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask] lastObject];
+   NSLog(@"applicationDocumentsDirectory: %@",appSupportURL);
     return [appSupportURL URLByAppendingPathComponent:@"RH.Lesestudio"];
 }
 
@@ -186,7 +191,8 @@ enum
     return _persistentStoreCoordinator;
 }
 
-- (NSManagedObjectContext *)managedObjectContext {
+- (NSManagedObjectContext *)managedObjectContext
+{
     // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.)
     if (_managedObjectContext) {
         return _managedObjectContext;
@@ -203,6 +209,13 @@ enum
 }
 
 #pragma mark - Core Data Saving and Undo support
+
+
+- (void)windowWillClose:(NSNotification *)notification
+{
+   NSLog(@"windowWillClose: %@",notification);
+}
+
 
 - (IBAction)saveAction:(id)sender {
     // Performs the save action for the application, which is to send the save: message to the application's managed object context. Any encountered errors are presented to the user.
@@ -265,5 +278,16 @@ enum
 
     return NSTerminateNow;
 }
+
+- (BOOL) applicationShouldTerminateAfterLastWindowClosed: (NSApplication *) theApplication
+{
+   NSMutableDictionary* BeendenDic=[[NSMutableDictionary alloc]initWithCapacity:0];
+   [BeendenDic setObject:[NSNumber numberWithInt:1] forKey:@"beenden"];
+   NSNotificationCenter* beendennc=[NSNotificationCenter defaultCenter];
+   [beendennc postNotificationName:@"externbeenden" object:self userInfo:BeendenDic];
+
+   return NO;
+}
+
 
 @end

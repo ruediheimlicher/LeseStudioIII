@@ -256,6 +256,7 @@ extern  NSMenu*                      ProjektMenu;
 //   [self.RecPlayFenster setDelegate:self];
 //   [self.RecPlayFenster setBackgroundColor:HintergrundFarbe];
    
+   [[self.view window ]setDelegate:self];
    //	NSColor * TitelFarbe=[NSColor whiteColor];
    TitelFont=[NSFont fontWithName:@"Helvetica" size: 36];
    [self.TitelString setFont:TitelFont];
@@ -294,6 +295,7 @@ extern  NSMenu*                      ProjektMenu;
    [[self.RecorderMenu itemWithTag:kRecorderPasswortAndernTag] setTarget:self];//
    [[self.RecorderMenu itemWithTag:kRecorderSettingsTag] setTarget:self];//
 
+   
    
    NSFileManager *Filemanager = [NSFileManager defaultManager];
 
@@ -580,14 +582,15 @@ extern  NSMenu*                      ProjektMenu;
 
 - (void)LevelmeterAktion:(NSNotification*)note
 {
-   NSLog(@"LevelmeterAktion");
+   //NSLog(@"LevelmeterAktion");
    
    if ([[note userInfo]objectForKey:@"level"])
    {
       NSNumber* LevelNumber=[[note userInfo]objectForKey:@"level"];
-      int Level=[LevelNumber intValue];
-      //NSLog(@"Level: %D",Level);
-      [self.Levelmeter setLevel:Level];
+      float Level=[LevelNumber floatValue];
+      //NSLog(@"Level: %2.2f",Level);
+     // [self.Levelmeter setLevel:4*Level];
+      [self updateAudioLevels:Level];
    }
 }
 
@@ -595,7 +598,7 @@ extern  NSMenu*                      ProjektMenu;
 {
    
    BOOL OK=[self beenden];
-   //NSLog(@"windowShouldClose");
+   NSLog(@"BeendenAktion");
    if (OK)
    {
       [Utils setPListBusy:NO anPfad:self.LeseboxPfad];
@@ -676,7 +679,7 @@ extern  NSMenu*                      ProjektMenu;
 - (BOOL)windowShouldClose:(id)sender
 {
    BOOL OK=[self beenden];
-   //NSLog(@"windowShouldClose");
+   NSLog(@"windowShouldClose");
    if (OK)
    {
       [Utils setPListBusy:NO anPfad:self.LeseboxPfad];
@@ -4653,4 +4656,10 @@ QTMovie* qtMovie;
    NSLog(@"setNeuesProjekt");
 }
 
+
+
+- (void)windowWillClose:(NSNotification *)notification
+{
+   NSLog(@"windowWillClose: %@",notification);
+}
 @end

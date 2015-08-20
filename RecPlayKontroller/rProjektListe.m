@@ -138,7 +138,8 @@ if ([ProjektArray count])
 	[InListeTaste setEnabled:NO];
 	[NSApp stopModalWithCode:0];
 	[[self window] orderOut:NULL];
-	}
+	
+}
 	else//noch kein Projekt vorhanden
 	{
 	

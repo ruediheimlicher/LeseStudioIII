@@ -37,8 +37,19 @@
    //NSTimer                          *audioLevelTimer;
    
    NSArray                          *observers;
+   NSURL *  tempfileURL;
+   NSString* tempDirPfad;
+   float AufnahmeLevelWert;
+   NSTimer* AufnahmeTimer;
+   NSTimer* WiedergabeTimer;
+
 
 }
+
+@property (assign) NSWindow *RecorderFenster;
+@property (weak) NSURL* tempDirURL;
+
+
 
 #pragma mark Device Selection
 @property (retain) NSArray *videoDevices;
@@ -62,6 +73,7 @@
 @property (assign) IBOutlet NSView *previewView;
 @property (assign) float previewVolume;
 @property (assign) IBOutlet NSLevelIndicator *audioLevelMeter;
+@property (weak) NSNumber* AudioLevel;
 
 #pragma mark - Transport Controls
 @property (readonly,getter=isPlaying) BOOL playing;
@@ -72,5 +84,8 @@
 - (IBAction)stop:(id)sender;
 - (void)refreshDevices;
 - (void)setTransportMode:(AVCaptureDeviceTransportControlsPlaybackMode)playbackMode speed:(AVCaptureDeviceTransportControlsSpeed)speed forDevice:(AVCaptureDevice *)device;
+-(void)clean;
+- (float)AufnahmeLevel;
+- (void)AufnahmeTimerFunktion:(NSTimer*)derTimer;
 
 @end

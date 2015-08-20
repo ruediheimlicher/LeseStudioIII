@@ -10,6 +10,10 @@
 
 @implementation ViewController (AVRecorder)
 
+- (void)AufnahmeTimerFunktion:(NSTimer*)derTimer
+{
+   NSLog(@"AufnahmeTimerFunktion");
+}
 
 
 - (IBAction)startAVRecord:(id)sender
@@ -36,10 +40,15 @@
    }
    if (AVRecorder)
    {
-      
+      AVRecorder.RecorderFenster = [self.view window];
       [AVRecorder setRecording:YES];
    } // if AVRecorder
-   
+   NSTimer* AufnahmeTimer=[NSTimer scheduledTimerWithTimeInterval:1.0
+                                                  target:self
+                                                selector:@selector(AufnahmeTimerFunktion:)
+                                                userInfo:nil
+                                                 repeats:YES];
+
    return;
    /*
     [RecordQTKitPlayer setMovie:[QTMovie movie]];
@@ -212,5 +221,58 @@
    
 }
 
+- (void)updateAudioLevels:(float)level
+{
+   // Get the mean audio level from the movie file output's audio connections
+   
+   
+   //NSLog(@"Level: %2.2f",level);
+
+
+   if (level > 0)
+   {
+      [self.audioLevelMeter setFloatValue:level];
+   }
+   else
+   {
+      [self.audioLevelMeter setFloatValue:0];
+   }
+   
+   float l=0;
+   
+   return;
+   //NSLog(@"updateAudioLevels l: %2.1f",l);
+   
+   
+   
+   NSString* TimeString=@"";
+   // 0:00:00:15.18434/22050
+   NSArray* TimeArray=[TimeString componentsSeparatedByString:@":"];
+   
+   NSString* MinutenString=[TimeArray objectAtIndex:2];
+   int Sekunden=[[TimeArray objectAtIndex:3]intValue];
+   NSString* SekundenString;
+   if (Sekunden<10)
+   {
+      SekundenString=[NSString stringWithFormat:@"0%d",Sekunden];
+   }
+   else
+   {
+      SekundenString=[NSString stringWithFormat:@"%d",Sekunden];
+   }
+   //NSLog(@"updateAudioLevels Min: %@ Sek: %@",MinutenString, SekundenString);
+   
+   
+   //QTTime aktuelleZeit = [mCaptureMovieFileOutput  recordedDuration];
+   //float floatZeit=(float)aktuelleZeit.timeValue/aktuelleZeit.timeScale;
+   //NSLog(@"floatZeit : %2.0f",floatZeit );
+   //NSString* ZeitString=[NSString stringWithFormat:@"%2.0f",floatZeit];
+   //NSLog(@"ZeitString: %@",ZeitString);
+   //	NSLog(@"recordedDuration: %2.2f",(float)[mCaptureMovieFileOutput  recordedDuration].timeValue/1000);
+   //	NSValue* ZeitVal=[NSValue valueWithQTTime:aktuelleZeit];
+   //NSLog(@"aktuelleZeit timescale: %d",aktuelleZeit.timeScale );
+   [self.Zeitfeld setStringValue:[NSString stringWithFormat:@"%@:%@",MinutenString, SekundenString]];
+   // recordedDuration
+}
 
 @end

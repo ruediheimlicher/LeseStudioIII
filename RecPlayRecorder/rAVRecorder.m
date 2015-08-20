@@ -42,16 +42,41 @@
 @synthesize previewLayer;
 @synthesize audioLevelTimer;
 @synthesize observers;
+@synthesize RecorderFenster;
 
 
 
 - (id)init
 {
    self = [super init];
-   if (self) {
+   if (self)
+   {
+       NSError* err;
+      NSString *fileName = [[NSProcessInfo processInfo] globallyUniqueString];
+      NSLog(@"fileName: %@",fileName  );
+      
+      //NSURL *fileURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:fileName]];
+      tempDirPfad = [NSTemporaryDirectory() stringByAppendingPathComponent:[[NSProcessInfo processInfo] globallyUniqueString]];
+      NSLog(@"tempDirPfad: %@",tempDirPfad);
+      tempfileURL = [NSURL fileURLWithPath:tempDirPfad isDirectory:YES];
+      NSLog(@"tempfileURL: %@",tempfileURL);
+      
+      
+    //  [[NSFileManager defaultManager] createDirectoryAtURL:tempfileURL withIntermediateDirectories:YES attributes:nil error:&err];
+      if (err)
+      {
+         NSLog(@"tempDir err: %@",err);
+      }
+      NSLog(@"tempDirURL: %@",self.tempDirURL);
+      
+      
+      
+      
+      
+      
       // Create a capture session
       session = [[AVCaptureSession alloc] init];
-      
+
       
       // Attach preview to session
       CALayer *previewViewLayer = [[self previewView] layer];
@@ -65,6 +90,8 @@
       // Start the session
       [[self session] startRunning];
       
+      // Start updating the audio level meter
+      [self setAudioLevelTimer:[NSTimer scheduledTimerWithTimeInterval:0.1f target:self selector:@selector(updateAudioLevels:) userInfo:nil repeats:YES]];
 
       
       // Capture Notification Observers
@@ -137,7 +164,7 @@
       */
       // Initial refresh of device list
       [self refreshDevices];
-      NSLog(@"videoDevice: %@",[videoDevice description  ]);
+      //NSLog(@"videoDevice: %@",[videoDevice description  ]);
    }
    return self;
 }
@@ -368,22 +395,25 @@
 
 - (BOOL)isRecording
 {
+   
    return [[self movieFileOutput] isRecording];
 }
+
 
 - (void)setRecording:(BOOL)record
 {
    if (record)
    {
       
-      // Record to a temporary file, which the user will relocate when recording is finished
-      char *tempNameBytes = tempnam([NSTemporaryDirectory() fileSystemRepresentation], "AVRecorder_");
+     // NSString* tempPfad =[[tempDirPfad stringByAppendingPathComponent:@"tempAufnahme"] stringByAppendingPathExtension:@"mov"];
+     NSString* tempPfad =[tempDirPfad  stringByAppendingPathExtension:@"mov"];
       
-      NSString *tempName = [[NSString alloc] initWithBytesNoCopy:(void*)tempNameBytes length:strlen(tempNameBytes) encoding:NSUTF8StringEncoding freeWhenDone:YES];
-     // [[self movieFileOutput] startRecordingToOutputFileURL:[NSURL fileURLWithPath:[tempName stringByAppendingPathExtension:@"mov"]] recordingDelegate:self];
-      NSString* tempPfad =[[NSHomeDirectory()stringByAppendingPathComponent:@"tempAufnahme"] stringByAppendingPathExtension:@"mov"];
-      [[self movieFileOutput] startRecordingToOutputFileURL:[NSURL fileURLWithPath:tempPfad]  recordingDelegate:self];
-   } else
+      NSURL* tempAufnahmeURL = [NSURL  fileURLWithPath:tempPfad];
+      
+      [[self movieFileOutput] startRecordingToOutputFileURL:tempAufnahmeURL  recordingDelegate:self];
+   
+   }
+   else
    {
       [[self movieFileOutput] stopRecording];
       [[self session] stopRunning];
@@ -399,6 +429,10 @@
    }
 }
 
+- (void)AufnahmeTimerFunktion:(NSTimer*)derTimer
+{
+   NSLog(@"AufnahmeTimerFunktion");
+}
 
 
 + (NSSet *)keyPathsForValuesAffectingAvailableSessionPresets
@@ -443,6 +477,7 @@
 
 - (void)updateAudioLevels:(NSTimer *)timer
 {
+   
    NSInteger channelCount = 0;
    float decibels = 0.f;
    
@@ -456,9 +491,17 @@
    
    decibels /= channelCount;
    
-   [[self audioLevelMeter] setFloatValue:(pow(10.f, 0.05f * decibels) * 20.0f)];
-}
+   //[[self audioLevelMeter] setFloatValue:(pow(10.f, 0.05f * decibels) * 20.0f)];
+   AufnahmeLevelWert =2*(pow(10.f, 0.05f * decibels) * 20.0f);
+   
+   NSNotificationCenter * nc=[NSNotificationCenter defaultCenter];
+   [nc postNotificationName:@"levelmeter" object:self userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:(pow(10.f, 0.05f * decibels) * 20.0f)] forKey:@"level"]];
 
+}
+- (float)AufnahmeLevel
+{
+   return AufnahmeLevelWert;
+}
 #pragma mark - Transport Controls
 
 - (IBAction)stop:(id)sender
@@ -540,12 +583,30 @@
    }
 }
 
+- (void)clean
+{
+NSError *error = nil;
+[[NSFileManager defaultManager] removeItemAtURL:self.tempDirURL error:&error];
+   
+}
 #pragma mark - Delegate methods
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didStartRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections
 {
    NSLog(@"Did start recording to %@", [fileURL description]);
+   if ([AufnahmeTimer isValid])
+   {
+      [AufnahmeTimer invalidate];
+   }
+   AufnahmeTimer=[NSTimer scheduledTimerWithTimeInterval:1.0
+                                                       target:self
+                                                     selector:@selector(AufnahmeTimerFunktion:)
+                                                     userInfo:nil
+                                                      repeats:YES];
+  
+   NSLog(@"Did start recording nach timer");
 }
+
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didPauseRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections
 {
@@ -572,32 +633,44 @@
       dispatch_async(dispatch_get_main_queue(), ^(void) {
          [NSApp presentError:recordError];
       });
-   } else {
-      // Move the recorded temporary file to a user-specified location
-      NSSavePanel *savePanel = [NSSavePanel savePanel];
-    //  [savePanel setAllowedFileTypes:[NSArray arrayWithObject:AVFileTypeQuickTimeMovie]];
-      [savePanel setCanSelectHiddenExtension:YES];
-      
-      [savePanel runModal];
-      
-      /*
-      [savePanel beginSheetModalForWindow:[self window] completionHandler:^(NSInteger result) {
-         NSError *error = nil;
-         if (result == NSOKButton) {
-            [[NSFileManager defaultManager] removeItemAtURL:[savePanel URL] error:nil]; // attempt to remove file at the desired save location before moving the recorded file to that location
-            if ([[NSFileManager defaultManager] moveItemAtURL:outputFileURL toURL:[savePanel URL] error:&error]) {
-               [[NSWorkspace sharedWorkspace] openURL:[savePanel URL]];
-            } else {
-               [savePanel orderOut:self];
-               [self presentError:error modalForWindow:[self windowForSheet] delegate:self didPresentSelector:@selector(didPresentErrorWithRecovery:contextInfo:) contextInfo:NULL];
-            }
-         } else {
-            // remove the temporary recording file if it's not being saved
-            [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:nil];
-         }
-      }];
-       */
    }
+   else
+   
+   {
+      // Move the recorded temporary file to a user-specified location
+      //     NSSavePanel *savePanel = [NSSavePanel savePanel];
+      //  [savePanel setAllowedFileTypes:[NSArray arrayWithObject:AVFileTypeQuickTimeMovie]];
+      //     [savePanel setCanSelectHiddenExtension:YES];
+      
+      //      long antwort = [savePanel runModal];
+      //     NSLog(@"antwort: %ld URL: %@",antwort,[savePanel URL]);
+      
+      
+      NSSavePanel *savePanel = [NSSavePanel savePanel];
+      [savePanel beginSheetModalForWindow:[self RecorderFenster] completionHandler:^(NSInteger result)
+       {
+          NSError *error = nil;
+          if (result == NSOKButton) {
+             [[NSFileManager defaultManager] removeItemAtURL:[savePanel URL] error:nil]; // attempt to remove file at the desired save location before moving the recorded file to that location
+             if ([[NSFileManager defaultManager] moveItemAtURL:outputFileURL toURL:[savePanel URL] error:&error]) {
+                [[NSWorkspace sharedWorkspace] openURL:[savePanel URL]];
+             }
+             else
+             
+             {
+                [savePanel orderOut:self];
+                //[self presentError:error modalForWindow:[self RecorderFenster] delegate:self didPresentSelector:@selector(didPresentErrorWithRecovery:contextInfo:) contextInfo:NULL];
+             }
+          }
+          else
+          {
+             // remove the temporary recording file if it's not being saved
+             [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:nil];
+          }
+       }];
+      
+   }
+   [[self session] stopRunning];
 }
 
 - (BOOL)captureOutputShouldProvideSampleAccurateRecordingStart:(AVCaptureOutput *)captureOutput

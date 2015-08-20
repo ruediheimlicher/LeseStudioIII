@@ -79,11 +79,13 @@
 @property (weak) IBOutlet NSLevelIndicator   *LevelMeter;
 
 
-@property NSMutableData*						RPDevicedaten;
+@property NSMutableData*               RPDevicedaten;
 @property NSMutableData*						SystemDevicedaten;
 
 @property (weak)IBOutlet NSSlider *					Volumesteller;
 @property (weak)IBOutlet rLevelmeter*				Levelmeter;
+@property (weak)IBOutlet NSLevelIndicator       *audioLevelMeter;
+
 @property (weak)IBOutlet rAbspielanzeige*			Abspielanzeige;
 
 @property  (weak) IBOutlet NSTextField*				PWFeld;
@@ -242,7 +244,7 @@
 - (IBAction)setTitel:(id)sender;
 - (IBAction)showProjektStart:(id)sender;
 - (IBAction)savePListAktion:(id)sender;
-- (IBAction)anderesProjektMitTitel:(NSString*)derTitel;
+
 
 
 @end
@@ -254,7 +256,7 @@
 - (IBAction)beginAdminPlayer:(id)sender;
 - (IBAction)terminate:(id)sender;
 - (IBAction)ArchivZurListe:(id)sender;
-
+- (IBAction)anderesProjektMitTitel:(NSString*)derTitel;
 
 
 - (BOOL)Leseboxvorbereiten;
@@ -289,5 +291,6 @@
 - (IBAction)stopAVRecord:(id)sender;
 - (IBAction)startAVStop:(id)sender;
 - (BOOL)isRecording;
+- (void)updateAudioLevels:(float)level;
 @end // AVRecorder
 

@@ -274,7 +274,7 @@
    
    if (ProjektListeOK)//
    {
-      NSLog(@"lb vorbereiten nach ProjektListeOK: ProjektListeValidAnPfad: ProjektArray : \n%@",[self.ProjektArray description]);
+      //NSLog(@"lb vorbereiten nach ProjektListeOK: ProjektListeValidAnPfad: ProjektArray : \n%@",[self.ProjektArray description]);
       BOOL Pfadsuchen=YES;
       BOOL istOrdner=NO;
       NSFileManager *Filemanager = [NSFileManager defaultManager];
@@ -462,10 +462,32 @@
         ProjektPanel=[[rProjektListe alloc]init];
      }
    
+   
    NSLog(@"showProjektListe");
    //[ProjektPanel showWindow:self];
+   NSLog(@"showProjektListe nach init:ProjektArray: %@  ",[self.ProjektArray description]);
+   //NSLog(@"showProjektListe nach init:ProjektArray: %@  \nProjektPfad: %@",[ProjektArray description],ProjektPfad);
+   
+   
+   [self.ProjektArray setArray:[Utils ProjektArrayAusPListAnPfad:self.LeseboxPfad]];
+   
+   //[ProjektPanel showWindow:self];
    NSModalSession ProjektSession=[NSApp beginModalSessionForWindow:[ProjektPanel window]];
-   int modalAntwort = [NSApp runModalForWindow:[ProjektPanel window]];
+   
+   if ([self.ProjektArray count])
+   {
+      [ProjektPanel  setProjektListeArray:self.ProjektArray  inProjekt:[self.ProjektPfad lastPathComponent]];
+   }
+   else
+   {
+      
+      //NSLog(@"[ProjektArray count]=0");
+      [ProjektPanel  setProjektListeLeer];
+   }
+   [ProjektPanel  setVomStart:![self checkAdminPW]];
+   
+
+   long modalAntwort = [NSApp runModalForWindow:[ProjektPanel window]];
    
    [NSApp endModalSession:ProjektSession];
    [[ProjektPanel window] orderOut:NULL];
@@ -500,7 +522,7 @@
    //	  [ProjektPanel setMitUserPasswort:mitUserPasswort];
 	  [ProjektPanel  setVomStart:YES];
    
-   int modalAntwort = [NSApp runModalForWindow:[ProjektPanel window]];
+   long modalAntwort = [NSApp runModalForWindow:[ProjektPanel window]];
    //int modalAntwort = [NSApp runModalSession:ProjektSession];
    if (modalAntwort==0)
    {
@@ -512,6 +534,145 @@
    
    [ProjektPanel  setVomStart:YES];
 }
+
+- (void)ProjektListeAktion:(NSNotification*)note
+{
+   //Note von Projektliste über neue Projekte und/oder Änderungen am bestehenden Projektarray
+   //NSLog(@"*ProjektListeAktion startProjektarray aus Panel: %@",[[[note userInfo] objectForKey:@"projektarray"]description]);
+   //ProjektArray
+   NSMutableArray* tempProjektArray=[[[note userInfo] objectForKey:@"projektarray"]mutableCopy];
+   //NSLog(@"\n****ProjektListeAktion projektarray: %@",[[[note userInfo] objectForKey:@"projektarray"]description]);
+   NSLog(@"****      ProjektListeAktion ArchivPfad: %@      tempProjektArray cont: %lu",self.ArchivPfad,(unsigned long)[tempProjektArray count]);
+   self.ProjektPfad=[self.ArchivPfad stringByAppendingPathComponent:[[[note userInfo] objectForKey:@"projekt"]copy]];
+   NSLog(@"\n****   ProjektListeAktion Projektpfad: %@",self.ProjektPfad);
+   if (tempProjektArray)
+   {
+      [self.ProjektArray setArray: tempProjektArray];
+      [self saveNeuenProjektArray:tempProjektArray];
+      [self setProjektMenu];
+//      [AdminPlayer setAdminProjektArray:self.ProjektArray];
+      [self savePListAktion:nil];
+   }
+   
+}
+
+- (void)neuesProjektAktion:(NSNotification*)note
+{
+   //Note von Projektliste über neues Projekt: reportNeuesProjekt
+   BOOL neuesProjektOK=NO;
+   NSMutableDictionary* tempNeuesProjektDic=[[[note userInfo] objectForKey:@"neuesprojektdic"]mutableCopy];
+   NSLog(@"neuesProjektAktion: userInfo: %@",[[note userInfo] description]);
+   
+   //NSLog(@"RPC neuesProjektAktion: tempNeuesProjektDic: %@",[tempNeuesProjektDic description]);
+   //NSString* neuesProjektName=[tempNeuesProjektDic objectForKey:projekt];
+   NSString* neuesProjektName=[tempNeuesProjektDic objectForKey:@"projekt"];
+   NSMutableDictionary* neuesProjektDic;
+   if (neuesProjektName)
+   {
+      if ([neuesProjektName length])
+      {
+         NSString* tempProjektPfad=[self.ArchivPfad stringByAppendingPathComponent:neuesProjektName];
+         NSLog(@"neuesProjektAktion tempProjektPfad: %@",tempProjektPfad);
+         //NSLog(@"ProjektArray ist da: %d",!(ProjektArray==NULL));
+         if (self.ProjektArray&&[self.ProjektArray count])
+         {
+            
+            [Utils setUProjektArray:self.ProjektArray];//Bei Wahl von "Neues Projekt" beim Projektstart ist UProjektArray in Utils noch leer
+         }
+         else
+         {
+            
+         }
+         
+         if ([Utils ProjektOrdnerEinrichtenAnPfad:tempProjektPfad])
+         {
+            NSLog(@"ProjektOrdnerEinrichtenAnPfad: ist OK");
+            
+            neuesProjektDic=[NSMutableDictionary dictionaryWithObject:neuesProjektName forKey:@"projekt"];
+            [neuesProjektDic setObject:[tempProjektPfad copy] forKey:@"projektpfad"];
+            [neuesProjektDic setObject: [NSNumber numberWithInt:1] forKey:@"ok"];//Projekt ist aktiviert
+            [neuesProjektDic setObject:[NSCalendarDate date] forKey:@"sessiondatum"];
+            
+            NSNumber* tempFix=[tempNeuesProjektDic objectForKey:@"fix"];//Titel fix?
+            if (tempFix)
+            {
+               [neuesProjektDic setObject: tempFix forKey:@"fix"];
+               //			[self showTitelListe:NULL];
+            }
+            else
+            {
+               [neuesProjektDic setObject: [NSNumber numberWithInt:0] forKey:@"fix"];
+            }
+            //NSLog(@"neuesProjektAktion neuesProjektDic: %@",[neuesProjektDic description]);
+            
+            NSNumber* tempMitUserPW=[tempNeuesProjektDic objectForKey:@"mituserpw"];//Mit Userpasswort?
+            if (tempMitUserPW)
+            {
+               [neuesProjektDic setObject: tempMitUserPW forKey:@"mituserpw"];
+               //			[self showTitelListe:NULL];
+            }
+            else
+            {
+               [neuesProjektDic setObject: [NSNumber numberWithInt:0] forKey:@"mituserpw"];
+            }
+            //NSLog(@"neuesProjektAktion neuesProjektDic: %@",[neuesProjektDic description]);
+            
+            [self.ProjektArray addObject:neuesProjektDic];
+            
+            neuesProjektOK=YES;
+            NSLog(@"neuesProjektAktion neuesProjektOK: YES");
+         }
+         else
+         {
+            //**
+            //Kein Projektordner eingerichtet
+            NSLog(@"neuesProjektAktion neuesProjektOK: NO kein Pojekt 	ProjektPanel resetPanel");
+            [ProjektPanel resetPanel];
+            neuesProjektOK=NO;
+         }
+         
+      }
+   }
+   
+   if (neuesProjektOK)
+   {
+      [self setProjektMenu];
+      [ProjektPanel setNeuesProjekt];
+      [ProjektPanel setProjektListeArray:self.ProjektArray inProjekt:neuesProjektName];
+      NSLog(@"\n\n                    +++++   neuesProjektAktion Schluss: ProjektArray: %@\n",[self.ProjektArray description]);
+      
+      [self saveNeuesProjekt:neuesProjektDic];
+//      [AdminPlayer setAdminProjektArray:ProjektArray];
+      //29.1.		[self savePListAktion:nil];
+      
+      
+   }//if NeueProjektListeOK
+   else
+   {
+      //NSLog(@"*neuesProjektListeAktion Kein neues Projekt %@",[ProjektArray description]);
+      [ProjektPanel resetPanel];
+   }
+   
+   //8.11.06	[self savePListAktion:nil];
+   
+   //[[ProjektPanel window]close];
+   
+   
+}
+
+- (void)ProjektMenuAktion:(NSNotification*)note
+{
+   //NSLog(@"\n\n************ ProjektMenuAktion : \nNeues Projekt: %@",[[note userInfo] objectForKey:@"projekt"]);
+   NSString* tempProjektString=[NSString stringWithString:[[note userInfo] objectForKey:@"projekt"]];
+   if (tempProjektString)
+   {
+      
+      self.ProjektPfad=(NSMutableString*)[self.ArchivPfad stringByAppendingPathComponent:[[note userInfo] objectForKey:@"projekt"]];
+      [self setProjektMenu];
+   }
+}
+
+
 
 - (IBAction)anderesProjekt:(id)sender
 {
@@ -988,11 +1149,6 @@
 }
 
 
-- (void)ProjektListeAktion:(NSNotification*)note
-{
-   NSLog(@"ProjektListeAktion: %@",[[[note userInfo] objectForKey:@"projektarray"]description]);
-   
-}
 
 - (IBAction)showProjektStart:(id)sender
 {
@@ -2916,7 +3072,7 @@
    }//switch
 }
 
-- (void)showChangeAdminPasswort:(id)sender
+- (IBAction)showChangeAdminPasswort:(id)sender
 {
    
    //NSDictionary* neuesPWDic=[Utils changePasswort:AdminPasswortDic];
