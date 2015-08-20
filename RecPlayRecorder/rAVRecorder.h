@@ -29,6 +29,8 @@
    AVCaptureDeviceInput             *videoDeviceInput;
    AVCaptureDeviceInput             *audioDeviceInput;
    AVCaptureMovieFileOutput            *movieFileOutput;
+    AVCaptureAudioFileOutput            *audioFileOutput;
+   
    AVCaptureAudioPreviewOutput         *audioPreviewOutput;
    
    NSArray                          *videoDevices;
@@ -41,7 +43,7 @@
    NSString* tempDirPfad;
    float AufnahmeLevelWert;
 
-   
+   double startzeit;
 
 }
 
@@ -86,5 +88,5 @@
 -(void)clean;
 - (float)AufnahmeLevel;
 - (void)AufnahmeTimerFunktion:(NSTimer*)derTimer;
-
+- (void)setstartzeit:(double) t;
 @end

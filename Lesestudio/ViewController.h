@@ -63,6 +63,7 @@
    int      WiedergabeZeit;
    NSTimer *AufnahmeTimer;
    int aufnahmetimerstatus;
+   double startzeit;
 }
 
 

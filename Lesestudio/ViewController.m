@@ -511,7 +511,7 @@ extern  NSMenu*                      ProjektMenu;
 
 
 - (void)RecordingAktion2:(NSNotification*)note{
-   NSLog(@"RecordingAktion note: %@",note);
+   //NSLog(@"RecordingAktion note: %@",note);
    if ([[note userInfo ]objectForKey:@"record"])
    {
       switch([[[note userInfo ] objectForKey:@"record"]intValue])

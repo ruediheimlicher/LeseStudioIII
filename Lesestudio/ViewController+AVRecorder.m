@@ -47,11 +47,22 @@
 
 - (IBAction)startAVRecord:(id)sender
 {
-  AufnahmeTimer=[NSTimer scheduledTimerWithTimeInterval:1.0
-                                                       target:self
-                                                     selector:@selector(AufnahmeTimerFunktion:)
-                                                     userInfo:nil
-                                                      repeats:YES];
+   NSLog(@"recording 1 %@",[NSDate date]);
+   NSDate *now = [[NSDate alloc] init];
+   startzeit = (int)now.timeIntervalSince1970;
+   NSLog(@"setRecording startzeit: %ld",startzeit);
+   if ([AufnahmeTimer isValid])
+   {
+      
+   }
+   else
+   {
+      AufnahmeTimer=[NSTimer scheduledTimerWithTimeInterval:1.0
+                                                     target:self
+                                                   selector:@selector(AufnahmeTimerFunktion:)
+                                                   userInfo:nil
+                                                    repeats:YES];
+   }
    aufnahmetimerstatus=0;
    
    if ([AVRecorder isRecording])
@@ -77,39 +88,29 @@
    {
       AVRecorder.RecorderFenster = [self.view window];
       [AVRecorder setRecording:YES];
-    // if AVRecorder
+      // if AVRecorder
       AufnahmeZeit=0;
-   
-  
+      [AVRecorder setstartzeit:startzeit];
    }
    
+   [self.Zeitfeld setStringValue:@"00:00"];
    
-   return;
-   /*
-    [RecordQTKitPlayer setMovie:[QTMovie movie]];
-    if ([[RecordQTKitPlayer movie]duration].timeValue)
-    {
-    QTTime t=[[RecordQTKitPlayer movie]duration];
-    float Zeit=(float)(t.timeValue)/t.timeScale;
-    NSLog(@"startAVRecord schon ein Movie da. duration: %2.2f",Zeit);
-    }
-    */
    [self.Abspieldauerfeld setStringValue:@"0"];
    [self.Abspielanzeige setLevel:0];
    [self.Abspielanzeige setNeedsDisplay:YES];
+   return;
    self.Pause=0;
    
    //int erfolg=[[self RecPlayFenster]makeFirstResponder:[self RecPlayFenster]];
    [[self.TitelPop cell] addItemWithObjectValue:[[self.TitelPop cell]stringValue]];
    [[self.TitelPop cell] setEnabled:NO];
    self. Aufnahmedauer=0;
-   [self.Zeitfeld setStringValue:@"00:00"];
    
    
    self.Leser=[self.ArchivnamenPop titleOfSelectedItem];
-   int n=[self.ArchivnamenPop indexOfSelectedItem];
-   //NSLog(@"Selected Item: %d",n);
-   //NSLog(@"startRecord:Selected Item: %d		Leser: %@",n,Leser);
+   long n=[self.ArchivnamenPop indexOfSelectedItem];
+   NSLog(@"Selected Item: %ld",n);
+   NSLog(@"startRecord:Selected Item: %ld		Leser: %@",n,self.Leser);
    if ([self.ArchivnamenPop indexOfSelectedItem]==0)
    {
       NSAlert *NamenWarnung = [[NSAlert alloc] init];
@@ -135,42 +136,9 @@
    
    NSFileManager *Filemanager=[NSFileManager defaultManager];
    BOOL sauberOK=0;
-   //	sauberOK=[Filemanager removeFileAtPath:neueAufnahmePfad handler:nil];
-   NSMutableDictionary *AufnahmeAttrs = (NSMutableDictionary*)[Filemanager attributesOfItemAtPath:self.neueAufnahmePfad error:NULL];
-   //NSDictionary *AufnahmeAttrs = [Filemanager fileAttributesAtPath:neueAufnahmePfad traverseLink:YES];
-   //NSLog(@"AufnahmeAttrs: %@",[ AufnahmeAttrs description]);
-   NSNumber* POSIX = [AufnahmeAttrs objectForKey:NSFilePosixPermissions];
-			if (POSIX)
-         {
-            NSLog(@"POSIX: %d",	[POSIX intValue]);
-         }
-   //[AufnahmeAttrs setObject:[NSNumber numberWithInt:777] forKey:NSFilePosixPermissions];
-   
-   //[Filemanager setAttributes:AufnahmeAttrs ofItemAtPath:neueAufnahmePfad error: NULL];
-   
-   //	sauberOK=[Filemanager createFileAtPath:neueAufnahmePfad contents:NULL attributes:NULL];
-   //NSLog(@"startAVRecord sauberOK: %d",sauberOK);
    //NSLog(@"startAVRecord neueAufnahmePfad: %@",neueAufnahmePfad);
    NSError* startErr;
-   
-   /*
-    [mCaptureMovieFileOutput recordToOutputFileURL:[NSURL fileURLWithPath:self.hiddenAufnahmePfad]];
-    */
-   
-   self.audioLevelTimer = [NSTimer scheduledTimerWithTimeInterval:0.1
-                                                           target:self
-                                                         selector:@selector(updateAudioLevels:)
-                                                         userInfo:nil
-                                                          repeats:YES];
-   //NSLog(@"startRecording neueAufnahmePfad: %@ audioLevelTimer: %@ ",hiddenAufnahmePfad,[audioLevelTimer description]);
-   //*   uint64 filesize =[movieFileOutput  recordedFileSize];
-   //*/   QTTime duration =[mCaptureMovieFileOutput  recordedDuration];
-   
-   //   QTKitGesamtAufnahmezeit=0;
-   //   QTKitPause=0;
-   //GesamtAufnahmezeit=0;
-   //NSLog(@"Error nach StartRecord:%d",err);
-   [self.StartPlayQTKitKnopf setEnabled:NO];
+     [self.StartPlayQTKitKnopf setEnabled:NO];
    
    
    [self.StopPlayQTKitKnopf setEnabled:NO];
@@ -281,7 +249,7 @@
 }
 
 - (void)RecordingAktion:(NSNotification*)note{
-   NSLog(@"RecordingAktion note: %@",note);
+   //NSLog(@"RecordingAktion note: %@",note);
    if ([[note userInfo ]objectForKey:@"record"])
    {
       switch([[[note userInfo ] objectForKey:@"record"]intValue])
