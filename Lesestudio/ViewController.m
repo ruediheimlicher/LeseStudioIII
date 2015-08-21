@@ -518,7 +518,7 @@ extern  NSMenu*                      ProjektMenu;
       {
          case 0:
          {
-            NSLog(@"RecordingAktion Aufnahme stop");
+            NSLog(@"RecordingAktion2 Aufnahme stop");
             if ([AufnahmeTimer isValid])
             {
                NSLog(@"RecordingAktion Timer valid");
@@ -528,7 +528,7 @@ extern  NSMenu*                      ProjektMenu;
             
          case 1:
          {
-            NSLog(@"RecordingAktion Aufnahme start");
+            NSLog(@"RecordingAktion2 Aufnahme start");
             
             AufnahmeTimer=[NSTimer scheduledTimerWithTimeInterval:1.0
                                                            target:self

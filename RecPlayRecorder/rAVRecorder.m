@@ -44,7 +44,10 @@
 @synthesize observers;
 @synthesize RecorderFenster;
 
-
+- (void)setstartzeit:(double) t
+{
+   startzeit = t;
+}
 
 - (id)init
 {
@@ -68,11 +71,6 @@
          NSLog(@"tempDir err: %@",err);
       }
       NSLog(@"tempDirURL: %@",self.tempDirURL);
-      
-      
-      
-      
-      
       
       // Create a capture session
       session = [[AVCaptureSession alloc] init];
@@ -101,6 +99,7 @@
                                                                  queue:[NSOperationQueue mainQueue]
                                                             usingBlock:^(NSNotification *note) {
                                                                dispatch_async(dispatch_get_main_queue(), ^(void) {
+                                                                  NSLog(@"AVCaptureSessionRuntimeErrorNotification");
                                                                   [NSApp presentError:[[note userInfo] objectForKey:AVCaptureSessionErrorKey]];
                                                                });
                                                             }];
@@ -120,12 +119,14 @@
                                                                       object:nil
                                                                        queue:[NSOperationQueue mainQueue]
                                                                   usingBlock:^(NSNotification *note) {
+                                                                     NSLog(@"AVCaptureDeviceWasConnectedNotification");
                                                                      [self refreshDevices];
                                                                   }];
       id deviceWasDisconnectedObserver = [notificationCenter addObserverForName:AVCaptureDeviceWasDisconnectedNotification
                                                                          object:nil
                                                                           queue:[NSOperationQueue mainQueue]
                                                                      usingBlock:^(NSNotification *note) {
+                                                                        NSLog(@"AVCaptureDeviceWasDisconnectedNotification");
                                                                         [self refreshDevices];
                                                                      }];
       observers = [[NSArray alloc] initWithObjects:runtimeErrorObserver, didStartRunningObserver, didStopRunningObserver, deviceWasConnectedObserver, deviceWasDisconnectedObserver, nil];
@@ -141,14 +142,24 @@
       
       
       // Select devices if any exist
+      
       AVCaptureDevice *videoDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-      if (videoDevice) {
+      if (videoDevice)
+      {
          [self setSelectedVideoDevice:videoDevice];
          [self setSelectedAudioDevice:[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio]];
       } else {
          [self setSelectedVideoDevice:[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeMuxed]];
       }
-     
+      
+      /*
+      AVCaptureDevice *audioDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio];
+      if (audioDevice)
+      {
+         NSLog(@"audiodevice da");
+         [self setSelectedAudioDevice:[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio]];
+      }
+       */
       /*
       AVCaptureDevice *videoDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
       if (videoDevice)
@@ -163,10 +174,26 @@
       }
       */
       // Initial refresh of device list
+      
+  //    BOOL audiodeviceerfolg =[self setDevice];
+  //    NSLog(@"audiodeviceerfolg: %d",audiodeviceerfolg);
       [self refreshDevices];
       //NSLog(@"videoDevice: %@",[videoDevice description  ]);
    }
    return self;
+}
+
+- (BOOL)setDevice
+{
+   BOOL erfolg = NO;
+   AVCaptureDevice *audioDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio];
+   if (audioDevice)
+   {
+      NSLog(@"audiodevice da");
+      erfolg = TRUE;
+      [self setSelectedAudioDevice:[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio]];
+   }
+   return erfolg;
 }
 
 
@@ -178,17 +205,23 @@
 #pragma mark - Device selection
 - (void)refreshDevices
 {
-   //[self setVideoDevices:[[AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo] arrayByAddingObjectsFromArray:[AVCaptureDevice devicesWithMediaType:AVMediaTypeMuxed]]];
+   [self setVideoDevices:[[AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo] arrayByAddingObjectsFromArray:[AVCaptureDevice devicesWithMediaType:AVMediaTypeMuxed]]];
+   
    [self setAudioDevices:[AVCaptureDevice devicesWithMediaType:AVMediaTypeAudio]];
    
    [[self session] beginConfiguration];
    
+   
    if (![[self videoDevices] containsObject:[self selectedVideoDevice]])
       [self setSelectedVideoDevice:nil];
    
+    NSLog(@"A");
    if (![[self audioDevices] containsObject:[self selectedAudioDevice]])
+   {
+      NSLog(@"B");
       [self setSelectedAudioDevice:nil];
-   
+   }
+    NSLog(@"C");
    [[self session] commitConfiguration];
 }
 
@@ -243,7 +276,8 @@
 {
    [[self session] beginConfiguration];
    
-   if ([self audioDeviceInput]) {
+   if ([self audioDeviceInput])
+   {
       // Remove the old device input from the session
       [session removeInput:[self audioDeviceInput]];
       [self setAudioDeviceInput:nil];
@@ -407,14 +441,27 @@
 
 - (void)setRecording:(BOOL)record
 {
+   NSDate *now = [[NSDate alloc] init];
+   long t1 = (int)now.timeIntervalSince1970 - startzeit;
+   NSLog(@"setRecording t1: %ld",t1);
    if (record)
    {
+//      [self refreshDevices];
+      [[self session] startRunning];
+      NSDate *now = [[NSDate alloc] init];
+      long t2 = (int)now.timeIntervalSince1970 - startzeit;
+      NSLog(@"setRecording t2: %ld",t2);
+
      // [self refreshDevices];
      // NSString* tempPfad =[[tempDirPfad stringByAppendingPathComponent:@"tempAufnahme"] stringByAppendingPathExtension:@"mov"];
-     NSString* tempPfad =[tempDirPfad  stringByAppendingPathExtension:@"mov"];
+     //[[self movieFileOutput] setDelegate:self];
+      NSString* tempPfad =[tempDirPfad  stringByAppendingPathExtension:@"mov"];
       
       NSURL* tempAufnahmeURL = [NSURL  fileURLWithPath:tempPfad];
-      
+      now = [[NSDate alloc] init];
+      long t3 = (int)now.timeIntervalSince1970 - startzeit;
+      NSLog(@"setRecording t3: %ld",t3);
+
       [[self movieFileOutput] startRecordingToOutputFileURL:tempAufnahmeURL  recordingDelegate:self];
    
    }
@@ -424,7 +471,7 @@
       [[self session] stopRunning];
       
       // Set movie file output delegate to nil to avoid a dangling pointer
-     // [[self movieFileOutput] setDelegate:nil];
+      //[[self movieFileOutput] setDelegate:nil];
       
       // Remove Observers
       NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
@@ -598,7 +645,11 @@ NSError *error = nil;
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didStartRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections
 {
-   NSLog(@"Did start recording to %@", [fileURL description]);
+   NSDate *now = [[NSDate alloc] init];
+   long t3 = now.timeIntervalSince1970/1000000 - startzeit;
+   NSLog(@"setRecording t3: %ld",t3);
+
+   //NSLog(@"Did start recording to %@", [fileURL description]);
   
    NSNotificationCenter * nc=[NSNotificationCenter defaultCenter];
    [nc postNotificationName:@"recording" object:self userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:1] forKey:@"record"]];
@@ -630,7 +681,7 @@ NSError *error = nil;
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)recordError
 {
-   NSLog(@"didFinishRecordingToOutputFileAtURL");
+   //NSLog(@"didFinishRecordingToOutputFileAtURL");
    NSNotificationCenter * nc=[NSNotificationCenter defaultCenter];
    [nc postNotificationName:@"recording" object:self userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:0] forKey:@"record"]];
 
@@ -679,7 +730,7 @@ NSError *error = nil;
        }];
       
    }
-   AVCaptureInput* input = [[self session].inputs objectAtIndex:0];
+   //AVCaptureInput* input = [[self session].inputs objectAtIndex:0];
    //[[self session] removeInput:input];
    //[[self session] stopRunning];
 }
