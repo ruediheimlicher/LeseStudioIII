@@ -148,22 +148,16 @@
 - (void)refreshDevices
 {
    [self setVideoDevices:[[AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo] arrayByAddingObjectsFromArray:[AVCaptureDevice devicesWithMediaType:AVMediaTypeMuxed]]];
-   
    [self setAudioDevices:[AVCaptureDevice devicesWithMediaType:AVMediaTypeAudio]];
    
    [[self session] beginConfiguration];
-   
-   
+   //NSLog(@"refreshDevices selectedVideoDevice: %@",[[self selectedVideoDevice]description]);
    if (![[self videoDevices] containsObject:[self selectedVideoDevice]])
       [self setSelectedVideoDevice:nil];
    
-    NSLog(@"A");
    if (![[self audioDevices] containsObject:[self selectedAudioDevice]])
-   {
-      NSLog(@"B");
       [self setSelectedAudioDevice:nil];
-   }
-    NSLog(@"C");
+   
    [[self session] commitConfiguration];
 }
 
@@ -175,6 +169,7 @@
 
 - (void)setSelectedVideoDevice:(AVCaptureDevice *)selectedVideoDevice
 {
+   
    [[self session] beginConfiguration];
    
    if ([self videoDeviceInput]) {
@@ -190,11 +185,9 @@
       AVCaptureDeviceInput *newVideoDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:selectedVideoDevice error:&error];
       if (newVideoDeviceInput == nil) {
          dispatch_async(dispatch_get_main_queue(), ^(void) {
-            [NSApp presentError:error];
+            NSLog(@"newVideoDeviceInput nil");
          });
-      }
-      else
-      {
+      } else {
          if (![selectedVideoDevice supportsAVCaptureSessionPreset:[session sessionPreset]])
             [[self session] setSessionPreset:AVCaptureSessionPresetHigh];
          
