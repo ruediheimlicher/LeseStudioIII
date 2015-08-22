@@ -52,45 +52,9 @@
 - (id)init
 {
    self = [super init];
-   if (self)
-   {
-       NSError* err;
-      NSString *fileName = [[NSProcessInfo processInfo] globallyUniqueString];
-      NSLog(@"fileName: %@",fileName  );
-      
-      //NSURL *fileURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:fileName]];
-      tempDirPfad = [NSTemporaryDirectory() stringByAppendingPathComponent:[[NSProcessInfo processInfo] globallyUniqueString]];
-      NSLog(@"tempDirPfad: %@",tempDirPfad);
-      tempfileURL = [NSURL fileURLWithPath:tempDirPfad isDirectory:YES];
-      NSLog(@"tempfileURL: %@",tempfileURL);
-      
-      
-    //  [[NSFileManager defaultManager] createDirectoryAtURL:tempfileURL withIntermediateDirectories:YES attributes:nil error:&err];
-      if (err)
-      {
-         NSLog(@"tempDir err: %@",err);
-      }
-      NSLog(@"tempDirURL: %@",self.tempDirURL);
-      
+   if (self) {
       // Create a capture session
       session = [[AVCaptureSession alloc] init];
-
-      
-      // Attach preview to session
-      CALayer *previewViewLayer = [[self previewView] layer];
-      [previewViewLayer setBackgroundColor:CGColorGetConstantColor(kCGColorBlack)];
-      AVCaptureVideoPreviewLayer *newPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:[self session]];
-      [newPreviewLayer setFrame:[previewViewLayer bounds]];
-      [newPreviewLayer setAutoresizingMask:kCALayerWidthSizable | kCALayerHeightSizable];
-      [previewViewLayer addSublayer:newPreviewLayer];
-      [self setPreviewLayer:newPreviewLayer];
-      
-      // Start the session
-      [[self session] startRunning];
-      
-      // Start updating the audio level meter
-      [self setAudioLevelTimer:[NSTimer scheduledTimerWithTimeInterval:0.1f target:self selector:@selector(updateAudioLevels:) userInfo:nil repeats:YES]];
-
       
       // Capture Notification Observers
       NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
@@ -100,15 +64,16 @@
                                                             usingBlock:^(NSNotification *note) {
                                                                dispatch_async(dispatch_get_main_queue(), ^(void) {
                                                                   NSLog(@"AVCaptureSessionRuntimeErrorNotification");
-                                                                  [NSApp presentError:[[note userInfo] objectForKey:AVCaptureSessionErrorKey]];
+                                                                 // [[[self view] window] presentError:[[note userInfo] objectForKey:AVCaptureSessionErrorKey]];
                                                                });
                                                             }];
       id didStartRunningObserver = [notificationCenter addObserverForName:AVCaptureSessionDidStartRunningNotification
                                                                    object:session
                                                                     queue:[NSOperationQueue mainQueue]
-                                                               usingBlock:^(NSNotification *note) {
-                                                                  NSLog(@"did start running");
-                                                               }];
+                                                               usingBlock:^(NSNotification *note)
+                                    {
+                                       NSLog(@"did start running");
+                                    }];
       id didStopRunningObserver = [notificationCenter addObserverForName:AVCaptureSessionDidStopRunningNotification
                                                                   object:session
                                                                    queue:[NSOperationQueue mainQueue]
@@ -119,14 +84,12 @@
                                                                       object:nil
                                                                        queue:[NSOperationQueue mainQueue]
                                                                   usingBlock:^(NSNotification *note) {
-                                                                     NSLog(@"AVCaptureDeviceWasConnectedNotification");
                                                                      [self refreshDevices];
                                                                   }];
       id deviceWasDisconnectedObserver = [notificationCenter addObserverForName:AVCaptureDeviceWasDisconnectedNotification
                                                                          object:nil
                                                                           queue:[NSOperationQueue mainQueue]
                                                                      usingBlock:^(NSNotification *note) {
-                                                                        NSLog(@"AVCaptureDeviceWasDisconnectedNotification");
                                                                         [self refreshDevices];
                                                                      }];
       observers = [[NSArray alloc] initWithObjects:runtimeErrorObserver, didStartRunningObserver, didStopRunningObserver, deviceWasConnectedObserver, deviceWasDisconnectedObserver, nil];
@@ -140,48 +103,27 @@
       [audioPreviewOutput setVolume:0.f];
       [session addOutput:audioPreviewOutput];
       
-      
       // Select devices if any exist
-      
       AVCaptureDevice *videoDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
       if (videoDevice)
       {
-         [self setSelectedVideoDevice:videoDevice];
-         [self setSelectedAudioDevice:[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio]];
-      } else {
-         [self setSelectedVideoDevice:[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeMuxed]];
-      }
-      
-      /*
-      AVCaptureDevice *audioDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio];
-      if (audioDevice)
-      {
-         NSLog(@"audiodevice da");
-         [self setSelectedAudioDevice:[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio]];
-      }
-       */
-      /*
-      AVCaptureDevice *videoDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-      if (videoDevice)
-      {
-         NSLog(@"videodevice da");
+         NSLog(@"videoDevice yes");
          [self setSelectedVideoDevice:videoDevice];
          [self setSelectedAudioDevice:[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio]];
       }
       else
       {
+         NSLog(@"videoDevice no");
          [self setSelectedVideoDevice:[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeMuxed]];
       }
-      */
-      // Initial refresh of device list
       
-  //    BOOL audiodeviceerfolg =[self setDevice];
-  //    NSLog(@"audiodeviceerfolg: %d",audiodeviceerfolg);
+      // Initial refresh of device list
       [self refreshDevices];
-      //NSLog(@"videoDevice: %@",[videoDevice description  ]);
+      
    }
    return self;
 }
+
 
 - (BOOL)setDevice
 {
@@ -447,6 +389,11 @@
    NSLog(@"setRecording t1: %ld",t1);
    if (record)
    {
+      tempDirPfad = [NSTemporaryDirectory() stringByAppendingPathComponent:[[NSProcessInfo processInfo] globallyUniqueString]];
+      NSLog(@"tempDirPfad: %@",tempDirPfad);
+      tempfileURL = [NSURL fileURLWithPath:tempDirPfad isDirectory:YES];
+      NSLog(@"tempfileURL: %@",tempfileURL);
+
 //      [self refreshDevices];
       [[self session] startRunning];
       NSDate *now = [[NSDate alloc] init];
