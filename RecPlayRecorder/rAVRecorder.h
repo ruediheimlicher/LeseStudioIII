@@ -89,4 +89,6 @@
 - (float)AufnahmeLevel;
 - (void)AufnahmeTimerFunktion:(NSTimer*)derTimer;
 - (void)setstartzeit:(double) t;
+- (void)trim;
+- (void)cut;
 @end

@@ -52,29 +52,9 @@
 - (id)init
 {
    self = [super init];
-   if (self)
-   {
-       NSError* err;
-      NSString *fileName = [[NSProcessInfo processInfo] globallyUniqueString];
-      NSLog(@"fileName: %@",fileName  );
-      
-      //NSURL *fileURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:fileName]];
-      tempDirPfad = [NSTemporaryDirectory() stringByAppendingPathComponent:[[NSProcessInfo processInfo] globallyUniqueString]];
-      NSLog(@"tempDirPfad: %@",tempDirPfad);
-      tempfileURL = [NSURL fileURLWithPath:tempDirPfad isDirectory:YES];
-      NSLog(@"tempfileURL: %@",tempfileURL);
-      
-      
-    //  [[NSFileManager defaultManager] createDirectoryAtURL:tempfileURL withIntermediateDirectories:YES attributes:nil error:&err];
-      if (err)
-      {
-         NSLog(@"tempDir err: %@",err);
-      }
-      NSLog(@"tempDirURL: %@",self.tempDirURL);
-      
+   if (self) {
       // Create a capture session
       session = [[AVCaptureSession alloc] init];
-
       
       // Attach preview to session
       CALayer *previewViewLayer = [[self previewView] layer];
@@ -91,7 +71,7 @@
       // Start updating the audio level meter
       [self setAudioLevelTimer:[NSTimer scheduledTimerWithTimeInterval:0.1f target:self selector:@selector(updateAudioLevels:) userInfo:nil repeats:YES]];
 
-      
+
       // Capture Notification Observers
       NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
       id runtimeErrorObserver = [notificationCenter addObserverForName:AVCaptureSessionRuntimeErrorNotification
@@ -100,15 +80,16 @@
                                                             usingBlock:^(NSNotification *note) {
                                                                dispatch_async(dispatch_get_main_queue(), ^(void) {
                                                                   NSLog(@"AVCaptureSessionRuntimeErrorNotification");
-                                                                  [NSApp presentError:[[note userInfo] objectForKey:AVCaptureSessionErrorKey]];
+                                                                 // [[[self view] window] presentError:[[note userInfo] objectForKey:AVCaptureSessionErrorKey]];
                                                                });
                                                             }];
       id didStartRunningObserver = [notificationCenter addObserverForName:AVCaptureSessionDidStartRunningNotification
                                                                    object:session
                                                                     queue:[NSOperationQueue mainQueue]
-                                                               usingBlock:^(NSNotification *note) {
-                                                                  NSLog(@"did start running");
-                                                               }];
+                                                               usingBlock:^(NSNotification *note)
+                                    {
+                                       NSLog(@"did start running");
+                                    }];
       id didStopRunningObserver = [notificationCenter addObserverForName:AVCaptureSessionDidStopRunningNotification
                                                                   object:session
                                                                    queue:[NSOperationQueue mainQueue]
@@ -119,14 +100,12 @@
                                                                       object:nil
                                                                        queue:[NSOperationQueue mainQueue]
                                                                   usingBlock:^(NSNotification *note) {
-                                                                     NSLog(@"AVCaptureDeviceWasConnectedNotification");
                                                                      [self refreshDevices];
                                                                   }];
       id deviceWasDisconnectedObserver = [notificationCenter addObserverForName:AVCaptureDeviceWasDisconnectedNotification
                                                                          object:nil
                                                                           queue:[NSOperationQueue mainQueue]
                                                                      usingBlock:^(NSNotification *note) {
-                                                                        NSLog(@"AVCaptureDeviceWasDisconnectedNotification");
                                                                         [self refreshDevices];
                                                                      }];
       observers = [[NSArray alloc] initWithObjects:runtimeErrorObserver, didStartRunningObserver, didStopRunningObserver, deviceWasConnectedObserver, deviceWasDisconnectedObserver, nil];
@@ -140,48 +119,27 @@
       [audioPreviewOutput setVolume:0.f];
       [session addOutput:audioPreviewOutput];
       
-      
       // Select devices if any exist
-      
       AVCaptureDevice *videoDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
       if (videoDevice)
       {
-         [self setSelectedVideoDevice:videoDevice];
-         [self setSelectedAudioDevice:[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio]];
-      } else {
-         [self setSelectedVideoDevice:[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeMuxed]];
-      }
-      
-      /*
-      AVCaptureDevice *audioDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio];
-      if (audioDevice)
-      {
-         NSLog(@"audiodevice da");
-         [self setSelectedAudioDevice:[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio]];
-      }
-       */
-      /*
-      AVCaptureDevice *videoDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-      if (videoDevice)
-      {
-         NSLog(@"videodevice da");
+         NSLog(@"videoDevice yes");
          [self setSelectedVideoDevice:videoDevice];
          [self setSelectedAudioDevice:[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio]];
       }
       else
       {
+         NSLog(@"videoDevice no");
          [self setSelectedVideoDevice:[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeMuxed]];
       }
-      */
-      // Initial refresh of device list
       
-  //    BOOL audiodeviceerfolg =[self setDevice];
-  //    NSLog(@"audiodeviceerfolg: %d",audiodeviceerfolg);
+      // Initial refresh of device list
       [self refreshDevices];
-      //NSLog(@"videoDevice: %@",[videoDevice description  ]);
+      
    }
    return self;
 }
+
 
 - (BOOL)setDevice
 {
@@ -206,32 +164,28 @@
 - (void)refreshDevices
 {
    [self setVideoDevices:[[AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo] arrayByAddingObjectsFromArray:[AVCaptureDevice devicesWithMediaType:AVMediaTypeMuxed]]];
-   
    [self setAudioDevices:[AVCaptureDevice devicesWithMediaType:AVMediaTypeAudio]];
    
    [[self session] beginConfiguration];
-   
-   
+   //NSLog(@"refreshDevices selectedVideoDevice: %@",[[self selectedVideoDevice]description]);
    if (![[self videoDevices] containsObject:[self selectedVideoDevice]])
       [self setSelectedVideoDevice:nil];
    
-    NSLog(@"A");
    if (![[self audioDevices] containsObject:[self selectedAudioDevice]])
-   {
-      NSLog(@"B");
       [self setSelectedAudioDevice:nil];
-   }
-    NSLog(@"C");
+   
    [[self session] commitConfiguration];
 }
 
 - (AVCaptureDevice *)selectedVideoDevice
 {
-   return [videoDeviceInput device];
+   return nil;
+   //return [videoDeviceInput device];
 }
 
 - (void)setSelectedVideoDevice:(AVCaptureDevice *)selectedVideoDevice
 {
+   
    [[self session] beginConfiguration];
    
    if ([self videoDeviceInput]) {
@@ -240,26 +194,25 @@
       [self setVideoDeviceInput:nil];
    }
    
-   if (selectedVideoDevice) {
+   if (selectedVideoDevice)
+   {
       NSError *error = nil;
       
       // Create a device input for the device and add it to the session
       AVCaptureDeviceInput *newVideoDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:selectedVideoDevice error:&error];
       if (newVideoDeviceInput == nil) {
          dispatch_async(dispatch_get_main_queue(), ^(void) {
-            [NSApp presentError:error];
+            NSLog(@"newVideoDeviceInput nil");
          });
-      }
-      else
-      {
+      } else {
          if (![selectedVideoDevice supportsAVCaptureSessionPreset:[session sessionPreset]])
-            [[self session] setSessionPreset:AVCaptureSessionPresetHigh];
+            [[self session] setSessionPreset:AVCaptureSessionPresetMedium];
          
          [[self session] addInput:newVideoDeviceInput];
          [self setVideoDeviceInput:newVideoDeviceInput];
       }
    }
-   
+   [[self session] setSessionPreset:AVCaptureSessionPresetHigh];
    // If this video device also provides audio, don't use another audio device
    if ([self selectedVideoDeviceProvidesAudio])
       [self setSelectedAudioDevice:nil];
@@ -434,7 +387,6 @@
 
 - (BOOL)isRecording
 {
-   
    return [[self movieFileOutput] isRecording];
 }
 
@@ -446,8 +398,16 @@
    NSLog(@"setRecording t1: %ld",t1);
    if (record)
    {
-//      [self refreshDevices];
-      [[self session] startRunning];
+      if ([self isRecording])
+      {
+         NSLog(@"isRecording");
+         return;
+         
+      }
+      tempDirPfad = [NSTemporaryDirectory() stringByAppendingPathComponent:[[NSProcessInfo processInfo] globallyUniqueString]];
+      NSLog(@"tempDirPfad: %@",tempDirPfad);
+      tempfileURL = [NSURL fileURLWithPath:tempDirPfad isDirectory:YES];
+      NSLog(@"tempfileURL: %@",tempfileURL);
       NSDate *now = [[NSDate alloc] init];
       long t2 = (int)now.timeIntervalSince1970 - startzeit;
       NSLog(@"setRecording t2: %ld",t2);
@@ -468,16 +428,7 @@
    else
    {
       [[self movieFileOutput] stopRecording];
-      [[self session] stopRunning];
-      
-      // Set movie file output delegate to nil to avoid a dangling pointer
-      //[[self movieFileOutput] setDelegate:nil];
-      
-      // Remove Observers
-      NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-      //for (id observer in [self observers])
-       //  [notificationCenter removeObserver:observer];
-
+     
    }
 }
 
@@ -532,10 +483,11 @@
    
    NSInteger channelCount = 0;
    float decibels = 0.f;
-   
    // Sum all of the average power levels and divide by the number of channels
-   for (AVCaptureConnection *connection in [[self movieFileOutput] connections]) {
-      for (AVCaptureAudioChannel *audioChannel in [connection audioChannels]) {
+   for (AVCaptureConnection *connection in [[self movieFileOutput] connections])
+   {
+      for (AVCaptureAudioChannel *audioChannel in [connection audioChannels])
+      {
          decibels += [audioChannel averagePowerLevel];
          channelCount += 1;
       }
@@ -553,6 +505,230 @@
 - (float)AufnahmeLevel
 {
    return AufnahmeLevelWert;
+}
+
+- (void)trim
+{
+
+   NSSavePanel *trimPanel = [NSOpenPanel openPanel];
+   
+   [trimPanel beginSheetModalForWindow:[self RecorderFenster] completionHandler:^(NSInteger result)
+    {
+       NSError *error = nil;
+       if (result == NSOKButton)
+       {
+          
+          
+          
+          NSString* testpfad = [[[NSHomeDirectory()stringByAppendingPathComponent:@"Documents/Lesebox"]stringByAppendingPathComponent:@"trimm"]stringByAppendingPathExtension:@"m4a"];
+          
+          
+          [self  trimFileAtURL:[trimPanel URL] toURL:[NSURL fileURLWithPath:testpfad]];
+       }
+       else
+          
+       {
+          [trimPanel orderOut:self];
+          //[self presentError:error modalForWindow:[self RecorderFenster] delegate:self didPresentSelector:@selector(didPresentErrorWithRecovery:contextInfo:) contextInfo:NULL];
+       }
+       
+       
+       
+    }];
+   
+}
+
+- (void)cut
+{
+   
+   NSSavePanel *trimPanel = [NSOpenPanel openPanel];
+   [trimPanel beginSheetModalForWindow:[self RecorderFenster] completionHandler:^(NSInteger result)
+    {
+       NSError *error = nil;
+       if (result == NSOKButton)
+       {
+          
+          
+          
+          NSString* testpfad = [[[NSHomeDirectory()stringByAppendingPathComponent:@"Documents/Lesebox"]stringByAppendingPathComponent:@"cut"]stringByAppendingPathExtension:@"m4a"];
+          
+          
+          [self  cutFileAtURL:[trimPanel URL] toURL:[NSURL fileURLWithPath:testpfad]];
+       }
+       else
+          
+       {
+          [trimPanel orderOut:self];
+          //[self presentError:error modalForWindow:[self RecorderFenster] delegate:self didPresentSelector:@selector(didPresentErrorWithRecovery:contextInfo:) contextInfo:NULL];
+       }
+       
+       
+       
+    }];
+   
+}
+- (void)cutFileAtURL:(NSURL*)sourceURL toURL:(NSURL*)destURL
+{
+   // http://www.rockhoppertech.com/blog/ios-trimming-audio-files
+   // http://stackoverflow.com/questions/23752671/avassetexportsession-not-exporting-metadata
+   AVAsset* asset = [AVAsset assetWithURL:sourceURL];
+   {
+      if ( [[NSFileManager defaultManager] fileExistsAtPath:[destURL path]])
+      {
+         NSError* err;
+         [[NSFileManager defaultManager] removeItemAtURL:destURL error:&err];
+      }
+      if ( [[NSFileManager defaultManager] fileExistsAtPath:[sourceURL path]])
+      {
+         AVAssetExportSession* exporter = [AVAssetExportSession exportSessionWithAsset:asset presetName:AVAssetExportPresetAppleM4A];
+
+         NSArray* types =[exporter supportedFileTypes];
+         NSLog(@"types: %@",[types description]);
+         
+         exporter.outputFileType = AVFileTypeAppleM4A;
+         
+         exporter.outputURL = destURL;
+         
+         // double duration = CMTimeGetSeconds(asset.duration);
+         
+         CMTime cmtduration = (asset.duration);
+         NSLog(@"duration raw: %lld",cmtduration.value);
+         double duration =CMTimeGetSeconds(cmtduration);
+         NSLog(@"duration seconds: %lld",duration);
+         CMTime startTime = CMTimeMake(0, 1);
+         CMTime trimstartTime = CMTimeMake(20, 1);
+         CMTimeRange startTrimRange = CMTimeRangeFromTimeToTime(startTime, trimstartTime);
+         //exporter.timeRange = startTrimRange;
+         
+         CMTime endTime = CMTimeMake(duration, 1);
+         CMTime trimendTime = CMTimeMake(duration-5, 1);
+         CMTimeRange endTrimRange = CMTimeRangeFromTimeToTime(trimendTime, endTime);
+         //    exporter.timeRange = endTrimRange;
+         
+         CMTime cutendTime = CMTimeMake(duration-1, 1);
+         CMTimeRange cutRange = CMTimeRangeFromTimeToTime(startTime, cutendTime);
+         exporter.timeRange = cutRange;
+         
+         
+         NSArray* tracks = [asset tracksWithMediaType:AVMediaTypeAudio];
+         if (tracks.count == 0)
+         {
+            return;
+         }
+         AVAssetTrack * trimTrack = tracks[0];
+         AVMutableAudioMix* trimMix = [AVMutableAudioMix audioMix];
+         AVMutableAudioMixInputParameters* trimParameters = [AVMutableAudioMixInputParameters audioMixInputParametersWithTrack:trimTrack];
+         [trimParameters setVolume:1.0 atTime: startTime];
+         
+         //[trimParameters setVolumeRampFromStartVolume:0.0 toEndVolume:1.0 timeRange:startTrimRange];
+         trimMix.inputParameters = [NSArray arrayWithObject:trimParameters];
+    //     exporter.audioMix = trimMix;
+         
+         [exporter exportAsynchronouslyWithCompletionHandler:^{
+            NSLog(@"Export Session Status: %ld", (long)[exporter status]);
+            switch ([exporter status])
+            {
+               case AVAssetExportSessionStatusCompleted:
+                  NSLog(@"Export sucess");break;
+               case AVAssetExportSessionStatusFailed:
+                  NSLog(@"Export failed: %@", [[exporter error] localizedDescription]);break;
+               case AVAssetExportSessionStatusCancelled:
+                  NSLog(@"Export canceled");break;
+               default:
+                  break;
+            }
+         }];
+         
+      }
+      else
+      {
+         
+      }
+      
+      
+      
+   }
+}
+- (void)trimFileAtURL:(NSURL*)sourceURL toURL:(NSURL*)destURL
+{
+   // http://www.rockhoppertech.com/blog/ios-trimming-audio-files
+   // http://stackoverflow.com/questions/23752671/avassetexportsession-not-exporting-metadata
+   AVAsset* asset = [AVAsset assetWithURL:sourceURL];
+   {
+      if ( [[NSFileManager defaultManager] fileExistsAtPath:[destURL path]])
+      {
+         NSError* err;
+         [[NSFileManager defaultManager] removeItemAtURL:destURL error:&err];
+      }
+     if ( [[NSFileManager defaultManager] fileExistsAtPath:[sourceURL path]])
+     {
+        AVAssetExportSession* exporter = [AVAssetExportSession exportSessionWithAsset:asset presetName:AVAssetExportPresetAppleM4A];
+        NSArray* types =[exporter supportedFileTypes];
+        NSLog(@"types: %@",[types description]);
+        
+        NSLog(@"types: %@",[types description]);
+        //ev. AVAssetExportPresetPassthrough
+        exporter.outputFileType = AVFileTypeAppleM4A;
+       
+        exporter.outputURL = destURL;
+        
+       // double duration = CMTimeGetSeconds(asset.duration);
+
+        CMTime cmtduration = asset.duration;
+        NSLog(@"duration: %lld",cmtduration.value);
+        double duration =cmtduration.value;
+        CMTime startTime = CMTimeMake(0, 1);
+        CMTime trimstartTime = CMTimeMake(20, 1);
+        CMTimeRange startTrimRange = CMTimeRangeFromTimeToTime(startTime, trimstartTime);
+        //exporter.timeRange = startTrimRange;
+
+        CMTime endTime = CMTimeMake(duration, 1);
+        CMTime trimendTime = CMTimeMake(duration-5000, 1);
+        CMTimeRange endTrimRange = CMTimeRangeFromTimeToTime(trimendTime, endTime);
+    //    exporter.timeRange = endTrimRange;
+        
+        CMTimeRange range = CMTimeRangeMake(startTime, trimendTime);
+        exporter.timeRange = range;
+
+        
+        NSArray* tracks = [asset tracksWithMediaType:AVMediaTypeAudio];
+        if (tracks.count == 0)
+        {
+           return;
+        }
+        AVAssetTrack * trimTrack = tracks[0];
+        AVMutableAudioMix* trimMix = [AVMutableAudioMix audioMix];
+        AVMutableAudioMixInputParameters* trimParameters = [AVMutableAudioMixInputParameters audioMixInputParametersWithTrack:trimTrack];
+        [trimParameters setVolume:1.0 atTime: startTime];
+        
+        //[trimParameters setVolumeRampFromStartVolume:0.0 toEndVolume:1.0 timeRange:startTrimRange];
+        trimMix.inputParameters = [NSArray arrayWithObject:trimParameters];
+        exporter.audioMix = trimMix;
+        
+        [exporter exportAsynchronouslyWithCompletionHandler:^{
+         NSLog(@"Export Session Status: %ld", (long)[exporter status]);
+           switch ([exporter status])
+           {
+              case AVAssetExportSessionStatusCompleted:
+                 NSLog(@"Export sucess");break;
+              case AVAssetExportSessionStatusFailed:
+                 NSLog(@"Export failed: %@", [[exporter error] localizedDescription]);break;
+              case AVAssetExportSessionStatusCancelled:
+                 NSLog(@"Export canceled");break;
+              default:
+                 break;
+           }
+        }];
+        
+     }
+      else
+      {
+         
+      }
+      
+      
+    
+   }
 }
 #pragma mark - Transport Controls
 
@@ -704,16 +880,26 @@ NSError *error = nil;
       
       //      long antwort = [savePanel runModal];
       //     NSLog(@"antwort: %ld URL: %@",antwort,[savePanel URL]);
-      
+      NSString* testpfad = [[[NSHomeDirectory()stringByAppendingPathComponent:@"Documents"]stringByAppendingPathComponent:@"trimm"]stringByAppendingPathExtension:@"m4a"];
+     
       
       NSSavePanel *savePanel = [NSSavePanel savePanel];
+      
+      savePanel.allowedFileTypes = [NSArray arrayWithObject:@"mov"];
       [savePanel beginSheetModalForWindow:[self RecorderFenster] completionHandler:^(NSInteger result)
        {
           NSError *error = nil;
-          if (result == NSOKButton) {
+          if (result == NSOKButton)
+          {
+             
+             
+
              [[NSFileManager defaultManager] removeItemAtURL:[savePanel URL] error:nil]; // attempt to remove file at the desired save location before moving the recorded file to that location
-             if ([[NSFileManager defaultManager] moveItemAtURL:outputFileURL toURL:[savePanel URL] error:&error]) {
-                [[NSWorkspace sharedWorkspace] openURL:[savePanel URL]];
+             if ([[NSFileManager defaultManager] moveItemAtURL:outputFileURL toURL:[savePanel URL] error:&error])
+             {
+                [self  trimFileAtURL:[savePanel URL] toURL:[NSURL fileURLWithPath:testpfad]];
+                // Movie abspielen
+             //   [[NSWorkspace sharedWorkspace] openURL:[savePanel URL]];
              }
              else
              

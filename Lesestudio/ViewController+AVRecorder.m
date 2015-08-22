@@ -44,9 +44,24 @@
    
 }
 
+- (IBAction)trim:(id)sender
+{
+   [AVRecorder trim];
+}
+
+- (IBAction)cut:(id)sender
+{
+   [AVRecorder cut];
+}
 
 - (IBAction)startAVRecord:(id)sender
 {
+   if ([AVRecorder isRecording])
+   {
+      NSLog(@"ViewController Aufnahme in Gang");
+      return;
+   }
+
    NSLog(@"recording 1 %@",[NSDate date]);
    NSDate *now = [[NSDate alloc] init];
    startzeit = (int)now.timeIntervalSince1970;
@@ -65,11 +80,6 @@
    }
    aufnahmetimerstatus=0;
    
-   if ([AVRecorder isRecording])
-   {
-      NSLog(@"Aufnahme in Gang");
-      return;
-   }
    
    if ([self.playBalkenTimer isValid])
    {
@@ -80,13 +90,14 @@
    self.istNeueAufnahme=1;
    OSErr err=0;
    
+  
    if (!(AVRecorder))
    {
       AVRecorder = [[rAVRecorder alloc]init];
    }
    if (AVRecorder)
    {
-      AVRecorder.RecorderFenster = [self.view window];
+     // AVRecorder.RecorderFenster = [self.view window];
       [AVRecorder setRecording:YES];
       // if AVRecorder
       AufnahmeZeit=0;
@@ -157,25 +168,8 @@
    
    [AVRecorder setRecording:NO];
    return;
-   /*
-    [mCaptureMovieFileOutput recordToOutputFileURL:nil];
-    //NSLog(@"recordedDuration: %f",(float)[mCaptureMovieFileOutput  recordedDuration].timeValue);
-    //	NSString* TimeString=QTStringFromTime([mCaptureMovieFileOutput  recordedDuration]);
-    QTTime duration =[mCaptureMovieFileOutput  recordedDuration];
-    //NSLog(@"stopAVRecord 1");
-    //GesamtAufnahmezeit= duration.timeValue/duration.timeScale;
-    //NSLog(@"stopAVRecord 2");
-    QTKitGesamtAufnahmezeit= (float)duration.timeValue/duration.timeScale;
-    //NSLog(@"QTKitGesamtAufnahmezeit: %2.1f",QTKitGesamtAufnahmezeit);
-    [audioLevelMeter setFloatValue:0];
-    
-    //NSLog(@"stop: GesamtAufnahmezeit: %2.2f",GesamtAufnahmezeit);
-    //NSLog(@"TimeString: %@",TimeString);
-    */
-   if (self.audioLevelTimer)
-   {
-      [self.audioLevelTimer invalidate];
-   }
+   
+   
    [self.StartPlayQTKitKnopf setEnabled:YES];
    [self.TitelPop  setEnabled:YES];
    [self.TitelPop  setSelectable:YES];
@@ -183,6 +177,7 @@
    [[self.TitelPop cell] setEnabled:YES];
    
    //[self MovieFertigmachen];
+   
    [self.StartPlayKnopf setEnabled:YES];
    [self.SichernKnopf setEnabled:YES];
    [self.WeitereAufnahmeKnopf setEnabled:YES];
