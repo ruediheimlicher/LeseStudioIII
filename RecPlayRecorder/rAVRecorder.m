@@ -227,6 +227,7 @@
 
 - (AVCaptureDevice *)selectedVideoDevice
 {
+   
    return [videoDeviceInput device];
 }
 
