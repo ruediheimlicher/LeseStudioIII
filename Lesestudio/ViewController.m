@@ -230,6 +230,13 @@ extern  NSMenu*                      ProjektMenu;
               name:@"AVCaptureSessionDidStartRunningNotification"
             object:nil];
 
+   [nc addObserverForName:AVCaptureSessionDidStartRunningNotification
+                                                                object:nil
+                                                                 queue:[NSOperationQueue mainQueue]
+                                                            usingBlock:^(NSNotification *note)
+   {
+                                                               NSLog(@"ViewController did start running: note %@",[note description]);
+                                                            }];
 
    BOOL success = NO;
    NSError *error;
@@ -505,7 +512,7 @@ extern  NSMenu*                      ProjektMenu;
 
   // AVRecorder
    
-
+ AVRecorder = [[rAVRecorder alloc]init];
    
 }
 
@@ -521,7 +528,7 @@ extern  NSMenu*                      ProjektMenu;
             NSLog(@"RecordingAktion2 Aufnahme stop");
             if ([AufnahmeTimer isValid])
             {
-               NSLog(@"RecordingAktion Timer valid");
+               NSLog(@"RecordingAktion2 Timer valid");
                [AufnahmeTimer invalidate];
             }
          }break;
@@ -1041,7 +1048,7 @@ extern  NSMenu*                      ProjektMenu;
    }
    if (THRecorder)
    {
-      [THRecorder setDelegate:THRecorder];
+      [THRecorder setDelegate:self];
       NSLog(@"startTHRecord OK");
       [THRecorder record];
    } // if AVRecorder

@@ -33,6 +33,8 @@
    
    AVCaptureAudioPreviewOutput         *audioPreviewOutput;
    
+   AVCaptureVideoPreviewLayer *     newPreviewLayer;
+   
    NSArray                          *videoDevices;
    NSArray                          *audioDevices;
    

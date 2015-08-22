@@ -550,7 +550,7 @@
                                                                     <button verticalHuggingPriority="750" id="g7c-nT-Ggg">
                                                                         <rect key="frame" x="18" y="30" width="227" height="25"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
-                                                                        <buttonCell key="cell" type="squareTextured" title="START" bezelStyle="texturedSquare" image="DF57C756-4E7A-4CD8-AB5C-40E95E33C50B" imagePosition="only" alignment="justified" borderStyle="border" inset="2" id="XSb-7M-gme">
+                                                                        <buttonCell key="cell" type="squareTextured" title="START" bezelStyle="texturedSquare" image="5CD31B88-F22D-401D-B4D9-F7CEB0EC6C22" imagePosition="only" alignment="justified" borderStyle="border" inset="2" id="XSb-7M-gme">
                                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                             <font key="font" metaFont="system"/>
                                                                             <string key="keyEquivalent">r</string>
@@ -561,9 +561,9 @@
                                                                         </connections>
                                                                     </button>
                                                                     <button verticalHuggingPriority="750" id="T2J-tL-6Tw">
-                                                                        <rect key="frame" x="181" y="2" width="67" height="25"/>
+                                                                        <rect key="frame" x="76" y="1" width="67" height="25"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
-                                                                        <buttonCell key="cell" type="squareTextured" title="STOP" bezelStyle="texturedSquare" image="63551365-FDF1-4EB5-8B83-82E79F293913" imagePosition="overlaps" alignment="justified" borderStyle="border" inset="2" id="Ai7-HV-adA">
+                                                                        <buttonCell key="cell" type="squareTextured" title="STOP" bezelStyle="texturedSquare" image="25B28214-231E-4F31-B565-BC44C29D44A4" imagePosition="overlaps" alignment="justified" borderStyle="border" inset="2" id="Ai7-HV-adA">
                                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                             <font key="font" metaFont="system"/>
                                                                             <string key="keyEquivalent">r</string>
@@ -606,9 +606,9 @@
                                                                         <levelIndicatorCell key="cell" continuous="YES" alignment="left" maxValue="36" warningValue="40" criticalValue="44" id="PAk-5x-Ank"/>
                                                                     </levelIndicator>
                                                                     <button verticalHuggingPriority="750" id="WaE-Ry-p4Q">
-                                                                        <rect key="frame" x="18" y="1" width="67" height="25"/>
+                                                                        <rect key="frame" x="7" y="1" width="67" height="25"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
-                                                                        <buttonCell key="cell" type="squareTextured" title="START" bezelStyle="texturedSquare" image="A1C7418B-613A-4E6C-BA18-50102B203F87" imagePosition="overlaps" alignment="justified" borderStyle="border" inset="2" id="MaY-Od-qAq">
+                                                                        <buttonCell key="cell" type="squareTextured" title="START" bezelStyle="texturedSquare" image="F0C1D45C-ED22-4BE1-A0C4-93752913B397" imagePosition="overlaps" alignment="justified" borderStyle="border" inset="2" id="MaY-Od-qAq">
                                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                             <font key="font" metaFont="system"/>
                                                                             <string key="keyEquivalent">r</string>
@@ -616,6 +616,32 @@
                                                                         </buttonCell>
                                                                         <connections>
                                                                             <action selector="startAVRecord:" target="XfG-lQ-9wD" id="1YT-9i-n0X"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <button verticalHuggingPriority="750" id="I5j-37-dTc">
+                                                                        <rect key="frame" x="171" y="2" width="44" height="25"/>
+                                                                        <autoresizingMask key="autoresizingMask"/>
+                                                                        <buttonCell key="cell" type="squareTextured" title="START" bezelStyle="texturedSquare" image="E97BDAC1-2CE9-4D5D-B05E-4A2DDAEC9B9B" imagePosition="overlaps" alignment="justified" borderStyle="border" inset="2" id="eBg-Aw-sN0">
+                                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                            <font key="font" metaFont="system"/>
+                                                                            <string key="keyEquivalent">r</string>
+                                                                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                                                                        </buttonCell>
+                                                                        <connections>
+                                                                            <action selector="startTHRecord:" target="XfG-lQ-9wD" id="B1Y-8w-3YX"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <button verticalHuggingPriority="750" id="R5J-92-iHf">
+                                                                        <rect key="frame" x="215" y="2" width="49" height="25"/>
+                                                                        <autoresizingMask key="autoresizingMask"/>
+                                                                        <buttonCell key="cell" type="squareTextured" title="STOP" bezelStyle="texturedSquare" image="872C30A6-C4E2-48B5-B2E3-F3289C7A270A" imagePosition="overlaps" alignment="justified" borderStyle="border" inset="2" id="BMK-4n-2Sy">
+                                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                            <font key="font" metaFont="system"/>
+                                                                            <string key="keyEquivalent">r</string>
+                                                                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                                                                        </buttonCell>
+                                                                        <connections>
+                                                                            <action selector="stopTHRecord:" target="XfG-lQ-9wD" id="nyC-Sm-xaJ"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
@@ -1205,7 +1231,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="63551365-FDF1-4EB5-8B83-82E79F293913" width="1" height="1">
+        <image name="25B28214-231E-4F31-B565-BC44C29D44A4" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -1223,7 +1249,7 @@ AhACGAIlAioCLAIuAjMCOwI+AkMCSwJOAmACYwJoAAAAAAAAAgEAAAAAAAAAQgAAAAAAAAAAAAAAAAAA
 Amo
 </mutableData>
         </image>
-        <image name="A1C7418B-613A-4E6C-BA18-50102B203F87" width="1" height="1">
+        <image name="5CD31B88-F22D-401D-B4D9-F7CEB0EC6C22" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -1241,7 +1267,43 @@ AhACGAIlAioCLAIuAjMCOwI+AkMCSwJOAmACYwJoAAAAAAAAAgEAAAAAAAAAQgAAAAAAAAAAAAAAAAAA
 Amo
 </mutableData>
         </image>
-        <image name="DF57C756-4E7A-4CD8-AB5C-40E95E33C50B" width="1" height="1">
+        <image name="872C30A6-C4E2-48B5-B2E3-F3289C7A270A" width="1" height="1">
+            <mutableData key="keyedArchiveRepresentation">
+YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
+GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
+c1dOU0NvbG9ygAKADRIgwwAAgAOAC1Z7MSwgMX3SFQoWGFpOUy5vYmplY3RzoReABIAK0hUKGh2iGxyA
+BYAGgAkQANIgCiEiXxAUTlNUSUZGUmVwcmVzZW50YXRpb26AB4AITxCsTU0AKgAAAAoAAAANAQAAAwAA
+AAEAAQAAAQEAAwAAAAEAAQAAAQIAAwAAAAIACAAIAQMAAwAAAAEAAQAAAQYAAwAAAAEAAQAAAREABAAA
+AAEAAAAIARIAAwAAAAEAAQAAARUAAwAAAAEAAgAAARYAAwAAAAEAAQAAARcABAAAAAEAAAACARwAAwAA
+AAEAAQAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAANIlJicoWiRjbGFzc25hbWVYJGNsYXNzZXNf
+EBBOU0JpdG1hcEltYWdlUmVwoykqK18QEE5TQml0bWFwSW1hZ2VSZXBaTlNJbWFnZVJlcFhOU09iamVj
+dNIlJi0uV05TQXJyYXmiLSvSJSYwMV5OU011dGFibGVBcnJheaMwLSvTMzQKNTY3V05TV2hpdGVcTlND
+b2xvclNwYWNlRDAgMAAQA4AM0iUmOTpXTlNDb2xvcqI5K9IlJjw9V05TSW1hZ2WiPCtfEA9OU0tleWVk
+QXJjaGl2ZXLRQEFUcm9vdIABAAgAEQAaACMALQAyADcARgBMAFcAXgBlAHIAeQCBAIMAhQCKAIwAjgCV
+AJoApQCnAKkAqwCwALMAtQC3ALkAuwDAANcA2QDbAYoBjwGaAaMBtgG6Ac0B2AHhAeYB7gHxAfYCBQIJ
+AhACGAIlAioCLAIuAjMCOwI+AkMCSwJOAmACYwJoAAAAAAAAAgEAAAAAAAAAQgAAAAAAAAAAAAAAAAAA
+Amo
+</mutableData>
+        </image>
+        <image name="E97BDAC1-2CE9-4D5D-B05E-4A2DDAEC9B9B" width="1" height="1">
+            <mutableData key="keyedArchiveRepresentation">
+YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
+GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
+c1dOU0NvbG9ygAKADRIgwwAAgAOAC1Z7MSwgMX3SFQoWGFpOUy5vYmplY3RzoReABIAK0hUKGh2iGxyA
+BYAGgAkQANIgCiEiXxAUTlNUSUZGUmVwcmVzZW50YXRpb26AB4AITxCsTU0AKgAAAAoAAAANAQAAAwAA
+AAEAAQAAAQEAAwAAAAEAAQAAAQIAAwAAAAIACAAIAQMAAwAAAAEAAQAAAQYAAwAAAAEAAQAAAREABAAA
+AAEAAAAIARIAAwAAAAEAAQAAARUAAwAAAAEAAgAAARYAAwAAAAEAAQAAARcABAAAAAEAAAACARwAAwAA
+AAEAAQAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAANIlJicoWiRjbGFzc25hbWVYJGNsYXNzZXNf
+EBBOU0JpdG1hcEltYWdlUmVwoykqK18QEE5TQml0bWFwSW1hZ2VSZXBaTlNJbWFnZVJlcFhOU09iamVj
+dNIlJi0uV05TQXJyYXmiLSvSJSYwMV5OU011dGFibGVBcnJheaMwLSvTMzQKNTY3V05TV2hpdGVcTlND
+b2xvclNwYWNlRDAgMAAQA4AM0iUmOTpXTlNDb2xvcqI5K9IlJjw9V05TSW1hZ2WiPCtfEA9OU0tleWVk
+QXJjaGl2ZXLRQEFUcm9vdIABAAgAEQAaACMALQAyADcARgBMAFcAXgBlAHIAeQCBAIMAhQCKAIwAjgCV
+AJoApQCnAKkAqwCwALMAtQC3ALkAuwDAANcA2QDbAYoBjwGaAaMBtgG6Ac0B2AHhAeYB7gHxAfYCBQIJ
+AhACGAIlAioCLAIuAjMCOwI+AkMCSwJOAmACYwJoAAAAAAAAAgEAAAAAAAAAQgAAAAAAAAAAAAAAAAAA
+Amo
+</mutableData>
+        </image>
+        <image name="F0C1D45C-ED22-4BE1-A0C4-93752913B397" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw

@@ -56,13 +56,13 @@
    {
        NSError* err;
       NSString *fileName = [[NSProcessInfo processInfo] globallyUniqueString];
-      NSLog(@"fileName: %@",fileName  );
+      //NSLog(@"fileName: %@",fileName  );
       
       //NSURL *fileURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:fileName]];
       tempDirPfad = [NSTemporaryDirectory() stringByAppendingPathComponent:[[NSProcessInfo processInfo] globallyUniqueString]];
-      NSLog(@"tempDirPfad: %@",tempDirPfad);
+     // NSLog(@"tempDirPfad: %@",tempDirPfad);
       tempfileURL = [NSURL fileURLWithPath:tempDirPfad isDirectory:YES];
-      NSLog(@"tempfileURL: %@",tempfileURL);
+      //NSLog(@"tempfileURL: %@",tempfileURL);
       
       
     //  [[NSFileManager defaultManager] createDirectoryAtURL:tempfileURL withIntermediateDirectories:YES attributes:nil error:&err];
@@ -70,7 +70,7 @@
       {
          NSLog(@"tempDir err: %@",err);
       }
-      NSLog(@"tempDirURL: %@",self.tempDirURL);
+      //NSLog(@"tempDirURL: %@",self.tempDirURL);
       
       // Create a capture session
       session = [[AVCaptureSession alloc] init];
@@ -79,7 +79,7 @@
       // Attach preview to session
       CALayer *previewViewLayer = [[self previewView] layer];
       [previewViewLayer setBackgroundColor:CGColorGetConstantColor(kCGColorBlack)];
-      AVCaptureVideoPreviewLayer *newPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:[self session]];
+      newPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:[self session]];
       [newPreviewLayer setFrame:[previewViewLayer bounds]];
       [newPreviewLayer setAutoresizingMask:kCALayerWidthSizable | kCALayerHeightSizable];
       [previewViewLayer addSublayer:newPreviewLayer];
@@ -134,7 +134,7 @@
       // Attach outputs to session
       movieFileOutput = [[AVCaptureMovieFileOutput alloc] init];
       [movieFileOutput setDelegate:self];
-      [session addOutput:movieFileOutput];
+     [session addOutput:movieFileOutput];
       
       audioPreviewOutput = [[AVCaptureAudioPreviewOutput alloc] init];
       [audioPreviewOutput setVolume:0.f];
@@ -151,7 +151,7 @@
       } else {
          [self setSelectedVideoDevice:[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeMuxed]];
       }
-      
+      //self.selectedVideoDevice=nil;
       /*
       AVCaptureDevice *audioDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio];
       if (audioDevice)
@@ -177,7 +177,8 @@
       
   //    BOOL audiodeviceerfolg =[self setDevice];
   //    NSLog(@"audiodeviceerfolg: %d",audiodeviceerfolg);
-      [self refreshDevices];
+  //    [self refreshDevices];
+      self.selectedVideoDevice=nil;
       //NSLog(@"videoDevice: %@",[videoDevice description  ]);
    }
    return self;
@@ -203,8 +204,9 @@
 }
 
 #pragma mark - Device selection
-- (void)refreshDevices
+- (void)refreshDevices // 1.4 s
 {
+   NSLog(@"AA");
    [self setVideoDevices:[[AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo] arrayByAddingObjectsFromArray:[AVCaptureDevice devicesWithMediaType:AVMediaTypeMuxed]]];
    
    [self setAudioDevices:[AVCaptureDevice devicesWithMediaType:AVMediaTypeAudio]];
@@ -223,10 +225,12 @@
    }
     NSLog(@"C");
    [[self session] commitConfiguration];
+    NSLog(@"BB");
 }
 
 - (AVCaptureDevice *)selectedVideoDevice
 {
+   //return nil;
    return [videoDeviceInput device];
 }
 
@@ -253,7 +257,7 @@
       else
       {
          if (![selectedVideoDevice supportsAVCaptureSessionPreset:[session sessionPreset]])
-            [[self session] setSessionPreset:AVCaptureSessionPresetHigh];
+            [[self session] setSessionPreset:AVCaptureSessionPresetLow];
          
          [[self session] addInput:newVideoDeviceInput];
          [self setVideoDeviceInput:newVideoDeviceInput];
@@ -297,7 +301,7 @@
       else
       {
          if (![selectedAudioDevice supportsAVCaptureSessionPreset:[session sessionPreset]])
-            [[self session] setSessionPreset:AVCaptureSessionPresetHigh];
+            [[self session] setSessionPreset:AVCaptureSessionPresetLow];
          
          [[self session] addInput:newAudioDeviceInput];
          [self setAudioDeviceInput:newAudioDeviceInput];
@@ -443,15 +447,26 @@
 {
    NSDate *now = [[NSDate alloc] init];
    long t1 = (int)now.timeIntervalSince1970 - startzeit;
-   NSLog(@"setRecording t1: %ld",t1);
+   //NSLog(@"setRecording t1: %ld",t1);
    if (record)
    {
 //      [self refreshDevices];
       [[self session] startRunning];
       NSDate *now = [[NSDate alloc] init];
       long t2 = (int)now.timeIntervalSince1970 - startzeit;
-      NSLog(@"setRecording t2: %ld",t2);
+      //NSLog(@"setRecording t2: %ld",t2);
 
+      /*
+      
+      CALayer *previewViewLayer = [[self previewView] layer];
+      [previewViewLayer setBackgroundColor:CGColorGetConstantColor(kCGColorBlack)];
+      AVCaptureVideoPreviewLayer *newPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:[self session]];
+      [newPreviewLayer setFrame:[previewViewLayer bounds]];
+      [newPreviewLayer setAutoresizingMask:kCALayerWidthSizable | kCALayerHeightSizable];
+      [previewViewLayer addSublayer:newPreviewLayer];
+      [self setPreviewLayer:newPreviewLayer];
+    
+*/
      // [self refreshDevices];
      // NSString* tempPfad =[[tempDirPfad stringByAppendingPathComponent:@"tempAufnahme"] stringByAppendingPathExtension:@"mov"];
      //[[self movieFileOutput] setDelegate:self];
@@ -460,8 +475,10 @@
       NSURL* tempAufnahmeURL = [NSURL  fileURLWithPath:tempPfad];
       now = [[NSDate alloc] init];
       long t3 = (int)now.timeIntervalSince1970 - startzeit;
-      NSLog(@"setRecording t3: %ld",t3);
-
+      //NSLog(@"setRecording t3: %ld",t3);
+      
+//       [self setPreviewLayer:newPreviewLayer];
+      NSLog(@"movieFileOutput %@",[self movieFileOutput]);
       [[self movieFileOutput] startRecordingToOutputFileURL:tempAufnahmeURL  recordingDelegate:self];
    
    }
@@ -496,14 +513,14 @@
 {
    NSArray *allSessionPresets = [NSArray arrayWithObjects:
                                  AVCaptureSessionPresetLow,
-                                 AVCaptureSessionPresetMedium,
-                                 AVCaptureSessionPresetHigh,
-                                 AVCaptureSessionPreset320x240,
+                                  AVCaptureSessionPreset320x240,
+                                 /*
                                  AVCaptureSessionPreset352x288,
                                  AVCaptureSessionPreset640x480,
                                  AVCaptureSessionPreset960x540,
                                  AVCaptureSessionPreset1280x720,
                                  AVCaptureSessionPresetPhoto,
+                                  */
                                  nil];
    
    NSMutableArray *availableSessionPresets = [NSMutableArray arrayWithCapacity:9];
@@ -647,7 +664,7 @@ NSError *error = nil;
 {
    NSDate *now = [[NSDate alloc] init];
    long t3 = now.timeIntervalSince1970/1000000 - startzeit;
-   NSLog(@"setRecording t3: %ld",t3);
+   NSLog(@"Did start recording t3: %ld",t3);
 
    //NSLog(@"Did start recording to %@", [fileURL description]);
   

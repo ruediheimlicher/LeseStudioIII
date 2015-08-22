@@ -260,7 +260,7 @@
             aufnahmetimerstatus=0;
             if ([AufnahmeTimer isValid])
             {
-               NSLog(@"RecordingAktion Timer valid");
+               //NSLog(@"RecordingAktion Timer valid");
            //    [AufnahmeTimer invalidate];
             }
          }break;
