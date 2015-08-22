@@ -56,6 +56,22 @@
       // Create a capture session
       session = [[AVCaptureSession alloc] init];
       
+      // Attach preview to session
+      CALayer *previewViewLayer = [[self previewView] layer];
+      [previewViewLayer setBackgroundColor:CGColorGetConstantColor(kCGColorBlack)];
+      AVCaptureVideoPreviewLayer *newPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:[self session]];
+      [newPreviewLayer setFrame:[previewViewLayer bounds]];
+      [newPreviewLayer setAutoresizingMask:kCALayerWidthSizable | kCALayerHeightSizable];
+      [previewViewLayer addSublayer:newPreviewLayer];
+      [self setPreviewLayer:newPreviewLayer];
+      
+      // Start the session
+      [[self session] startRunning];
+      
+      // Start updating the audio level meter
+      [self setAudioLevelTimer:[NSTimer scheduledTimerWithTimeInterval:0.1f target:self selector:@selector(updateAudioLevels:) userInfo:nil repeats:YES]];
+
+
       // Capture Notification Observers
       NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
       id runtimeErrorObserver = [notificationCenter addObserverForName:AVCaptureSessionRuntimeErrorNotification
@@ -163,8 +179,8 @@
 
 - (AVCaptureDevice *)selectedVideoDevice
 {
-   
-   return [videoDeviceInput device];
+   return nil;
+   //return [videoDeviceInput device];
 }
 
 - (void)setSelectedVideoDevice:(AVCaptureDevice *)selectedVideoDevice
@@ -388,7 +404,7 @@
       NSLog(@"tempfileURL: %@",tempfileURL);
 
 //      [self refreshDevices];
-      [[self session] startRunning];
+ //     [[self session] startRunning];
       NSDate *now = [[NSDate alloc] init];
       long t2 = (int)now.timeIntervalSince1970 - startzeit;
       NSLog(@"setRecording t2: %ld",t2);
@@ -409,13 +425,13 @@
    else
    {
       [[self movieFileOutput] stopRecording];
-      [[self session] stopRunning];
+ //     [[self session] stopRunning];
       
       // Set movie file output delegate to nil to avoid a dangling pointer
       //[[self movieFileOutput] setDelegate:nil];
       
       // Remove Observers
-      NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    //  NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
       //for (id observer in [self observers])
        //  [notificationCenter removeObserver:observer];
 
@@ -473,10 +489,11 @@
    
    NSInteger channelCount = 0;
    float decibels = 0.f;
-   
    // Sum all of the average power levels and divide by the number of channels
-   for (AVCaptureConnection *connection in [[self movieFileOutput] connections]) {
-      for (AVCaptureAudioChannel *audioChannel in [connection audioChannels]) {
+   for (AVCaptureConnection *connection in [[self movieFileOutput] connections])
+   {
+      for (AVCaptureAudioChannel *audioChannel in [connection audioChannels])
+      {
          decibels += [audioChannel averagePowerLevel];
          channelCount += 1;
       }
