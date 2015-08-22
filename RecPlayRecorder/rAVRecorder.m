@@ -592,9 +592,9 @@
          // double duration = CMTimeGetSeconds(asset.duration);
          
          CMTime cmtduration = (asset.duration);
-         NSLog(@"duration: %lld",cmtduration.value);
+         NSLog(@"duration raw: %lld",cmtduration.value);
          double duration =CMTimeGetSeconds(cmtduration);
-         
+         NSLog(@"duration seconds: %lld",duration);
          CMTime startTime = CMTimeMake(0, 1);
          CMTime trimstartTime = CMTimeMake(20, 1);
          CMTimeRange startTrimRange = CMTimeRangeFromTimeToTime(startTime, trimstartTime);
