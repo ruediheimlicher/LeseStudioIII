@@ -307,5 +307,7 @@
 - (BOOL)isRecording;
 - (void)updateAudioLevels:(float)level;
 - (void)RecordingAktion:(NSNotification*)note;
+- (IBAction)trim:(id)sender;
+- (IBAction)cut:(id)sender;
 @end // AVRecorder
 

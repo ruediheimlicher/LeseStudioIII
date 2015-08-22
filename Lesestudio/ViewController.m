@@ -505,6 +505,19 @@ extern  NSMenu*                      ProjektMenu;
 
   // AVRecorder
    
+   if (!(AVRecorder))
+   {
+      AVRecorder = [[rAVRecorder alloc]init];
+   }
+   if (AVRecorder)
+   {
+      AVRecorder.RecorderFenster = [self.view window];
+   //   [AVRecorder setRecording:YES];
+      // if AVRecorder
+      AufnahmeZeit=0;
+      [AVRecorder setstartzeit:startzeit];
+   }
+
 
    
 }
