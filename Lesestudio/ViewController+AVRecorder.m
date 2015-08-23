@@ -39,7 +39,7 @@
       {
          MinutenString=[NSString stringWithFormat:@"%d",Minuten];
       }
-      [self.Zeitfeld setStringValue:[NSString stringWithFormat:@"%@:%@",MinutenString, SekundenString]];
+ //     [self.Zeitfeld setStringValue:[NSString stringWithFormat:@"%@:%@",MinutenString, SekundenString]];
    }
    
 }
@@ -243,6 +243,25 @@
    
 }
 
+- (IBAction)stop:(id)sender
+{
+   NSLog(@"startAVPlay");
+   [AVRecorder stop:nil];
+}
+
+
+- (IBAction)startAVPlay:(id)sender
+{
+   NSLog(@"startAVPlay");
+   [AVRecorder setPlaying:YES];
+}
+
+- (IBAction)stopAVPlay:(id)sender
+{
+   NSLog(@"stopAVPlay");
+   [AVRecorder setPlaying:NO];
+}
+
 - (void)RecordingAktion:(NSNotification*)note{
    //NSLog(@"RecordingAktion note: %@",note);
    if ([[note userInfo ]objectForKey:@"record"])
@@ -277,6 +296,54 @@
    }
    
 }
+
+- (void)LevelmeterAktion:(NSNotification*)note
+{
+   //NSLog(@"LevelmeterAktion");
+   
+   if ([[note userInfo]objectForKey:@"level"])
+   {
+      NSNumber* LevelNumber=[[note userInfo]objectForKey:@"level"];
+      float Level=[LevelNumber floatValue];
+      //NSLog(@"Level: %2.2f",Level);
+      // [self.Levelmeter setLevel:4*Level];
+      [self updateAudioLevels:Level];
+      
+   }
+   if ([[note userInfo]objectForKey:@"duration"])
+   {
+      NSNumber* durationNumber=[[note userInfo]objectForKey:@"duration"];
+      AufnahmeZeit=[durationNumber intValue];
+      //NSLog(@"duration: %2.2d",AufnahmeZeit);
+      int Minuten = AufnahmeZeit/60;
+      int Sekunden =AufnahmeZeit%60;
+      
+      NSString* MinutenString;
+      
+      NSString* SekundenString;
+      if (Sekunden<10)
+      {
+         SekundenString=[NSString stringWithFormat:@"0%d",Sekunden];
+      }
+      else
+      {
+         SekundenString=[NSString stringWithFormat:@"%d",Sekunden];
+      }
+      if (Minuten<10)
+      {
+         MinutenString=[NSString stringWithFormat:@"0%d",Minuten];
+      }
+      else
+      {
+         MinutenString=[NSString stringWithFormat:@"%d",Minuten];
+      }
+      [self.Zeitfeld setStringValue:[NSString stringWithFormat:@"%@:%@",MinutenString, SekundenString]];
+
+      
+   }
+   
+}
+
 -(void)onTick:(NSTimer *)timer {
    NSLog(@"AufnahmeTimerFunktion");
 }

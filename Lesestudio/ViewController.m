@@ -518,7 +518,10 @@ extern  NSMenu*                      ProjektMenu;
       [AVRecorder setstartzeit:startzeit];
    }
 
-
+   if (!(AVAbspielplayer))
+   {
+      AVAbspielplayer = [[rAVPlayer alloc]init];
+   }
    
 }
 
@@ -632,19 +635,6 @@ extern  NSMenu*                      ProjektMenu;
 //*   [self.AdminPlayer KommentarSichern];
 }
 
-- (void)LevelmeterAktion:(NSNotification*)note
-{
-   //NSLog(@"LevelmeterAktion");
-   
-   if ([[note userInfo]objectForKey:@"level"])
-   {
-      NSNumber* LevelNumber=[[note userInfo]objectForKey:@"level"];
-      float Level=[LevelNumber floatValue];
-      //NSLog(@"Level: %2.2f",Level);
-     // [self.Levelmeter setLevel:4*Level];
-      [self updateAudioLevels:Level];
-   }
-}
 
 - (void)BeendenAktion:(NSNotification*)note
 {

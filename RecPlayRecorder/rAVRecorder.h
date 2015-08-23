@@ -91,4 +91,5 @@
 - (void)setstartzeit:(double) t;
 - (void)trim;
 - (void)cut;
+- (void)setPlaying:(BOOL)play;
 @end

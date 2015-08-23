@@ -69,6 +69,7 @@
 		BD8139C71B7F677F008DF420 /* rTitelListe.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8139B21B7F677F008DF420 /* rTitelListe.m */; };
 		BD8139C81B7F677F008DF420 /* rUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8139B41B7F677F008DF420 /* rUtils.m */; };
 		BD8139C91B7F677F008DF420 /* rVolumes.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8139B61B7F677F008DF420 /* rVolumes.m */; };
+		BD9FC8D01B89ADEA00B06370 /* rAVPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = BD9FC8CF1B89ADEA00B06370 /* rAVPlayer.m */; };
 		BDBD1EE31B80BA9E00BE58DA /* RPVolumes.nib in Resources */ = {isa = PBXBuildFile; fileRef = BDBD1EE21B80BA9E00BE58DA /* RPVolumes.nib */; };
 		BDBD1EF41B80C4E900BE58DA /* RPAdmin.nib in Resources */ = {isa = PBXBuildFile; fileRef = BDBD1EE41B80C4E900BE58DA /* RPAdmin.nib */; };
 		BDBD1EF51B80C4E900BE58DA /* RPClean.nib in Resources */ = {isa = PBXBuildFile; fileRef = BDBD1EE51B80C4E900BE58DA /* RPClean.nib */; };
@@ -203,6 +204,8 @@
 		BD8139B41B7F677F008DF420 /* rUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = rUtils.m; path = RecPlayKontroller/rUtils.m; sourceTree = SOURCE_ROOT; };
 		BD8139B51B7F677F008DF420 /* rVolumes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rVolumes.h; path = RecPlayKontroller/rVolumes.h; sourceTree = SOURCE_ROOT; };
 		BD8139B61B7F677F008DF420 /* rVolumes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = rVolumes.m; path = RecPlayKontroller/rVolumes.m; sourceTree = SOURCE_ROOT; };
+		BD9FC8CE1B89ADEA00B06370 /* rAVPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rAVPlayer.h; path = RecPlayKontroller/rAVPlayer.h; sourceTree = SOURCE_ROOT; };
+		BD9FC8CF1B89ADEA00B06370 /* rAVPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = rAVPlayer.m; path = RecPlayKontroller/rAVPlayer.m; sourceTree = SOURCE_ROOT; };
 		BDBD1EE01B80B61E00BE58DA /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		BDBD1EE21B80BA9E00BE58DA /* RPVolumes.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = RPVolumes.nib; path = nibs/RPVolumes.nib; sourceTree = SOURCE_ROOT; };
 		BDBD1EE41B80C4E900BE58DA /* RPAdmin.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = RPAdmin.nib; path = nibs/RPAdmin.nib; sourceTree = SOURCE_ROOT; };
@@ -375,6 +378,7 @@
 		BD81395B1B7F4A09008DF420 /* RecPlayRecorder */ = {
 			isa = PBXGroup;
 			children = (
+				BD9FC8CD1B89AC7100B06370 /* AVPlayer */,
 				BD354CEE1B8372A500AC54EC /* AVRecorder */,
 				BD354CF81B837AE800AC54EC /* THRecorder */,
 				BD794DC91B82244D000670F6 /* THMemo.h */,
@@ -456,6 +460,15 @@
 				BD8139B61B7F677F008DF420 /* rVolumes.m */,
 			);
 			name = RecPlayController;
+			sourceTree = "<group>";
+		};
+		BD9FC8CD1B89AC7100B06370 /* AVPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				BD9FC8CE1B89ADEA00B06370 /* rAVPlayer.h */,
+				BD9FC8CF1B89ADEA00B06370 /* rAVPlayer.m */,
+			);
+			name = AVPlayer;
 			sourceTree = "<group>";
 		};
 		BDBD1EE11B80BA8C00BE58DA /* nibs */ = {
@@ -671,6 +684,7 @@
 				BD8139BA1B7F677F008DF420 /* rEinzelNamen.m in Sources */,
 				BD8139B71B7F677F008DF420 /* rArchivView.m in Sources */,
 				BD8139C91B7F677F008DF420 /* rVolumes.m in Sources */,
+				BD9FC8D01B89ADEA00B06370 /* rAVPlayer.m in Sources */,
 				BDE51B051B7F8F5800DBE045 /* rAdminDS.m in Sources */,
 				BD20B1301B7E72CC00DBD210 /* main.m in Sources */,
 				BD8139BB1B7F677F008DF420 /* rNamenListe.m in Sources */,

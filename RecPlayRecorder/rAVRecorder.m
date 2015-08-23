@@ -132,7 +132,7 @@
          NSLog(@"videoDevice no");
          [self setSelectedVideoDevice:[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeMuxed]];
       }
-      
+      NSLog(@"transportControlsSupported: %d",[[self selectedAudioDevice] transportControlsSupported]);
       // Initial refresh of device list
       [self refreshDevices];
       
@@ -415,7 +415,7 @@
      // [self refreshDevices];
      // NSString* tempPfad =[[tempDirPfad stringByAppendingPathComponent:@"tempAufnahme"] stringByAppendingPathExtension:@"mov"];
      //[[self movieFileOutput] setDelegate:self];
-      NSString* tempPfad =[tempDirPfad  stringByAppendingPathExtension:@"mov"];
+      NSString* tempPfad =[tempDirPfad  stringByAppendingPathExtension:@"m4a"];
       
       NSURL* tempAufnahmeURL = [NSURL  fileURLWithPath:tempPfad];
       now = [[NSDate alloc] init];
@@ -497,9 +497,18 @@
    
    //[[self audioLevelMeter] setFloatValue:(pow(10.f, 0.05f * decibels) * 20.0f)];
    AufnahmeLevelWert =2*(pow(10.f, 0.05f * decibels) * 20.0f);
-   
+   double duration;
+  // NSMutableDictionary* recordDic = [[NSMutableDictionary alloc]initWithCapacity:0];
+   //if ([self movieFileOutput].recording)
+   {
+   CMTime cmtduration = [[self movieFileOutput] recordedDuration];
+   duration =CMTimeGetSeconds(cmtduration);
+      
+   }
    NSNotificationCenter * nc=[NSNotificationCenter defaultCenter];
-   [nc postNotificationName:@"levelmeter" object:self userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:(pow(10.f, 0.05f * decibels) * 20.0f)] forKey:@"level"]];
+   [nc postNotificationName:@"levelmeter" object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                [NSNumber numberWithFloat:(pow(10.f, 0.05f * decibels) * 20.0f)] ,@"level",
+                                                                [NSNumber numberWithInteger:duration] ,@"duration",nil]];
 
 }
 - (float)AufnahmeLevel
@@ -735,7 +744,9 @@
 - (IBAction)stop:(id)sender
 {
    
-   [self setTransportMode:AVCaptureDeviceTransportControlsNotPlayingMode speed:0.f forDevice:[self selectedVideoDevice]];
+  // [self setTransportMode:AVCaptureDeviceTransportControlsNotPlayingMode speed:0.f forDevice:[self selectedVideoDevice]];
+   [self setTransportMode:AVCaptureDeviceTransportControlsNotPlayingMode speed:0.f forDevice:[self selectedAudioDevice]];
+
 }
 
 + (NSSet *)keyPathsForValuesAffectingPlaying
@@ -745,6 +756,7 @@
 
 - (BOOL)isPlaying
 {
+   
    AVCaptureDevice *device = [self selectedVideoDevice];
    return ([device transportControlsSupported] &&
            [device transportControlsPlaybackMode] == AVCaptureDeviceTransportControlsPlayingMode &&
@@ -753,7 +765,8 @@
 
 - (void)setPlaying:(BOOL)play
 {
-   AVCaptureDevice *device = [self selectedVideoDevice];
+   NSLog(@"AVVRecorder startAVPlay");
+   AVCaptureDevice *device = [self selectedAudioDevice];
    [self setTransportMode:AVCaptureDeviceTransportControlsPlayingMode speed:play ? 1.f : 0.f forDevice:device];
 }
 
@@ -862,7 +875,7 @@ NSError *error = nil;
    [nc postNotificationName:@"recording" object:self userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:0] forKey:@"record"]];
 
    
-   if (recordError != nil && [[[recordError userInfo] objectForKey:AVErrorRecordingSuccessfullyFinishedKey] boolValue] == NO)
+   if (recordError != nil && [[[recordError userInfo] objectForKey:AVErrorRecordingSuccessfullyFinishedKey] boolValue] == NO) // Fehler, aufraeumen
    {
       [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:nil];
       dispatch_async(dispatch_get_main_queue(), ^(void) {
@@ -885,7 +898,7 @@ NSError *error = nil;
       
       NSSavePanel *savePanel = [NSSavePanel savePanel];
       
-      savePanel.allowedFileTypes = [NSArray arrayWithObject:@"mov"];
+      savePanel.allowedFileTypes = [NSArray arrayWithObject:@"m4a"];
       [savePanel beginSheetModalForWindow:[self RecorderFenster] completionHandler:^(NSInteger result)
        {
           NSError *error = nil;

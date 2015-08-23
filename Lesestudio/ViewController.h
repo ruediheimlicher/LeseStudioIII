@@ -23,7 +23,7 @@
 #import "rArchivView.h"
 #import "rAVRecorder.h"
 #import "rTHRecorder.h"
-
+#import "rAVPlayer.h"
 
 
 
@@ -48,6 +48,8 @@
    rTitelListe*                     TitelListePanel;
    rAVRecorder*                     AVRecorder;
    rTHRecorder*                     THRecorder;
+   
+   rAVPlayer*  AVAbspielplayer;
    NSString*	RPAufnahmenDirIDKey;;
    NSString *	Wert1Key;
    NSString *	Wert2Key;
@@ -307,7 +309,14 @@
 - (BOOL)isRecording;
 - (void)updateAudioLevels:(float)level;
 - (void)RecordingAktion:(NSNotification*)note;
+- (void)LevelmeterAktion:(NSNotification*)note;
 - (IBAction)trim:(id)sender;
 - (IBAction)cut:(id)sender;
+
+- (IBAction)stop:(id)sender;
+
+- (IBAction)startAVPlay:(id)sender;
+- (IBAction)stopAVPlay:(id)sender;
+
 @end // AVRecorder
 
