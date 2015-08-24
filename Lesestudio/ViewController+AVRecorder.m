@@ -112,8 +112,8 @@
    
    self.Leser=[self.ArchivnamenPop titleOfSelectedItem];
    long n=[self.ArchivnamenPop indexOfSelectedItem];
-   NSLog(@"Selected Item: %ld",n);
-   NSLog(@"startRecord:Selected Item: %ld		Leser: %@",n,self.Leser);
+   //NSLog(@"Selected Item: %ld",n);
+   //NSLog(@"startRecord:Selected Item: %ld		Leser: %@",n,self.Leser);
    if ([self.ArchivnamenPop indexOfSelectedItem]==0)
    {
       NSImage* StartRecordImg=[NSImage imageNamed:@"StartRecordIcon.gif"];
@@ -282,7 +282,7 @@
 
 
 - (void)RecordingAktion:(NSNotification*)note{
-   NSLog(@"RecordingAktion note: %@",[note description]);
+   //NSLog(@"RecordingAktion note: %@",[note description]);
    if ([[note userInfo ]objectForKey:@"record"])
    {
       switch([[[note userInfo ] objectForKey:@"record"]intValue])
@@ -311,6 +311,7 @@
                   NSURL* destURL = [[note userInfo ] objectForKey:@"desturl"];
                   self.hiddenAufnahmePfad = [destURL path];
                   [AVAbspielplayer prepareAufnahmeAnURL:destURL];
+                  NSLog(@"RecordingAktion nach prepare");
                }
                /*
                if ([[note userInfo ] objectForKey:@"desturl"] && [[[note userInfo ] objectForKey:@"desturl"]length])
