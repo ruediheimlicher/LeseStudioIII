@@ -81,6 +81,9 @@
 @property (readonly,getter=isRewinding) BOOL rewinding;
 @property (readonly,getter=isFastForwarding) BOOL fastForwarding;
 
+@property NSString*     LeserPfad;
+@property  NSString*                   hiddenAufnahmePfad;
+
 // Methods
 - (IBAction)stop:(id)sender;
 - (void)refreshDevices;
@@ -92,4 +95,6 @@
 - (void)trim;
 - (void)cut;
 - (void)setPlaying:(BOOL)play;
+- (void)setURL:(NSURL*)playerURL;
+- (void)setRecording:(BOOL)record mitLeserPfad:(NSString*)leserpfad;
 @end

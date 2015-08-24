@@ -428,13 +428,17 @@ extern  NSMenu*                      ProjektMenu;
    [self.Leserfeld setFont: Lesernamenfont];
    [self.Leserfeld setTextColor: LesernamenFarbe];
    
+
+   
+
    [self.RecPlayFenster setIsVisible:YES];
    
    //[Leserfeld setBackgroundColor:[NSColor lightGrayColor]];
    //NSImage* StartRecordImg=[[NSImage alloc]initWithContentsOfFile:@"StartPlayImg.tif"];
-   NSImage* StartRecordImg=[NSImage imageNamed:@"StartRecordImg.tif"];
+   NSImage* StartRecordImg=[NSImage imageNamed:@"StartRecordIcon.gif"];
    [[self.StartRecordKnopf cell]setImage:StartRecordImg];
    
+   self.StartStopKnopf.image=StartRecordImg;
    [[self.StartStopKnopf cell]setImage:StartRecordImg];
    
    NSImage* StopRecordImg=[NSImage imageNamed:@"StopRecordImg.tif"];
@@ -521,6 +525,10 @@ extern  NSMenu*                      ProjektMenu;
    if (!(AVAbspielplayer))
    {
       AVAbspielplayer = [[rAVPlayer alloc]init];
+   }
+   if (AVAbspielplayer)
+   {
+      AVAbspielplayer.PlayerFenster = [self.view window];
    }
    
 }
@@ -933,7 +941,7 @@ extern  NSMenu*                      ProjektMenu;
 //*   [RecPlayFenster setIsVisible:YES];
    //[Leserfeld setBackgroundColor:[NSColor lightGrayColor]];
    //NSImage* StartRecordImg=[[NSImage alloc]initWithContentsOfFile:@"StartPlayImg.tif"];
-   NSImage* StartRecordImg=[NSImage imageNamed:@"StartRecordImg.tif"];
+   NSImage* StartRecordImg=[NSImage imageNamed:@"StartRecordIcon.gif"];
    [[self.StartRecordKnopf cell]setImage:StartRecordImg];
    NSImage* StopRecordImg=[NSImage imageNamed:@"StopRecordImg.tif"];
    [[self.StopRecordKnopf cell]setImage:StopRecordImg];
@@ -3000,29 +3008,55 @@ QTMovie* qtMovie;
       }
    }
     */
-   //NSLog(@"setzeLeser: LeserPfad: %@ ",self.LeserPfad);
-   //NSLog(@"setLeser: ProjektPfad: %@",[ProjektPfad description]);
-   //NSLog(@"setLeser		  ProjektPfad 2:retainCount %d",[ProjektPfad retainCount]);
+   if ([AVRecorder isRecording])
+   {
+      // ++
+      NSString* s1=NSLocalizedString(@"Still Playing",@"Wiedergabe läuft");
+      NSString* s2=NSLocalizedString(@"The Name cannot be altered while playing",@"Name kann nicht geändert werden während Abspielen");
+      int Antwort=NSRunAlertPanel(s1,s2,@"OK", @"Stop",NULL);
+      NSLog(@"Antwort: %d",Antwort);
+      if (Antwort==1)
+      {
+         NSLog(@"Wiedergabe lauft: Antwort=1  weiter");
+         return;
+      }
+      if (Antwort==0)
+      {
+         NSLog(@"Wiedergabe lauft: Antwort=0  stop");
+ //        [self stopAVRecord:nil];
+         NSString* s1=NSLocalizedString(@"Recording Stopped",@"Aufnahme abgebrochen");
+         NSString* s2=NSLocalizedString(@"Should the stopped record be saved?",@"Abgebrochene Aufnahme sichern?");
+         int Antwort=NSRunAlertPanel(s1, s2,NSLocalizedString(@"YES",@"JA"), NSLocalizedString(@"NO",@"NEIN"),NULL);
+         if (Antwort==0)
+         {
+            NSLog(@"Aufnahme abgebrochen: Antwort=0  return");
+            return;
+         }
+         if (Antwort==1)
+         {
+            NSLog(@"Aufnahme abgebrochen: Antwort=1  saveRecord");
+  //          [self saveRecord:nil];
+            
+         }
+      }
+      // ++
+      
+   }
+   NSLog(@"setzeLeser: LeserPfad: %@ ",self.LeserPfad);
+   NSLog(@"setLeser: ProjektPfad: %@",[self.ProjektPfad description]);
    
-   //[ArchivnamenPop synchronizeTitleAndSelectedItem];
-   //NSLog(@"setLeser		ProjektPfad9:retainCount %d",[ProjektPfad retainCount]);
+   [self.ArchivnamenPop synchronizeTitleAndSelectedItem];
    
-   //	[AufnahmeGrabber prepare];
-   
-//   OSErr err=[AufnahmeGrabber startRecord];
-   
-//   [AufnahmeGrabber stopRecord];
-   
-   NSString* leser =[sender titleOfSelectedItem];
+   NSString* Leser =[sender titleOfSelectedItem];
    
    if ([[sender titleOfSelectedItem] length]>0)
    {
       self.Leser=[NSString stringWithString:[sender titleOfSelectedItem]];
       
-      //NSLog(@"setLeser: neuer Leser: %@",self.Leser);
+      NSLog(@"setLeser: neuer Leser: %@",self.Leser);
       
       self.LeserPfad=[self.ProjektPfad stringByAppendingPathComponent:self.Leser];
-      //NSLog(@"setLeser: neuer LeserPfad: %@",self.LeserPfad);
+      NSLog(@"setLeser: neuer LeserPfad: %@",self.LeserPfad);
       if (self.mitUserPasswort)
       {
          BOOL PasswortOK=NO;
@@ -3099,7 +3133,10 @@ QTMovie* qtMovie;
          }
       }//mitUserPasswort
    }//if ([[sender titleOfSelectedItem] length]>0)
-   
+   else
+   {
+      self.Leser=@"";
+   }
    [self.LogoutKnopf setEnabled:YES];
    
    

@@ -165,8 +165,8 @@
 @property BOOL                            mitAdminPasswort;
 @property NSMutableDictionary*				AdminPasswortDic;
 
-@property BOOL								mitUserPasswort;
-@property BOOL								istErsteRunde;
+@property BOOL                         mitUserPasswort;
+@property BOOL                         istErsteRunde;
 
 @property NSTimeInterval						TimeoutDelay;
 @property NSData*								GrabberOutputDaten;
@@ -317,6 +317,7 @@
 
 - (IBAction)startAVPlay:(id)sender;
 - (IBAction)stopAVPlay:(id)sender;
+- (IBAction)backAVPlay:(id)sender;
 
 @end // AVRecorder
 

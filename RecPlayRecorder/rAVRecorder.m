@@ -44,6 +44,8 @@
 @synthesize observers;
 @synthesize RecorderFenster;
 
+@synthesize LeserPfad;
+
 - (void)setstartzeit:(double) t
 {
    startzeit = t;
@@ -391,11 +393,12 @@
 }
 
 
-- (void)setRecording:(BOOL)record
+- (void)setRecording:(BOOL)record mitLeserPfad:(NSString*)leserpfad
 {
    NSDate *now = [[NSDate alloc] init];
    long t1 = (int)now.timeIntervalSince1970 - startzeit;
-   NSLog(@"setRecording t1: %ld",t1);
+   NSLog(@"setRecording leserpfad: %@",leserpfad);
+   LeserPfad = leserpfad;
    if (record)
    {
       if ([self isRecording])
@@ -415,12 +418,12 @@
      // [self refreshDevices];
      // NSString* tempPfad =[[tempDirPfad stringByAppendingPathComponent:@"tempAufnahme"] stringByAppendingPathExtension:@"mov"];
      //[[self movieFileOutput] setDelegate:self];
-      NSString* tempPfad =[tempDirPfad  stringByAppendingPathExtension:@"m4a"];
+      NSString* tempPfad =[tempDirPfad  stringByAppendingPathExtension:@"mov"];
       
       NSURL* tempAufnahmeURL = [NSURL  fileURLWithPath:tempPfad];
       now = [[NSDate alloc] init];
       long t3 = (int)now.timeIntervalSince1970 - startzeit;
-      NSLog(@"setRecording t3: %ld",t3);
+     // NSLog(@"setRecording t3: %ld",t3);
 
       [[self movieFileOutput] startRecordingToOutputFileURL:tempAufnahmeURL  recordingDelegate:self];
    
@@ -576,8 +579,9 @@
     }];
    
 }
-- (void)cutFileAtURL:(NSURL*)sourceURL toURL:(NSURL*)destURL
+- (int)cutFileAtURL:(NSURL*)sourceURL toURL:(NSURL*)destURL
 {
+   int cutsuccess=0;
    // http://www.rockhoppertech.com/blog/ios-trimming-audio-files
    // http://stackoverflow.com/questions/23752671/avassetexportsession-not-exporting-metadata
    AVAsset* asset = [AVAsset assetWithURL:sourceURL];
@@ -592,7 +596,7 @@
          AVAssetExportSession* exporter = [AVAssetExportSession exportSessionWithAsset:asset presetName:AVAssetExportPresetAppleM4A];
 
          NSArray* types =[exporter supportedFileTypes];
-         NSLog(@"types: %@",[types description]);
+         //NSLog(@"types: %@",[types description]);
          
          exporter.outputFileType = AVFileTypeAppleM4A;
          
@@ -601,19 +605,11 @@
          // double duration = CMTimeGetSeconds(asset.duration);
          
          CMTime cmtduration = (asset.duration);
-         NSLog(@"duration raw: %lld",cmtduration.value);
+         //NSLog(@"duration raw: %lld",cmtduration.value);
          double duration =CMTimeGetSeconds(cmtduration);
-         NSLog(@"duration seconds: %lld",duration);
+         NSLog(@"cut duration seconds: %f",duration);
          CMTime startTime = CMTimeMake(0, 1);
-         CMTime trimstartTime = CMTimeMake(20, 1);
-         CMTimeRange startTrimRange = CMTimeRangeFromTimeToTime(startTime, trimstartTime);
-         //exporter.timeRange = startTrimRange;
-         
-         CMTime endTime = CMTimeMake(duration, 1);
-         CMTime trimendTime = CMTimeMake(duration-5, 1);
-         CMTimeRange endTrimRange = CMTimeRangeFromTimeToTime(trimendTime, endTime);
-         //    exporter.timeRange = endTrimRange;
-         
+         CMTime cutstartTime = CMTimeMake(1, 1);
          CMTime cutendTime = CMTimeMake(duration-1, 1);
          CMTimeRange cutRange = CMTimeRangeFromTimeToTime(startTime, cutendTime);
          exporter.timeRange = cutRange;
@@ -622,19 +618,12 @@
          NSArray* tracks = [asset tracksWithMediaType:AVMediaTypeAudio];
          if (tracks.count == 0)
          {
-            return;
+            return cutsuccess;
          }
-         AVAssetTrack * trimTrack = tracks[0];
-         AVMutableAudioMix* trimMix = [AVMutableAudioMix audioMix];
-         AVMutableAudioMixInputParameters* trimParameters = [AVMutableAudioMixInputParameters audioMixInputParametersWithTrack:trimTrack];
-         [trimParameters setVolume:1.0 atTime: startTime];
-         
-         //[trimParameters setVolumeRampFromStartVolume:0.0 toEndVolume:1.0 timeRange:startTrimRange];
-         trimMix.inputParameters = [NSArray arrayWithObject:trimParameters];
-    //     exporter.audioMix = trimMix;
          
          [exporter exportAsynchronouslyWithCompletionHandler:^{
             NSLog(@"Export Session Status: %ld", (long)[exporter status]);
+            
             switch ([exporter status])
             {
                case AVAssetExportSessionStatusCompleted:
@@ -647,7 +636,8 @@
                   break;
             }
          }];
-         
+         cutsuccess = (int)[exporter status];
+         NSLog(@"Export: %@", [[exporter error] localizedDescription]);
       }
       else
       {
@@ -657,6 +647,7 @@
       
       
    }
+   return cutsuccess;
 }
 - (void)trimFileAtURL:(NSURL*)sourceURL toURL:(NSURL*)destURL
 {
@@ -673,9 +664,9 @@
      {
         AVAssetExportSession* exporter = [AVAssetExportSession exportSessionWithAsset:asset presetName:AVAssetExportPresetAppleM4A];
         NSArray* types =[exporter supportedFileTypes];
-        NSLog(@"types: %@",[types description]);
+        //NSLog(@"types: %@",[types description]);
         
-        NSLog(@"types: %@",[types description]);
+        //NSLog(@"types: %@",[types description]);
         //ev. AVAssetExportPresetPassthrough
         exporter.outputFileType = AVFileTypeAppleM4A;
        
@@ -836,7 +827,7 @@ NSError *error = nil;
 {
    NSDate *now = [[NSDate alloc] init];
    long t3 = now.timeIntervalSince1970/1000000 - startzeit;
-   NSLog(@"setRecording t3: %ld",t3);
+   //NSLog(@"setRecording t3: %ld",t3);
 
    //NSLog(@"Did start recording to %@", [fileURL description]);
   
@@ -870,10 +861,12 @@ NSError *error = nil;
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)recordError
 {
-   //NSLog(@"didFinishRecordingToOutputFileAtURL");
+   NSLog(@"didFinishRecordingToOutputFileAtURL: %@ an Leserpfad: %@",outputFileURL,LeserPfad);
+   
    NSNotificationCenter * nc=[NSNotificationCenter defaultCenter];
-   [nc postNotificationName:@"recording" object:self userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:0] forKey:@"record"]];
-
+   NSMutableDictionary* saveDic = [[NSMutableDictionary alloc]initWithCapacity:0];
+   //   [nc postNotificationName:@"recording" object:self userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:0] forKey:@"record"]];
+   [saveDic setObject:[NSNumber numberWithInt:0] forKey:@"record"];
    
    if (recordError != nil && [[[recordError userInfo] objectForKey:AVErrorRecordingSuccessfullyFinishedKey] boolValue] == NO) // Fehler, aufraeumen
    {
@@ -881,10 +874,24 @@ NSError *error = nil;
       dispatch_async(dispatch_get_main_queue(), ^(void) {
          [NSApp presentError:recordError];
       });
+      [saveDic setObject:[NSNumber numberWithInt:0] forKey:@"recorderfolg"];
+      NSAlert *Warnung = [[NSAlert alloc] init];
+      [Warnung addButtonWithTitle:@"OK"];
+      [Warnung setMessageText:@"Fehler beim Aufnehmen. Die Aufnahme wird entfernt."];
+      
+      [Warnung setAlertStyle:NSWarningAlertStyle];
+      
+      //[Warnung setIcon:RPImage];
+      int antwort=[Warnung runModal];
+      
+      NSLog(@"Fehler beim Aufnehmen. Die Aufnahme wird entfernt.");
+      [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:nil];
+      
    }
    else
-   
+      
    {
+      [saveDic setObject:[NSNumber numberWithInt:1] forKey:@"recorderfolg"];
       
       // Move the recorded temporary file to a user-specified location
       //     NSSavePanel *savePanel = [NSSavePanel savePanel];
@@ -893,38 +900,85 @@ NSError *error = nil;
       
       //      long antwort = [savePanel runModal];
       //     NSLog(@"antwort: %ld URL: %@",antwort,[savePanel URL]);
-      NSString* testpfad = [[[NSHomeDirectory()stringByAppendingPathComponent:@"Documents"]stringByAppendingPathComponent:@"trimm"]stringByAppendingPathExtension:@"m4a"];
-     
       
+      // tempOrdner fuer getrimmte tempAufnahme
+      
+      NSString* tempTrimmPfad =[tempDirPfad  stringByAppendingPathExtension:@"m4a"];
+      
+      NSURL* tempTrimmURL = [NSURL  fileURLWithPath:tempTrimmPfad];
+      
+      int cuterfolg = [self  cutFileAtURL:outputFileURL toURL:tempTrimmURL];
+      NSLog(@"cuterfolg: %d",cuterfolg);
+      self.hiddenAufnahmePfad = [tempTrimmURL path]; // Pfad fuer Abspielen im Player
+      
+      [saveDic setObject:tempTrimmURL forKey:@"desturl"];
+      
+      [nc postNotificationName:@"recording" object:self userInfo:saveDic];
+      
+      return;
+      
+      [[NSFileManager defaultManager] removeItemAtURL:[NSURL  fileURLWithPath:LeserPfad] error:nil]; // attempt to remove file at the desired save location before moving the recorded file to that location
+      
+      NSError *error = nil;
+      if ([[NSFileManager defaultManager] moveItemAtURL:tempTrimmURL toURL:[NSURL  fileURLWithPath:LeserPfad] error:&error]) // move OK
+      {
+         NSLog(@"move 1");
+         // Platz machen
+         [[NSFileManager defaultManager] removeItemAtURL:tempTrimmURL error:nil];
+         // Movie abspielen
+         //   [[NSWorkspace sharedWorkspace] openURL:[savePanel URL]];
+      }
+      else // Fehler mit move
+      {
+         NSAlert *Warnung = [[NSAlert alloc] init];
+         [Warnung addButtonWithTitle:@"OK"];
+         // [Warnung setMessageText:NSLocalizedString(@"No Marked Records",@"Keine markierten Aufnahmen")];
+         [Warnung setMessageText:@"Fehler beim Sichern der Aufnahmen"];
+         
+         [Warnung setAlertStyle:NSWarningAlertStyle];
+         
+         //[Warnung setIcon:RPImage];
+         int antwort=[Warnung runModal];
+         
+         NSLog(@"Fehler beim Sichern der Aufnahmen");
+         [[NSFileManager defaultManager] removeItemAtURL:tempTrimmURL error:nil];
+      }
+      return;
       NSSavePanel *savePanel = [NSSavePanel savePanel];
       
-      savePanel.allowedFileTypes = [NSArray arrayWithObject:@"m4a"];
+      savePanel.allowedFileTypes = [NSArray arrayWithObjects:@"m4a",@"mov",nil];
       [savePanel beginSheetModalForWindow:[self RecorderFenster] completionHandler:^(NSInteger result)
        {
           NSError *error = nil;
           if (result == NSOKButton)
           {
              
+             NSLog(@"savePanel URL: %@",[savePanel URL]);
              
-
              [[NSFileManager defaultManager] removeItemAtURL:[savePanel URL] error:nil]; // attempt to remove file at the desired save location before moving the recorded file to that location
-             if ([[NSFileManager defaultManager] moveItemAtURL:outputFileURL toURL:[savePanel URL] error:&error])
+             if ([[NSFileManager defaultManager] moveItemAtURL:tempTrimmURL toURL:[savePanel URL] error:&error])
              {
-                [self  trimFileAtURL:[savePanel URL] toURL:[NSURL fileURLWithPath:testpfad]];
+                NSLog(@"savePanel move 1");
+                // Platz machen
+                [[NSFileManager defaultManager] removeItemAtURL:tempTrimmURL error:nil];
                 // Movie abspielen
-             //   [[NSWorkspace sharedWorkspace] openURL:[savePanel URL]];
+                //   [[NSWorkspace sharedWorkspace] openURL:[savePanel URL]];
              }
              else
-             
+                
              {
+                NSLog(@"savePanel move 0");
                 [savePanel orderOut:self];
                 //[self presentError:error modalForWindow:[self RecorderFenster] delegate:self didPresentSelector:@selector(didPresentErrorWithRecovery:contextInfo:) contextInfo:NULL];
              }
           }
           else
           {
+             
              // remove the temporary recording file if it's not being saved
              [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:nil];
+             // getrimmte Aufnahme entfernen, sofern nicht gesichert
+             //            [[NSFileManager defaultManager] removeItemAtURL:[NSURL fileURLWithPath:tempAufnahmePfad] error:nil];
           }
        }];
       

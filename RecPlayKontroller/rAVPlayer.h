@@ -14,6 +14,11 @@
 {
    AVAudioPlayer *AVAbspielplayer;
 }
+@property (assign) NSWindow *PlayerFenster;
+@property (weak) NSURL* tempDirURL;
 
-
+- (void)playAufnahme;
+- (void)stopTempAufnahme;
+- (void)backTempAufnahme;
+- (void)prepareAufnahmeAnURL:(NSURL*)url;
 @end

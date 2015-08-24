@@ -95,21 +95,13 @@
    {
       AVRecorder = [[rAVRecorder alloc]init];
    }
-   if (AVRecorder)
-   {
-     // AVRecorder.RecorderFenster = [self.view window];
-      [AVRecorder setRecording:YES];
-      // if AVRecorder
-      AufnahmeZeit=0;
-      [AVRecorder setstartzeit:startzeit];
-   }
    
    [self.Zeitfeld setStringValue:@"00:00"];
    
    [self.Abspieldauerfeld setStringValue:@"0"];
    [self.Abspielanzeige setLevel:0];
    [self.Abspielanzeige setNeedsDisplay:YES];
-   return;
+   
    self.Pause=0;
    
    //int erfolg=[[self RecPlayFenster]makeFirstResponder:[self RecPlayFenster]];
@@ -124,6 +116,9 @@
    NSLog(@"startRecord:Selected Item: %ld		Leser: %@",n,self.Leser);
    if ([self.ArchivnamenPop indexOfSelectedItem]==0)
    {
+      NSImage* StartRecordImg=[NSImage imageNamed:@"StartRecordIcon.gif"];
+      self.StartStopKnopf.image=StartRecordImg;
+      [self.StartStopString setStringValue:@"START"];
       NSAlert *NamenWarnung = [[NSAlert alloc] init];
       [NamenWarnung addButtonWithTitle:NSLocalizedString(@"I Will",@"Aufforderung Namen angeben")];
       //[RecorderWarnung addButtonWithTitle:@"Cancel"];
@@ -131,16 +126,13 @@
       [NamenWarnung setInformativeText:NSLocalizedString(@"You must choose your name before recording.",@"Gib Namen ein")];
       [NamenWarnung setAlertStyle:NSWarningAlertStyle];
       
-      /*
-       [NamenWarnung beginSheetModalForWindow:RecPlayFenster
+      
+       [NamenWarnung beginSheetModalForWindow:[[self view]window]
        modalDelegate:nil
        didEndSelector:nil
        contextInfo:nil];
        
-       */
-      NSImage* StartRecordImg=[NSImage imageNamed:@"StartRecordImg.tif"];
-      [[self.StartStopKnopf cell]setImage:StartRecordImg];
-      [self.StartStopString setStringValue:@"START"];
+      
       return;
    }
    
@@ -149,14 +141,27 @@
    BOOL sauberOK=0;
    //NSLog(@"startAVRecord neueAufnahmePfad: %@",neueAufnahmePfad);
    NSError* startErr;
-     [self.StartPlayQTKitKnopf setEnabled:NO];
+   //[self.StartPlayQTKitKnopf setEnabled:NO];
+   NSImage* StopRecordImg=[NSImage imageNamed:@"StopRecordImg.tif"];
+   self.StartStopKnopf.image = StopRecordImg;
+   [self.StartStopString setStringValue:@"STOP"];
+
    
-   
-   [self.StopPlayQTKitKnopf setEnabled:NO];
+  // [self.StopPlayQTKitKnopf setEnabled:NO];
    [self.SichernKnopf setEnabled:NO];
    [self.WeitereAufnahmeKnopf setEnabled:NO];
-   [self.StopRecordQTKitKnopf setEnabled:YES];
+
    [self.BackKnopf setEnabled:NO];
+   
+   if (AVRecorder)
+   {
+      // AVRecorder.RecorderFenster = [self.view window];
+      [AVRecorder setRecording:YES mitLeserPfad:self.LeserPfad];
+      // if AVRecorder
+      AufnahmeZeit=0;
+      [AVRecorder setstartzeit:startzeit];
+   }
+
    
 }
 
@@ -166,10 +171,9 @@
 {
    NSLog(@"stopAVRecord");
    
-   [AVRecorder setRecording:NO];
-   return;
+   [AVRecorder setRecording:NO mitLeserPfad:self.LeserPfad];
    
-   
+   /*
    [self.StartPlayQTKitKnopf setEnabled:YES];
    [self.TitelPop  setEnabled:YES];
    [self.TitelPop  setSelectable:YES];
@@ -181,7 +185,7 @@
    [self.StartPlayKnopf setEnabled:YES];
    [self.SichernKnopf setEnabled:YES];
    [self.WeitereAufnahmeKnopf setEnabled:YES];
-   
+   */
    //[RecordQTKitPlayer setMovie:[mCaptureMovieFileOutput movie]];
    
    
@@ -197,23 +201,30 @@
 {
    
    NSLog(@"startAVStop");
+   NSImage* StartRecordImg=[NSImage imageNamed:@"StartRecordIcon.gif"];//
    
    
-   if ([self isRecording])
+   if ([AVRecorder isRecording])
 	  {
-        NSImage* StartRecordImg=[NSImage imageNamed:@"StartRecordImg.tif"];
-        [[self.StartStopKnopf cell]setImage:StartRecordImg];
+        NSImage* StartRecordImg=[NSImage imageNamed:@"StartRecordIcon.gif"];     //
+       // [[self.StartStopKnopf cell]setImage:StartRecordImg];
+        self.StartStopKnopf.image=StartRecordImg;
         [self.StartStopString setStringValue:@"START"];
-        [self stopAVRecord:(NULL)];
+        [self stopAVRecord:sender];
+        //[AVRecorder setRecording:NO];
         
      }
 	  
 	  else
      {
-        NSImage* StopRecordImg=[NSImage imageNamed:@"StopRecordImg.tif"];
-        [[self.StartStopKnopf cell]setImage:StopRecordImg];
-        [self.StartStopString setStringValue:@"STOP"];
-        [self startAVRecord:(NULL)];
+        // Namen checken
+        [self startAVRecord:sender];
+        
+        // Aufnahme starten
+       // NSImage* StopRecordImg=[NSImage imageNamed:@"StopRecordImg.tif"];
+       // self.StartStopKnopf.image = StopRecordImg;
+       // [self.StartStopString setStringValue:@"STOP"];
+       //[AVRecorder setRecording:YES];
         
      }
    
@@ -253,17 +264,25 @@
 - (IBAction)startAVPlay:(id)sender
 {
    NSLog(@"startAVPlay");
-   [AVRecorder setPlaying:YES];
+  // [AVRecorder setPlaying:YES];
+   [AVAbspielplayer playAufnahme];
 }
 
 - (IBAction)stopAVPlay:(id)sender
 {
    NSLog(@"stopAVPlay");
-   [AVRecorder setPlaying:NO];
+   [AVAbspielplayer stopTempAufnahme];
 }
 
+- (IBAction)backAVPlay:(id)sender
+{
+   NSLog(@"backAVPlay");
+   [AVAbspielplayer backTempAufnahme];
+}
+
+
 - (void)RecordingAktion:(NSNotification*)note{
-   //NSLog(@"RecordingAktion note: %@",note);
+   NSLog(@"RecordingAktion note: %@",[note description]);
    if ([[note userInfo ]objectForKey:@"record"])
    {
       switch([[[note userInfo ] objectForKey:@"record"]intValue])
@@ -272,10 +291,95 @@
          {
             NSLog(@"RecordingAktion Aufnahme stop");
             aufnahmetimerstatus=0;
-            if ([AufnahmeTimer isValid])
+            
+            // erfolg checken
+            if ([[[note userInfo ] objectForKey:@"recorderfolg"]intValue])
             {
-               NSLog(@"RecordingAktion Timer valid");
-           //    [AufnahmeTimer invalidate];
+                // Tastenstatus setzen
+               [self.StartPlayQTKitKnopf setEnabled:YES];
+               [self.TitelPop  setEnabled:YES];
+               [self.TitelPop  setSelectable:YES];
+               [[self.TitelPop cell] setEnabled:YES];
+               [[self.TitelPop cell] setEnabled:YES];
+               
+               [self.StartPlayKnopf setEnabled:YES];
+               [self.SichernKnopf setEnabled:YES];
+               [self.WeitereAufnahmeKnopf setEnabled:YES];
+               if ([[note userInfo ] objectForKey:@"desturl"] && [[[[note userInfo ] objectForKey:@"desturl"]path]length])
+               {
+                   NSLog(@"RecordingAktion desturl: %@",[[note userInfo ]objectForKey:@"desturl"]);
+                  NSURL* destURL = [[note userInfo ] objectForKey:@"desturl"];
+                  self.hiddenAufnahmePfad = [destURL path];
+                  [AVAbspielplayer prepareAufnahmeAnURL:destURL];
+               }
+               /*
+               if ([[note userInfo ] objectForKey:@"desturl"] && [[[note userInfo ] objectForKey:@"desturl"]length])
+               {
+                  NSURL* destURL = [[note userInfo ] objectForKey:@"desturl"];
+                  self.hiddenAufnahmePfad = [destURL path];
+                  
+                  
+                  [[NSFileManager defaultManager] removeItemAtURL:[NSURL  fileURLWithPath:self.LeserPfad] error:nil]; // attempt to remove file at the desired save location before moving the recorded file to that location
+                  
+                  NSError *error = nil;
+                  if ([[NSFileManager defaultManager] moveItemAtURL:destURL toURL:[NSURL  fileURLWithPath:LeserPfad] error:&error]) // move OK
+                  {
+                     NSLog(@"move 1");
+                     // Platz machen
+                     [[NSFileManager defaultManager] removeItemAtURL:tempTrimmURL error:nil];
+                     // Movie abspielen
+                     //   [[NSWorkspace sharedWorkspace] openURL:[savePanel URL]];
+                  }
+                  else // Fehler mit move
+                  {
+                     NSAlert *Warnung = [[NSAlert alloc] init];
+                     [Warnung addButtonWithTitle:@"OK"];
+                     // [Warnung setMessageText:NSLocalizedString(@"No Marked Records",@"Keine markierten Aufnahmen")];
+                     [Warnung setMessageText:@"Fehler beim Sichern der Aufnahmen"];
+                     
+                     [Warnung setAlertStyle:NSWarningAlertStyle];
+                     
+                     //[Warnung setIcon:RPImage];
+                     int antwort=[Warnung runModal];
+                     
+                     NSLog(@"Fehler beim Sichern der Aufnahmen");
+                     [[NSFileManager defaultManager] removeItemAtURL:tempTrimmURL error:nil];
+                  }
+               }
+                */
+            } // if recorderfolg
+            else
+            {
+               // record fehler
+               NSImage* StartRecordImg=[NSImage imageNamed:@"StartRecordIcon.gif"];
+               self.StartStopKnopf.image=StartRecordImg;
+
+               [self.SichernKnopf setEnabled:NO];
+
+               [self.BackKnopf setEnabled:NO];
+               [self.Zeitfeld setStringValue:@"00:00"];
+               
+               [self.Abspieldauerfeld setStringValue:@"0"];
+               [self.Abspielanzeige setLevel:0];
+               [self.Abspielanzeige setNeedsDisplay:YES];
+
+               
+               
+               NSAlert *Warnung = [[NSAlert alloc] init];
+               [Warnung addButtonWithTitle:@"OK"];
+               // [Warnung setMessageText:NSLocalizedString(@"No Marked Records",@"Keine markierten Aufnahmen")];
+               [Warnung setMessageText:@"Fehler beim Sichern der Aufnahme"];
+               
+               [Warnung setAlertStyle:NSWarningAlertStyle];
+               
+               //[Warnung setIcon:RPImage];
+               int antwort=[Warnung runModal];
+               
+               NSLog(@"Fehler beim Sichern der Aufnahmen");
+               
+               
+               
+               
             }
          }break;
             
@@ -284,13 +388,6 @@
             NSLog(@"RecordingAktion Aufnahme start");
             aufnahmetimerstatus=1;
             AufnahmeZeit = 0;
-/*
-            AufnahmeTimer=[NSTimer scheduledTimerWithTimeInterval:1.0
-                                                           target:self
-                                                         selector:@selector(AufnahmeTimerFunktion:)
-                                                         userInfo:nil
-                                                         repeats:YES];
-  */
          }break;
       }// switch
    }

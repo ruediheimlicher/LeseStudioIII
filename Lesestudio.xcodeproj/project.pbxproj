@@ -70,6 +70,8 @@
 		BD8139C81B7F677F008DF420 /* rUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8139B41B7F677F008DF420 /* rUtils.m */; };
 		BD8139C91B7F677F008DF420 /* rVolumes.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8139B61B7F677F008DF420 /* rVolumes.m */; };
 		BD9FC8D01B89ADEA00B06370 /* rAVPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = BD9FC8CF1B89ADEA00B06370 /* rAVPlayer.m */; };
+		BD9FC8D31B89DEB500B06370 /* StartRecordIcon.gif in Resources */ = {isa = PBXBuildFile; fileRef = BD9FC8D11B89DEB500B06370 /* StartRecordIcon.gif */; };
+		BD9FC8D41B89DEB500B06370 /* StartRecordIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = BD9FC8D21B89DEB500B06370 /* StartRecordIcon.png */; };
 		BDBD1EE31B80BA9E00BE58DA /* RPVolumes.nib in Resources */ = {isa = PBXBuildFile; fileRef = BDBD1EE21B80BA9E00BE58DA /* RPVolumes.nib */; };
 		BDBD1EF41B80C4E900BE58DA /* RPAdmin.nib in Resources */ = {isa = PBXBuildFile; fileRef = BDBD1EE41B80C4E900BE58DA /* RPAdmin.nib */; };
 		BDBD1EF51B80C4E900BE58DA /* RPClean.nib in Resources */ = {isa = PBXBuildFile; fileRef = BDBD1EE51B80C4E900BE58DA /* RPClean.nib */; };
@@ -206,6 +208,8 @@
 		BD8139B61B7F677F008DF420 /* rVolumes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = rVolumes.m; path = RecPlayKontroller/rVolumes.m; sourceTree = SOURCE_ROOT; };
 		BD9FC8CE1B89ADEA00B06370 /* rAVPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rAVPlayer.h; path = RecPlayKontroller/rAVPlayer.h; sourceTree = SOURCE_ROOT; };
 		BD9FC8CF1B89ADEA00B06370 /* rAVPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = rAVPlayer.m; path = RecPlayKontroller/rAVPlayer.m; sourceTree = SOURCE_ROOT; };
+		BD9FC8D11B89DEB500B06370 /* StartRecordIcon.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = StartRecordIcon.gif; path = Icons/StartRecordIcon.gif; sourceTree = SOURCE_ROOT; };
+		BD9FC8D21B89DEB500B06370 /* StartRecordIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = StartRecordIcon.png; path = Icons/StartRecordIcon.png; sourceTree = SOURCE_ROOT; };
 		BDBD1EE01B80B61E00BE58DA /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		BDBD1EE21B80BA9E00BE58DA /* RPVolumes.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = RPVolumes.nib; path = nibs/RPVolumes.nib; sourceTree = SOURCE_ROOT; };
 		BDBD1EE41B80C4E900BE58DA /* RPAdmin.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = RPAdmin.nib; path = nibs/RPAdmin.nib; sourceTree = SOURCE_ROOT; };
@@ -394,6 +398,8 @@
 		BD8139621B7F5E59008DF420 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				BD9FC8D11B89DEB500B06370 /* StartRecordIcon.gif */,
+				BD9FC8D21B89DEB500B06370 /* StartRecordIcon.png */,
 				BD8139651B7F5E90008DF420 /* Back.gif */,
 				BD8139661B7F5E90008DF420 /* Back.icns */,
 				BD8139671B7F5E90008DF420 /* Back.psd */,
@@ -597,6 +603,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BDBD1EF51B80C4E900BE58DA /* RPClean.nib in Resources */,
+				BD9FC8D31B89DEB500B06370 /* StartRecordIcon.gif in Resources */,
 				BD8139821B7F5E90008DF420 /* MarkOffImg.tif in Resources */,
 				BD8139831B7F5E90008DF420 /* MarkOnImg.tif in Resources */,
 				BDBD1F021B80C4E900BE58DA /* RPTimeoutDialog.nib in Resources */,
@@ -636,6 +643,7 @@
 				BDBD1EF81B80C4E900BE58DA /* RPEntfernen.nib in Resources */,
 				BD81397E1B7F5E90008DF420 /* Back.tif in Resources */,
 				BD81397B1B7F5E90008DF420 /* Back.gif in Resources */,
+				BD9FC8D41B89DEB500B06370 /* StartRecordIcon.png in Resources */,
 				BD8139861B7F5E90008DF420 /* MicroIcon.tif in Resources */,
 				BDBD1EF71B80C4E900BE58DA /* RPEinzelNamen.nib in Resources */,
 				BDBD1F011B80C4E900BE58DA /* RPProjektStart.nib in Resources */,
