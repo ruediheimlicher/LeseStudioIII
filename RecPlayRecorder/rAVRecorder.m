@@ -903,8 +903,8 @@ NSError *error = nil;
       
       // tempOrdner fuer getrimmte tempAufnahme
       
-      NSString* tempTrimmPfad =[tempDirPfad  stringByAppendingPathExtension:@"m4a"];
-      
+      NSString* tempTrimmPfad =[tempDirPfad   stringByAppendingPathExtension:@"m4a"];
+      NSLog(@"tempTrimmPfad: %@",antwort,tempTrimmPfad);
       NSURL* tempTrimmURL = [NSURL  fileURLWithPath:tempTrimmPfad];
       
       int cuterfolg = [self  cutFileAtURL:outputFileURL toURL:tempTrimmURL];
