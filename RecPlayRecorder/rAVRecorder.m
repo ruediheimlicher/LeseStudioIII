@@ -576,8 +576,9 @@
     }];
    
 }
-- (void)cutFileAtURL:(NSURL*)sourceURL toURL:(NSURL*)destURL
+- (int)cutFileAtURL:(NSURL*)sourceURL toURL:(NSURL*)destURL
 {
+   int cutsuccess=0;
    // http://www.rockhoppertech.com/blog/ios-trimming-audio-files
    // http://stackoverflow.com/questions/23752671/avassetexportsession-not-exporting-metadata
    AVAsset* asset = [AVAsset assetWithURL:sourceURL];
@@ -622,7 +623,7 @@
          NSArray* tracks = [asset tracksWithMediaType:AVMediaTypeAudio];
          if (tracks.count == 0)
          {
-            return;
+            return cutsuccess;;
          }
          AVAssetTrack * trimTrack = tracks[0];
          AVMutableAudioMix* trimMix = [AVMutableAudioMix audioMix];
@@ -634,20 +635,23 @@
     //     exporter.audioMix = trimMix;
          
          [exporter exportAsynchronouslyWithCompletionHandler:^{
-            NSLog(@"Export Session Status: %ld", (long)[exporter status]);
+            
             switch ([exporter status])
             {
                case AVAssetExportSessionStatusCompleted:
-                  NSLog(@"Export sucess");break;
+               {
+                  NSLog(@"cut Export sucess");
+               }break;
                case AVAssetExportSessionStatusFailed:
-                  NSLog(@"Export failed: %@", [[exporter error] localizedDescription]);break;
+                  NSLog(@"cut Export failed: %@", [[exporter error] localizedDescription]);break;
                case AVAssetExportSessionStatusCancelled:
-                  NSLog(@"Export canceled");break;
+                  NSLog(@"cut Export canceled");break;
                default:
                   break;
             }
          }];
-         
+//         NSLog(@"cut Export Session Status: %d", (int)[exporter status]);
+         cutsuccess = (int)[exporter status];
       }
       else
       {
@@ -657,9 +661,11 @@
       
       
    }
+   return cutsuccess;
 }
-- (void)trimFileAtURL:(NSURL*)sourceURL toURL:(NSURL*)destURL
+- (int)trimFileAtURL:(NSURL*)sourceURL toURL:(NSURL*)destURL
 {
+   int trimsuccess=0;
    // http://www.rockhoppertech.com/blog/ios-trimming-audio-files
    // http://stackoverflow.com/questions/23752671/avassetexportsession-not-exporting-metadata
    AVAsset* asset = [AVAsset assetWithURL:sourceURL];
@@ -703,7 +709,7 @@
         NSArray* tracks = [asset tracksWithMediaType:AVMediaTypeAudio];
         if (tracks.count == 0)
         {
-           return;
+           return trimsuccess;
         }
         AVAssetTrack * trimTrack = tracks[0];
         AVMutableAudioMix* trimMix = [AVMutableAudioMix audioMix];
@@ -715,7 +721,7 @@
         exporter.audioMix = trimMix;
         
         [exporter exportAsynchronouslyWithCompletionHandler:^{
-         NSLog(@"Export Session Status: %ld", (long)[exporter status]);
+         NSLog(@"trim Export Session Status: %ld", (long)[exporter status]);
            switch ([exporter status])
            {
               case AVAssetExportSessionStatusCompleted:
@@ -728,7 +734,7 @@
                  break;
            }
         }];
-        
+        trimsuccess = (int)[exporter status];
      }
       else
       {
@@ -738,6 +744,7 @@
       
     
    }
+   return trimsuccess;
 }
 #pragma mark - Transport Controls
 
@@ -910,7 +917,8 @@ NSError *error = nil;
              [[NSFileManager defaultManager] removeItemAtURL:[savePanel URL] error:nil]; // attempt to remove file at the desired save location before moving the recorded file to that location
              if ([[NSFileManager defaultManager] moveItemAtURL:outputFileURL toURL:[savePanel URL] error:&error])
              {
-                [self  trimFileAtURL:[savePanel URL] toURL:[NSURL fileURLWithPath:testpfad]];
+                int exportererfolg = [self  cutFileAtURL:[savePanel URL] toURL:[NSURL fileURLWithPath:testpfad]];
+                NSLog(@"exportererfolg: %d",exportererfolg);
                 // Movie abspielen
              //   [[NSWorkspace sharedWorkspace] openURL:[savePanel URL]];
              }
