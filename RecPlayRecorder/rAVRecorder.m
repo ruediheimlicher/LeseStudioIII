@@ -397,7 +397,7 @@
 {
    NSDate *now = [[NSDate alloc] init];
    long t1 = (int)now.timeIntervalSince1970 - startzeit;
-   NSLog(@"setRecording leserpfad: %@",leserpfad);
+   //NSLog(@"setRecording leserpfad: %@",leserpfad);
    LeserPfad = leserpfad;
    if (record)
    {
@@ -408,12 +408,12 @@
          
       }
       tempDirPfad = [NSTemporaryDirectory() stringByAppendingPathComponent:[[NSProcessInfo processInfo] globallyUniqueString]];
-      NSLog(@"tempDirPfad: %@",tempDirPfad);
+      //NSLog(@"tempDirPfad: %@",tempDirPfad);
       tempfileURL = [NSURL fileURLWithPath:tempDirPfad isDirectory:YES];
-      NSLog(@"tempfileURL: %@",tempfileURL);
+      //NSLog(@"tempfileURL: %@",tempfileURL);
       NSDate *now = [[NSDate alloc] init];
       long t2 = (int)now.timeIntervalSince1970 - startzeit;
-      NSLog(@"setRecording t2: %ld",t2);
+      //NSLog(@"setRecording t2: %ld",t2);
 
      // [self refreshDevices];
      // NSString* tempPfad =[[tempDirPfad stringByAppendingPathComponent:@"tempAufnahme"] stringByAppendingPathExtension:@"mov"];
@@ -582,6 +582,7 @@
 - (int)cutFileAtURL:(NSURL*)sourceURL toURL:(NSURL*)destURL
 {
    int cutsuccess=0;
+   NSLog(@"cutFileAtURL: \n\tsourceURL: %@\n\tdestURL: %@",sourceURL,destURL);
    // http://www.rockhoppertech.com/blog/ios-trimming-audio-files
    // http://stackoverflow.com/questions/23752671/avassetexportsession-not-exporting-metadata
    AVAsset* asset = [AVAsset assetWithURL:sourceURL];
@@ -595,7 +596,7 @@
       {
          AVAssetExportSession* exporter = [AVAssetExportSession exportSessionWithAsset:asset presetName:AVAssetExportPresetAppleM4A];
 
-         NSArray* types =[exporter supportedFileTypes];
+         //NSArray* types =[exporter supportedFileTypes];
          //NSLog(@"types: %@",[types description]);
          
          exporter.outputFileType = AVFileTypeAppleM4A;
@@ -607,7 +608,7 @@
          CMTime cmtduration = (asset.duration);
          //NSLog(@"duration raw: %lld",cmtduration.value);
          double duration =CMTimeGetSeconds(cmtduration);
-         NSLog(@"cut duration seconds: %f",duration);
+         //NSLog(@"cut duration seconds: %f",duration);
          CMTime startTime = CMTimeMake(0, 1);
          CMTime cutstartTime = CMTimeMake(1, 1);
          CMTime cutendTime = CMTimeMake(duration-1, 1);
@@ -622,7 +623,7 @@
          }
          
          [exporter exportAsynchronouslyWithCompletionHandler:^{
-            NSLog(@"Export Session Status: %ld", (long)[exporter status]);
+            //NSLog(@"Export Session Status: %ld", (long)[exporter status]);
             
             switch ([exporter status])
             {
@@ -637,7 +638,7 @@
             }
          }];
          cutsuccess = (int)[exporter status];
-         NSLog(@"Export: %@", [[exporter error] localizedDescription]);
+         NSLog(@"cut Export err: %@", [[exporter error] localizedDescription]);
       }
       else
       {
@@ -904,7 +905,7 @@ NSError *error = nil;
       // tempOrdner fuer getrimmte tempAufnahme
       
       NSString* tempTrimmPfad =[tempDirPfad   stringByAppendingPathExtension:@"m4a"];
-      NSLog(@"tempTrimmPfad: %@",antwort,tempTrimmPfad);
+      NSLog(@"tempTrimmPfad: %@",tempTrimmPfad);
       NSURL* tempTrimmURL = [NSURL  fileURLWithPath:tempTrimmPfad];
       
       int cuterfolg = [self  cutFileAtURL:outputFileURL toURL:tempTrimmURL];
