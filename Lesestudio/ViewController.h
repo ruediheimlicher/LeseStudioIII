@@ -22,8 +22,9 @@
 #import "rArchivDS.h"
 #import "rArchivView.h"
 #import "rAVRecorder.h"
-#import "rTHRecorder.h"
 #import "rAVPlayer.h"
+
+#import "rAdminPlayer.h"
 
 
 
@@ -47,7 +48,9 @@
    rPasswortListe*						PasswortListePanel;
    rTitelListe*                     TitelListePanel;
    rAVRecorder*                     AVRecorder;
-   rTHRecorder*                     THRecorder;
+   
+   rAdminPlayer*						   AdminPlayer;
+   
    
    rAVPlayer*  AVAbspielplayer;
    NSString*	RPAufnahmenDirIDKey;;
@@ -104,7 +107,7 @@
 @property  (weak) IBOutlet NSTextField *				Leserfeld;
 @property  (weak) IBOutlet NSTextField *				Abspieldauerfeld;
 @property  (weak) IBOutlet NSTextField *				Kommentarfeld;
-@property  IBOutlet NSTextView*					KommentarView;
+@property   IBOutlet NSTextView*					KommentarView;
 @property  (weak) IBOutlet NSProgressIndicator*		Levelbalken;
 @property  (weak) IBOutlet NSPopUpButton *			ArchivnamenPop;
 @property  (weak) IBOutlet NSComboBox *				TitelPop;
@@ -228,6 +231,7 @@
 @property (weak) IBOutlet NSButton*					UserMarkCheckbox;
 @property (weak) IBOutlet NSTextField*				ArchivAbspieldauerFeld;
 
+@property (weak) IBOutlet NSTextField*				TimeoutFeld;
 @property BOOL								ArchivPlayerGeladen;
 @property (weak) rArchivDS*							ArchivDaten;
 @property int									ArchivSelektierteZeile;

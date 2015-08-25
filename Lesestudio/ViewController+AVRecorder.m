@@ -160,6 +160,7 @@
       // if AVRecorder
       AufnahmeZeit=0;
       [AVRecorder setstartzeit:startzeit];
+      [Utils stopTimeout];
    }
 
    
@@ -258,26 +259,30 @@
 {
    NSLog(@"startAVPlay");
    [AVRecorder stop:nil];
+   [Utils startTimeout:self.TimeoutDelay];
 }
 
 
 - (IBAction)startAVPlay:(id)sender
 {
-   NSLog(@"startAVPlay");
+   NSLog(@"startAVPlay hiddenaufna pfad: %@",self.hiddenAufnahmePfad);
   // [AVRecorder setPlaying:YES];
    [AVAbspielplayer playAufnahme];
+   [Utils startTimeout:self.TimeoutDelay];
 }
 
 - (IBAction)stopAVPlay:(id)sender
 {
    NSLog(@"stopAVPlay");
    [AVAbspielplayer stopTempAufnahme];
+   [Utils startTimeout:self.TimeoutDelay];
 }
 
 - (IBAction)backAVPlay:(id)sender
 {
    NSLog(@"backAVPlay");
    [AVAbspielplayer backTempAufnahme];
+   [Utils startTimeout:self.TimeoutDelay];
 }
 
 
@@ -295,6 +300,7 @@
             // erfolg checken
             if ([[[note userInfo ] objectForKey:@"recorderfolg"]intValue])
             {
+               [Utils startTimeout:self.TimeoutDelay];
                 // Tastenstatus setzen
                [self.StartPlayQTKitKnopf setEnabled:YES];
                [self.TitelPop  setEnabled:YES];
@@ -364,7 +370,7 @@
                [self.Abspielanzeige setLevel:0];
                [self.Abspielanzeige setNeedsDisplay:YES];
 
-               
+               [Utils startTimeout:self.TimeoutDelay];
                
                NSAlert *Warnung = [[NSAlert alloc] init];
                [Warnung addButtonWithTitle:@"OK"];
@@ -386,9 +392,10 @@
             
          case 1:
          {
-            NSLog(@"RecordingAktion Aufnahme start");
+            NSLog(@"RecordingAktion Aufnahme gestartet");
             aufnahmetimerstatus=1;
             AufnahmeZeit = 0;
+            [Utils stopTimeout];
          }break;
       }// switch
    }
@@ -439,7 +446,7 @@
 
       
    }
-   
+//   self.TimeoutFeld.intValue = sel
 }
 
 -(void)onTick:(NSTimer *)timer {

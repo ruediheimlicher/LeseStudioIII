@@ -471,7 +471,7 @@ extern  NSMenu*                      ProjektMenu;
    {
       [self.PWFeld setStringValue:NSLocalizedString(@"Without Password",@"Ohne Passwort")];
    }
-   
+   NSLog(@"TimeoutDelay: %f",self.TimeoutDelay);
    //Tooltips
    
    [self.StartRecordKnopf setToolTip:NSLocalizedString(@"Start Record.\nAn existing unsaved Record is overridden.",@"Aufnahme beginnen\nEine schon vorhandene ungesicherte Aufnahme wird überschrieben")];
@@ -565,10 +565,6 @@ extern  NSMenu*                      ProjektMenu;
    
 }
 
-- (void)stopTimeout
-{
-   
-}
 
 - (void)TimeoutAktion:(NSNotification*)note
 {
@@ -1040,109 +1036,6 @@ extern  NSMenu*                      ProjektMenu;
 
 #pragma mark QTKit
 
-
-- (IBAction)startTHRecord:(id)sender
-{
-   //NSLog(@"startTHRecord");
-
-   if (!(THRecorder))
-   {
-      //NSLog(@"startTHRecord A");
-      THRecorder = [[rTHRecorder alloc]init];
-   }
-   if (THRecorder)
-   {
-      [THRecorder setDelegate:THRecorder];
-      NSLog(@"startTHRecord OK");
-      [THRecorder record];
-   } // if AVRecorder
-
-}
-
-- (IBAction)stopTHRecord2:(id)sender
-{
-   [THRecorder stopWithCompletionHandler:^(BOOL result) {
-      double delayInSeconds = 0.01;
-      dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t) (delayInSeconds * NSEC_PER_SEC));
-      dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
-         
-         /*
-          NSAlert *NamenWarnung = [[NSAlert alloc] init];
-          [NamenWarnung addButtonWithTitle:NSLocalizedString(@"I Will",@"Aufforderung Namen angeben")];
-          //[RecorderWarnung addButtonWithTitle:@"Cancel"];
-          [NamenWarnung setMessageText:NSLocalizedString(@"Who are You?",@"Frage nach Namen")];
-          [NamenWarnung setInformativeText:NSLocalizedString(@"You must choose your name before recording.",@"Gib Namen ein")];
-          [NamenWarnung setAlertStyle:NSWarningAlertStyle];
-
-          */
-         
-         NSAlert *NamenWarnung = [NSAlert alertWithMessageText: @"Namen angeben"
-                                                 defaultButton:@"OK"
-                                               alternateButton:@"Cancel"
-                                                   otherButton:nil
-                                     informativeTextWithFormat:@""];
-         
-         NSTextField *input = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 200, 24)];
-         [input setStringValue:@""];
-         [NamenWarnung setAccessoryView:input];
-         NSInteger button = [NamenWarnung runModal];
-      });
-   }];
-   THRecorder=nil;
-}
-
-- (IBAction)stopTHRecord:(id)sender
-{
-   NSString* Filename;
-   NSAlert *NamenWarnung = [NSAlert alertWithMessageText: @"Namen angeben"
-                                           defaultButton:@"OK"
-                                         alternateButton:@"Cancel"
-                                             otherButton:nil
-                               informativeTextWithFormat:@""];
-   
-   NSTextField *input = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 0, 200, 24)];
-   [input setStringValue:@""];
-   [NamenWarnung setAccessoryView:input];
-   NSInteger button = [NamenWarnung runModal];
-   NSLog(@"button: %ld wert: %@",(long)button,[input stringValue]);
-   
-   
-   if (button == 1)
-   {
-      //NSLog(@"NSAlertFirstButtonReturn");
-      [THRecorder saveRecordingWithName: [input stringValue] completionHandler:^(BOOL result,id aa)
-      {
-         double delayInSeconds = 0.01;
-         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t) (delayInSeconds * NSEC_PER_SEC));
-         dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
-            
-         });
-      }];
-
-   }
-   else
-   {
-      return;
-   }
-   // Stop the session
-
-   
-}
-- (int)saveRecordAnPfad:(NSString*)derPfad
-{
-   
-       [THRecorder saveRecordingWithName: derPfad completionHandler:^(BOOL result,id aa)
-       {
-          double delayInSeconds = 0.01;
-          dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t) (delayInSeconds * NSEC_PER_SEC));
-          dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
-             
-          });
-       }];
-      
-   
-   return 1;
-}
 
 
 - (IBAction)goQTKitStart:(id)sender
@@ -3517,6 +3410,11 @@ QTMovie* qtMovie;
 
 - (NSString*)Initialen:(NSString*)derName
 {
+   if ([derName length]==0)
+   {
+      return @"YY";
+   }
+
    NSString* tempstring =[derName copy];
    unichar  Anfangsbuchstabe=[tempstring characterAtIndex:0];
    NSMutableString*initial=[NSMutableString stringWithCharacters:&Anfangsbuchstabe length:1];
@@ -3532,6 +3430,10 @@ QTMovie* qtMovie;
       unichar  ZweiterBuchstabe=[tempstring characterAtIndex:(pos+1)];
       NSString* s=[NSMutableString stringWithCharacters:&ZweiterBuchstabe length:1];
       initial=(NSMutableString*)[initial stringByAppendingString:s];
+   }
+   else
+   {
+      return @"XX";
    }
    return initial;
 }

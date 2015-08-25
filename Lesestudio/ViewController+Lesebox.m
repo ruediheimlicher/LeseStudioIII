@@ -56,7 +56,7 @@
    
    if (LeseboxOK)
    {
-      //NSLog(@"Leseboxvorbereiten LeseboxOK=1 PListDic lesen");
+      NSLog(@"Leseboxvorbereiten LeseboxOK=1 PListDic lesen");
       self.PListDic=[[Utils PListDicVon:self.LeseboxPfad aufSystemVolume:self.istSystemVolume]mutableCopy];
       
       
@@ -261,9 +261,9 @@
    if (ArchivOK)
    {
       self.ArchivPfad=[self.LeseboxPfad stringByAppendingPathComponent:ArchivString];//Pfad des Archiv-Ordners
-      //NSLog(@"vor ProjektListeOK: ProjektListeValidAnPfad: ProjektArray : \n%@",[ProjektArray description]);
+      //NSLog(@"vor ProjektListeOK: ProjektListeValidAnPfad: ProjektArray : \n%@",[self.ProjektArray description]);
       ProjektListeOK=[self ProjektListeValidAnPfad:self.ArchivPfad];//ProjektOrdner checken, ev einrichten,synchronisieren mit PList
-      //NSLog(@"nach ProjektListeOK: ProjektListeValidAnPfad: ProjektArray : \n%@",[ProjektArray description]);
+      //NSLog(@"nach ProjektListeOK: ProjektListeValidAnPfad: ProjektArray : \n%@",[self.ProjektArray description]);
    }
    else
    {
@@ -274,7 +274,7 @@
    
    if (ProjektListeOK)//
    {
-      //NSLog(@"lb vorbereiten nach ProjektListeOK: ProjektListeValidAnPfad: ProjektArray : \n%@",[self.ProjektArray description]);
+      NSLog(@"lb vorbereiten nach ProjektListeOK: ProjektListeValidAnPfad: ProjektArray : \n%@",[self.ProjektArray description]);
       BOOL Pfadsuchen=YES;
       BOOL istOrdner=NO;
       NSFileManager *Filemanager = [NSFileManager defaultManager];
@@ -590,7 +590,11 @@
             
             neuesProjektDic=[NSMutableDictionary dictionaryWithObject:neuesProjektName forKey:@"projekt"];
             [neuesProjektDic setObject:[tempProjektPfad copy] forKey:@"projektpfad"];
+            [neuesProjektDic setObject: [NSNumber numberWithInt:1] forKey:@"OK"];//Projekt ist aktiviert
+           
+            //eventuell bei replace all irtuemlichauf gross umgestellt
             [neuesProjektDic setObject: [NSNumber numberWithInt:1] forKey:@"ok"];//Projekt ist aktiviert
+
             [neuesProjektDic setObject:[NSCalendarDate date] forKey:@"sessiondatum"];
             
             NSNumber* tempFix=[tempNeuesProjektDic objectForKey:@"fix"];//Titel fix?
@@ -1163,7 +1167,7 @@
    NSModalSession ProjektSession=[NSApp beginModalSessionForWindow:[ProjektStartPanel window]];
    
    //NSLog(@"showProjektStart LeseboxPfad: %@",LeseboxPfad);
-   
+   NSLog(@"ProjektArray A: %@",[[Utils ProjektArrayAusPListAnPfad:self.LeseboxPfad] description]);
    [self.ProjektArray setArray:[Utils ProjektArrayAusPListAnPfad:self.LeseboxPfad]];
    NSArray*  tempProjektNamenArray = [NSArray arrayWithArray:[Utils ProjektNamenArrayVon:[self.LeseboxPfad stringByAppendingString:@"/Archiv"]]];
    //NSLog(@"ProjektArray A: %@",[ProjektArray description]);
@@ -1377,16 +1381,16 @@
    [self.RecPlayTab selectTabViewItemAtIndex:0];
    //   [self.window setIsVisible:NO];
    
-   /*
-    if(!self.AdminPlayer)
+   
+    if(!AdminPlayer)
     {
-    self.AdminPlayer=[[rAdminPlayer alloc]init];
+    AdminPlayer=[[rAdminPlayer alloc]init];
     //[AdminPlayer showWindow:self];
     //[AdminPlayer setLeseboxPfad:LeseboxPfad];
     }
     [Utils stopTimeout];
-    [self.AdminPlayer showWindow:self];
-    */
+    [AdminPlayer showWindow:self];
+   
 	  //NSLog(@"beginAdminPlayer LeseboxPfad: %@ Projekt: %@",LeseboxPfad,[ProjektPfad lastPathComponent]);
    
 	  //NSLog(@"beginAdminPlayer vor setAdminPlayer");

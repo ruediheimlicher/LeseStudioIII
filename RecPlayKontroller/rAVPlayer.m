@@ -23,6 +23,7 @@
 
 - (void)setURL:(NSURL*)playerURL
 {
+   
    AVAbspielplayer = [[AVAudioPlayer alloc] initWithContentsOfURL: playerURL
                                                             error: nil];
    [AVAbspielplayer prepareToPlay];
@@ -30,20 +31,33 @@
 
 - (void)prepareAufnahmeAnURL:(NSURL*)url
 {
+   //NSLog(@"prepareAufnahmeAnURL: %@",url);
+   self.hiddenAufnahmePfad = [url path];
    if ([AVAbspielplayer isPlaying])
    {
       [AVAbspielplayer stop];
    }
+   return;
+   // an url muss schon ein lokales file sein, nicht nur eine adresse
+   NSError* err;
    AVAbspielplayer = [[AVAudioPlayer alloc] initWithContentsOfURL: url
-                                                            error: nil];
+                                                            error: &err];
+   NSLog(@"prepareAufnahmeAnURL err: %@",err);
    [AVAbspielplayer prepareToPlay];
 
 }
 
 - (void)playAufnahme
 {
-  
+  //NSLog(@"playAufnahme: %@", AVAbspielplayer.url);
    {
+      // http://stackoverflow.com/questions/1605846/avaudioplayer-with-external-url-to-m4p
+      NSError* err;
+      AVAbspielplayer = [[AVAudioPlayer alloc] initWithContentsOfURL: [NSURL fileURLWithPath:  self.hiddenAufnahmePfad]
+                                                               error: &err];
+      NSLog(@"playAufnahme err: %@",err);
+      [AVAbspielplayer prepareToPlay];
+
       [AVAbspielplayer play];
       
    }

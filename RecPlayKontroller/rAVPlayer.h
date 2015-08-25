@@ -12,10 +12,12 @@
 
 @interface rAVPlayer : NSObject
 {
-   AVAudioPlayer *AVAbspielplayer;
+   AVAudioPlayer *                     AVAbspielplayer;
 }
-@property (assign) NSWindow *PlayerFenster;
-@property (weak) NSURL* tempDirURL;
+@property (assign) NSWindow *          PlayerFenster;
+@property (weak) NSURL*                tempDirURL;
+@property  NSString*                   hiddenAufnahmePfad;
+
 
 - (void)playAufnahme;
 - (void)stopTempAufnahme;

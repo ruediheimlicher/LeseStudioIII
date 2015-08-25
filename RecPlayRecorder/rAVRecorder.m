@@ -407,6 +407,7 @@
          return;
          
       }
+    
       tempDirPfad = [NSTemporaryDirectory() stringByAppendingPathComponent:[[NSProcessInfo processInfo] globallyUniqueString]];
       //NSLog(@"tempDirPfad: %@",tempDirPfad);
       tempfileURL = [NSURL fileURLWithPath:tempDirPfad isDirectory:YES];
@@ -638,7 +639,7 @@
             }
          }];
          cutsuccess = (int)[exporter status];
-         NSLog(@"cut Export err: %@", [[exporter error] localizedDescription]);
+         //NSLog(@"cut Export err: %@", [[exporter error] localizedDescription]);
       }
       else
       {
@@ -909,7 +910,7 @@ NSError *error = nil;
       NSURL* tempTrimmURL = [NSURL  fileURLWithPath:tempTrimmPfad];
       
       int cuterfolg = [self  cutFileAtURL:outputFileURL toURL:tempTrimmURL];
-      NSLog(@"cuterfolg: %d",cuterfolg);
+      //NSLog(@"cuterfolg: %d",cuterfolg);
       self.hiddenAufnahmePfad = [tempTrimmURL path]; // Pfad fuer Abspielen im Player
       
       [saveDic setObject:tempTrimmURL forKey:@"desturl"];

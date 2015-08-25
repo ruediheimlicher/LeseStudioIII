@@ -241,6 +241,7 @@ extern const int StartmitDialog;//=2;
          if ([einProjektDic objectForKey:@"projekt"])
             if ([[einProjektDic objectForKey:@"projekt"]length])
             {
+               // OK ist in PList klein geschrieben
                if (([einProjektDic objectForKey:@"OK"]&&[[einProjektDic objectForKey:@"OK"]boolValue])
                    ||([einProjektDic objectForKey:@"ok"]&&[[einProjektDic objectForKey:@"ok"]boolValue]))
                {
