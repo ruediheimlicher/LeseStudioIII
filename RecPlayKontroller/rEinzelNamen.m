@@ -327,14 +327,14 @@ if (index>=0)
 #pragma mark -
 #pragma mark ProjectTable Data Source:
 
-- (int)numberOfRowsInTableView:(NSTableView *)aTableView
+- (long)numberOfRowsInTableView:(NSTableView *)aTableView
 {
     return [NamenArray count];
 }
 
 - (id)tableView:(NSTableView *)aTableView
     objectValueForTableColumn:(NSTableColumn *)aTableColumn 
-			row:(int)rowIndex
+			row:(long)rowIndex
 {
 //NSLog(@"objectValueForTableColumn");
     NSDictionary *einName;

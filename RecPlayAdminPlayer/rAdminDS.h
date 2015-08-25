@@ -10,37 +10,36 @@
     BOOL _editable;
 }
 
-- (id)initWithRowCount: (int)rowCount;
+- (id)initWithRowCount: (long)rowCount;
 
 
-- (int)rowCount;
+- (long)rowCount;
 - (NSArray*)rowData;
 - (BOOL)isEditable;
 - (void)setEditable:(BOOL)b;
 
 
-- (void)setData: (NSDictionary *)someData forRow: (int)rowIndex;
-- (NSDictionary *)dataForRow: (int)rowIndex;
+- (void)setData: (NSDictionary *)someData forRow: (long)rowIndex;
+- (NSDictionary *)dataForRow: (long)rowIndex;
 - (int)ZeileVonLeser:(NSString*)derLeser;
 
-- (void)setAufnahmeFiles:(NSArray*)derArray forRow: (int)dieZeile;
-- (NSArray*)AufnahmeFilesFuerZeile:(int)dieZeile;
+- (void)setAufnahmeFiles:(NSArray*)derArray forRow: (long)dieZeile;
+- (NSArray*)AufnahmeFilesFuerZeile:(long)dieZeile;
 
-- (void)setMarkArray:(NSArray*)derArray forRow:(int)dieZeile;
-- (void)setMark:(BOOL)derStatus forRow:(int)dieZeile forItem:(int)dasItem;
-- (NSArray*)MarkArrayForRow:(int)dieZeile;
-- (BOOL)MarkForRow:(int)dieZeile forItem:(int)dasItem;
+- (void)setMarkArray:(NSArray*)derArray forRow:(long)dieZeile;
+- (void)setMark:(BOOL)derStatus forRow:(long)dieZeile forItem:(long)dasItem;
+- (NSArray*)MarkArrayForRow:(long)dieZeile;
+- (BOOL)MarkForRow:(long)dieZeile forItem:(long)dasItem;
 
-- (void)setAuswahl:(int)dasItem forRow:(int) rowIndex;
-- (int)AuswahlFuerZeile:(int)dieZeile;
+- (void)setAuswahl:(long)dasItem forRow:(long) rowIndex;
+- (int)AuswahlFuerZeile:(long)dieZeile;
 
 
 
-- (int)rowCount;
 
-- (void) insertRowAt:(int)rowIndex;
-- (void) insertRowAt:(int)rowIndex withData: (NSDictionary *)someData;
-- (void) deleteRowAt:(int)rowIndex;
+- (void) insertRowAt:(long)rowIndex;
+- (void) insertRowAt:(long)rowIndex withData: (NSDictionary *)someData;
+- (void) deleteRowAt:(long)rowIndex;
 - (void)deleteDataZuName:(NSString*)derName;
 - (void) deleteAllData;
 

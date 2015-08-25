@@ -156,14 +156,14 @@
 #pragma mark -
 #pragma mark ProjectTable Data Source:
 
-- (int)numberOfRowsInTableView:(NSTableView *)aTableView
+- (long)numberOfRowsInTableView:(NSTableView *)aTableView
 {
     return [ProjektArray count];
 }
 
 - (id)tableView:(NSTableView *)aTableView
     objectValueForTableColumn:(NSTableColumn *)aTableColumn 
-			row:(int)rowIndex
+			row:(long)rowIndex
 {
     NSDictionary *einProjektDic;
 	if (rowIndex<[ProjektArray count])

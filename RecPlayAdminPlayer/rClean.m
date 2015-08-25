@@ -537,9 +537,9 @@ if (dasItem<2)
 {
 }
 
-- (int)numberOfRowsInTableView:(NSTableView *)aTableView
+- (long)numberOfRowsInTableView:(NSTableView *)aTableView
 {
-	int anzahl=0;
+	long anzahl=0;
 	switch([aTableView tag])
 	  {
 		case NamenViewTag:
@@ -602,7 +602,7 @@ if (dasItem<2)
 	
 }
 
-- (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex
+- (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(long)rowIndex
 {
 	id dieZeile, derWert;
 	//NSLog(@"objectValueForTableColumn tag: %d",[aTableView tag]);

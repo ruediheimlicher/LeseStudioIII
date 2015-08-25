@@ -170,14 +170,14 @@ NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
 #pragma mark -
 #pragma mark ProjectTable Data Source:
 
-- (int)numberOfRowsInTableView:(NSTableView *)aTableView
+- (long)numberOfRowsInTableView:(NSTableView *)aTableView
 {
     return [TitelArray count];
 }
 
 - (id)tableView:(NSTableView *)aTableView
     objectValueForTableColumn:(NSTableColumn *)aTableColumn 
-			row:(int)rowIndex
+			row:(long)rowIndex
 {
 //NSLog(@"objectValueForTableColumn: %@",[PasswortArray description]);
    NSDictionary* einTitelDic;

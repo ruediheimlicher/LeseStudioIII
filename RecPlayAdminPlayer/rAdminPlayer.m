@@ -3494,4 +3494,104 @@ if (entfernenOK==0)//allesOK
 }
 
 
+- (int)AufnahmeNummerVon:(NSString*) dieAufnahme
+{
+   NSString* tempAufnahme=[dieAufnahme copy];
+   int posLeerstelle1=0;
+   int posLeerstelle2=0;
+   int Leerstellen=0;
+   int tempNummer=0;
+   
+   int charpos=0;
+   int Leerschlag=0;
+   while (charpos<[tempAufnahme length])
+   {
+      if ([tempAufnahme characterAtIndex:charpos]==' ')
+      {
+         Leerschlag++;
+         if (Leerschlag==1)
+            Leerstellen++;
+         if (Leerstellen==1)
+         {
+            posLeerstelle1=charpos;//erste Leerstelle gefunden
+         }
+         if (Leerstellen==2)
+         {
+            posLeerstelle2=charpos;//zweite Leerstelle gefunden
+         }
+      }
+      else //kein Leerschlag
+      {
+         Leerschlag=0;
+      }
+      charpos++;
+   }//while pos
+   //NSLog(@"indexTitelString: %@   pos Leerstelle1:%d pos Leerstelle2:%d",indexTitelString,posLeerstelle1,posLeerstelle2);
+   
+   if ((posLeerstelle2 - posLeerstelle1)>1)
+   {
+      NSRange tempRange=NSMakeRange(posLeerstelle1+1,(posLeerstelle2-posLeerstelle1));
+      tempNummer=[[tempAufnahme substringWithRange:tempRange] intValue];
+   }
+   else
+   {
+      tempNummer=-1;
+   }
+   return tempNummer;
+}//AufnahmeNummerVon
+
+
+
+- (NSString*)AufnahmeTitelVon:(NSString*) dieAufnahme
+{
+   
+   NSString* tempAufnahme=[dieAufnahme copy];
+   int posLeerstelle1=0;
+   int posLeerstelle2=0;
+   int Leerstellen=0;
+   NSString*  tempString;
+   
+   int charpos=0;
+   int Leerschlag=0;
+   int TitelChars=0;
+   while (charpos<[tempAufnahme length])
+	  {
+        if ([tempAufnahme characterAtIndex:charpos]==' ')
+        {
+           Leerschlag++;
+           if (Leerschlag==1)
+              Leerstellen++;
+           if (Leerstellen==1)
+           {
+              posLeerstelle1=charpos;//erste Leerstelle gefunden
+           }
+           if (Leerstellen==2)
+           {
+              posLeerstelle2=charpos;//zweite Leerstelle gefunden
+           }
+        }
+        else //kein Leerschlag
+        {
+           Leerschlag=0;
+           if (Leerstellen==2)
+              TitelChars++; //chars nach 2. Leerstelle
+        }
+        charpos++;
+     }//while pos
+   
+   //NSLog(@"tempAufnahme: %@   pos Leerstelle1:%d pos Leerstelle2:%d  TitelChars: %d",tempAufnahme,posLeerstelle1,posLeerstelle2,TitelChars);
+   
+   if ((posLeerstelle2 - posLeerstelle1)>1&&TitelChars)//Nummer an zweiter Stelle und chars nach 2. Leerstelle
+	  {
+        tempString=[tempAufnahme substringFromIndex:posLeerstelle2+1];
+     }
+   else
+	  {
+        tempString=[tempAufnahme copy];
+     }
+   return tempString;
+}//AufnahmeTitelVon
+
+
+
 @end

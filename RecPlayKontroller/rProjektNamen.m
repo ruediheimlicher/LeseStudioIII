@@ -109,14 +109,14 @@ return KopierOrdnerName;
 #pragma mark -
 #pragma mark ProjectTable Data Source:
 
-- (int)numberOfRowsInTableView:(NSTableView *)aTableView
+- (long)numberOfRowsInTableView:(NSTableView *)aTableView
 {
     return [OrdnerNamenArray count];
 }
 
 - (id)tableView:(NSTableView *)aTableView
     objectValueForTableColumn:(NSTableColumn *)aTableColumn 
-			row:(int)rowIndex
+			row:(long)rowIndex
 {
     NSString *einOrdnerName;
 	if (rowIndex<[OrdnerNamenArray count])
@@ -147,7 +147,7 @@ return KopierOrdnerName;
 	  }
 }
 
-- (BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(int)row
+- (BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(long)row
 {
 	{
 		//NSLog(@"shouldSelectRow im Bereich: row %d",row);

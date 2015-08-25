@@ -147,7 +147,7 @@ NSString*	RPExportdatenKey=	@"RPExportdaten";
 - (id) init
 {
  //  self=[super initWithWindowNibName:@"RPAdmin"];
-   //AdminDaten = [[rAdminDS alloc] initWithRowCount: 10];
+   self.AdminDaten = [[rAdminDS alloc] initWithRowCount: 10];
    NSNotificationCenter * nc;
    nc=[NSNotificationCenter defaultCenter];
    
@@ -6638,7 +6638,7 @@ NSString*	RPExportdatenKey=	@"RPExportdaten";
 #pragma mark -
 #pragma mark TestTable Data Source:
 
-- (int)numberOfRowsInTableView:(NSTableView *)aTableView
+- (long)numberOfRowsInTableView:(NSTableView *)aTableView
 {
    return [self.AufnahmenDicArray count];
 }
@@ -6646,7 +6646,7 @@ NSString*	RPExportdatenKey=	@"RPExportdaten";
 
 - (id)tableView:(NSTableView *)aTableView
 objectValueForTableColumn:(NSTableColumn *)aTableColumn
-            row:(int)rowIndex
+            row:(long)rowIndex
 {
    //NSLog(@"objectValueForTableColumn");
    NSMutableDictionary *einAufnahmenDic=[[NSMutableDictionary alloc]initWithCapacity:0];
@@ -6672,7 +6672,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 - (void)tableView:(NSTableView *)aTableView
    setObjectValue:(id)anObject
    forTableColumn:(NSTableColumn *)aTableColumn
-              row:(int)rowIndex
+              row:(long)rowIndex
 {
    NSLog(@"setObjectValueForTableColumn");
    

@@ -8,7 +8,6 @@
 
 #import "ViewController+Lesebox.h"
 
-//extern static short kAdminUmgebung;
 //extern const short 0;
 
 @implementation ViewController (Lesebox)
@@ -680,7 +679,7 @@
 
 - (IBAction)anderesProjekt:(id)sender
 {
-   //NSLog(@"\n\n************	Menü Ablauf:	anderes Projekt: %@\n",[sender title]);
+   NSLog(@"\n\n************	Menü Ablauf:	anderes Projekt: %@\n",[sender title]);
    [self anderesProjektEinrichtenMit:[sender title]];
    
    [self setArchivNamenPop];
@@ -690,7 +689,7 @@
 
 - (IBAction)anderesProjektMitTitel:(NSString*)derTitel
 {
-   //NSLog(@"\n\n	Menü Ablauf:	anderesProjektMitTitel; %@",derTitel);
+   NSLog(@"\n\n	Menü Ablauf:	anderesProjektMitTitel; %@",derTitel);
    [self anderesProjektEinrichtenMit:derTitel];
    [self setArchivNamenPop];
    //[Utils startTimeout:TimeoutDelay];
@@ -843,7 +842,8 @@
    //NSLog(@"updateProjektArray: tempneuerUserPWArray : %@",[tempneuerUserPWArray description]);
    
    NSString* tempDataPfad=[self.LeseboxPfad stringByAppendingPathComponent:@"Data"];
-   NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+   //NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+   NSString* PListName=@"Lesebox.plist";
    NSString* tempPListPfad=[tempDataPfad stringByAppendingPathComponent:PListName];
    
    [tempPListDic setObject:[tempneuerUserPWArray copy] forKey:@"userpasswortarray"];
@@ -1410,22 +1410,22 @@
    }
    
    
-   /*
-    [self.AdminPlayer setAdminProjektArray:self.ProjektArray];
+  
+    [AdminPlayer setAdminProjektArray:self.ProjektArray];
     
-    [self.AdminPlayer setAdminPlayer:self.LeseboxPfad inProjekt:[self.ProjektPfad lastPathComponent]];
+    [AdminPlayer setAdminPlayer:self.LeseboxPfad inProjekt:[self.ProjektPfad lastPathComponent]];
     //NSLog(@"beginAdminPlayer nach setAdminPlayer");
-    self.Umgebung=kAdminUmgebung;
+    self.Umgebung=3;
     //NSLog(@"in beginAdminPlayer vor setProjektPop: AdminPlayer:      ProjektArray: \n%@",[ProjektArray description]);
     
-    [self.AdminPlayer setProjektPopMenu:self.ProjektArray];
+    [AdminPlayer setProjektPopMenu:self.ProjektArray];
     
     // }
     //else
     {
     
     }
-    */
+   
    
 }
 
@@ -1808,8 +1808,8 @@
    //NSLog(@"saveSessionForUser: PList: %@",[PListDic  description]);
    //NSLog(@"SessionListeAktualisierenInProjekt: LeseboxPfad: %@",LeseboxPfad);
    
-   NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
-   
+   //NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+   NSString* PListName=@"Lesebox.plist";
    NSString* PListPfad;
    
    NSFileManager *Filemanager=[NSFileManager defaultManager];
@@ -2085,8 +2085,8 @@
    
    //	NSLog(@"savePListAktion projektarray aus PList: %@",[[PListDic objectForKey:@"projektarray"] description]);
    
-   NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
-   
+   //NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+   NSString* PListName=@"Lesebox.plist";
    NSString* PListPfad;
    
    NSFileManager *Filemanager=[NSFileManager defaultManager];
@@ -2239,7 +2239,6 @@
    
    NSString* tempUserPfad=[self.LeseboxPfad copy];
    //	NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
-   
    //	NSString* PListPfad;
    //NSLog(@"savePListAktion: tempUserPfad start: %@  istSystemVolume: %d",tempUserPfad,istSystemVolume);
    if (self.istSystemVolume)
@@ -2285,8 +2284,8 @@
    //NSLog(@"saveSessionForUser: PList: %@",[PListDic  description]);
    //NSLog(@"saveSessionDatum: Datum: %@  LeseboxPfad: %@",dasDatum,LeseboxPfad);
    
-   NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
-   
+   //NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+   NSString* PListName=@"Lesebox.plist";
    NSString* PListPfad;
    
    NSFileManager *Filemanager=[NSFileManager defaultManager];
@@ -2331,8 +2330,8 @@
    
    
    
-   NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
-   
+   //NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+   NSString* PListName=@"Lesebox.plist";
    NSString* PListPfad;
    
    NSFileManager *Filemanager=[NSFileManager defaultManager];
@@ -2375,7 +2374,8 @@
    NSString* ArchivPath=[self.LeseboxPfad stringByAppendingPathComponent:@"Archiv"];
    self.ProjektPfad=(NSMutableString*)[ArchivPath stringByAppendingPathComponent:ProjektName];
    
-   NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+  // NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+   NSString* PListName=@"Lesebox.plist";
    NSString* PListPfad;
    
    NSFileManager *Filemanager=[NSFileManager defaultManager];
@@ -2455,8 +2455,8 @@
    
    NSLog(@"saveTitelListe: dieTitelListe: %@ Projekt: %@",[dieTitelListe  description],dasProjekt);
    
-   NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
-   
+   //NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+   NSString* PListName=@"Lesebox.plist";
    NSString* PListPfad;
    
    NSFileManager *Filemanager=[NSFileManager defaultManager];
@@ -2504,8 +2504,8 @@
    
    NSLog(@"saveTitelFix: derStatus: %d Projekt: %@",derStatus ,dasProjekt);
    
-   NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
-   
+   //NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+   NSString* PListName=@"Lesebox.plist";
    NSString* PListPfad;
    
    NSFileManager *Filemanager=[NSFileManager defaultManager];
@@ -2552,7 +2552,8 @@
    //NSLog(@"saveUserPasswortArray: PasswortDic: %@",[derPasswortDic  description]);
    NSLog(@"saveUserPasswortArray: PasswortDic: %@  LeseboxPfad: %@",[derPasswortDic  description],self.LeseboxPfad);
    
-   NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+   //NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+   NSString* PListName=@"Lesebox.plist";
    NSString* PListPfad;
    NSFileManager *Filemanager=[NSFileManager defaultManager];
    NSString* DataPath=[self.LeseboxPfad stringByAppendingPathComponent:@"Data"];
@@ -2600,7 +2601,8 @@
    //NSLog(@"saveUserPasswortArray: PasswortArray: %@",[derPasswortArray  description]);
    NSLog(@"saveUserPasswortArray: saveUserPasswortArray: %@  LeseboxPfad: %@",[derPasswortArray  description],self.LeseboxPfad);
    
-   NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+   //NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+   NSString* PListName=@"Lesebox.plist";
    NSString* PListPfad;
    NSFileManager *Filemanager=[NSFileManager defaultManager];
    NSString* DataPath=[self.LeseboxPfad stringByAppendingPathComponent:@"Data"];
@@ -2627,7 +2629,9 @@
    //NSLog(@"saveAdminPasswortDic: PasswortArray: %@",[derPasswortArray  description]);
    NSLog(@"saveAdminPasswortDic: AdminPasswortDic: %@  LeseboxPfad: %@",[derPasswortDic  description],self.LeseboxPfad);
    
-   NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+   //NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+   NSString* PListName=@"Lesebox.plist";
+   
    NSString* PListPfad;
    NSFileManager *Filemanager=[NSFileManager defaultManager];
    NSString* DataPath=[self.LeseboxPfad stringByAppendingPathComponent:@"Data"];
@@ -2656,8 +2660,8 @@
    //NSLog(@"saveSessionForUser: LeseboxPfad: %@",LeseboxPfad);
    //NSLog(@"saveSessionForUser: derUser: %@ dasProjekt: %@",derUser, dasProjekt);
    
-   NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
-   
+   //NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+   NSString* PListName=@"Lesebox.plist";
    NSString* PListPfad;
    
    NSFileManager *Filemanager=[NSFileManager defaultManager];
@@ -2770,8 +2774,8 @@
    NSString* tempUserPfad=[derLeseboxPfad copy];
    NSLog(@"savePList: tempUserPfad start: %@",tempUserPfad);
    
-   NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
-   
+  // NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+   NSString* PListName=@"Lesebox.plist";
    NSString* PListPfad;
    
    NSFileManager *Filemanager=[NSFileManager defaultManager];
@@ -2900,7 +2904,8 @@
             //[PListDic setObject:AdminPasswortDic forKey:@"adminpw"];
             [self.PListDic setObject:[tempNeuesPWDic copy] forKey:@"adminpw"];
             //Passwort in PList sichern
-            NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+            //NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+            NSString* PListName=@"Lesebox.plist";
             NSString* PListPfad;
             NSFileManager *Filemanager=[NSFileManager defaultManager];
             NSString* DataPath=[self.LeseboxPfad stringByAppendingPathComponent:@"Data"];

@@ -691,7 +691,8 @@ return versionOK;
 				  NSString* c1= NSLocalizedString(@"The folder 'Lecturebox' cannot be created on the choosen computer",@"Keine Lesebox auf Computer");
 				  NSString* c2= NSLocalizedString(@"Perhaps the user permissions do not allow this",@"Benutzungsrechte fraglich");
 				  NSString* WarnString=[NSString stringWithFormat:@"%@\r%@",c1,c2];
-				  NSString* TitelStringLB=NSLocalizedString(@"Create Lecturebox:",@"Lesebox einrichten:");
+              //NSString* TitelStringLB=NSLocalizedString(@"Create Lecturebox:",@"Lesebox einrichten:");
+				  NSString* TitelStringLB=@"Lesebox einrichten:";
 				  
 				  
 				  
@@ -709,7 +710,7 @@ return versionOK;
 		  {
 			  NSString* WarnString=NSLocalizedString(@"The lecturebox must be created manually on the choosen computer",@"LB manuelleinrichten");
 			  WarnString=[WarnString stringByAppendingString:NSLocalizedString(@"The applicatin will terminate",@"Programm beenden")];
-			  NSString* TitelStringNeueLB=NSLocalizedString(@"Create New Lecturebox:",@"Neue Lesebox einrichten:");
+			  NSString* TitelStringNeueLB=NSLocalizedString(@"Neue Lesebox einrichten:",@"Neue Lesebox einrichten:");
 			  
 			  int Antwort=NSRunAlertPanel(TitelStringNeueLB, WarnString,BeendenString, nil,nil);
 			  
@@ -1224,7 +1225,8 @@ return versionOK;
 	//	Array der Projekte laut PList
 	NSMutableArray* tempProjektArray=[[NSMutableArray alloc]initWithCapacity:0];
 	NSString* tempDataPfad=[derLeseboxPfad stringByAppendingPathComponent:@"Data"];
-	NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+   NSString* PListName=@"Lesebox.plist";
+	//NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
 	NSString* tempPListPfad=[tempDataPfad stringByAppendingPathComponent:PListName];
 
 	NSFileManager *Filemanager=[NSFileManager defaultManager];
@@ -1246,7 +1248,9 @@ return versionOK;
 	//	Array der Projekte in PList einsetzen
 	NSMutableArray* tempProjektArray=[[NSMutableArray alloc]initWithCapacity:0];
 	NSString* tempDataPfad=[derLeseboxPfad stringByAppendingPathComponent:@"Data"];
-	NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+	//NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+   NSString* PListName=@"Name Lesebox.plist";
+
 	NSString* tempPListPfad=[tempDataPfad stringByAppendingPathComponent:PListName];
 	int saveOK=NO;
 	NSFileManager *Filemanager=[NSFileManager defaultManager];
@@ -1301,7 +1305,9 @@ return versionOK;
 	NSFileManager *Filemanager=[NSFileManager defaultManager];
 	NSString* tempUserPfad=[derLeseboxPfad copy];
 	NSString* PListPfad;
-	NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+	//NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Name Lesebox.plist");
+   NSString* PListName=@"Name Lesebox.plist";
+
 	NSLog(@"deletePListAnPfad: tempUserPfad start: %@",tempUserPfad);
 	if (istSysVol)
 	{
@@ -2720,7 +2726,9 @@ OSErr rUtils_AddUserDataTextToMovie (Movie theMovie, char *theText, OSType theTy
 - (BOOL) setPListBusy:(BOOL)derStatus anPfad:(NSString*)derPfad
 {
 	NSFileManager *Filemanager=[NSFileManager defaultManager];
-	NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Lesebox.plist");
+	//NSString* PListName=NSLocalizedString(@"Lecturebox.plist",@"Lesebox.plist");
+   NSString* PListName=@"Lesebox.plist";
+
 	NSString* PListPfad;
 	NSString* DataPfad=[derPfad stringByAppendingPathComponent:@"Data"];
 //	NSLog(@"PList aus Data: tempUserPfad: %@",DataPfad);

@@ -7,7 +7,7 @@
     return [self initWithRowCount: 0];
 }
 
-- (id)initWithRowCount: (int)rowCount
+- (id)initWithRowCount: (long)rowCount
 {
     int i;
 
@@ -116,7 +116,7 @@ return rowData;
 - (int)ZeileVonLeser:(NSString*)derLeser
 {
 //NSLog(@"rowData: %@",[rowData description]);
-int index=[[rowData valueForKey:@"namen"]indexOfObject:derLeser];
+long index=[[rowData valueForKey:@"namen"]indexOfObject:derLeser];
 return index;
 }
 - (void)setAufnahmeFiles:(NSArray*)derArray forRow: (int)dieZeile
@@ -139,7 +139,7 @@ return index;
 
 #pragma mark -
 
-- (int)rowCount
+- (long)rowCount
 {
     return [rowData count];
 }
@@ -259,14 +259,14 @@ return index;
 #pragma mark -
 #pragma mark Table Data Source:
 
-- (int)numberOfRowsInTableView:(NSTableView *)aTableView
+- (long)numberOfRowsInTableView:(NSTableView *)aTableView
 {
     return [rowData count];
 }
 
 - (id)tableView:(NSTableView *)aTableView
     objectValueForTableColumn:(NSTableColumn *)aTableColumn 
-    row:(int)rowIndex
+    row:(long)rowIndex
 {
     NSDictionary *aRow;
         
@@ -286,7 +286,7 @@ return index;
 - (void)tableView:(NSTableView *)aTableView 
     setObjectValue:(id)anObject 
     forTableColumn:(NSTableColumn *)aTableColumn 
-    row:(int)rowIndex
+    row:(long)rowIndex
 {
     NSString *columnName;
     NSMutableDictionary *aRow;
@@ -311,13 +311,13 @@ return index;
 #pragma mark -
 #pragma mark Table Delegate:
 
-- (BOOL)tableView:(NSTableView *)aTableView shouldEditTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex
+- (BOOL)tableView:(NSTableView *)aTableView shouldEditTableColumn:(NSTableColumn *)aTableColumn row:(long)rowIndex
 {
 	//NSLog(@"shouldEditTableColumn");
     return [self isEditable];
 }
 
-- (void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(int)row
+- (void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(long)row
 {
 	//NSLog(@"AdminDS willDisplayCell Zeile: %d, numberOfSelectedRows:%d", row ,[tableView numberOfSelectedRows]);
 	
@@ -457,21 +457,21 @@ return index;
    //NSLog(@"willDisplayCell Liste: %@",s);
 	
 }
-- (BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(int)row
+- (BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(long)row
 {
 	
 	//NSLog(@"**AdminDS tableView  shouldSelectRow: %d  [tableView clickedRow]:%d" ,row,[tableView clickedRow]);
 	
-	int selektierteZeile=[tableView selectedRow];//vorher selektierte Zeile
+	long selektierteZeile=[tableView selectedRow];//vorher selektierte Zeile
 	
 	NSString* tempLastLesernamen=[NSString string];//leer wenn zeilennummer=-1 beim ersten Klick
 	
 	NSMutableDictionary* AdminZeilenDic=[[NSMutableDictionary alloc]initWithCapacity:0];
 	[AdminZeilenDic setObject:@"AdminView" forKey:@"Quelle"];
-	NSNumber* 	ZeilenNummer=[NSNumber numberWithInt:selektierteZeile];
+	NSNumber* 	ZeilenNummer=[NSNumber numberWithLong:selektierteZeile];
 	[AdminZeilenDic setObject:ZeilenNummer forKey:@"AdminLastZeilenNummer"];
 		
-	[AdminZeilenDic setObject:[NSNumber numberWithInt:row] forKey:@"AdminNextZeilenNummer"];
+	[AdminZeilenDic setObject:[NSNumber numberWithLong:row] forKey:@"AdminNextZeilenNummer"];
 	[AdminZeilenDic setObject:[[rowData objectAtIndex:row]objectForKey:@"namen"] forKey:@"nextLeser"];
 
 	if (selektierteZeile>=0)//schon eine Zeile selektiert

@@ -60,7 +60,10 @@
 	IBOutlet NSTextField*		AdminNamenfeld;
 	IBOutlet NSPopUpButton*		AdminBewertungfeld;
 	IBOutlet NSTextField*		AdminNotenfeld;
-	
+	IBOutlet NSTextField*		AdminProjektFeld;
+      
+   IBOutlet NSPopUpButton*		   AdminProjektPop;
+      
 	IBOutlet NSTabView*			AufnahmenTab;
 	IBOutlet NSTableView*		AufnahmenTable;
 	IBOutlet NSMatrix*			MarkAuswahlOption;
@@ -144,7 +147,7 @@
 - (BOOL)setNetworkAdminLeseboxPfad:(id)sender;
 - (BOOL)setHomeAdminLeseboxPfad:(id)sender;
 
-//- (void)setAdminPlayer:(NSString*)derLeseboxPfad inProjekt:(NSString*)dasProjekt;
+- (void)setAdminPlayer:(NSString*)derLeseboxPfad inProjekt:(NSString*)dasProjekt;
 - (void)setAdminProjektArray:(NSArray*)derProjektArray;
 - (void)resetAdminPlayer;
 - (void)setProjektPopMenu:(NSArray*)derProjektArray;
@@ -210,6 +213,13 @@
 - (BOOL)windowShouldClose:(id)sender;
 - (IBAction)showCleanFenster:(int)tab;
 - (void)setCleanTask:(int)dieTask;
+
+
+
+- (IBAction)setAufnahmenVonPopLeser:(id)sender;
+- (IBAction)AufnahmeExportieren:(id)sender;
+- (IBAction)reportAuswahlOption:(id)sender;
+- (IBAction)reportDelete:(id)sender;
 @end
 
 

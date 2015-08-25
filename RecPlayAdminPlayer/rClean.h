@@ -55,9 +55,9 @@
 //- (void)setAuswahlOption:(int)dieOption;
 - (void)setClean:(NSDictionary*)dieSettings;
 - (void)setTaskTab:(int)dasItem;
-- (int)numberOfRowsInTableView:(NSTableView *)aTableView;
+- (long)numberOfRowsInTableView:(NSTableView *)aTableView;
 - (void)setData: (NSDictionary *)someData forRow: (int)rowIndex;
-- (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex;
+- (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(long)rowIndex;
 - (IBAction)NamenCheckAktion:(id)sender;
 - (IBAction)NamenHeaderCheckAktion:(id)sender;
 - (IBAction)TitelCheckAktion:(id)sender;

@@ -108,14 +108,14 @@
 #pragma mark -
 #pragma mark Table Data Source:
 
-- (int)numberOfRowsInTableView:(NSTableView *)aTableView
+- (long)numberOfRowsInTableView:(NSTableView *)aTableView
 {
     return [AufnahmeFiles count];
 }
 
 - (id)tableView:(NSTableView *)aTableView
     objectValueForTableColumn:(NSTableColumn *)aTableColumn 
-    row:(int)rowIndex
+    row:(long)rowIndex
 {
     NSString *eineZeile;
         
@@ -128,7 +128,7 @@
 - (void)tableView:(NSTableView *)aTableView 
     setObjectValue:(id)anObject 
     forTableColumn:(NSTableColumn *)aTableColumn 
-    row:(int)rowIndex
+    row:(long)rowIndex
 {
     NSString *eineZeile;
     
@@ -143,12 +143,12 @@
 #pragma mark -
 #pragma mark Table Delegate:
 
-- (BOOL)tableView:(NSTableView *)aTableView shouldEditTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex
+- (BOOL)tableView:(NSTableView *)aTableView shouldEditTableColumn:(NSTableColumn *)aTableColumn row:(long)rowIndex
 {
     return YES;
 }
 
-- (void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(int)row
+- (void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(long)row
 {
 	if ([[tableColumn identifier] isEqualToString:@"aufnahmen"])
 	{
@@ -157,11 +157,11 @@
 		
 	
 }
-- (BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(int)row;
+- (BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(long)row;
 {
 	//NSLog(@"Archiv Delegate tableView  shouldSelectRow: %d",row);
 	NSNumber* ZeilenNummer;
-	ZeilenNummer=[NSNumber numberWithInt:row];
+	ZeilenNummer=[NSNumber numberWithLong:row];
 	NSMutableDictionary* ArchivZeilenDic=[NSMutableDictionary dictionaryWithObject:ZeilenNummer forKey:@"ArchivZeilenNummer"];
 	[ArchivZeilenDic setObject:@"ArchivView" forKey:@"Quelle"];
 	NSNotificationCenter * nc;

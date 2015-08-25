@@ -512,7 +512,7 @@
                 </viewController>
                 <customObject id="8xT-vy-E0k" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="498" y="243"/>
+            <point key="canvasLocation" x="432" y="237"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
@@ -595,7 +595,7 @@
                                                                     <button verticalHuggingPriority="750" id="747-0h-uXA">
                                                                         <rect key="frame" x="18" y="109" width="43" height="25"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
-                                                                        <buttonCell key="cell" type="squareTextured" title="Trim" bezelStyle="texturedSquare" image="B8FE1A6D-62D5-4A15-9558-2D1EC41930E6" imagePosition="overlaps" alignment="justified" borderStyle="border" inset="2" id="e5Z-8O-ANj">
+                                                                        <buttonCell key="cell" type="squareTextured" title="Trim" bezelStyle="texturedSquare" image="1B7A29DC-17AA-4008-A113-407ACE820B7E" imagePosition="overlaps" alignment="justified" borderStyle="border" inset="2" id="e5Z-8O-ANj">
                                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                             <font key="font" metaFont="system"/>
                                                                             <string key="keyEquivalent">r</string>
@@ -608,7 +608,7 @@
                                                                     <button verticalHuggingPriority="750" id="pDk-2W-iDA">
                                                                         <rect key="frame" x="18" y="80" width="43" height="25"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
-                                                                        <buttonCell key="cell" type="squareTextured" title="Cut" bezelStyle="texturedSquare" image="C3714870-A836-4407-AF9A-B9110FD48A9D" imagePosition="overlaps" alignment="justified" borderStyle="border" inset="2" id="Tgf-7f-1DL">
+                                                                        <buttonCell key="cell" type="squareTextured" title="Cut" bezelStyle="texturedSquare" image="A14F23A0-2217-4D7E-881D-4F6BAF079CCB" imagePosition="overlaps" alignment="justified" borderStyle="border" inset="2" id="Tgf-7f-1DL">
                                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                             <font key="font" metaFont="system"/>
                                                                             <string key="keyEquivalent">r</string>
@@ -712,7 +712,7 @@
                                                                     <button verticalHuggingPriority="750" id="Trw-3o-m8H">
                                                                         <rect key="frame" x="13" y="-2" width="67" height="25"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
-                                                                        <buttonCell key="cell" type="squareTextured" title="START" bezelStyle="texturedSquare" image="E25CC9D1-214C-49AB-AE71-39B9E2EDB98C" imagePosition="overlaps" alignment="justified" borderStyle="border" inset="2" id="o6W-Hg-KGi">
+                                                                        <buttonCell key="cell" type="squareTextured" title="START" bezelStyle="texturedSquare" image="01F918BC-8258-401B-826D-CA1D2F1D8021" imagePosition="overlaps" alignment="justified" borderStyle="border" inset="2" id="o6W-Hg-KGi">
                                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                             <font key="font" metaFont="system"/>
                                                                             <string key="keyEquivalent">r</string>
@@ -725,7 +725,7 @@
                                                                     <button verticalHuggingPriority="750" id="Xan-Hr-Hkh">
                                                                         <rect key="frame" x="93" y="0.0" width="67" height="25"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
-                                                                        <buttonCell key="cell" type="squareTextured" title="STOP" bezelStyle="texturedSquare" image="28D6B19A-400B-4EDE-849E-841B20BFEF40" imagePosition="overlaps" alignment="justified" borderStyle="border" inset="2" id="0ez-Gq-zfV">
+                                                                        <buttonCell key="cell" type="squareTextured" title="STOP" bezelStyle="texturedSquare" image="F42F1281-421A-4DE8-A07C-6B40443F2AA5" imagePosition="overlaps" alignment="justified" borderStyle="border" inset="2" id="0ez-Gq-zfV">
                                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                             <font key="font" metaFont="system"/>
                                                                             <string key="keyEquivalent">r</string>
@@ -738,7 +738,7 @@
                                                                     <button verticalHuggingPriority="750" id="p9M-MJ-MbD">
                                                                         <rect key="frame" x="173" y="-1" width="67" height="25"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
-                                                                        <buttonCell key="cell" type="squareTextured" title="back" bezelStyle="texturedSquare" image="6B5CB897-DC08-4C4A-B943-AF1895288647" imagePosition="overlaps" alignment="justified" borderStyle="border" inset="2" id="YLN-gU-GT1">
+                                                                        <buttonCell key="cell" type="squareTextured" title="back" bezelStyle="texturedSquare" image="73EF2E30-51F6-4851-8A79-C48D87EFC41D" imagePosition="overlaps" alignment="justified" borderStyle="border" inset="2" id="YLN-gU-GT1">
                                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                             <font key="font" metaFont="system"/>
                                                                             <string key="keyEquivalent">r</string>
@@ -851,7 +851,7 @@
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                             <subviews>
                                                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="16" headerView="E13-fn-K0O" id="GI5-jq-DA3" customClass="rArchivView">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="503" height="58"/>
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="456" height="18"/>
                                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1266,7 +1266,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="28D6B19A-400B-4EDE-849E-841B20BFEF40" width="1" height="1">
+        <image name="01F918BC-8258-401B-826D-CA1D2F1D8021" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -1284,7 +1284,7 @@ AhACGAIlAioCLAIuAjMCOwI+AkMCSwJOAmACYwJoAAAAAAAAAgEAAAAAAAAAQgAAAAAAAAAAAAAAAAAA
 Amo
 </mutableData>
         </image>
-        <image name="6B5CB897-DC08-4C4A-B943-AF1895288647" width="1" height="1">
+        <image name="1B7A29DC-17AA-4008-A113-407ACE820B7E" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -1302,7 +1302,7 @@ AhACGAIlAioCLAIuAjMCOwI+AkMCSwJOAmACYwJoAAAAAAAAAgEAAAAAAAAAQgAAAAAAAAAAAAAAAAAA
 Amo
 </mutableData>
         </image>
-        <image name="B8FE1A6D-62D5-4A15-9558-2D1EC41930E6" width="1" height="1">
+        <image name="73EF2E30-51F6-4851-8A79-C48D87EFC41D" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -1320,7 +1320,7 @@ AhACGAIlAioCLAIuAjMCOwI+AkMCSwJOAmACYwJoAAAAAAAAAgEAAAAAAAAAQgAAAAAAAAAAAAAAAAAA
 Amo
 </mutableData>
         </image>
-        <image name="C3714870-A836-4407-AF9A-B9110FD48A9D" width="1" height="1">
+        <image name="A14F23A0-2217-4D7E-881D-4F6BAF079CCB" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -1338,7 +1338,7 @@ AhACGAIlAioCLAIuAjMCOwI+AkMCSwJOAmACYwJoAAAAAAAAAgEAAAAAAAAAQgAAAAAAAAAAAAAAAAAA
 Amo
 </mutableData>
         </image>
-        <image name="E25CC9D1-214C-49AB-AE71-39B9E2EDB98C" width="1" height="1">
+        <image name="F42F1281-421A-4DE8-A07C-6B40443F2AA5" width="1" height="1">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw

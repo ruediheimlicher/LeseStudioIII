@@ -934,7 +934,7 @@ NSLog(@"didReceiveData");
 #pragma mark -
 #pragma mark UserTable Data Source:
 
-- (int)numberOfRowsInTableView:(NSTableView *)aTableView
+- (long)numberOfRowsInTableView:(NSTableView *)aTableView
 {
 switch ([aTableView tag])
 {
@@ -954,7 +954,7 @@ case 0:
 
 - (id)tableView:(NSTableView *)aTableView
     objectValueForTableColumn:(NSTableColumn *)aTableColumn 
-			row:(int)rowIndex
+			row:(long)rowIndex
 {
 id einObjekt;
 // NSLog(@"tableView tag: %d",[aTableView tag]);

@@ -351,7 +351,7 @@ extern  NSMenu*                      ProjektMenu;
          if (self.AdminZugangOK)
             
          {
-            self.Umgebung=1;
+            //self.Umgebung=1;
             //NSLog(@"PListDic nach checkAdminZugang: %@",[PListDic description]);
             [Utils setPListBusy:NO anPfad:self.LeseboxPfad];
             
@@ -4460,12 +4460,6 @@ QTMovie* qtMovie;
    if ([anderesProjekt length])
    {
       //Titelliste pruefen
-      
-      
-      
-      
-      
-      
       
       [self anderesProjektMitTitel:anderesProjekt];
    }
