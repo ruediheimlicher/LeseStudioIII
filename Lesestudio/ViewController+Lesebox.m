@@ -36,7 +36,7 @@
       //NSLog(@"User nach gewuenschter Lesebox fragen LeseboxPfad: %@",LeseboxPfad);
       //Rücgabe: LeseboxPfad ungeprüft
    }
-   NSLog(@"Leseboxvorbereiten: LeseboxPfad: %@",self.LeseboxPfad);
+   //NSLog(@"Leseboxvorbereiten: LeseboxPfad: %@",self.LeseboxPfad);
    
    BOOL LeseboxOK=NO;
    BOOL ArchivOK=NO;
@@ -55,7 +55,7 @@
    
    if (LeseboxOK)
    {
-      NSLog(@"Leseboxvorbereiten LeseboxOK=1 PListDic lesen");
+      //NSLog(@"Leseboxvorbereiten LeseboxOK=1 PListDic lesen");
       self.PListDic=[[Utils PListDicVon:self.LeseboxPfad aufSystemVolume:self.istSystemVolume]mutableCopy];
       
       
@@ -273,7 +273,7 @@
    
    if (ProjektListeOK)//
    {
-      NSLog(@"lb vorbereiten nach ProjektListeOK: ProjektListeValidAnPfad: ProjektArray : \n%@",[self.ProjektArray description]);
+      //NSLog(@"lb vorbereiten nach ProjektListeOK: ProjektListeValidAnPfad: ProjektArray : \n%@",[self.ProjektArray description]);
       BOOL Pfadsuchen=YES;
       BOOL istOrdner=NO;
       NSFileManager *Filemanager = [NSFileManager defaultManager];
@@ -423,7 +423,7 @@
    //    NSLog(@"tempNetworkArray eingesetzt");
    
    int modalAntwort = [NSApp runModalForWindow:[VolumesPanel window]];
-   NSLog(@"VolumesPanel: Antwort: %d",modalAntwort);
+   //NSLog(@"VolumesPanel: Antwort: %d",modalAntwort);
    
    //LeseboxPfad aus Panel abfragen
    NSString* tempLeseboxPfad=[NSString stringWithString:[VolumesPanel LeseboxPfad]];
@@ -1167,7 +1167,7 @@
    NSModalSession ProjektSession=[NSApp beginModalSessionForWindow:[ProjektStartPanel window]];
    
    //NSLog(@"showProjektStart LeseboxPfad: %@",LeseboxPfad);
-   NSLog(@"ProjektArray A: %@",[[Utils ProjektArrayAusPListAnPfad:self.LeseboxPfad] description]);
+   //NSLog(@"ProjektArray A: %@",[[Utils ProjektArrayAusPListAnPfad:self.LeseboxPfad] description]);
    [self.ProjektArray setArray:[Utils ProjektArrayAusPListAnPfad:self.LeseboxPfad]];
    NSArray*  tempProjektNamenArray = [NSArray arrayWithArray:[Utils ProjektNamenArrayVon:[self.LeseboxPfad stringByAppendingString:@"/Archiv"]]];
    //NSLog(@"ProjektArray A: %@",[ProjektArray description]);

@@ -431,6 +431,8 @@
    }
    else
    {
+      aufnahmezeit = CMTimeGetSeconds([[self movieFileOutput] recordedDuration]);
+      //NSLog(@"aufnahmezeit: %d",aufnahmezeit);
       [[self movieFileOutput] stopRecording];
      
    }
@@ -507,7 +509,7 @@
    {
    CMTime cmtduration = [[self movieFileOutput] recordedDuration];
    duration =CMTimeGetSeconds(cmtduration);
-      
+     // NSLog(@"duration: %f",duration);
    }
    NSNotificationCenter * nc=[NSNotificationCenter defaultCenter];
    [nc postNotificationName:@"levelmeter" object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
@@ -583,7 +585,7 @@
 - (int)cutFileAtURL:(NSURL*)sourceURL toURL:(NSURL*)destURL
 {
    int cutsuccess=0;
-   NSLog(@"cutFileAtURL: \n\tsourceURL: %@\n\tdestURL: %@",sourceURL,destURL);
+   //NSLog(@"cutFileAtURL: \n\tsourceURL: %@\n\tdestURL: %@",sourceURL,destURL);
    // http://www.rockhoppertech.com/blog/ios-trimming-audio-files
    // http://stackoverflow.com/questions/23752671/avassetexportsession-not-exporting-metadata
    AVAsset* asset = [AVAsset assetWithURL:sourceURL];
@@ -863,7 +865,11 @@ NSError *error = nil;
 
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didFinishRecordingToOutputFileAtURL:(NSURL *)outputFileURL fromConnections:(NSArray *)connections error:(NSError *)recordError
 {
-   NSLog(@"didFinishRecordingToOutputFileAtURL: %@ an Leserpfad: %@",outputFileURL,LeserPfad);
+   float zeit = CMTimeGetSeconds([captureOutput recordedDuration]);
+   aufnahmezeit = [[NSNumber numberWithFloat:zeit]intValue];
+  // aufnahmezeit = lrintf(zeit);
+  
+   //NSLog(@"didFinishRecordingToOutputFileAtURL: %@ an Leserpfad : %@ zeit: %f aufnahmezeit: %d",outputFileURL,LeserPfad,zeit,aufnahmezeit);
    
    NSNotificationCenter * nc=[NSNotificationCenter defaultCenter];
    NSMutableDictionary* saveDic = [[NSMutableDictionary alloc]initWithCapacity:0];
@@ -876,6 +882,8 @@ NSError *error = nil;
       dispatch_async(dispatch_get_main_queue(), ^(void) {
          [NSApp presentError:recordError];
       });
+      [saveDic setObject:[NSNumber numberWithLong:aufnahmezeit] forKey:@"aufnahmezeit"];
+
       [saveDic setObject:[NSNumber numberWithInt:0] forKey:@"recorderfolg"];
       NSAlert *Warnung = [[NSAlert alloc] init];
       [Warnung addButtonWithTitle:@"OK"];
@@ -894,7 +902,8 @@ NSError *error = nil;
       
    {
       [saveDic setObject:[NSNumber numberWithInt:1] forKey:@"recorderfolg"];
-      
+      [saveDic setObject:[NSNumber numberWithInt:aufnahmezeit] forKey:@"aufnahmezeit"];
+
       // Move the recorded temporary file to a user-specified location
       //     NSSavePanel *savePanel = [NSSavePanel savePanel];
       //  [savePanel setAllowedFileTypes:[NSArray arrayWithObject:AVFileTypeQuickTimeMovie]];
@@ -906,7 +915,7 @@ NSError *error = nil;
       // tempOrdner fuer getrimmte tempAufnahme
       
       NSString* tempTrimmPfad =[tempDirPfad   stringByAppendingPathExtension:@"m4a"];
-      NSLog(@"tempTrimmPfad: %@",tempTrimmPfad);
+    //  NSLog(@"tempTrimmPfad: %@",tempTrimmPfad);
       NSURL* tempTrimmURL = [NSURL  fileURLWithPath:tempTrimmPfad];
       
       int cuterfolg = [self  cutFileAtURL:outputFileURL toURL:tempTrimmURL];

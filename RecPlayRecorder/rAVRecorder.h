@@ -44,6 +44,7 @@
    float AufnahmeLevelWert;
 
    double startzeit;
+   int aufnahmezeit;
 
 }
 

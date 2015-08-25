@@ -708,7 +708,7 @@ NSString*	RPExportdatenKey=	@"RPExportdaten";
 
 - (IBAction)AufnahmeSetzen:(id)sender
 {
-   NSLog(@"AufnahmeSetzen: Zeile: %d",[sender selectedRow]);
+   //NSLog(@"AufnahmeSetzen: Zeile: %d",[sender selectedRow]);
    //[self setLeserFuerZeile:[sender selectedRow]];
 }
 

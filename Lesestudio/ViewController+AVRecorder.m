@@ -62,10 +62,10 @@
       return;
    }
 
-   NSLog(@"recording 1 %@",[NSDate date]);
+   //NSLog(@"recording 1 %@",[NSDate date]);
    NSDate *now = [[NSDate alloc] init];
    startzeit = (int)now.timeIntervalSince1970;
-   NSLog(@"setRecording startzeit: %ld",startzeit);
+   //NSLog(@"setRecording startzeit: %ld",startzeit);
    if ([AufnahmeTimer isValid])
    {
       
@@ -105,7 +105,9 @@
    self.Pause=0;
    
    //int erfolg=[[self RecPlayFenster]makeFirstResponder:[self RecPlayFenster]];
-   [[self.TitelPop cell] addItemWithObjectValue:[[self.TitelPop cell]stringValue]];
+   
+   
+   [[self.TitelPop cell] addItemWithObjectValue:[[[self.TitelPop cell]stringValue]stringByDeletingPathExtension]];
    [[self.TitelPop cell] setEnabled:NO];
    self. Aufnahmedauer=0;
    
@@ -313,12 +315,21 @@
                [self.WeitereAufnahmeKnopf setEnabled:YES];
                if ([[note userInfo ] objectForKey:@"desturl"] && [[[[note userInfo ] objectForKey:@"desturl"]path]length])
                {
-                   NSLog(@"RecordingAktion desturl: %@",[[note userInfo ]objectForKey:@"desturl"]);
+                   //NSLog(@"RecordingAktion desturl: %@",[[note userInfo ]objectForKey:@"desturl"]);
                   NSURL* destURL = [[note userInfo ] objectForKey:@"desturl"];
                   self.hiddenAufnahmePfad = [destURL path];
                   [AVAbspielplayer prepareAufnahmeAnURL:destURL];
-                  NSLog(@"RecordingAktion nach prepare");
+                  //NSLog(@"RecordingAktion nach prepare");
                }
+               
+               if ([[note userInfo ] objectForKey:@"aufnahmezeit"] )
+               {
+                  self.Aufnahmedauer = [[[note userInfo ] objectForKey:@"aufnahmezeit"]intValue];
+                  //NSLog(@"RecordingAktion self.Aufnahmedauer: %d",self.Aufnahmedauer);
+               }
+
+               
+               
                /*
                if ([[note userInfo ] objectForKey:@"desturl"] && [[[note userInfo ] objectForKey:@"desturl"]length])
                {
@@ -447,6 +458,358 @@
       
    }
 //   self.TimeoutFeld.intValue = sel
+}
+
+
+- (IBAction)saveRecord:(id)sender
+{
+   if ([self.playBalkenTimer isValid])
+   {
+      [self.playBalkenTimer invalidate];
+   }
+   
+   [Utils stopTimeout];
+   BOOL erfolg=YES;
+   NSLog(@"saveRecord tag: %ld Leser: %@ ",(long)[sender tag],self.Leser);
+   NSLog(@"saveRecord hiddenAufnahmePfad: %@",self.hiddenAufnahmePfad);
+   /*
+    if ([[RecordQTKitPlayer movie]rate])
+    {
+    NSString* s1=NSLocalizedString(@"Still Playing",@"Wiedergabe läuft");
+    NSString* s2=NSLocalizedString(@"No saving during playing",@"Kein Sichern während der Wiedergabe.");
+    NSString* s3=NSLocalizedString(@"Stop Recording",@"Stoppen");
+    int Antwort=NSRunAlertPanel(s1, s2,@"OK", s3,NULL);
+    if (Antwort==1)
+    {
+    [self resetRecPlay];
+    }
+    return;
+    if (Antwort==2)
+    {
+    [self stopPlay:nil];
+    
+    }
+    }
+    */
+   if ([self.Leser length]==0)
+   {
+      long Antwort=NSRunAlertPanel(@"Wer hat gelesen?", @"Vor dem Sichern muss ein Name ausgewählt sein",@"OK", NULL,NULL);
+      
+      return;
+   }
+   
+    if ((self.Aufnahmedauer==0)&&([self.Leser length]==0))
+    {
+    NSLog(@"Save ohne Aufnahme");
+    NSAlert *Warnung = [[NSAlert alloc] init];
+    [Warnung addButtonWithTitle:@"OK"];
+    //[Warnung addButtonWithTitle:@"Cancel"];
+    [Warnung setMessageText:NSLocalizedString(@"No Record",@"Keine Aufnahme")];
+    [Warnung setInformativeText:NSLocalizedString(@"No record present ir already saved",@"Keine Aufnahme oder schon gesichert")];
+    [Warnung setAlertStyle:NSWarningAlertStyle];
+       [Warnung runModal];
+     
+    [self.ArchivnamenPop selectItemAtIndex:0];
+    [self.Leserfeld setStringValue:@""];
+    [self resetRecPlay];
+    [Utils stopTimeout];
+    return;
+    }
+    
+   [self.Abspieldauerfeld setStringValue:@""];
+   [self.Abspielanzeige setLevel:0];
+   [self.Zeitfeld setStringValue:@""];
+   //NSLog(@"saveRecord: QTKitGesamtAufnahmezeit: %2.2f",QTKitGesamtAufnahmezeit);
+   NSString* tempAufnahmePfad;
+   //tempLeserPfad=[NSString stringWithString:@""];
+   NSFileManager *Manager = [NSFileManager defaultManager];
+   if (self.Aufnahmedauer)
+   {
+      NSString* Leserinitialen=[self Initialen:self.Leser];
+      Leserinitialen=[Leserinitialen stringByAppendingString:@" "];
+      if ([Manager fileExistsAtPath: self.hiddenAufnahmePfad])		//neueAufnahme ist vorhanden
+      {
+         NSMutableArray * tempAufnahmeArray=[[Manager contentsOfDirectoryAtPath:self.LeserPfad error:NULL]mutableCopy];
+         long AnzAufnahmen=[tempAufnahmeArray count];
+         if (AnzAufnahmen&&[[tempAufnahmeArray objectAtIndex:0] hasPrefix:@".DS"]) //Unsichtbare Ordner
+         {
+            [tempAufnahmeArray removeObjectAtIndex:0];
+            AnzAufnahmen--;
+         }
+         
+         //NSString* Aufnahmenliste=[tempAufnahmeArray description];
+         //NSLog(@"tempAufnahmeListe: %@", Aufnahmenliste);
+         NSMutableString* tempNummerString=[NSMutableString stringWithCapacity:0];
+         NSNumber* tempNummer;
+         int maxNummer=0;
+         int i;
+         if (AnzAufnahmen)
+         {
+            
+            for (i=0;i<AnzAufnahmen;i++)
+            {
+               int posLeerstelle1=0;
+               int posLeerstelle2=0;
+               int Leerstellen=0;
+               NSString* loopNummerString=[NSString stringWithString:[tempAufnahmeArray objectAtIndex:i]];
+               //int n=0;
+               int charpos=0;
+               while ((Leerstellen<2)&&(charpos<[loopNummerString length]))
+               {
+                  if ([loopNummerString characterAtIndex:charpos]==' ')
+                  {
+                     
+                     Leerstellen++;
+                     if (Leerstellen==1)
+                     {
+                        posLeerstelle1=charpos;
+                     }
+                     if (Leerstellen==2)
+                     {
+                        posLeerstelle2=charpos;
+                     }
+                     
+                     
+                  }
+                  charpos++;
+               }//while pos
+               if (posLeerstelle1 && posLeerstelle2)
+               {
+                  //NSLog(@"loopNummerString: %@   pos Leerstelle1:%d pos Leerstelle2:%d",loopNummerString,posLeerstelle1,posLeerstelle2);
+                  NSRange tempRange=NSMakeRange(posLeerstelle1+1,(posLeerstelle2-posLeerstelle1));
+                  tempNummerString=(NSMutableString*)[loopNummerString substringWithRange:tempRange];
+                  //NSLog(@"loopNummerString: %@   pos Leerstelle1:%d pos Leerstelle2:%d",loopNummerString,posLeerstelle1,posLeerstelle2);
+                  
+                  int loopNummer=[tempNummerString intValue];
+                  if (loopNummer>maxNummer)
+                     maxNummer=loopNummer;
+               }
+               //NSLog(@"neue maxNummer: %d",maxNummer);
+               //[loopNummerString release];
+            }
+         }
+         maxNummer++;
+         tempNummer=[NSNumber numberWithInt:maxNummer];
+         if ( maxNummer<10)
+         {
+            tempNummerString=@"";
+            tempNummerString=(NSMutableString*)[tempNummerString stringByAppendingString:[tempNummer stringValue]];
+         }
+         else
+         {
+            tempNummerString=[NSString stringWithString:[tempNummer stringValue]];
+         }
+         
+         Leserinitialen=[Leserinitialen stringByAppendingString:tempNummerString];
+         Leserinitialen=[Leserinitialen stringByAppendingString:@" "];
+         NSString* titel =  [[self.TitelPop cell]stringValue];
+         
+
+         if (([titel length]==0)||([titel isEqualToString:@"neue Aufnahme"]))
+         {
+            NSString* s1=NSLocalizedString(@"Title For Record",@"Titel für Aufnahme");
+            NSString* s2=NSLocalizedString(@"You have not yet given a matching title.",@"Noch kein passender Titel");
+            NSString* s3=NSLocalizedString(@"Enter Title",@"Titel eingeben");
+            NSString* s4=NSLocalizedString(@"Continue",@"Weiter");
+            
+            int Antwort=NSRunAlertPanel(s1, s2, s3, s4,NULL);
+            if (Antwort==1)
+            {
+               [self.TitelPop setEnabled:YES];
+               [self.TitelPop selectItemWithObjectValue:[[self.TitelPop cell]stringValue]];
+               return;
+            }
+         }
+         NSString* AufnahmeTitel=[Leserinitialen stringByAppendingString:titel];
+         if ([tempAufnahmeArray containsObject:AufnahmeTitel])
+         {
+            NSLog(@"Die Nummer ist schon vorhanden: %d",AnzAufnahmen+1);
+            return;
+         }
+         
+         tempAufnahmePfad=[[self.LeserPfad stringByAppendingPathComponent:AufnahmeTitel]stringByAppendingPathExtension:@"m4a"];//Pfad im Ordner in der Lesebox
+         
+         NSLog(@"saveRecord tempAufnahmePfad : %@", tempAufnahmePfad);
+         //[Manager movePath: neueAufnahmePfad toPath:tempAufnahmePfad handler:NULL];
+         OSErr err=0;
+         BOOL createKommentarOK=[Utils createKommentarFuerLeser:self.Leser FuerAufnahmePfad:tempAufnahmePfad];
+         if (createKommentarOK)
+         {
+            NSError *error = nil;
+            if ([[NSFileManager defaultManager] moveItemAtURL:[NSURL fileURLWithPath:self.hiddenAufnahmePfad] toURL:[NSURL fileURLWithPath:tempAufnahmePfad] error:&error]) // move OK
+            {
+               NSLog(@"move 1");
+               // Platz machen
+               [[NSFileManager defaultManager] removeItemAtURL:[NSURL fileURLWithPath:self.hiddenAufnahmePfad] error:nil];
+               
+               // Movie abspielen
+               //   [[NSWorkspace sharedWorkspace] openURL:[savePanel URL]];
+            }
+            else // Fehler mit move
+            {
+               NSAlert *Warnung = [[NSAlert alloc] init];
+               [Warnung addButtonWithTitle:@"OK"];
+               // [Warnung setMessageText:NSLocalizedString(@"No Marked Records",@"Keine markierten Aufnahmen")];
+               [Warnung setMessageText:@"Fehler beim Sichern der Aufnahmen"];
+               
+               [Warnung setAlertStyle:NSWarningAlertStyle];
+               
+               //[Warnung setIcon:RPImage];
+               int antwort=[Warnung runModal];
+               
+               NSLog(@"Fehler beim Sichern der Aufnahmen");
+               [[NSFileManager defaultManager] removeItemAtURL:[NSURL fileURLWithPath:self.hiddenAufnahmePfad] error:nil];
+            }
+            
+            //NSLog(@"err nach move: %d",err);
+            if (err)
+            {
+               //NSLog(@"err nach move: %d",err);
+               NSAlert *Warnung = [[NSAlert alloc] init];
+               [Warnung addButtonWithTitle:@"OK"];
+               //[Warnung addButtonWithTitle:@"Cancel"];
+               [Warnung setMessageText:NSLocalizedString(@"Error While Saving Record",@"Fehler beim Sichern:")];
+               [Warnung setInformativeText:NSLocalizedString(@"The record cannot be saved.",@"Die Aufnahme kann nicht gesichert werden")];
+               [Warnung setAlertStyle:NSWarningAlertStyle];
+               /*
+                [Warnung beginSheetModalForWindow:RecPlayFenster
+                modalDelegate:nil
+                didEndSelector:nil
+                contextInfo:nil];
+                */
+               [self resetRecPlay];
+               return;
+               
+            }
+         } // if saveKommentarOK
+         //SessionLeserArray aktualisieren
+         
+         NSCalendarDate* creatingDatum=[NSCalendarDate calendarDate];
+         //NSLog(@"Projekt: %@ creatingDatum: %@",[ProjektPfad lastPathComponent],creatingDatum);
+         
+         NSString* tempLeser=[self.ArchivnamenPop titleOfSelectedItem];
+         //NSLog(@"saveRecord Projekt: %@ tempLeser: %@",[ProjektPfad lastPathComponent],tempLeser);
+         
+         
+         //Leser zur Sessionliste zufügen
+         
+         int ProjektIndex=[[self.ProjektArray valueForKey:@"projekt"] indexOfObject:[self.ProjektPfad lastPathComponent]];
+         //NSLog(@"ProjektIndex: %d",ProjektIndex);
+         if (ProjektIndex<NSNotFound)
+         {
+            //NSLog(@"Projekt da: ");
+            NSMutableDictionary* tempProjektDic=(NSMutableDictionary*)[self.ProjektArray objectAtIndex:ProjektIndex];
+            
+            NSMutableArray* SessionLeserArray=[[NSMutableArray alloc]initWithCapacity:0];
+            
+            if ([tempProjektDic objectForKey:@"sessionleserarray"])//Array ist vorhanden
+            {
+               //NSLog(@"SessionLeserArray da: ");
+               [SessionLeserArray addObjectsFromArray:[tempProjektDic objectForKey:@"sessionleserarray"]];
+               
+               //NSLog(@"SessionLeserArray da2");
+            }
+            if (![SessionLeserArray containsObject:tempLeser])//tempLeser einsetzen
+            {
+               [SessionLeserArray addObject:tempLeser];
+            }
+            //NSLog(@"vor setArchivNamenPop");
+            [tempProjektDic setObject:SessionLeserArray forKey:@"sessionleserarray"];
+            
+            //SessionListe in der PList sichern
+            
+            [self saveSessionForUser:self.Leser inProjekt:[self.ProjektPfad lastPathComponent]];
+            
+            if ([sender tag])
+            {
+               [self setArchivNamenPop];
+            }
+            //NSLog(@"nach setArchivNamenPop");
+         }//projektIndex
+         else
+         {
+            NSLog(@"Projekt noch nicht da: ");
+         }
+         //BOOL erfolg=[Manager removeFileAtPath:neueAufnahmePfad handler:nil];
+         if (!erfolg)
+         {
+            NSLog(@"erfolg nach removeFileAtPath: %d",err);
+            NSAlert *Warnung = [[NSAlert alloc] init];
+            [Warnung addButtonWithTitle:@"OK"];
+            //[Warnung addButtonWithTitle:@"Cancel"];
+            [Warnung setMessageText:NSLocalizedString(@"Error While Saving Record",@"Fehler beim Sichern:")];
+            [Warnung setInformativeText:NSLocalizedString(@"The new record is still in folder 'Documents' and must be removed manually","Aufnahme noch in Docs")];
+            [Warnung setAlertStyle:NSWarningAlertStyle];
+            
+            /*
+             [Warnung beginSheetModalForWindow:RecPlayFenster
+             modalDelegate:nil
+             didEndSelector:nil
+             contextInfo:nil];
+             
+             //int Antwort=NSRunAlertPanel(@"", @"",@"OK", NULL,NULL);
+             //if (Antwort==1)
+             //return;
+             */
+         }
+         
+      }
+      else
+      {
+         NSAlert *Warnung = [[NSAlert alloc] init];
+         [Warnung addButtonWithTitle:@"OK"];
+         //[Warnung addButtonWithTitle:@"Cancel"];
+         [Warnung setMessageText:NSLocalizedString(@"Error While Saving Record",@"Fehler beim Sichern:")];
+         NSString* s1=NSLocalizedString(@"The file for the new record could not be created.",@"Kein File für Aufnahme");
+         [Warnung setInformativeText:s1];
+         [Warnung setAlertStyle:NSWarningAlertStyle];
+         /*
+          [Warnung beginSheetModalForWindow:RecPlayFenster
+          modalDelegate:nil
+          didEndSelector:nil
+          contextInfo:nil];
+          
+          //int Antwort=NSRunAlertPanel(@"", @"",@"OK",NULL,NULL);
+          */
+         [self resetRecPlay];
+         return;
+      }
+   }
+   
+   
+   
+   //NSLog(@" vor     SaveAufnahmeTimer");
+   switch  ([sender tag])
+   {
+      case 1:
+      {
+         NSTimer*	SaveAufnahmeTimer=[NSTimer scheduledTimerWithTimeInterval:0.5
+                                                                     target:self
+                                                                   selector:@selector(SaveAufnahmeTimerFunktion:)
+                                                                   userInfo:[NSNumber numberWithInt:[sender tag]]
+                                                                    repeats:NO];
+         //NSLog(@"                                    set        SaveAufnahmeTimer");
+         //[Utils startTimeout:TimeoutDelay];
+         //[hiddenAufnahmePfad release];
+      }break;
+      case 0:
+      {
+         
+         [self.StartRecordKnopf setEnabled:YES];
+         [self.StartPlayKnopf setEnabled:NO];
+         [self.StopPlayKnopf setEnabled:NO];
+         [self.BackKnopf setEnabled:NO];
+         [self.SichernKnopf setEnabled:NO];
+         [self.WeitereAufnahmeKnopf setEnabled:NO];
+         [self.LogoutKnopf setEnabled:NO];
+         
+         //*        [self.RecPlayFenster makeFirstResponder:RecPlayFenster];
+         [self.KommentarView setString:@""];
+         [self.KommentarView setEditable:NO];
+         self.QTKitGesamtAufnahmezeit=0;
+         
+      }break;
+   }//switch
 }
 
 -(void)onTick:(NSTimer *)timer {

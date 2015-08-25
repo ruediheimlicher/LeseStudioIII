@@ -227,7 +227,7 @@ Die Dics enthalten den Pfad und eine Anzeige für die Lesebox
 	int HomeLeseboxOK=0;
 	if ([Filemanager fileExistsAtPath:HomeLeseboxPfad isDirectory:&istOrdner]&&istOrdner)//Lesebox vorhaanden auf home
 		{
-			NSLog(@"Utils HomeLeseboxPfad: %@",HomeLeseboxPfad);
+			//NSLog(@"Utils HomeLeseboxPfad: %@",HomeLeseboxPfad);
 			HomeLeseboxOK=2;//Lesebox ist da
 			NSDictionary *HomeAttrs = [Filemanager attributesOfItemAtPath:HomeLeseboxPfad error:NULL];
 			  if (HomeAttrs) 
@@ -662,7 +662,7 @@ return versionOK;
   if ([Filemanager fileExistsAtPath:derLeseboxPfad ])
 	{
 	LeseboxValid=YES;
-	NSLog(@"LeseboxValidAnPfad Lesebox da: derLeseboxPfad: %@",derLeseboxPfad);
+	//NSLog(@"LeseboxValidAnPfad Lesebox da: derLeseboxPfad: %@",derLeseboxPfad);
 	}//exists at LeseboxPfad
   else
   {

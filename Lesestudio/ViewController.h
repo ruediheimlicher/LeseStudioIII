@@ -153,7 +153,7 @@
 @property NSURL*								LeseboxURL;
 @property NSURL*								ArchivURL;
 
-@property TimeValue							Dauer;
+@property int                        Aufnahmedauer;
 @property TimeValue							Laufzeit;
 @property TimeValue							ArchivLaufzeit;
 @property int									RPModus;
@@ -196,9 +196,8 @@
 
 
 
-@property UInt32								Aufnahmedauer;
 @property UInt32								GesamtAbspielzeit;
-@property float									QTKitGesamtAbspielzeit;
+@property float								QTKitGesamtAbspielzeit;
 @property UInt32								Abspieldauer;
 @property UInt32								Pause;
 @property int									Durchgang;
@@ -265,7 +264,7 @@
 - (IBAction)showProjektStart:(id)sender;
 - (IBAction)savePListAktion:(id)sender;
 
-
+- (NSString*)Initialen:(NSString*)derName;
 
 @end
 
@@ -322,6 +321,6 @@
 - (IBAction)startAVPlay:(id)sender;
 - (IBAction)stopAVPlay:(id)sender;
 - (IBAction)backAVPlay:(id)sender;
-
+- (IBAction)saveRecord:(id)sender;
 @end // AVRecorder
 
