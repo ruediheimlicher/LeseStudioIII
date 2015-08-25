@@ -15,6 +15,7 @@
 #import "rClean.h"
 #import "rKommentar.h"
 #import "rMarkierung.h"
+#import "rNamenListe.h"
 //#import "rUtils.h"
 //#import <fcntl.h>
 //#import <pthread.h>
@@ -31,16 +32,6 @@
 
 @class rProgressDialog;
 
-enum 
-{
-Datum=2,
-Bewertung,
-Noten,
-UserMark,
-AdminMark,
-Kommentar
-};
-
 
 @interface rAdminPlayer:NSWindowController <NSWindowDelegate, NSTabViewDelegate>
 	{
@@ -50,10 +41,10 @@ Kommentar
 	IBOutlet rAdminListe*		NamenListe;
 	
 	IBOutlet NSTextField*		AbspieldauerFeld;
-	rEntfernen*					EntfernenFenster;
-	rKommentar*					KommentarFenster;
-	rClean*						CleanFenster;
-	rMarkierung*				MarkierungFenster;
+	rEntfernen*                EntfernenFenster;
+	rKommentar*                KommentarFenster;
+	rClean*                    CleanFenster;
+	rMarkierung*               MarkierungFenster;
 //	IBOutlet NSMovieView*			AdminQTPlayer;
 //	IBOutlet QTMovieView*			AdminQTKitPlayer;
 	IBOutlet NSButton*			PlayTaste;
@@ -63,7 +54,7 @@ Kommentar
 	IBOutlet NSButton*			MarkCheckbox;
 	IBOutlet NSButton*			UserMarkCheckbox;
 	IBOutlet NSTextField*		ProjektFeld;
-	IBOutlet NSTextView*		AdminKommentarView;
+	IBOutlet NSTextView*       AdminKommentarView;
 	IBOutlet NSTextField*		AdminTitelfeld;
 	IBOutlet NSTextField*		AdminDatumfeld;
 	IBOutlet NSTextField*		AdminNamenfeld;
@@ -76,8 +67,8 @@ Kommentar
 	NSMutableArray*				AufnahmenDicArray;
 	IBOutlet NSPopUpButton*		LesernamenPop;
 	IBOutlet NSButton*			DeleteTaste;
-	BOOL						AufnahmeDa;
-	int							selektierteAufnahmenTableZeile;
+	BOOL                       AufnahmeDa;
+	int                        selektierteAufnahmenTableZeile;
 	
 //	Movie							AdminPlayerMovie;
 	UInt32						AdminAbspielzeit;
@@ -95,15 +86,15 @@ Kommentar
 	NSString*					AdminPlayPfad;
 	NSMutableArray *			AdminProjektNamenArray;
 	NSMutableArray *			AdminProjektArray;
-	BOOL						AdminProjektAktiviert;
+	BOOL                    AdminProjektAktiviert;
 	
 	int							AnzLeser;
 	int							selektierteZeile;
 	NSComboBoxCell *			comboBox;
 	NSPopUpButtonCell*		AufnahmenPop;
 	rAdminDS*					AdminDaten;
-	BOOL						Moviegeladen;
-	BOOL						Textchanged;
+	BOOL                    Moviegeladen;
+	BOOL                    Textchanged;
 	int							Umgebung;
 	
 	int							AuswahlOption;
@@ -130,8 +121,8 @@ Kommentar
 	OSType						exportFormatFlag;
 	NSMutableString*			ExportFormatString;
 	FSSpec						UserExportSpec;
-	long						UserExportParID;
-		//NSMutableArray*				ProjektArray;
+	long                    UserExportParID;
+   NSMutableArray*			ProjektArray;
 	
 
 	//rProgressDialog * progressDialog;
@@ -148,14 +139,14 @@ Kommentar
 	}
 
 
-- (void) setLeseboxPfad:(NSString*)derPfad inProjekt: (NSString*)dasProjekt;
+- (void)setLeseboxPfad:(NSString*)derPfad inProjekt: (NSString*)dasProjekt;
 - (NSString*)AdminLeseboxPfad;
 - (BOOL)setNetworkAdminLeseboxPfad:(id)sender;
 - (BOOL)setHomeAdminLeseboxPfad:(id)sender;
 
-- (void) setAdminPlayer:(NSString*)derLeseboxPfad inProjekt:(NSString*)dasProjekt;
+//- (void)setAdminPlayer:(NSString*)derLeseboxPfad inProjekt:(NSString*)dasProjekt;
 - (void)setAdminProjektArray:(NSArray*)derProjektArray;
-- (void) resetAdminPlayer;
+- (void)resetAdminPlayer;
 - (void)setProjektPopMenu:(NSArray*)derProjektArray;
 - (IBAction)setNeuesAdminProjekt:(id)sender;
 

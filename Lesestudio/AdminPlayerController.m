@@ -38,7 +38,7 @@ enum
 };
 
 
-enum
+typedef NS_ENUM(NSInteger, UYLType)
 {
    DatumReturn=2,
    BewertungReturn,
@@ -48,15 +48,17 @@ enum
    KommentarReturn
 };
 
-enum
+typedef NS_ENUM(NSInteger, A)
 {
-   Datum=2,
+   Datum = 2,
    Bewertung,
    Noten,
    UserMark,
    AdminMark,
    Kommentar
 };
+
+
 
 @implementation AdminPlayerController
 
@@ -85,10 +87,10 @@ enum
    self.AdminProjektArray=[[NSMutableArray alloc]initWithCapacity:0];
    
    
-   self.RPExportdaten=[[NSUserDefaults standardUserDefaults] objectForKey:RPExportdatenKey];
+   self.RPExportdaten=[[NSUserDefaults standardUserDefaults] objectForKey:@"RPExportdatenKey"];
    //NSLog(@"awake: RPExportdaten; %d",[RPExportdaten description]);
    //NSLog(@"awake: RPExportdaten; %d",[RPExportdaten length]);
-   self.ExportFormatString=(NSMutableString*)[[NSUserDefaults standardUserDefaults] stringForKey:RPExportformatKey];
+   self.ExportFormatString=(NSMutableString*)[[NSUserDefaults standardUserDefaults] stringForKey:@"RPExportformat"];
    
    //NSLog(@"awake: ExportFormatString; %@",ExportFormatString);
    
@@ -138,9 +140,6 @@ NSString* leser=@"leser";
 NSString* anzleser=@"anzleser";
 
 NSString*	RPExportdatenKey=	@"RPExportdaten";
-NSString*	RPExportformatKey=	@"RPExportformat";
-
-
 
 
 
@@ -272,9 +271,9 @@ NSString*	RPExportformatKey=	@"RPExportformat";
    
    NSMutableDictionary * defaultWerte=[[NSMutableDictionary alloc]initWithCapacity:0];
    
-   [defaultWerte setObject:self.RPExportdaten  forKey:RPExportdatenKey];
+   [defaultWerte setObject:self.RPExportdaten  forKey:@"RPExportdatenKey"];
    
-   [defaultWerte setObject:self.ExportFormatString forKey:RPExportformatKey];
+   [defaultWerte setObject:self.ExportFormatString forKey:@"RPExportformat"];
    
    [[NSUserDefaults standardUserDefaults] registerDefaults: defaultWerte];
    //NSLog(@"INIT: ExportFormatString; %@",ExportFormatString);
@@ -352,8 +351,9 @@ NSString*	RPExportformatKey=	@"RPExportformat";
    return antwort;
 }
 
-- (void) setAdminPlayer:(NSString*)derLeseboxPfad inProjekt:(NSString*)dasProjekt
+- (void)settAdminPlayer:(NSString*)derLeseboxPfad inProjekt:(NSString*)dasProjekt
 {
+  
    //NSLog(@"setAdminPlayer Projekt: %@",dasProjekt);
    NSFileManager *Filemanager=[NSFileManager defaultManager];
    [self.ProjektFeld setStringValue:dasProjekt];
@@ -593,12 +593,12 @@ NSString*	RPExportformatKey=	@"RPExportformat";
       {
          NSString* tempAnmerkungPfad=[tempLeserPfad stringByAppendingPathComponent:NSLocalizedString(@"Anmerkungen",@"Anmerkungen")];
          tempAnmerkungPfad=[tempAnmerkungPfad stringByAppendingPathComponent:[tempAufnahmenliste objectAtIndex:m]];
-         BOOL AdminMark=NO;
+         BOOL tempAdminMark=NO;
          //
          if ([Filemanager fileExistsAtPath:tempAnmerkungPfad])
          {
             //NSLog(@"File exists an Pfad: %@",tempAnmerkungPfad);
-            AdminMark=[self AufnahmeIstMarkiertAnAnmerkungPfad:tempAnmerkungPfad];
+            tempAdminMark=[self AufnahmeIstMarkiertAnAnmerkungPfad:tempAnmerkungPfad];
             
             /*
              NSString* tempKommentarString=[NSString stringWithContentsOfFile:tempAnmerkungPfad];
@@ -619,7 +619,7 @@ NSString*	RPExportformatKey=	@"RPExportformat";
          //
          //NSLog(@"setAdminPlayer zeile: %d Pfad: %@ Mark: %d",m,tempAnmerkungPfad,AdminMark);
          
-         [tempMarkArray replaceObjectAtIndex:(tempAnzAufnahmen-m-1) withObject:[NSNumber numberWithBool:AdminMark]];
+         [tempMarkArray replaceObjectAtIndex:(tempAnzAufnahmen-m-1) withObject:[NSNumber numberWithBool:tempAdminMark]];
          
          /*
           NSDictionary* AufnahmeAttribute=[Filemanager fileAttributesAtPath:tempAttributesPfad traverseLink:YES];
@@ -769,7 +769,7 @@ NSString*	RPExportformatKey=	@"RPExportformat";
             [self.ProjektPop addItemWithTitle:tempTitel];
             //NSLog(@"*setProjektPopMenu einProjektDic: %@",einProjektDic);
             
-            if ([[einProjektDic objectForKey:@"OK"]boolValue])
+            if ([einProjektDic objectForKey:@"OK"] && [[einProjektDic objectForKey:@"OK"]boolValue])
             {
                NSImage* CrossImg=[NSImage imageNamed:@"CrossImg.tif"];
                [[self.ProjektPop itemWithTitle:tempTitel]setImage:CrossImg];
@@ -1359,7 +1359,7 @@ NSString*	RPExportformatKey=	@"RPExportformat";
    NSLog(@"in saveAdminMarkFuerLeser Anfang Leser: %@ Aufnahme: %@ AdminMark: %d",derLeser,dieAufnahme,dieAdminMark);
    
    BOOL erfolg;
-   BOOL AdminMark=NO;
+   BOOL tempAdminMark=NO;
    BOOL istDirectory;
    NSFileManager *Filemanager=[NSFileManager defaultManager];
    
@@ -1395,7 +1395,7 @@ NSString*	RPExportformatKey=	@"RPExportformat";
             {
                NSNumber* AdminMarkNumber=[NSNumber numberWithInt:dieAdminMark];
                NSLog(@"saveMark		replaceObjectAtIndex1");
-               [tempKommentarArrary replaceObjectAtIndex:AdminMark withObject:[AdminMarkNumber stringValue]];
+               [tempKommentarArrary replaceObjectAtIndex:tempAdminMark withObject:[AdminMarkNumber stringValue]];
                NSLog(@"tempKommentarArrary nach: %@ AdminMark:%d",[tempKommentarArrary description],[AdminMarkNumber intValue]);
                
                
@@ -3284,7 +3284,7 @@ NSString*	RPExportformatKey=	@"RPExportformat";
 
 - (BOOL) FensterschliessenOK
 {
-   BOOL OK=YES;
+   BOOL allOK=YES;
    
    if (self.Textchanged)
    {
@@ -3304,10 +3304,10 @@ NSString*	RPExportformatKey=	@"RPExportformat";
                          didEndSelector:@selector(alertDidEnd: returnCode: contextInfo:)
                             contextInfo:@"TextchangedWarnung"];
       NSLog(@"TextchangedWarnung nach Alert");
-      OK=NO;
+      allOK=NO;
    }
    
-   return OK;
+   return allOK;
 }
 
 - (BOOL)windowShouldClose:(id)sender
@@ -7910,8 +7910,8 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
 
 - (int)ExportPrefsLesen
 {
-   self.RPExportdaten=[[NSUserDefaults standardUserDefaults]objectForKey:RPExportdatenKey];
-   self.ExportFormatString=[[NSUserDefaults standardUserDefaults]objectForKey:RPExportformatKey];
+   self.RPExportdaten=[[NSUserDefaults standardUserDefaults]objectForKey:@"RPExportdatenKey"];
+   self.ExportFormatString=[[NSUserDefaults standardUserDefaults]objectForKey:@"RPExportformat"];
    return[self.RPExportdaten length];
 }
 
@@ -7920,9 +7920,9 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
    short l=[self.RPExportdaten length];
    if(l>0)
    {
-      [[NSUserDefaults standardUserDefaults]setObject:self.RPExportdaten forKey:RPExportdatenKey];
+      [[NSUserDefaults standardUserDefaults]setObject:self.RPExportdaten forKey:@"RPExportdatenKey"];
    }
-   [[NSUserDefaults standardUserDefaults]setObject:self.ExportFormatString forKey:RPExportformatKey];
+   [[NSUserDefaults standardUserDefaults]setObject:self.ExportFormatString forKey:@"RPExportformat"];
    [[NSUserDefaults standardUserDefaults]synchronize];
    //NSLog(@"ExportFormatString; %@",ExportFormatString);
    
@@ -8203,7 +8203,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
        short l=[RPExportdaten length];
        if(l>0)
        {
-       [[NSUserDefaults standardUserDefaults]setObject:RPExportdaten forKey:RPExportdatenKey];
+       [[NSUserDefaults standardUserDefaults]setObject:RPExportdaten forKey:@"RPExportdatenKey"];
        }
        [[NSUserDefaults standardUserDefaults]setObject:ExportFormatString forKey:RPExportformatKey];
        
@@ -8360,7 +8360,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
     short l=[RPExportdaten length];
     if(l>0)
     {
-    [[NSUserDefaults standardUserDefaults]setObject:RPExportdaten forKey:RPExportdatenKey];
+    [[NSUserDefaults standardUserDefaults]setObject:RPExportdaten forKey:@"RPExportdatenKey"];
     }
     [[NSUserDefaults standardUserDefaults]setObject:ExportFormatString forKey:RPExportformatKey];
     
@@ -8552,7 +8552,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
    NSFileManager *Filemanager=[NSFileManager defaultManager];
    //ExportFormatString=[[[NSUserDefaults standardUserDefaults]stringForKey:RPExportformatKey]mutableCopy];
    
-   //RPExportdaten=[[[NSUserDefaults standardUserDefaults]dataForKey:RPExportdatenKey]mutableCopy];
+   //RPExportdaten=[[[NSUserDefaults standardUserDefaults]dataForKey:@"RPExportdatenKey"]mutableCopy];
    //NSLog(@"AufnahmeExportierenMitPfad Anfang");
    //NSLog(@"AufnahmeExportierenMitPfad Anfang: RPExportdaten: %\n%@",[RPExportdaten description]);
    
@@ -8962,7 +8962,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
    if ([derAufnahmenArray count]==0)
       return;
    
-   self.RPExportdaten=[[[NSUserDefaults standardUserDefaults]dataForKey:RPExportdatenKey]mutableCopy];
+   self.RPExportdaten=[[[NSUserDefaults standardUserDefaults]dataForKey:@"RPExportdatenKey"]mutableCopy];
    
    self.ExportOrdnerPfad=[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
    //NSLog(@"AufnahmenArrayExportieren\n\n");

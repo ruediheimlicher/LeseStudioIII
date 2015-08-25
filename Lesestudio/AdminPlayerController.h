@@ -132,9 +132,9 @@
 - (BOOL)setNetworkAdminLeseboxPfad:(id)sender;
 - (BOOL)setHomeAdminLeseboxPfad:(id)sender;
 
-- (void) setAdminPlayer:(NSString*)derLeseboxPfad inProjekt:(NSString*)dasProjekt;
+- (void)setAdminPlayer:(NSString*)derLeseboxPfad inProjekt:(NSString*)dasProjekt;
 - (void)setAdminProjektArray:(NSArray*)derProjektArray;
-- (void) resetAdminPlayer;
+- (void)resetAdminPlayer;
 - (void)setProjektPopMenu:(NSArray*)derProjektArray;
 - (IBAction)setNeuesAdminProjekt:(id)sender;
 
