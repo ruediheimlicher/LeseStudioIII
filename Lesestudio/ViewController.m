@@ -2792,7 +2792,7 @@ QTMovie* qtMovie;
          [self.ArchivDaten resetArchivDaten];
          for (i=(int)[TitelArray count]-1;i>=0;i--)//Reihenfolge umkehren für TitelPop
          {
-            [AufnahmenPopArray addObject:[[TitelArray objectAtIndex:i]description]];
+            [AufnahmenPopArray addObject:[TitelArray objectAtIndex:i]];
             
             [self.ArchivDaten setAufnahmePfad:[[TitelArray objectAtIndex:i]description] forRow:0];
             //NSLog(@"TitelArray :%@END",[[TitelArray objectAtIndex:i]description]);

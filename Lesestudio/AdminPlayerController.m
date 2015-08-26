@@ -6078,7 +6078,7 @@ NSString*	RPExportdatenKey=	@"RPExportdaten";
 	  {
         tempString=[tempAufnahme copy];
      }
-   return tempString;
+   return [tempString stringByDeletingPathExtension];
 }//AufnahmeTitelVon
 
 - (NSString*)KommentarVon:(NSString*) derKommentarString
