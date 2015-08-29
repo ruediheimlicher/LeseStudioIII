@@ -540,7 +540,7 @@
                                                     <rect key="frame" x="10" y="33" width="572" height="336"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <box autoresizesSubviews="NO" title="Box" borderType="line" titlePosition="noTitle" id="mfg-UO-7Re">
+                                                        <box identifier="recorder" autoresizesSubviews="NO" title="Box" borderType="line" titlePosition="noTitle" id="mfg-UO-7Re">
                                                             <rect key="frame" x="13" y="151" width="268" height="174"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <view key="contentView">
@@ -548,11 +548,11 @@
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
                                                                     <button verticalHuggingPriority="750" id="g7c-nT-Ggg">
-                                                                        <rect key="frame" x="18" y="5" width="227" height="47"/>
+                                                                        <rect key="frame" x="25" y="14" width="217" height="67"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
-                                                                        <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="XSb-7M-gme">
-                                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                            <font key="font" metaFont="system"/>
+                                                                        <buttonCell key="cell" type="squareTextured" title="START" alternateTitle="STOP" bezelStyle="texturedSquare" image="mikrofonicon_w" imagePosition="left" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="XSb-7M-gme">
+                                                                            <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                                                            <font key="font" metaFont="system" size="26"/>
                                                                             <string key="keyEquivalent">r</string>
                                                                             <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                                                         </buttonCell>
@@ -560,17 +560,8 @@
                                                                             <action selector="startAVStop:" target="XfG-lQ-9wD" id="HWb-fr-xdu"/>
                                                                         </connections>
                                                                     </button>
-                                                                    <textField verticalHuggingPriority="750" id="w7f-Dv-P8i">
-                                                                        <rect key="frame" x="24" y="59" width="215" height="22"/>
-                                                                        <autoresizingMask key="autoresizingMask"/>
-                                                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="START" id="c8j-Xm-CBm">
-                                                                            <font key="font" metaFont="system" size="14"/>
-                                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                                        </textFieldCell>
-                                                                    </textField>
                                                                     <textField verticalHuggingPriority="750" id="Ddc-uw-6ac">
-                                                                        <rect key="frame" x="182" y="82" width="66" height="23"/>
+                                                                        <rect key="frame" x="182" y="114" width="66" height="23"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
                                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" id="zAD-hv-jcI">
                                                                             <font key="font" metaFont="system" size="14"/>
@@ -579,10 +570,10 @@
                                                                         </textFieldCell>
                                                                     </textField>
                                                                     <textField verticalHuggingPriority="750" id="SWd-26-Ln4">
-                                                                        <rect key="frame" x="84" y="84" width="99" height="18"/>
+                                                                        <rect key="frame" x="59" y="117" width="111" height="18"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
                                                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Aufnahmezeit" id="mP4-kt-MOb">
-                                                                            <font key="font" metaFont="cellTitle"/>
+                                                                            <font key="font" metaFont="system" size="14"/>
                                                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
@@ -592,61 +583,40 @@
                                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                         <levelIndicatorCell key="cell" continuous="YES" alignment="left" maxValue="36" warningValue="40" criticalValue="44" id="PAk-5x-Ank"/>
                                                                     </levelIndicator>
-                                                                    <button verticalHuggingPriority="750" id="747-0h-uXA">
-                                                                        <rect key="frame" x="18" y="109" width="43" height="25"/>
+                                                                    <textField verticalHuggingPriority="750" id="w7f-Dv-P8i">
+                                                                        <rect key="frame" x="119" y="81" width="53" height="22"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
-                                                                        <buttonCell key="cell" type="squareTextured" title="Trim" bezelStyle="texturedSquare" image="4BF7F873-6F71-4C79-980B-6092DA2F5613" imagePosition="overlaps" alignment="justified" borderStyle="border" inset="2" id="e5Z-8O-ANj">
-                                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                            <font key="font" metaFont="system"/>
-                                                                            <string key="keyEquivalent">r</string>
-                                                                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                                                                        </buttonCell>
-                                                                        <connections>
-                                                                            <action selector="trim:" target="XfG-lQ-9wD" id="Prh-fW-4O2"/>
-                                                                        </connections>
-                                                                    </button>
-                                                                    <button verticalHuggingPriority="750" id="pDk-2W-iDA">
-                                                                        <rect key="frame" x="18" y="80" width="43" height="25"/>
-                                                                        <autoresizingMask key="autoresizingMask"/>
-                                                                        <buttonCell key="cell" type="squareTextured" title="Cut" bezelStyle="texturedSquare" image="F4062EC1-5F91-4B43-AFD7-1555757CC6BE" imagePosition="overlaps" alignment="justified" borderStyle="border" inset="2" id="Tgf-7f-1DL">
-                                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                            <font key="font" metaFont="system"/>
-                                                                            <string key="keyEquivalent">r</string>
-                                                                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                                                                        </buttonCell>
-                                                                        <connections>
-                                                                            <action selector="cut:" target="XfG-lQ-9wD" id="Fxu-5S-YFr"/>
-                                                                        </connections>
-                                                                    </button>
+                                                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="START" id="c8j-Xm-CBm">
+                                                                            <font key="font" metaFont="cellTitle"/>
+                                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                        </textFieldCell>
+                                                                    </textField>
                                                                 </subviews>
                                                             </view>
                                                             <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                                                             <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         </box>
-                                                        <box autoresizesSubviews="NO" title="Box" borderType="line" titlePosition="noTitle" id="GRe-dV-lXN">
+                                                        <box identifier="abspielplayer" autoresizesSubviews="NO" title="Box" borderType="none" titlePosition="noTitle" id="GRe-dV-lXN">
                                                             <rect key="frame" x="298" y="151" width="255" height="174"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <view key="contentView">
-                                                                <rect key="frame" x="1" y="1" width="253" height="172"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="255" height="174"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
-                                                                    <customView id="M5m-Wl-vaG" customClass="rAbspielanzeige">
-                                                                        <rect key="frame" x="8" y="122" width="223" height="24"/>
-                                                                        <autoresizingMask key="autoresizingMask"/>
-                                                                    </customView>
                                                                     <button verticalHuggingPriority="750" id="nhz-X7-zQD">
-                                                                        <rect key="frame" x="17" y="21" width="60" height="32"/>
+                                                                        <rect key="frame" x="12" y="14" width="36" height="36"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
-                                                                        <buttonCell key="cell" type="squareTextured" title="&gt;" bezelStyle="texturedSquare" alignment="center" enabled="NO" borderStyle="border" inset="2" id="kfV-rw-2yR">
+                                                                        <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="playicon" imagePosition="only" alignment="center" enabled="NO" imageScaling="proportionallyDown" inset="2" id="kfV-rw-2yR">
                                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                             <font key="font" metaFont="system"/>
                                                                         </buttonCell>
                                                                         <connections>
-                                                                            <action selector="startPlay:" target="XfG-lQ-9wD" id="BYR-aH-Yha"/>
+                                                                            <action selector="startAVPlay:" target="XfG-lQ-9wD" id="7D6-lm-Ut3"/>
                                                                         </connections>
                                                                     </button>
                                                                     <textField verticalHuggingPriority="750" id="siA-E8-tpo">
-                                                                        <rect key="frame" x="104" y="67" width="50" height="22"/>
+                                                                        <rect key="frame" x="104" y="52" width="50" height="22"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
                                                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Stop" id="EIG-r4-P9y">
                                                                             <font key="font" metaFont="system" size="14"/>
@@ -655,7 +625,7 @@
                                                                         </textFieldCell>
                                                                     </textField>
                                                                     <textField verticalHuggingPriority="750" id="sn9-KQ-LKo">
-                                                                        <rect key="frame" x="29" y="67" width="50" height="22"/>
+                                                                        <rect key="frame" x="6" y="53" width="50" height="22"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
                                                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Start" id="BH6-rG-vBs">
                                                                             <font key="font" metaFont="system" size="14"/>
@@ -663,36 +633,52 @@
                                                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                                         </textFieldCell>
                                                                     </textField>
-                                                                    <textField verticalHuggingPriority="750" id="5kp-De-Ikx">
-                                                                        <rect key="frame" x="179" y="67" width="58" height="22"/>
-                                                                        <autoresizingMask key="autoresizingMask"/>
-                                                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Zurück" id="Kvu-3n-zGC">
-                                                                            <font key="font" metaFont="system" size="14"/>
-                                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                        </textFieldCell>
-                                                                    </textField>
                                                                     <button verticalHuggingPriority="750" id="jGr-kK-oIS">
-                                                                        <rect key="frame" x="97" y="21" width="60" height="32"/>
+                                                                        <rect key="frame" x="113" y="14" width="36" height="36"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
-                                                                        <buttonCell key="cell" type="squareTextured" title="||" bezelStyle="texturedSquare" alignment="center" enabled="NO" borderStyle="border" inset="2" id="raP-fL-Qb1">
+                                                                        <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="halticon_w" imagePosition="only" alignment="center" enabled="NO" imageScaling="proportionallyDown" inset="2" id="raP-fL-Qb1">
                                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                             <font key="font" metaFont="system"/>
                                                                         </buttonCell>
                                                                         <connections>
-                                                                            <action selector="stopPlay:" target="XfG-lQ-9wD" id="gSz-V2-YDp"/>
+                                                                            <action selector="stopAVPlay:" target="XfG-lQ-9wD" id="ylF-zC-mn8"/>
                                                                         </connections>
                                                                     </button>
                                                                     <button verticalHuggingPriority="750" id="vno-P7-yPk">
-                                                                        <rect key="frame" x="175" y="21" width="60" height="32"/>
+                                                                        <rect key="frame" x="199" y="14" width="36" height="36"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
-                                                                        <buttonCell key="cell" type="squareTextured" title="|&lt;" bezelStyle="texturedSquare" alignment="center" enabled="NO" borderStyle="border" inset="2" id="CwM-lA-UqJ">
+                                                                        <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="gostarticon" imagePosition="only" alignment="center" enabled="NO" imageScaling="proportionallyDown" inset="2" id="CwM-lA-UqJ">
                                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                             <font key="font" metaFont="system"/>
                                                                         </buttonCell>
+                                                                        <connections>
+                                                                            <action selector="backAVPlay:" target="XfG-lQ-9wD" id="flV-XR-8dS"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <button verticalHuggingPriority="750" id="cfS-3Q-P7X">
+                                                                        <rect key="frame" x="155" y="14" width="36" height="36"/>
+                                                                        <autoresizingMask key="autoresizingMask"/>
+                                                                        <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="foreward_w" imagePosition="only" alignment="center" enabled="NO" imageScaling="proportionallyDown" inset="2" id="R9x-hr-E0x">
+                                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                            <font key="font" metaFont="system"/>
+                                                                        </buttonCell>
+                                                                        <connections>
+                                                                            <action selector="forewardAVPlay:" target="XfG-lQ-9wD" id="0nn-2U-m3m"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <button verticalHuggingPriority="750" id="mN6-aZ-2za">
+                                                                        <rect key="frame" x="70" y="14" width="36" height="36"/>
+                                                                        <autoresizingMask key="autoresizingMask"/>
+                                                                        <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="rewind_w" imagePosition="only" alignment="center" enabled="NO" imageScaling="proportionallyDown" inset="2" id="hTB-Ce-a6W">
+                                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                            <font key="font" metaFont="system"/>
+                                                                        </buttonCell>
+                                                                        <connections>
+                                                                            <action selector="rewindAVPlay:" target="XfG-lQ-9wD" id="3nd-Yd-zCh"/>
+                                                                        </connections>
                                                                     </button>
                                                                     <textField verticalHuggingPriority="750" id="9uL-wv-1hK">
-                                                                        <rect key="frame" x="75" y="96" width="80" height="18"/>
+                                                                        <rect key="frame" x="86" y="92" width="80" height="18"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
                                                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Abspielzeit" id="wZ2-dv-re9">
                                                                             <font key="font" metaFont="cellTitle"/>
@@ -701,7 +687,7 @@
                                                                         </textFieldCell>
                                                                     </textField>
                                                                     <textField verticalHuggingPriority="750" id="PYR-dB-vrZ">
-                                                                        <rect key="frame" x="176" y="93" width="55" height="23"/>
+                                                                        <rect key="frame" x="180" y="90" width="55" height="23"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
                                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="left" drawsBackground="YES" id="5xI-NY-2W0">
                                                                             <font key="font" metaFont="system" size="14"/>
@@ -709,45 +695,19 @@
                                                                             <color key="backgroundColor" white="0.94999998809999997" alpha="1" colorSpace="calibratedWhite"/>
                                                                         </textFieldCell>
                                                                     </textField>
-                                                                    <button verticalHuggingPriority="750" id="Trw-3o-m8H">
-                                                                        <rect key="frame" x="13" y="-2" width="67" height="25"/>
+                                                                    <progressIndicator maxValue="1024" style="bar" id="bCD-ie-X90">
+                                                                        <rect key="frame" x="18" y="143" width="217" height="20"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                    </progressIndicator>
+                                                                    <textField verticalHuggingPriority="750" id="5kp-De-Ikx">
+                                                                        <rect key="frame" x="187" y="52" width="58" height="22"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
-                                                                        <buttonCell key="cell" type="squareTextured" title="START" bezelStyle="texturedSquare" image="27D9D3C8-96DC-4DEF-94C6-82A287BEEA07" imagePosition="overlaps" alignment="justified" borderStyle="border" inset="2" id="o6W-Hg-KGi">
-                                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                            <font key="font" metaFont="system"/>
-                                                                            <string key="keyEquivalent">r</string>
-                                                                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                                                                        </buttonCell>
-                                                                        <connections>
-                                                                            <action selector="startAVPlay:" target="XfG-lQ-9wD" id="1Fe-OO-Wtm"/>
-                                                                        </connections>
-                                                                    </button>
-                                                                    <button verticalHuggingPriority="750" id="Xan-Hr-Hkh">
-                                                                        <rect key="frame" x="93" y="0.0" width="67" height="25"/>
-                                                                        <autoresizingMask key="autoresizingMask"/>
-                                                                        <buttonCell key="cell" type="squareTextured" title="STOP" bezelStyle="texturedSquare" image="C889E317-E68E-48F8-B69E-CEF904051B56" imagePosition="overlaps" alignment="justified" borderStyle="border" inset="2" id="0ez-Gq-zfV">
-                                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                            <font key="font" metaFont="system"/>
-                                                                            <string key="keyEquivalent">r</string>
-                                                                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                                                                        </buttonCell>
-                                                                        <connections>
-                                                                            <action selector="stopAVPlay:" target="XfG-lQ-9wD" id="fQT-Zh-rDi"/>
-                                                                        </connections>
-                                                                    </button>
-                                                                    <button verticalHuggingPriority="750" id="p9M-MJ-MbD">
-                                                                        <rect key="frame" x="173" y="-1" width="67" height="25"/>
-                                                                        <autoresizingMask key="autoresizingMask"/>
-                                                                        <buttonCell key="cell" type="squareTextured" title="back" bezelStyle="texturedSquare" image="2341DD6F-CC00-4684-8910-8555A232D6C1" imagePosition="overlaps" alignment="justified" borderStyle="border" inset="2" id="YLN-gU-GT1">
-                                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                            <font key="font" metaFont="system"/>
-                                                                            <string key="keyEquivalent">r</string>
-                                                                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                                                                        </buttonCell>
-                                                                        <connections>
-                                                                            <action selector="backAVPlay:" target="XfG-lQ-9wD" id="m9G-lS-5Ad"/>
-                                                                        </connections>
-                                                                    </button>
+                                                                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="center" title="Zurück" id="Kvu-3n-zGC">
+                                                                            <font key="font" metaFont="system" size="14"/>
+                                                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                        </textFieldCell>
+                                                                    </textField>
                                                                 </subviews>
                                                             </view>
                                                             <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
@@ -756,7 +716,7 @@
                                                         <button verticalHuggingPriority="750" tag="1" id="ikF-UM-ogz">
                                                             <rect key="frame" x="16" y="109" width="336" height="32"/>
                                                             <autoresizingMask key="autoresizingMask"/>
-                                                            <buttonCell key="cell" type="squareTextured" title="Aufnahme sichern" bezelStyle="texturedSquare" alignment="center" enabled="NO" borderStyle="border" inset="2" id="MEa-Md-9lt">
+                                                            <buttonCell key="cell" type="squareTextured" title="Aufnahme sichern" bezelStyle="texturedSquare" imagePosition="right" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="MEa-Md-9lt">
                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                 <font key="font" metaFont="system" size="18"/>
                                                                 <string key="keyEquivalent">s</string>
@@ -854,7 +814,7 @@
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                             <subviews>
                                                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="16" headerView="E13-fn-K0O" id="GI5-jq-DA3" customClass="rArchivView">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="456" height="18"/>
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="503" height="58"/>
                                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -906,6 +866,9 @@
                                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                             <font key="font" metaFont="system"/>
                                                                         </buttonCell>
+                                                                        <connections>
+                                                                            <action selector="ArchivaufnahmeInPlayer:" target="XfG-lQ-9wD" id="Jhw-hK-95f"/>
+                                                                        </connections>
                                                                     </button>
                                                                 </subviews>
                                                             </view>
@@ -930,20 +893,26 @@
                                                                         </textFieldCell>
                                                                     </textField>
                                                                     <button verticalHuggingPriority="750" id="CBY-9I-BPq">
-                                                                        <rect key="frame" x="13" y="26" width="50" height="34"/>
+                                                                        <rect key="frame" x="13" y="26" width="36" height="34"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
                                                                         <buttonCell key="cell" type="squareTextured" title="&gt;" bezelStyle="texturedSquare" alignment="center" enabled="NO" borderStyle="border" inset="2" id="zvO-hI-HIz">
                                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                             <font key="font" metaFont="system"/>
                                                                         </buttonCell>
+                                                                        <connections>
+                                                                            <action selector="startArchivPlayer:" target="XfG-lQ-9wD" id="Gen-du-O9u"/>
+                                                                        </connections>
                                                                     </button>
                                                                     <button verticalHuggingPriority="750" id="hzb-yz-XQn">
-                                                                        <rect key="frame" x="155" y="26" width="45" height="34"/>
+                                                                        <rect key="frame" x="172" y="26" width="32" height="34"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
                                                                         <buttonCell key="cell" type="squareTextured" title="|&lt;" bezelStyle="texturedSquare" alignment="center" enabled="NO" borderStyle="border" inset="2" id="1LD-JH-hrW">
                                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                             <font key="font" metaFont="system"/>
                                                                         </buttonCell>
+                                                                        <connections>
+                                                                            <action selector="backArchivPlayer:" target="XfG-lQ-9wD" id="Jkv-0v-eeB"/>
+                                                                        </connections>
                                                                     </button>
                                                                     <customView id="o96-vH-NWh" customClass="rAbspielanzeige">
                                                                         <rect key="frame" x="13" y="114" width="187" height="21"/>
@@ -959,12 +928,37 @@
                                                                         </textFieldCell>
                                                                     </textField>
                                                                     <button verticalHuggingPriority="750" id="flA-uh-W6o">
-                                                                        <rect key="frame" x="84" y="26" width="48" height="34"/>
+                                                                        <rect key="frame" x="97" y="26" width="32" height="34"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
                                                                         <buttonCell key="cell" type="squareTextured" title="||" bezelStyle="texturedSquare" alignment="center" enabled="NO" borderStyle="border" inset="2" id="n7G-H7-V8m">
                                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                             <font key="font" metaFont="system"/>
                                                                         </buttonCell>
+                                                                        <connections>
+                                                                            <action selector="stopArchivPlayer:" target="XfG-lQ-9wD" id="eAI-Y3-hde"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <button verticalHuggingPriority="750" id="3EL-J0-GZA">
+                                                                        <rect key="frame" x="133" y="25" width="32" height="34"/>
+                                                                        <autoresizingMask key="autoresizingMask"/>
+                                                                        <buttonCell key="cell" type="squareTextured" title="&gt;&gt;" bezelStyle="texturedSquare" alignment="center" borderStyle="border" inset="2" id="bBy-hr-B1F">
+                                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                            <font key="font" metaFont="system"/>
+                                                                        </buttonCell>
+                                                                        <connections>
+                                                                            <action selector="forewardAVPlay:" target="XfG-lQ-9wD" id="jEO-zi-DLd"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <button verticalHuggingPriority="750" id="TVt-ke-Byz">
+                                                                        <rect key="frame" x="62" y="26" width="32" height="34"/>
+                                                                        <autoresizingMask key="autoresizingMask"/>
+                                                                        <buttonCell key="cell" type="squareTextured" title="||" bezelStyle="texturedSquare" alignment="center" borderStyle="border" inset="2" id="L7P-Dc-ZmZ">
+                                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                            <font key="font" metaFont="system"/>
+                                                                        </buttonCell>
+                                                                        <connections>
+                                                                            <action selector="rewindAVPlay:" target="XfG-lQ-9wD" id="iCh-ph-FlE"/>
+                                                                        </connections>
                                                                     </button>
                                                                 </subviews>
                                                             </view>
@@ -1154,7 +1148,7 @@
                                                 <textField verticalHuggingPriority="750" id="7iK-dm-zF8">
                                                     <rect key="frame" x="296" y="51" width="63" height="22"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="aDF-ZK-OJP">
+                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" drawsBackground="YES" id="aDF-ZK-OJP">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1234,7 +1228,6 @@
                         </subviews>
                     </view>
                     <connections>
-                        <outlet property="Abspielanzeige" destination="M5m-Wl-vaG" id="dl2-ET-Yt0"/>
                         <outlet property="Abspieldauerfeld" destination="PYR-dB-vrZ" id="NIb-OW-iTA"/>
                         <outlet property="ArchivAbspieldauerFeld" destination="Acm-lw-z0M" id="bQ7-XY-UVZ"/>
                         <outlet property="ArchivBewertungfeld" destination="wy2-Pr-AoX" id="Bn8-gM-c8a"/>
@@ -1245,12 +1238,18 @@
                         <outlet property="ArchivPlayTaste" destination="CBY-9I-BPq" id="j04-hO-Vi4"/>
                         <outlet property="ArchivStopTaste" destination="flA-uh-W6o" id="bQ5-Ak-HfR"/>
                         <outlet property="ArchivTitelfeld" destination="Wgr-MV-gmz" id="DXT-Nn-F0K"/>
+                        <outlet property="ArchivView" destination="GI5-jq-DA3" id="uzA-km-LbK"/>
                         <outlet property="ArchivZumStartTaste" destination="hzb-yz-XQn" id="b6I-MO-ttd"/>
                         <outlet property="ArchivnamenPop" destination="UKH-Hf-iIT" id="mdk-lj-BcF"/>
                         <outlet property="BackKnopf" destination="vno-P7-yPk" id="G6x-CP-Jjv"/>
+                        <outlet property="ForewardKnopf" destination="cfS-3Q-P7X" id="XZd-7R-2pu"/>
+                        <outlet property="Fortschritt" destination="bCD-ie-X90" id="Km2-n6-uYT"/>
+                        <outlet property="KommentarView" destination="mbs-Vo-qRn" id="2ba-Gw-qc6"/>
                         <outlet property="Leserfeld" destination="QuZ-T6-yDB" id="uQq-o6-c1p"/>
                         <outlet property="LogoutKnopf" destination="8G8-4L-vDp" id="h16-tE-lv0"/>
                         <outlet property="ProjektFeld" destination="zdb-GZ-vfA" id="3do-Hw-THh"/>
+                        <outlet property="RecPlayTab" destination="LFM-mp-7n0" id="u8D-dk-0DU"/>
+                        <outlet property="RewindKnopf" destination="mN6-aZ-2za" id="OyZ-OI-tbb"/>
                         <outlet property="SichernKnopf" destination="ikF-UM-ogz" id="Cvk-qm-J4e"/>
                         <outlet property="StartPlayKnopf" destination="nhz-X7-zQD" id="euE-ey-1ra"/>
                         <outlet property="StartStopKnopf" destination="g7c-nT-Ggg" id="nk3-Ma-Ffz"/>
@@ -1269,96 +1268,12 @@
         </scene>
     </scenes>
     <resources>
-        <image name="2341DD6F-CC00-4684-8910-8555A232D6C1" width="1" height="1">
-            <mutableData key="keyedArchiveRepresentation">
-YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
-GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
-c1dOU0NvbG9ygAKADRIgwwAAgAOAC1Z7MSwgMX3SFQoWGFpOUy5vYmplY3RzoReABIAK0hUKGh2iGxyA
-BYAGgAkQANIgCiEiXxAUTlNUSUZGUmVwcmVzZW50YXRpb26AB4AITxCsTU0AKgAAAAoAAAANAQAAAwAA
-AAEAAQAAAQEAAwAAAAEAAQAAAQIAAwAAAAIACAAIAQMAAwAAAAEAAQAAAQYAAwAAAAEAAQAAAREABAAA
-AAEAAAAIARIAAwAAAAEAAQAAARUAAwAAAAEAAgAAARYAAwAAAAEAAQAAARcABAAAAAEAAAACARwAAwAA
-AAEAAQAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAANIlJicoWiRjbGFzc25hbWVYJGNsYXNzZXNf
-EBBOU0JpdG1hcEltYWdlUmVwoykqK18QEE5TQml0bWFwSW1hZ2VSZXBaTlNJbWFnZVJlcFhOU09iamVj
-dNIlJi0uV05TQXJyYXmiLSvSJSYwMV5OU011dGFibGVBcnJheaMwLSvTMzQKNTY3V05TV2hpdGVcTlND
-b2xvclNwYWNlRDAgMAAQA4AM0iUmOTpXTlNDb2xvcqI5K9IlJjw9V05TSW1hZ2WiPCtfEA9OU0tleWVk
-QXJjaGl2ZXLRQEFUcm9vdIABAAgAEQAaACMALQAyADcARgBMAFcAXgBlAHIAeQCBAIMAhQCKAIwAjgCV
-AJoApQCnAKkAqwCwALMAtQC3ALkAuwDAANcA2QDbAYoBjwGaAaMBtgG6Ac0B2AHhAeYB7gHxAfYCBQIJ
-AhACGAIlAioCLAIuAjMCOwI+AkMCSwJOAmACYwJoAAAAAAAAAgEAAAAAAAAAQgAAAAAAAAAAAAAAAAAA
-Amo
-</mutableData>
-        </image>
-        <image name="27D9D3C8-96DC-4DEF-94C6-82A287BEEA07" width="1" height="1">
-            <mutableData key="keyedArchiveRepresentation">
-YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
-GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
-c1dOU0NvbG9ygAKADRIgwwAAgAOAC1Z7MSwgMX3SFQoWGFpOUy5vYmplY3RzoReABIAK0hUKGh2iGxyA
-BYAGgAkQANIgCiEiXxAUTlNUSUZGUmVwcmVzZW50YXRpb26AB4AITxCsTU0AKgAAAAoAAAANAQAAAwAA
-AAEAAQAAAQEAAwAAAAEAAQAAAQIAAwAAAAIACAAIAQMAAwAAAAEAAQAAAQYAAwAAAAEAAQAAAREABAAA
-AAEAAAAIARIAAwAAAAEAAQAAARUAAwAAAAEAAgAAARYAAwAAAAEAAQAAARcABAAAAAEAAAACARwAAwAA
-AAEAAQAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAANIlJicoWiRjbGFzc25hbWVYJGNsYXNzZXNf
-EBBOU0JpdG1hcEltYWdlUmVwoykqK18QEE5TQml0bWFwSW1hZ2VSZXBaTlNJbWFnZVJlcFhOU09iamVj
-dNIlJi0uV05TQXJyYXmiLSvSJSYwMV5OU011dGFibGVBcnJheaMwLSvTMzQKNTY3V05TV2hpdGVcTlND
-b2xvclNwYWNlRDAgMAAQA4AM0iUmOTpXTlNDb2xvcqI5K9IlJjw9V05TSW1hZ2WiPCtfEA9OU0tleWVk
-QXJjaGl2ZXLRQEFUcm9vdIABAAgAEQAaACMALQAyADcARgBMAFcAXgBlAHIAeQCBAIMAhQCKAIwAjgCV
-AJoApQCnAKkAqwCwALMAtQC3ALkAuwDAANcA2QDbAYoBjwGaAaMBtgG6Ac0B2AHhAeYB7gHxAfYCBQIJ
-AhACGAIlAioCLAIuAjMCOwI+AkMCSwJOAmACYwJoAAAAAAAAAgEAAAAAAAAAQgAAAAAAAAAAAAAAAAAA
-Amo
-</mutableData>
-        </image>
-        <image name="4BF7F873-6F71-4C79-980B-6092DA2F5613" width="1" height="1">
-            <mutableData key="keyedArchiveRepresentation">
-YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
-GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
-c1dOU0NvbG9ygAKADRIgwwAAgAOAC1Z7MSwgMX3SFQoWGFpOUy5vYmplY3RzoReABIAK0hUKGh2iGxyA
-BYAGgAkQANIgCiEiXxAUTlNUSUZGUmVwcmVzZW50YXRpb26AB4AITxCsTU0AKgAAAAoAAAANAQAAAwAA
-AAEAAQAAAQEAAwAAAAEAAQAAAQIAAwAAAAIACAAIAQMAAwAAAAEAAQAAAQYAAwAAAAEAAQAAAREABAAA
-AAEAAAAIARIAAwAAAAEAAQAAARUAAwAAAAEAAgAAARYAAwAAAAEAAQAAARcABAAAAAEAAAACARwAAwAA
-AAEAAQAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAANIlJicoWiRjbGFzc25hbWVYJGNsYXNzZXNf
-EBBOU0JpdG1hcEltYWdlUmVwoykqK18QEE5TQml0bWFwSW1hZ2VSZXBaTlNJbWFnZVJlcFhOU09iamVj
-dNIlJi0uV05TQXJyYXmiLSvSJSYwMV5OU011dGFibGVBcnJheaMwLSvTMzQKNTY3V05TV2hpdGVcTlND
-b2xvclNwYWNlRDAgMAAQA4AM0iUmOTpXTlNDb2xvcqI5K9IlJjw9V05TSW1hZ2WiPCtfEA9OU0tleWVk
-QXJjaGl2ZXLRQEFUcm9vdIABAAgAEQAaACMALQAyADcARgBMAFcAXgBlAHIAeQCBAIMAhQCKAIwAjgCV
-AJoApQCnAKkAqwCwALMAtQC3ALkAuwDAANcA2QDbAYoBjwGaAaMBtgG6Ac0B2AHhAeYB7gHxAfYCBQIJ
-AhACGAIlAioCLAIuAjMCOwI+AkMCSwJOAmACYwJoAAAAAAAAAgEAAAAAAAAAQgAAAAAAAAAAAAAAAAAA
-Amo
-</mutableData>
-        </image>
-        <image name="C889E317-E68E-48F8-B69E-CEF904051B56" width="1" height="1">
-            <mutableData key="keyedArchiveRepresentation">
-YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
-GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
-c1dOU0NvbG9ygAKADRIgwwAAgAOAC1Z7MSwgMX3SFQoWGFpOUy5vYmplY3RzoReABIAK0hUKGh2iGxyA
-BYAGgAkQANIgCiEiXxAUTlNUSUZGUmVwcmVzZW50YXRpb26AB4AITxCsTU0AKgAAAAoAAAANAQAAAwAA
-AAEAAQAAAQEAAwAAAAEAAQAAAQIAAwAAAAIACAAIAQMAAwAAAAEAAQAAAQYAAwAAAAEAAQAAAREABAAA
-AAEAAAAIARIAAwAAAAEAAQAAARUAAwAAAAEAAgAAARYAAwAAAAEAAQAAARcABAAAAAEAAAACARwAAwAA
-AAEAAQAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAANIlJicoWiRjbGFzc25hbWVYJGNsYXNzZXNf
-EBBOU0JpdG1hcEltYWdlUmVwoykqK18QEE5TQml0bWFwSW1hZ2VSZXBaTlNJbWFnZVJlcFhOU09iamVj
-dNIlJi0uV05TQXJyYXmiLSvSJSYwMV5OU011dGFibGVBcnJheaMwLSvTMzQKNTY3V05TV2hpdGVcTlND
-b2xvclNwYWNlRDAgMAAQA4AM0iUmOTpXTlNDb2xvcqI5K9IlJjw9V05TSW1hZ2WiPCtfEA9OU0tleWVk
-QXJjaGl2ZXLRQEFUcm9vdIABAAgAEQAaACMALQAyADcARgBMAFcAXgBlAHIAeQCBAIMAhQCKAIwAjgCV
-AJoApQCnAKkAqwCwALMAtQC3ALkAuwDAANcA2QDbAYoBjwGaAaMBtgG6Ac0B2AHhAeYB7gHxAfYCBQIJ
-AhACGAIlAioCLAIuAjMCOwI+AkMCSwJOAmACYwJoAAAAAAAAAgEAAAAAAAAAQgAAAAAAAAAAAAAAAAAA
-Amo
-</mutableData>
-        </image>
-        <image name="F4062EC1-5F91-4B43-AFD7-1555757CC6BE" width="1" height="1">
-            <mutableData key="keyedArchiveRepresentation">
-YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
-GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
-c1dOU0NvbG9ygAKADRIgwwAAgAOAC1Z7MSwgMX3SFQoWGFpOUy5vYmplY3RzoReABIAK0hUKGh2iGxyA
-BYAGgAkQANIgCiEiXxAUTlNUSUZGUmVwcmVzZW50YXRpb26AB4AITxCsTU0AKgAAAAoAAAANAQAAAwAA
-AAEAAQAAAQEAAwAAAAEAAQAAAQIAAwAAAAIACAAIAQMAAwAAAAEAAQAAAQYAAwAAAAEAAQAAAREABAAA
-AAEAAAAIARIAAwAAAAEAAQAAARUAAwAAAAEAAgAAARYAAwAAAAEAAQAAARcABAAAAAEAAAACARwAAwAA
-AAEAAQAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAANIlJicoWiRjbGFzc25hbWVYJGNsYXNzZXNf
-EBBOU0JpdG1hcEltYWdlUmVwoykqK18QEE5TQml0bWFwSW1hZ2VSZXBaTlNJbWFnZVJlcFhOU09iamVj
-dNIlJi0uV05TQXJyYXmiLSvSJSYwMV5OU011dGFibGVBcnJheaMwLSvTMzQKNTY3V05TV2hpdGVcTlND
-b2xvclNwYWNlRDAgMAAQA4AM0iUmOTpXTlNDb2xvcqI5K9IlJjw9V05TSW1hZ2WiPCtfEA9OU0tleWVk
-QXJjaGl2ZXLRQEFUcm9vdIABAAgAEQAaACMALQAyADcARgBMAFcAXgBlAHIAeQCBAIMAhQCKAIwAjgCV
-AJoApQCnAKkAqwCwALMAtQC3ALkAuwDAANcA2QDbAYoBjwGaAaMBtgG6Ac0B2AHhAeYB7gHxAfYCBQIJ
-AhACGAIlAioCLAIuAjMCOwI+AkMCSwJOAmACYwJoAAAAAAAAAgEAAAAAAAAAQgAAAAAAAAAAAAAAAAAA
-Amo
-</mutableData>
-        </image>
+        <image name="foreward_w" width="101" height="102"/>
+        <image name="gostarticon" width="101" height="101"/>
+        <image name="halticon_w" width="101" height="102"/>
+        <image name="mikrofonicon_w" width="938" height="938"/>
+        <image name="playicon" width="101" height="102"/>
+        <image name="rewind_w" width="101" height="102"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="cq2-FE-JQM"/>

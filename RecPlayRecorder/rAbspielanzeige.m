@@ -10,41 +10,57 @@
 		//BalkenRect.size.height-=2;
 		Rahmenbreite=BalkenRect.size.width-1;
 		Rahmenhoehe=BalkenRect.size.height-2;
-		Feldbreite=0;
+		Feldbreite=10.0;
 		Feldhoehe=Rahmenhoehe;
 		Level=0;
 		Max=Rahmenbreite;
-		
+      //NSLog(@"Abspielanzeige  Feldbreite: %2.2f  Feldhoehe: %2.2f" , Feldbreite,Feldhoehe);
+
 	}
 	return self;
 }
 
 - (void)drawRect:(NSRect)rect
 {
-	
+   //NSLog(@"drawRect");
+   {
+      
 	[self drawLevelmeter];
-	
+   }
 }
-- (void)setLevel:(int) derLevel
+- (void)setLevel:(float) derLevel
 {
 	if (derLevel>Max)
 		Level=Max;
 	else
 		Level=derLevel;
-	//NSLog(@"Level ein: %d Level aus: %d",derLevel,Level);
-	//[self drawLevelmeter];	
-	[self display];
+ //  NSLog(@"Level ein: %f Level aus: %f",derLevel,Level);
 }
 - (void)drawLevelmeter
 {
-	[self lockFocus];
-	
-	Feldbreite= Rahmenbreite/Max*Level;
+//	[self lockFocus];
+   NSRect BalkenRect=[self frame];
+   NSBezierPath *bp = [NSBezierPath bezierPathWithRect:BalkenRect];
+   NSColor *color = [NSColor blueColor];
+   [color set];
+   [bp stroke];
+   [NSBezierPath fillRect:BalkenRect];
+   
+   //BalkenRect.size.height-=2;
+   Rahmenbreite=BalkenRect.size.width-2;
+   Rahmenhoehe=BalkenRect.size.height-2;
+  
+   Feldhoehe=Rahmenhoehe;
+
+	Feldbreite= Rahmenbreite/(Max)*(Level);
 	NSRect f;
 	NSPoint Nullpunkt=NSMakePoint(1,2);
-	f=NSMakeRect(Nullpunkt.x,Nullpunkt.y,Feldbreite,Feldhoehe-1);
-	[[NSColor blackColor]set];
-	//[NSBezierPath strokeRect:f];
+	f=NSMakeRect(Nullpunkt.x+1,Nullpunkt.y-1,Feldbreite,Feldhoehe-1);
+   
+   //NSLog(@"draw Max: %2.2f w: %2.2f h: %2.2f level: %2.2f",Max,BalkenRect.size.width,BalkenRect.size.height,Level);
+	[[NSColor redColor]set];
+	[NSBezierPath strokeRect:BalkenRect];
+  // [NSBezierPath fillRect:BalkenRect];
 	//[[NSColor greenColor] set];
 	NSColor* BalkenFarbe=[NSColor colorWithDeviceRed:90.0/255 green:255.0/255 blue:130.0/255 alpha:1.0];
 	[BalkenFarbe set];
@@ -54,19 +70,22 @@
 	//[NSBezierPath strokeRect:f];
 	[[NSColor whiteColor] set];
 	[NSBezierPath fillRect:f];
-	NSRect BalkenRect=[self bounds];
-	BalkenRect.size.height-=1;
+//	BalkenRect.size.height-=1;
 	BalkenRect.size.width-=1;
-	[[NSColor grayColor]set];	
-
+	[[NSColor lightGrayColor]set];
 	[NSBezierPath strokeRect:BalkenRect];
 	
-	[self unlockFocus];
+//	[self unlockFocus];
 	
 }
-- (void)setMax:(int)dasMax
+- (void)setMax:(float)dasMax
 {
-	Max=dasMax;
+   if (dasMax)
+   {
+      Max=dasMax;
+   }
+   
+   NSLog(@"Abspielanzeige max: %f dasMax: %f",Max, dasMax);
 }
 
 @end

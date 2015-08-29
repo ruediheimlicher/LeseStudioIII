@@ -5,14 +5,14 @@
 @interface rAbspielanzeige : NSView
 {
 	float Max;
-	int Rahmenhoehe, Rahmenbreite;
+	float Rahmenhoehe, Rahmenbreite;
 	float Feldbreite;
-	int Feldhoehe;
+	float Feldhoehe;
 	//int AnzFelder;
 	float Level;
 	//int Grenze;
 }
-- (void)setLevel:(int) derLevel;
+- (void)setLevel:(float) derLevel;
 - (void)drawLevelmeter;
-- (void)setMax:(int)dasMax;
+- (void)setMax:(float)dasMax;
 @end

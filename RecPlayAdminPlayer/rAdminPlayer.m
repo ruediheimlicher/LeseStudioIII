@@ -257,29 +257,29 @@ OptionBString=[[NSString alloc]init];
 	AufnahmenDicArray=[[NSMutableArray alloc]initWithCapacity:0];
 	[[[AufnahmenTable tableColumnWithIdentifier:@"usermark"]dataCell] setEnabled:NO];
 
-	[NamenListe setToolTip:NSLocalizedString(@"List of all readers in the current project.\nCan be altered in menu 'Admin->Change List Of Names",@"Liste der Leser im aktuellen Projekt.\nKann im Menü 'Admin->self.NamenListe bearbeiten' verändert werden.")];
-	[ExportierenTaste setToolTip:NSLocalizedString(@"Export the current record in various formats to disk.",@"Exportieren der aktuellen Aufnahme in verschiedenen Formaten.")];
-	[LoeschenTaste setToolTip:NSLocalizedString(@"Remove current record with various options",@"Aktuelle Aufnahme mit verschiedenen Optionen entfernen.")];
-	[MarkCheckbox setToolTip:NSLocalizedString(@"Mark current record for later purpose.",@"Aktuelle Aufnahme markieren")];
-	[UserMarkCheckbox setToolTip:NSLocalizedString(@"Shows if Reader has marked the current record.",@"Zeigt, ob der Leser die aktuelle Aufnahme markiert hat.")];
-	[AdminKommentarView setToolTip:NSLocalizedString(@"Write appropriate comments visible to reader.",@"Anmerkungen für den Leser schreiben")];
-	[AdminTitelfeld setToolTip:NSLocalizedString(@"Title of current record.",@"Titel der aktuellen Aufnahme")];
-	[AdminDatumfeld setToolTip:NSLocalizedString(@"Name of the reader of current record.",@"Name des Lesers der aktuellen Aufnahme")];
+	[NamenListe setToolTip:@"Liste der Leser im aktuellen Projekt.\nKann im Menü 'Admin->self.NamenListe bearbeiten' verändert werden."];
+	[ExportierenTaste setToolTip:@"Exportieren der aktuellen Aufnahme in verschiedenen Formaten."];
+	[LoeschenTaste setToolTip:@"Aktuelle Aufnahme mit verschiedenen Optionen entfernen."];
+	[MarkCheckbox setToolTip:@"Aktuelle Aufnahme markieren"];
+	[UserMarkCheckbox setToolTip:@"Zeigt, ob der Leser die aktuelle Aufnahme markiert hat."];
+	[AdminKommentarView setToolTip:@"Anmerkungen für den Leser schreiben"];
+	[AdminTitelfeld setToolTip:@"Titel der aktuellen Aufnahme"];
+	[AdminDatumfeld setToolTip:@"Name des Lesers der aktuellen Aufnahme"];
 	[ProjektPop setToolTip:NSLocalizedString(@"",@"")];
-	[AbspieldauerFeld setToolTip:NSLocalizedString(@"Duration of current record.",@"Dauer der aktuellen Aufnahme")];
-	[AdminDatumfeld setToolTip:NSLocalizedString(@"Creation Date of current record.",@"Aufnahmedatum der aktuellen Aufnahme.")];
-	[zurListeTaste setToolTip:NSLocalizedString(@"Remove current record from player.",@"Aktuelle Aufnahme aus dem Player entfernen.")];
-	[PlayTaste setToolTip:NSLocalizedString(@"Move active record into player.",@"Ausgewählte Aufnahme in den Player verschieben.")];
-	[AdminNamenfeld setToolTip:NSLocalizedString(@"Name of the reader of current record.",@"Leser der aktuellen Aufnahme.")];
-	[ProjektPop setToolTip:NSLocalizedString(@"List of currently aktive projects.\nCan be altered in menu 'Admin->Change Project List'.",@"Liste der aktiven Projekte.\nKann im Menü 'Admin->Projektliste bearbeiten' bearbeitet werden.")];
-	[AufnahmenTable setToolTip:NSLocalizedString(@"List of the records of the choosen reader.",@"Liste der Aufnahmen des ausgewählten Lesers.")];
-	[LesernamenPop  setToolTip:NSLocalizedString(@"Choose a reader in the current project.",@"Einen Leser im aktuellen Projekt auswählen.")];
-	[DeleteTaste setToolTip:NSLocalizedString(@"Move the active record to various destinations.",@"Ausgewählte Aufnahme an verschiedene Orte verschieben.")];
-	[MarkAuswahlOption setToolTip:NSLocalizedString(@"Options for the records to show in the List.",@"Optionen für die Anzeige der Aufnahmen in der Liste.")];
+	[AbspieldauerFeld setToolTip:@"Dauer der aktuellen Aufnahme"];
+	[AdminDatumfeld setToolTip:@"Aufnahmedatum der aktuellen Aufnahme."];
+	[zurListeTaste setToolTip:@"Aktuelle Aufnahme aus dem Player entfernen."];
+	[PlayTaste setToolTip:@"Ausgewählte Aufnahme in den Player verschieben."];
+	[AdminNamenfeld setToolTip:@"Leser der aktuellen Aufnahme."];
+	[ProjektPop setToolTip:@"Liste der aktiven Projekte.\nKann im Menü 'Admin->Projektliste bearbeiten' bearbeitet werden."];
+	[AufnahmenTable setToolTip:@"Liste der Aufnahmen des ausgewählten Lesers."];
+	[LesernamenPop  setToolTip:@"Einen Leser im aktuellen Projekt auswählen."];
+	[DeleteTaste setToolTip:@"Ausgewählte Aufnahme an verschiedene Orte verschieben."];
+	[MarkAuswahlOption setToolTip:@"Optionen für die Anzeige der Aufnahmen in der Liste."];
 	//[  setToolTip:NSLocalizedString(@"",@"")];
 	//[  setToolTip:NSLocalizedString(@"",@"")];
 	//[[[self.NamenListe tableColumnWithIdentifier:@"anz"]headerCell]contentView setToolTip:NSLocalizedString(@"Number of records of the reader",@"Anzahl Aufnahmen des Lesers")];
-	[UserMarkCheckbox setToolTip:NSLocalizedString(@"Mark set by the reader.",@"Vom Leser gesetzte Marke.")];
+	[UserMarkCheckbox setToolTip:@"Vom Leser gesetzte Marke."];
 [AufnahmenTab setDelegate:self];
 }
 
@@ -290,7 +290,7 @@ OptionBString=[[NSString alloc]init];
 	NSFileManager *Filemanager=[NSFileManager defaultManager];
 	NSString* tempLeseboxPfad=[[[NSString stringWithString:NSHomeDirectory()]
 								stringByAppendingPathComponent:@"Documents"]
-								stringByAppendingPathComponent:NSLocalizedString(@"Lecturebox",@"Lesebox")];
+								stringByAppendingPathComponent:@"Lesebox"];
 	if ([Filemanager fileExistsAtPath:tempLeseboxPfad])
 	  {
 		AdminLeseboxPfad=[NSMutableString stringWithString:tempLeseboxPfad];
@@ -323,7 +323,7 @@ OptionBString=[[NSString alloc]init];
         
 		tempLeseboxPfad=[[AdminLeseboxDialog URL]path ]; //"home"
 		tempLeseboxPfad=[tempLeseboxPfad stringByAppendingPathComponent:@"Documents"];
-		NSString* lb=NSLocalizedString(@"Lecturebox",@"Lesebox");
+		NSString* lb=@"Lesebox";
 		tempLeseboxPfad=[tempLeseboxPfad stringByAppendingPathComponent:lb];
 		
 		if ([Filemanager fileExistsAtPath:tempLeseboxPfad ])
@@ -444,7 +444,7 @@ OptionBString=[[NSString alloc]init];
 	NSMutableArray* AufnahmeFilesArray;
 	
 	[LesernamenPop removeAllItems];
-	[LesernamenPop insertItemWithTitle:NSLocalizedString(@"Choose Name:",@"Namen wählen") atIndex:0];
+	[LesernamenPop insertItemWithTitle:@"Namen wählen" atIndex:0];
 	//NSLog(@"\nAdminProjektNamenArray: %@\n\n",[AdminProjektNamenArray description]);
 	NSArray* SessionNamenArray=[NSArray array];
 	int ProjektIndex=[[AdminProjektArray valueForKey:@"projekt"]indexOfObject:dasProjekt];
@@ -500,7 +500,7 @@ OptionBString=[[NSString alloc]init];
 		int Kommentarzeile=-1;
 		
 		//Kommentarordner aus Liste entfernen
-		NSString* KommentarString=[NSString stringWithString:NSLocalizedString(@"Comments",@"Anmerkungen")];
+		NSString* KommentarString=[NSString stringWithString:@"Anmerkungen"];
 		for(k=0;k<tempAnzAufnahmen;k++)
 		{
 			if ([[[tempAufnahmenliste objectAtIndex:k]description]isEqualToString: KommentarString])
@@ -582,7 +582,7 @@ OptionBString=[[NSString alloc]init];
 		
 		for (m=0;m<tempAnzAufnahmen;m++)
 		{
-			NSString* tempAnmerkungPfad=[tempLeserPfad stringByAppendingPathComponent:NSLocalizedString(@"Comments",@"Anmerkungen")];
+			NSString* tempAnmerkungPfad=[tempLeserPfad stringByAppendingPathComponent:@"Anmerkungen"];
 			tempAnmerkungPfad=[tempAnmerkungPfad stringByAppendingPathComponent:[tempAufnahmenliste objectAtIndex:m]];
 			BOOL AdminMark=NO;
 			//
@@ -1041,7 +1041,7 @@ OptionBString=[[NSString alloc]init];
 	//NSLog(@"setKommentarFuerLeser:%@		FuerAufnahme:%@",derLeser, dieAufnahme);
 	BOOL istDirectory;
 	NSString* tempKommentarPfad=[NSString stringWithString:AdminProjektPfad];
-	NSString* KommentarOrdnerString=NSLocalizedString(@"Comments",@"Anmerkungen");
+	NSString* KommentarOrdnerString=@"Anmerkungen";
 	NSString* KommentarString;
 	tempKommentarPfad=[tempKommentarPfad stringByAppendingPathComponent:Leser];
 	[AdminKommentarView setString:@""];
@@ -1156,7 +1156,7 @@ OptionBString=[[NSString alloc]init];
 		}
 		
 	}
-	NSString* KommentarOrdnerString=NSLocalizedString(@"Comments",@"Anmerkungen");
+	NSString* KommentarOrdnerString=@"Anmerkungen";
 	NSString* tempAdminKommentarPfad=[[AdminProjektPfad copy] stringByAppendingPathComponent:tempLeser];
 	NSString* tempKommentarString;
 	NSString* tempKopfString;
@@ -1365,7 +1365,7 @@ OptionBString=[[NSString alloc]init];
 	NSString* tempAdminAufnahmePfad=[NSString stringWithString:AdminProjektPfad];
 	tempAdminAufnahmePfad=[tempAdminAufnahmePfad stringByAppendingPathComponent:tempLeser];
 	
-	NSString* KommentarOrdnerString=NSLocalizedString(@"Comments",@"Anmerkungen");
+	NSString* KommentarOrdnerString=@"Anmerkungen";
 	NSString* tempAdminKommentarPfad=[[AdminProjektPfad copy] stringByAppendingPathComponent:tempLeser];
 	NSString* tempKommentarString;
 	NSString* tempKopfString;
@@ -1440,7 +1440,7 @@ OptionBString=[[NSString alloc]init];
 		tempAdminAufnahmePfad=[tempAdminAufnahmePfad stringByAppendingPathComponent:tempAufnahme];
 		
 	}
-	NSString* KommentarOrdnerString=NSLocalizedString(@"Comments",@"Anmerkungen");
+	NSString* KommentarOrdnerString=@"Anmerkungen";
 	NSString* tempAdminKommentarPfad=[[AdminProjektPfad copy] stringByAppendingPathComponent:tempLeser];
 	NSString* tempKommentarString;
 	NSString* tempKopfString;
@@ -1810,7 +1810,7 @@ OptionBString=[[NSString alloc]init];
 	BOOL istMarkiert=NO;
    
 	NSFileManager *Filemanager=[NSFileManager defaultManager];
-	NSString* AnmerkungenPfad=[[derAufnahmePfad stringByDeletingLastPathComponent] stringByAppendingPathComponent:NSLocalizedString(@"Comments",@"Anmerkungen")];
+	NSString* AnmerkungenPfad=[[derAufnahmePfad stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"Anmerkungen"];
 	
 	AnmerkungenPfad=[AnmerkungenPfad stringByAppendingPathComponent:[derAufnahmePfad lastPathComponent]];
 	
@@ -1917,7 +1917,7 @@ OptionBString=[[NSString alloc]init];
 		if ([Filemanager fileExistsAtPath:tempLeserArchivPfad isDirectory:&istOrdner]&&istOrdner)//Ordner ist da
 		{
 		// Markierung in Anmerkungen loeschen
-		NSString* tempAnmerkungenPfad=[tempLeserArchivPfad stringByAppendingPathComponent:NSLocalizedString(@"Comments",@"Anmerkungen")];
+		NSString* tempAnmerkungenPfad=[tempLeserArchivPfad stringByAppendingPathComponent:@"Anmerkungen"];
 		if ([Filemanager fileExistsAtPath:tempAnmerkungenPfad isDirectory:&istOrdner]&&istOrdner)//Ordner ist da
 		{
 		NSLog(@"Anmerkungen sind da");
@@ -1929,9 +1929,9 @@ OptionBString=[[NSString alloc]init];
 				{
 					[tempAnmerkungenArray removeObjectAtIndex:0];
 				}
-				if ([tempAnmerkungenArray containsObject:NSLocalizedString(@"Comments",@"Anmerkungen")]) // Ordner Kommentar entfernen
+				if ([tempAnmerkungenArray containsObject:@"Anmerkungen"]) // Ordner Kommentar entfernen
 				{
-					[tempAnmerkungenArray removeObject:NSLocalizedString(@"Comments",@"Anmerkungen")];
+					[tempAnmerkungenArray removeObject:@"Anmerkungen"];
 				}
 				
 				NSEnumerator* AnmerkungenEnum=[tempAnmerkungenArray objectEnumerator];
@@ -1970,9 +1970,9 @@ OptionBString=[[NSString alloc]init];
 				{
 					[tempAufnahmenArray removeObjectAtIndex:0];
 				}
-				if ([tempAufnahmenArray containsObject:NSLocalizedString(@"Comments",@"Anmerkungen")]) // Ordner Kommentar entfernen
+				if ([tempAufnahmenArray containsObject:@"Anmerkungen"]) // Ordner Kommentar entfernen
 				{
-					[tempAufnahmenArray removeObject:NSLocalizedString(@"Comments",@"Anmerkungen")];
+					[tempAufnahmenArray removeObject:@"Anmerkungen"];
 				}
 				
 			}//count
@@ -2191,7 +2191,7 @@ OptionBString=[[NSString alloc]init];
 				int result=[self fileInPapierkorb:tempAufnahmePfad];//0 ist OK
 				NSLog(@"inPapierkorb result von Aufnahme: %d",result);
 			  }
-			NSString* tempKommentarPfad=[tempLeserPfad stringByAppendingPathComponent:NSLocalizedString(@"Comments",@"Anmerkungen")];
+			NSString* tempKommentarPfad=[tempLeserPfad stringByAppendingPathComponent:@"Anmerkungen"];
 			if ([Filemanager fileExistsAtPath:tempKommentarPfad isDirectory:&istDirectory]&&istDirectory)
 			  {
 				tempKommentarPfad=[tempKommentarPfad stringByAppendingPathComponent:AdminAktuelleAufnahme];
@@ -2223,7 +2223,7 @@ OptionBString=[[NSString alloc]init];
 				int result=[self fileInPapierkorb:tempAufnahmePfad];//0 ist OK
 				//NSLog(@"inPapierkorb result von Aufnahme: %d",result);
 			}
-			NSString* tempKommentarOrdnerPfad=[tempLeserOrdnerPfad stringByAppendingPathComponent:NSLocalizedString(@"Comments",@"Anmerkungen")];
+			NSString* tempKommentarOrdnerPfad=[tempLeserOrdnerPfad stringByAppendingPathComponent:@"Anmerkungen"];
 			if ([Filemanager fileExistsAtPath:tempKommentarOrdnerPfad isDirectory:&istDirectory]&&istDirectory)
 			{
 				NSString* tempKommentarPfad=[tempKommentarOrdnerPfad stringByAppendingPathComponent:[tempAufnahmePfad lastPathComponent]];
@@ -2276,7 +2276,7 @@ OptionBString=[[NSString alloc]init];
               BOOL result=[Filemanager moveItemAtURL:[NSURL fileURLWithPath:tempAufnahmePfad]  toURL:[NSURL fileURLWithPath:tempZielPfad] error:nil];
 NSLog(@"result von Aufnahme insMagazin: %d",result);
 			  }
-			NSString* tempMagazinKommentarPfad=[tempLeserPfad stringByAppendingPathComponent:NSLocalizedString(@"Comments",@"Anmerkungen")];
+			NSString* tempMagazinKommentarPfad=[tempLeserPfad stringByAppendingPathComponent:@"Anmerkungen"];
 			NSArray* Inhalt=[Filemanager contentsOfDirectoryAtPath:tempMagazinKommentarPfad error:NULL];
 			//NSLog(@"tempKommentarPfad: %@",[Inhalt description]);
 			
@@ -2344,7 +2344,7 @@ NSLog(@"result von Aufnahme insMagazin: %d",result);
 
 					NSLog(@"result von Aufnahme insMagazin: %d",result);
 				  }
-				NSString* tempMagazinKommentarPfad=[tempLeserPfad stringByAppendingPathComponent:NSLocalizedString(@"Comments",@"Anmerkungen")];
+				NSString* tempMagazinKommentarPfad=[tempLeserPfad stringByAppendingPathComponent:@"Anmerkungen"];
 				NSArray* Inhalt=[Filemanager contentsOfDirectoryAtPath:tempMagazinKommentarPfad error:NULL];
 				//NSLog(@"tempKommentarPfad: %@",[Inhalt description]);
 				
@@ -2389,7 +2389,7 @@ NSLog(@"result von Aufnahme insMagazin: %d",result);
 				int result=[Filemanager removeItemAtURL:[NSURL fileURLWithPath:tempAufnahmePfad] error:nil];
 				NSLog(@"result von Aufnahme: %d",result);
 			  }
-			NSString* tempKommentarPfad=[tempLeserPfad stringByAppendingPathComponent:NSLocalizedString(@"Comments",@"Anmerkungen")];
+			NSString* tempKommentarPfad=[tempLeserPfad stringByAppendingPathComponent:@"Anmerkungen"];
 			if ([Filemanager fileExistsAtPath:tempKommentarPfad isDirectory:&istDirectory]&&istDirectory)
 			  {
 				tempKommentarPfad=[tempKommentarPfad stringByAppendingPathComponent:AdminAktuelleAufnahme];
@@ -2421,7 +2421,7 @@ NSLog(@"result von Aufnahme insMagazin: %d",result);
 				int result=[Filemanager removeItemAtURL:[NSURL fileURLWithPath:tempAufnahmePfad]error:nil];
 				NSLog(@"ex: result von Aufnahme: %d",result);
 			  }
-			NSString* tempKommentarPfad=[tempLeserPfad stringByAppendingPathComponent:NSLocalizedString(@"Comments",@"Anmerkungen")];
+			NSString* tempKommentarPfad=[tempLeserPfad stringByAppendingPathComponent:@"Anmerkungen"];
 			if ([Filemanager fileExistsAtPath:tempKommentarPfad isDirectory:&istDirectory]&&istDirectory)
 			  {
 				tempKommentarPfad=[tempKommentarPfad stringByAppendingPathComponent:[tempAufnahmePfad lastPathComponent]];
@@ -2485,7 +2485,7 @@ NSLog(@"result von Aufnahme insMagazin: %d",result);
 	
 	if ([Filemanager fileExistsAtPath:LeserPfad isDirectory:&istDirectory]&&istDirectory)
 	  {
-		NSString* LeserKommentarPfad=[LeserPfad stringByAppendingPathComponent:NSLocalizedString(@"Comments",@"Anmerkungen")];//Kommentarordner des Lesers
+		NSString* LeserKommentarPfad=[LeserPfad stringByAppendingPathComponent:@"Anmerkungen"];//Kommentarordner des Lesers
 		NSMutableArray* AufnahmenArray=[[Filemanager contentsOfDirectoryAtPath:LeserPfad error:NULL]mutableCopy];
 		if ([AufnahmenArray count])
 		  {
@@ -2494,7 +2494,7 @@ NSLog(@"result von Aufnahme insMagazin: %d",result);
 				  [AufnahmenArray removeObjectAtIndex:0];
 			  }
 			int Kommentarindex=-1;
-			Kommentarindex=[AufnahmenArray indexOfObject:NSLocalizedString(@"Comments",@"Anmerkungen")];
+			Kommentarindex=[AufnahmenArray indexOfObject:@"Anmerkungen"];
 			if (!(Kommentarindex==-1))
 			  {
 				NSLog(@"Kommentarordner da");
@@ -2617,7 +2617,7 @@ NSLog(@"result von Aufnahme insMagazin: %d",result);
 - (void)alertDidEnd:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo 
 {
 	//NSLog(@"returnCode: %d  contextInfo: %@: ",returnCode,contextInfo);
-	NSString* locKommentar=NSLocalizedString(@"Comments",@"Anmerkungen");
+	NSString* locKommentar=@"Anmerkungen";
 	NSFileManager *Filemanager=[NSFileManager defaultManager];
 	if ([(__bridge NSString*)contextInfo isEqualToString:@"TextchangedWarnung"])
 	  {
@@ -2706,7 +2706,7 @@ NSLog(@"result von Aufnahme insMagazin: %d",result);
 						  [zurListeTaste setEnabled:NO];
 						}
 					  NSString* KommentarPfad=[[AdminPlayPfad copy] stringByDeletingLastPathComponent];
-					  KommentarPfad=[KommentarPfad stringByAppendingPathComponent:NSLocalizedString(@"Comments",@"Anmerkungen")];
+					  KommentarPfad=[KommentarPfad stringByAppendingPathComponent:@"Anmerkungen"];
 					  if ([Filemanager fileExistsAtPath:KommentarPfad])
 						{
 						  KommentarPfad=[KommentarPfad stringByAppendingPathComponent:[AdminPlayPfad lastPathComponent]];
@@ -3279,7 +3279,7 @@ NSNumber* UmgebungNumber=[[note userInfo]objectForKey:@"Umgebung"];
 	
 	if (Textchanged)
 	{
-	NSString* s1=NSLocalizedString(@"Comments",@"Anmerkungen");
+	NSString* s1=@"Anmerkungen";
 	NSString* s2=NSLocalizedString(@"Save",@"Sichern");
 	NSString* s3=NSLocalizedString(@"Don't Save",@"Nicht sichern");
 	NSString* s4=NSLocalizedString(@"The Comments for the actuel record are not yet saved",@"Die Anmerkungen für die aktuelle Aufnahme sind noch nicht gesichert.");

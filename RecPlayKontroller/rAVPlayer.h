@@ -13,6 +13,8 @@
 @interface rAVPlayer : NSObject
 {
    AVAudioPlayer *                     AVAbspielplayer;
+   NSTimer* posTimer;
+   NSTimeInterval haltzeit;
 }
 @property (assign) NSWindow *          PlayerFenster;
 @property (weak) NSURL*                tempDirURL;
@@ -21,6 +23,12 @@
 
 - (void)playAufnahme;
 - (void)stopTempAufnahme;
-- (void)backTempAufnahme;
+- (void)rewindTempAufnahme;
+- (void)toStartTempAufnahme;
+
 - (void)prepareAufnahmeAnURL:(NSURL*)url;
+- (BOOL)isPlaying;
+- (void)invalTimer;
+- (double)duration;
+- (double)position;
 @end

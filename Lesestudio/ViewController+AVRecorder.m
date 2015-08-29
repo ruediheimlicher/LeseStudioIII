@@ -61,6 +61,30 @@
       NSLog(@"ViewController Aufnahme in Gang");
       return;
    }
+   if ([self.ArchivnamenPop indexOfSelectedItem]==0)
+   {
+      [self.StartStopString setStringValue:@"START"];
+      NSAlert *NamenWarnung = [[NSAlert alloc] init];
+      [NamenWarnung addButtonWithTitle:NSLocalizedString(@"Mache ich",@"Aufforderung Namen angeben")];
+      //[RecorderWarnung addButtonWithTitle:@"Cancel"];
+      [NamenWarnung setMessageText:NSLocalizedString(@"Wer bist du?",@"Frage nach Namen")];
+      [NamenWarnung setInformativeText:NSLocalizedString(@"Du musst einen Namen auswählen, bevor du aufnehmen kannst.",@"Gib Namen ein")];
+      [NamenWarnung setAlertStyle:NSWarningAlertStyle];
+      
+      
+      [NamenWarnung beginSheetModalForWindow:[[self view]window]
+                               modalDelegate:nil
+                              didEndSelector:nil
+                                 contextInfo:nil];
+      NSImage* StartRecordImg=[NSImage imageNamed:@"recordicon_n.gif"];
+      self.StartStopKnopf.image=StartRecordImg;
+      
+      
+      return;
+   }
+
+   NSImage* StopRecordImg=[NSImage imageNamed:@"stopicon_w.gif"];
+   //self.StartStopKnopf.image=StopRecordImg;
 
    //NSLog(@"recording 1 %@",[NSDate date]);
    NSDate *now = [[NSDate alloc] init];
@@ -98,9 +122,9 @@
    
    [self.Zeitfeld setStringValue:@"00:00"];
    
-   [self.Abspieldauerfeld setStringValue:@"0"];
-   [self.Abspielanzeige setLevel:0];
-   [self.Abspielanzeige setNeedsDisplay:YES];
+   [self.Abspieldauerfeld setStringValue:@"00:00"];
+   [Abspielanzeige setLevel:0];
+   [Abspielanzeige setNeedsDisplay:YES];
    
    self.Pause=0;
    
@@ -116,27 +140,6 @@
    long n=[self.ArchivnamenPop indexOfSelectedItem];
    //NSLog(@"Selected Item: %ld",n);
    //NSLog(@"startRecord:Selected Item: %ld		Leser: %@",n,self.Leser);
-   if ([self.ArchivnamenPop indexOfSelectedItem]==0)
-   {
-      NSImage* StartRecordImg=[NSImage imageNamed:@"StartRecordIcon.gif"];
-      self.StartStopKnopf.image=StartRecordImg;
-      [self.StartStopString setStringValue:@"START"];
-      NSAlert *NamenWarnung = [[NSAlert alloc] init];
-      [NamenWarnung addButtonWithTitle:NSLocalizedString(@"I Will",@"Aufforderung Namen angeben")];
-      //[RecorderWarnung addButtonWithTitle:@"Cancel"];
-      [NamenWarnung setMessageText:NSLocalizedString(@"Who are You?",@"Frage nach Namen")];
-      [NamenWarnung setInformativeText:NSLocalizedString(@"You must choose your name before recording.",@"Gib Namen ein")];
-      [NamenWarnung setAlertStyle:NSWarningAlertStyle];
-      
-      
-       [NamenWarnung beginSheetModalForWindow:[[self view]window]
-       modalDelegate:nil
-       didEndSelector:nil
-       contextInfo:nil];
-       
-      
-      return;
-   }
    
    
    NSFileManager *Filemanager=[NSFileManager defaultManager];
@@ -144,8 +147,8 @@
    //NSLog(@"startAVRecord neueAufnahmePfad: %@",neueAufnahmePfad);
    NSError* startErr;
    //[self.StartPlayQTKitKnopf setEnabled:NO];
-   NSImage* StopRecordImg=[NSImage imageNamed:@"StopRecordImg.tif"];
-   self.StartStopKnopf.image = StopRecordImg;
+   //NSImage* StopRecordImg=[NSImage imageNamed:@"stopicon.gif"];
+   //self.StartStopKnopf.image = StopRecordImg;
    [self.StartStopString setStringValue:@"STOP"];
 
    
@@ -173,9 +176,11 @@
 - (IBAction)stopAVRecord:(id)sender
 {
    NSLog(@"stopAVRecord");
-   
-   [AVRecorder setRecording:NO mitLeserPfad:self.LeserPfad];
-   
+
+     NSImage* StartRecordImg=[NSImage imageNamed:@"recordicon_n.gif"];
+   //self.StartStopKnopf.image=StartRecordImg;
+  [AVRecorder setRecording:NO mitLeserPfad:self.LeserPfad];
+
    /*
    [self.StartPlayQTKitKnopf setEnabled:YES];
    [self.TitelPop  setEnabled:YES];
@@ -204,14 +209,14 @@
 {
    
    NSLog(@"startAVStop");
-   NSImage* StartRecordImg=[NSImage imageNamed:@"StartRecordIcon.gif"];//
+   NSImage* StartRecordImg=[NSImage imageNamed:@"recordicon_k.gif"];//
    
    
    if ([AVRecorder isRecording])
 	  {
-        NSImage* StartRecordImg=[NSImage imageNamed:@"StartRecordIcon.gif"];     //
+        NSImage* StartRecordImg=[NSImage imageNamed:@"recordicon_k.gif"];     //
        // [[self.StartStopKnopf cell]setImage:StartRecordImg];
-        self.StartStopKnopf.image=StartRecordImg;
+        //self.StartStopKnopf.image=StartRecordImg;
         [self.StartStopString setStringValue:@"START"];
         [self stopAVRecord:sender];
         //[AVRecorder setRecording:NO];
@@ -267,9 +272,26 @@
 
 - (IBAction)startAVPlay:(id)sender
 {
+   [Vertikalanzeige setLevel:127];
    NSLog(@"startAVPlay hiddenaufna pfad: %@",self.hiddenAufnahmePfad);
   // [AVRecorder setPlaying:YES];
+   [self.StartRecordKnopf setEnabled:NO];
+   [self.SichernKnopf setEnabled:NO];
+   [self.WeitereAufnahmeKnopf setEnabled:NO];
+   [self.StopRecordKnopf setEnabled:NO];
+   [self.BackKnopf setEnabled:YES];
+   [self.StopPlayKnopf setEnabled:YES];
+   [self.RewindKnopf setEnabled:YES];
+   [self.ForewardKnopf setEnabled:YES];
+
+   [self.Abspieldauerfeld setStringValue:@"00:00"];
+  
    [AVAbspielplayer playAufnahme];
+   float dur = ([AVAbspielplayer duration]);
+   [Abspielanzeige setMax:dur];
+   NSLog(@"startAVPlay dur: %f",dur);
+   [Abspielanzeige setNeedsDisplay:YES];
+   [self.Fortschritt setDoubleValue:0];
    [Utils startTimeout:self.TimeoutDelay];
 }
 
@@ -277,18 +299,47 @@
 {
    NSLog(@"stopAVPlay");
    [AVAbspielplayer stopTempAufnahme];
+   [self.StartRecordKnopf setEnabled:YES];
+   [self.SichernKnopf setEnabled:YES];
+   [self.WeitereAufnahmeKnopf setEnabled:YES];
+   [self.StopRecordKnopf setEnabled:NO];
+   [self.BackKnopf setEnabled:YES];
+  // [self.StopPlayKnopf setEnabled:NO];
+
    [Utils startTimeout:self.TimeoutDelay];
 }
 
 - (IBAction)backAVPlay:(id)sender
 {
    NSLog(@"backAVPlay");
-   [AVAbspielplayer backTempAufnahme];
-   [Utils startTimeout:self.TimeoutDelay];
+   [AVAbspielplayer toStartTempAufnahme];
+   [self.BackKnopf setEnabled:NO];
+   [self.StopPlayKnopf setEnabled:YES];
+   [Utils stopTimeout];
+}
+
+- (IBAction)rewindAVPlay:(id)sender
+{
+   NSLog(@"backAVPlay");
+   [AVAbspielplayer rewindTempAufnahme];
+   [self.BackKnopf setEnabled:NO];
+   [self.StopPlayKnopf setEnabled:YES];
+   [Utils stopTimeout];
+}
+
+- (IBAction)forewardAVPlay:(id)sender
+{
+   NSLog(@"backAVPlay");
+   [AVAbspielplayer toStartTempAufnahme];
+   [self.BackKnopf setEnabled:NO];
+   [self.StopPlayKnopf setEnabled:YES];
+   [Utils stopTimeout];
 }
 
 
-- (void)RecordingAktion:(NSNotification*)note{
+
+- (void)RecordingAktion:(NSNotification*)note
+{
    //NSLog(@"RecordingAktion note: %@",[note description]);
    if ([[note userInfo ]objectForKey:@"record"])
    {
@@ -303,8 +354,7 @@
             if ([[[note userInfo ] objectForKey:@"recorderfolg"]intValue])
             {
                [Utils startTimeout:self.TimeoutDelay];
-                // Tastenstatus setzen
-               [self.StartPlayQTKitKnopf setEnabled:YES];
+               // Tastenstatus setzen
                [self.TitelPop  setEnabled:YES];
                [self.TitelPop  setSelectable:YES];
                [[self.TitelPop cell] setEnabled:YES];
@@ -315,7 +365,7 @@
                [self.WeitereAufnahmeKnopf setEnabled:YES];
                if ([[note userInfo ] objectForKey:@"desturl"] && [[[[note userInfo ] objectForKey:@"desturl"]path]length])
                {
-                   //NSLog(@"RecordingAktion desturl: %@",[[note userInfo ]objectForKey:@"desturl"]);
+                  //NSLog(@"RecordingAktion desturl: %@",[[note userInfo ]objectForKey:@"desturl"]);
                   NSURL* destURL = [[note userInfo ] objectForKey:@"desturl"];
                   self.hiddenAufnahmePfad = [destURL path];
                   [AVAbspielplayer prepareAufnahmeAnURL:destURL];
@@ -327,60 +377,24 @@
                   self.Aufnahmedauer = [[[note userInfo ] objectForKey:@"aufnahmezeit"]intValue];
                   //NSLog(@"RecordingAktion self.Aufnahmedauer: %d",self.Aufnahmedauer);
                }
-
                
                
-               /*
-               if ([[note userInfo ] objectForKey:@"desturl"] && [[[note userInfo ] objectForKey:@"desturl"]length])
-               {
-                  NSURL* destURL = [[note userInfo ] objectForKey:@"desturl"];
-                  self.hiddenAufnahmePfad = [destURL path];
-                  
-                  
-                  [[NSFileManager defaultManager] removeItemAtURL:[NSURL  fileURLWithPath:self.LeserPfad] error:nil]; // attempt to remove file at the desired save location before moving the recorded file to that location
-                  
-                  NSError *error = nil;
-                  if ([[NSFileManager defaultManager] moveItemAtURL:destURL toURL:[NSURL  fileURLWithPath:LeserPfad] error:&error]) // move OK
-                  {
-                     NSLog(@"move 1");
-                     // Platz machen
-                     [[NSFileManager defaultManager] removeItemAtURL:tempTrimmURL error:nil];
-                     // Movie abspielen
-                     //   [[NSWorkspace sharedWorkspace] openURL:[savePanel URL]];
-                  }
-                  else // Fehler mit move
-                  {
-                     NSAlert *Warnung = [[NSAlert alloc] init];
-                     [Warnung addButtonWithTitle:@"OK"];
-                     // [Warnung setMessageText:NSLocalizedString(@"No Marked Records",@"Keine markierten Aufnahmen")];
-                     [Warnung setMessageText:@"Fehler beim Sichern der Aufnahmen"];
-                     
-                     [Warnung setAlertStyle:NSWarningAlertStyle];
-                     
-                     //[Warnung setIcon:RPImage];
-                     int antwort=[Warnung runModal];
-                     
-                     NSLog(@"Fehler beim Sichern der Aufnahmen");
-                     [[NSFileManager defaultManager] removeItemAtURL:tempTrimmURL error:nil];
-                  }
-               }
-                */
             } // if recorderfolg
             else
             {
                // record fehler
-               NSImage* StartRecordImg=[NSImage imageNamed:@"StartRecordIcon.gif"];
-               self.StartStopKnopf.image=StartRecordImg;
-
-               [self.SichernKnopf setEnabled:NO];
-
+               NSImage* StartRecordImg=[NSImage imageNamed:@"recordicon_k.gif"];
+               //self.StartStopKnopf.image=StartRecordImg;
+               
+               [self.SichernKnopf setEnabled:YES];
+               
                [self.BackKnopf setEnabled:NO];
                [self.Zeitfeld setStringValue:@"00:00"];
                
-               [self.Abspieldauerfeld setStringValue:@"0"];
-               [self.Abspielanzeige setLevel:0];
-               [self.Abspielanzeige setNeedsDisplay:YES];
-
+               [self.Abspieldauerfeld setStringValue:@"00:00"];
+               [self->Abspielanzeige setLevel:0];
+               [self->Abspielanzeige setNeedsDisplay:YES];
+               
                [Utils startTimeout:self.TimeoutDelay];
                
                NSAlert *Warnung = [[NSAlert alloc] init];
@@ -460,6 +474,64 @@
 //   self.TimeoutFeld.intValue = sel
 }
 
+- (void)AbspielPosAktion:(NSNotification*)note
+{
+   
+   double pos;
+   double dur;
+   int posint;
+   if ([[note userInfo]objectForKey:@"pos"])
+   {
+      NSNumber* posNumber=[[note userInfo]objectForKey:@"pos"];
+      pos=[posNumber doubleValue];
+      posint =[posNumber intValue];
+      
+   }
+   if ([[note userInfo]objectForKey:@"dur"])
+   {
+      NSNumber* durNumber=[[note userInfo]objectForKey:@"dur"];
+      dur=[durNumber doubleValue];
+   }
+   NSNumber* durationNumber=[[note userInfo]objectForKey:@"duration"];
+   
+   WiedergabeZeit=[durationNumber intValue];
+   //NSLog(@"duration: %2.2d",AufnahmeZeit);
+   int Minuten = posint/60;
+   int Sekunden =posint%60;
+   //NSLog(@"Minuten: %d Sekunden: %d",Minuten,Sekunden);
+   NSString* MinutenString;
+   
+   NSString* SekundenString;
+   if (Sekunden<10)
+   {
+      SekundenString=[NSString stringWithFormat:@"0%d",Sekunden];
+   }
+   else
+   {
+      SekundenString=[NSString stringWithFormat:@"%d",Sekunden];
+   }
+   if (Minuten<10)
+   {
+      MinutenString=[NSString stringWithFormat:@"0%d",Minuten];
+   }
+   else
+   {
+      MinutenString=[NSString stringWithFormat:@"%d",Minuten];
+   }
+   [self.Abspieldauerfeld setStringValue:[NSString stringWithFormat:@"%@:%@",MinutenString, SekundenString]];
+   
+   
+
+   int max =[self.Fortschritt maxValue];
+   //NSLog(@"AbspielPosAktion pos: %f dur: %f wert: %f",pos,dur,pos/dur*1024 );
+ //  [self.Abspielanzeige setMax:dur];
+   [Abspielanzeige setLevel:pos];
+   [Abspielanzeige display];
+   
+   
+   
+   [self.Fortschritt setDoubleValue:(pos+1)/dur*max];
+}
 
 - (IBAction)saveRecord:(id)sender
 {
@@ -467,7 +539,7 @@
    {
       [self.playBalkenTimer invalidate];
    }
-   
+   [AVAbspielplayer invalTimer];
    [Utils stopTimeout];
    BOOL erfolg=YES;
    NSLog(@"saveRecord tag: %ld Leser: %@ ",(long)[sender tag],self.Leser);
@@ -517,7 +589,7 @@
     }
     
    [self.Abspieldauerfeld setStringValue:@""];
-   [self.Abspielanzeige setLevel:0];
+   [self->Abspielanzeige setLevel:0];
    [self.Zeitfeld setStringValue:@""];
    //NSLog(@"saveRecord: QTKitGesamtAufnahmezeit: %2.2f",QTKitGesamtAufnahmezeit);
    NSString* tempAufnahmePfad;
@@ -602,7 +674,7 @@
          
          Leserinitialen=[Leserinitialen stringByAppendingString:tempNummerString];
          Leserinitialen=[Leserinitialen stringByAppendingString:@" "];
-         NSString* titel =  [[self.TitelPop cell]stringValue];
+         NSString* titel =  [[[self.TitelPop cell]stringValue]stringByDeletingPathExtension];
          
 
          if (([titel length]==0)||([titel isEqualToString:@"neue Aufnahme"]))
@@ -620,6 +692,8 @@
                return;
             }
          }
+         
+         
          NSString* AufnahmeTitel=[Leserinitialen stringByAppendingString:titel];
          if ([tempAufnahmeArray containsObject:AufnahmeTitel])
          {
@@ -627,14 +701,28 @@
             return;
          }
          
-         tempAufnahmePfad=[[self.LeserPfad stringByAppendingPathComponent:AufnahmeTitel]stringByAppendingPathExtension:@"m4a"];//Pfad im Ordner in der Lesebox
          
+         tempAufnahmePfad=[self.LeserPfad stringByAppendingPathComponent:AufnahmeTitel];//Pfad im Ordner in der Lesebox
+        
+         
+         
+         
+             
          NSLog(@"saveRecord tempAufnahmePfad : %@", tempAufnahmePfad);
          //[Manager movePath: neueAufnahmePfad toPath:tempAufnahmePfad handler:NULL];
+         
+         // Kommentar einfuegen
          OSErr err=0;
          BOOL createKommentarOK=[Utils createKommentarFuerLeser:self.Leser FuerAufnahmePfad:tempAufnahmePfad];
          if (createKommentarOK)
          {
+            // suffix anfuegen fuer Aufnahme
+            NSRange extensionpos = [tempAufnahmePfad rangeOfString:@"m4a"];
+            if (extensionpos.location == NSNotFound)// noch keine extension
+            {
+               tempAufnahmePfad = [tempAufnahmePfad stringByAppendingPathExtension:@"m4a"];
+            }
+
             NSError *error = nil;
             if ([[NSFileManager defaultManager] moveItemAtURL:[NSURL fileURLWithPath:self.hiddenAufnahmePfad] toURL:[NSURL fileURLWithPath:tempAufnahmePfad] error:&error]) // move OK
             {
@@ -802,7 +890,9 @@
          [self.SichernKnopf setEnabled:NO];
          [self.WeitereAufnahmeKnopf setEnabled:NO];
          [self.LogoutKnopf setEnabled:NO];
-         
+         [self.RewindKnopf setEnabled:NO];
+         [self.ForewardKnopf setEnabled:NO];
+
          //*        [self.RecPlayFenster makeFirstResponder:RecPlayFenster];
          [self.KommentarView setString:@""];
          [self.KommentarView setEditable:NO];

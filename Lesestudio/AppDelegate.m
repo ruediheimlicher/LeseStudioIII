@@ -259,10 +259,10 @@ enum
             return NSTerminateCancel;
         }
 
-        NSString *question = NSLocalizedString(@"Could not save changes while quitting. Quit anyway?", @"Quit without saves error question message");
-        NSString *info = NSLocalizedString(@"Quitting now will lose any changes you have made since the last successful save", @"Quit without saves error question info");
-        NSString *quitButton = NSLocalizedString(@"Quit anyway", @"Quit anyway button title");
-        NSString *cancelButton = NSLocalizedString(@"Cancel", @"Cancel button title");
+        NSString *question = @"Quit without saves error question message";
+        NSString *info =  @"Quit without saves error question info";
+        NSString *quitButton =  @"Quit anyway button title";
+        NSString *cancelButton =  @"Abbrechen";
         NSAlert *alert = [[NSAlert alloc] init];
         [alert setMessageText:question];
         [alert setInformativeText:info];

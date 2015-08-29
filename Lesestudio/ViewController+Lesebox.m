@@ -45,7 +45,7 @@
    self.istSystemVolume=NO;
    BOOL NamenListeOK=NO;
    NSString* ArchivString=[NSString stringWithFormat:@"Archiv"];
-   NSString* KommentarString=[NSString stringWithString:NSLocalizedString(@"Anmerkungen",@"Anmerkungen")];
+   NSString* KommentarString=[NSString stringWithString:@"Anmerkungen"];
    //istSystemVolume=[Utils istSystemVolumeAnPfad:LeseboxPfad];
    //NSLog(@"Leseboxvorbereiten vor LeseboxOK");
    
@@ -1570,7 +1570,7 @@
        NSString* tempDatum;
        //Pfad des Anmerkungenordners:
        BOOL istOrdner=NO;
-       NSString* tempAnmerkungenPfad=[ProjektPfad stringByAppendingPathComponent:[einName stringByAppendingPathComponent:NSLocalizedString(@"Anmerkungen",@"Anmerkungen")]];
+       NSString* tempAnmerkungenPfad=[ProjektPfad stringByAppendingPathComponent:[einName stringByAppendingPathComponent:@"Anmerkungen"]];
        if ([Filemanager fileExistsAtPath:tempAnmerkungenPfad isDirectory:&istOrdner]&&istOrdner)
        {
        NSMutableArray* tempAnmerkungenArray=(NSMutableArray*)[Filemanager directoryContentsAtPath:tempAnmerkungenPfad];

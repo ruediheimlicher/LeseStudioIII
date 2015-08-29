@@ -349,7 +349,7 @@
 
 - (IBAction)HomeDirectory:(id)sender
 {	
-	NSString* s=NSLocalizedString(@"Lesebox",@"Lesebox");
+	NSString* s=@"Lesebox"
 	LeseboxPfad=[[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]stringByAppendingPathComponent:s];
 	NSLog(@"LeseboxPfad: %@",[LeseboxPfad description]);
 	[NSApp stopModalWithCode:3];
@@ -367,7 +367,7 @@
 
 -(void)LeseboxpfadChoosed:(NSOpenPanel *)panel returnCode:(int)returnCode contextInfo:(void *)contextInfo
 {
-	NSString* lb=NSLocalizedString(@"Lesebox",@"Lesebox");
+	NSString* lb=@"Lesebox"
 	NSString* tempLeseboxPfad;
 	//NSLog(@"LeseboxpfadChoosed returnCode: %d",returnCode);
 	NSMutableDictionary* NotificationDic=[[NSMutableDictionary alloc]initWithCapacity:0];
@@ -452,7 +452,7 @@
 
 	BOOL erfolg=NO;
 	NSFileManager *Filemanager=[NSFileManager defaultManager];
-	NSString* lb=NSLocalizedString(@"Lesebox",@"Lesebox");
+	NSString* lb=@"Lesebox"
 	NSString* NetzPfad=@"//Volumes";
 	NSOpenPanel * LeseboxDialog=[NSOpenPanel openPanel];
 	[LeseboxDialog setCanChooseDirectories:YES];
@@ -553,7 +553,7 @@ NSLog(@"VolumepfadAktion note: %@",[[note userInfo]description]);
 	//int HomeStatus=[HomeKnopf state];
 	NSString* NetzwerkString=@"Lesebox im Netz suchen";
 	//NSLog(@"OKSheet:  stopModalWithCode HomeStatus: %d", HomeStatus);
-	NSString* lb=NSLocalizedString(@"Lesebox",@"Lesebox");
+	NSString* lb=@"Lesebox"
 	//if ([HomeKnopf state])
 	  {
 		//	LeseboxPfad=[[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]stringByAppendingPathComponent:lb];
@@ -613,7 +613,7 @@ NSLog(@"\nende reportOpenNetwork: URL: %@\n\n",NetzURL);
 - (IBAction)reportAuswahlen:(id)sender
 {
 	istSystemVolume=NO;
-	NSString* lb=NSLocalizedString(@"Lesebox",@"Lesebox");
+	NSString* lb=@"Lesebox"
 	//NSLog(@"reportAuswahlen lb: %@",lb);
 	if ([UserTable numberOfSelectedRows])
 	{
@@ -669,7 +669,7 @@ NSLog(@"\nende reportOpenNetwork: URL: %@\n\n",NetzURL);
 			{
 				NSLog(@"Dokumente");
 				istSystemVolume=YES;
-				NSString* lb=NSLocalizedString(@"Lesebox",@"Lesebox");
+				NSString* lb=@"Lesebox"
 				NSString* DocumentsPfad=[NSString stringWithFormat:@"%@/Documents",UserPfad];
 				LeseboxPfad=[DocumentsPfad stringByAppendingPathComponent:lb];
 				
@@ -813,7 +813,7 @@ NSLog(@"\nende reportOpenNetwork: URL: %@\n\n",NetzURL);
 					[tempUserDic setObject:@"-" forKey:@"host"];
 				}
 				BOOL LeseboxOK=NO;
-				NSString* lb=NSLocalizedString(@"Lesebox",@"Lesebox");
+				NSString* lb=@"Lesebox"
 				NSString* tempPfad=[[einUser stringByAppendingPathComponent:@"Documents"]stringByAppendingPathComponent:lb];
 				//NSLog(@"tempPfad: %@",tempPfad);
 				if ([Filemanager fileExistsAtPath:tempPfad])
@@ -880,7 +880,7 @@ NSLog(@"\nende reportOpenNetwork: URL: %@\n\n",NetzURL);
 	
 		[tempUserDic setObject:tempMountedUserName forKey:@"host"];
 	
-		NSString* lb=NSLocalizedString(@"Lesebox",@"Lesebox");
+		NSString* lb=@"Lesebox"
 		[tempUserDic setObject:[NSNumber numberWithInt:0] forKey:@"leseboxort"];
 		NSString* tempUserLeseboxPfad=[tempUserPfad stringByAppendingPathComponent:lb];
 		NSLog(@"tempUserLeseboxPfad: %@",tempUserLeseboxPfad);

@@ -25,6 +25,7 @@
 #import "rAVPlayer.h"
 
 #import "rAdminPlayer.h"
+#import "rVertikalanzeige.h"
 
 
 
@@ -51,7 +52,8 @@
    
    rAdminPlayer*						   AdminPlayer;
    
-   
+  IBOutlet rAbspielanzeige*			Abspielanzeige;
+ IBOutlet   rVertikalanzeige*       Vertikalanzeige;
    rAVPlayer*  AVAbspielplayer;
    NSString*	RPAufnahmenDirIDKey;;
    NSString *	Wert1Key;
@@ -86,8 +88,9 @@
 @property (weak) IBOutlet NSButton* StartKnopf;
 
 
-@property (weak) IBOutlet rAbspielanzeige*	ArchivAbspielanzeige;
+@property (retain) IBOutlet rAbspielanzeige*	ArchivAbspielanzeige;
 @property (weak) IBOutlet NSLevelIndicator   *LevelMeter;
+@property (weak) IBOutlet NSProgressIndicator   *Fortschritt;
 
 
 @property NSMutableData*               RPDevicedaten;
@@ -97,7 +100,7 @@
 @property (weak)IBOutlet rLevelmeter*				Levelmeter;
 @property (weak)IBOutlet NSLevelIndicator       *audioLevelMeter;
 
-@property (weak)IBOutlet rAbspielanzeige*			Abspielanzeige;
+
 
 @property  (weak) IBOutlet NSTextField*				PWFeld;
 @property  (weak) IBOutlet NSTextField*				TitelString;
@@ -124,6 +127,10 @@
 @property  (weak) IBOutlet NSTextField*				StartStopString;
 
 @property (weak)  IBOutlet NSButton*					BackKnopf;
+@property (weak)  IBOutlet NSButton*					RewindKnopf;
+
+@property (weak)  IBOutlet NSButton*					ForewardKnopf;
+
 @property  (weak) IBOutlet NSButton*					SichernKnopf;
 @property  (weak) IBOutlet NSButton*					WeitereAufnahmeKnopf;
 @property  (weak) IBOutlet NSButton*					LogoutKnopf;
@@ -231,11 +238,11 @@
 @property (weak) IBOutlet NSTextField*				ArchivAbspieldauerFeld;
 
 @property (weak) IBOutlet NSTextField*				TimeoutFeld;
-@property BOOL								ArchivPlayerGeladen;
-@property (weak) rArchivDS*							ArchivDaten;
-@property int									ArchivSelektierteZeile;
-//Movie									ArchivPlayerMovie;
-@property UInt32								ArchivAbspielzeit;
+@property BOOL                                  ArchivPlayerGeladen;
+@property (retain) rArchivDS*							ArchivDaten;
+@property int                                   ArchivSelektierteZeile;
+
+@property UInt32                                ArchivAbspielzeit;
 @property NSString*							ArchivPlayPfad;
 @property NSString*							ArchivKommentarPfad;
 @property NSTextView*							ArchivKommentarView;
@@ -322,5 +329,7 @@
 - (IBAction)stopAVPlay:(id)sender;
 - (IBAction)backAVPlay:(id)sender;
 - (IBAction)saveRecord:(id)sender;
+- (IBAction)rewindAVPlay:(id)sender;
+- (IBAction)forewardAVPlay:(id)sender;
 @end // AVRecorder
 

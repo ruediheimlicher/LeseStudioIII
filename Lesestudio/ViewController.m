@@ -218,6 +218,11 @@ extern  NSMenu*                      ProjektMenu;
               name:@"recording"
             object:nil];
 
+   [nc addObserver:self
+          selector:@selector(AbspielPosAktion:)
+              name:@"abspielpos"
+            object:nil];
+   
    
    [nc addObserver:self
           selector:@selector(ListeAktualisierenAktion:)
@@ -229,6 +234,9 @@ extern  NSMenu*                      ProjektMenu;
           selector:@selector(RecordingAktion2:)
               name:@"AVCaptureSessionDidStartRunningNotification"
             object:nil];
+
+   
+   NSArray* windowViewArray = [[self view] subviews];
 
 
    BOOL success = NO;
@@ -242,11 +250,11 @@ extern  NSMenu*                      ProjektMenu;
    self.AdminPasswortDic = [[NSMutableDictionary alloc]initWithCapacity:0];
    
    
-   NSString* lb=NSLocalizedString(@"Lesebox",@"Lesebox");
-   NSString* cb=NSLocalizedString(@"Anmerkungen",@"Anmerkungen");
+   NSString* lb=@"Lesebox";
+   NSString* cb=@"Anmerkungen";
    NSString*HomeLeseboxPfad=[NSHomeDirectory() stringByAppendingFormat:@"%@%@",@"/Documents/",lb];
    //NSLog(@"cb: %@  Lesebox: %@ HomeLeseboxPfad: %@",cb,lb,HomeLeseboxPfad);
-   NSString* locBeenden=NSLocalizedString(@"Quit",@"Beenden");
+   NSString* locBeenden=@"Beenden";
    
    NSColor* HintergrundFarbe=[NSColor colorWithDeviceRed:80.0/255.0 green:230.0/255.0 blue:140.0/255.0 alpha:1.0];
    NSColor * TitelFarbe=[NSColor purpleColor];
@@ -372,12 +380,12 @@ extern  NSMenu*                      ProjektMenu;
                NSAlert *Warnung = [[NSAlert alloc] init];
                
                [Warnung addButtonWithTitle:locBeenden];
-               [Warnung setMessageText:NSLocalizedString(@"No valid password for Admin",@"Kein gültiges Admin-Passwort")];
+               [Warnung setMessageText:@"Kein gültiges Admin-Passwort"];
                
-               NSString* s1=NSLocalizedString(@"The folder for project %@ is empty",@"Ordner für  Projekt xx ist leer");
+               NSString* s1=@"Ordner für  Projekt xx ist leer";
                NSString* s2=[NSString stringWithFormat:s1,[self.ProjektPfad lastPathComponent]];
                
-               NSString* s3=NSLocalizedString(@"The applicatin will terminate",@"Das Programm wird beendet");
+               NSString* s3=@"Das Programm wird beendet";
                NSString* InformationString=[NSString stringWithFormat:@"%@\n%@",s2,s3];
                [Warnung setInformativeText:InformationString];
                [Warnung setAlertStyle:NSWarningAlertStyle];
@@ -428,32 +436,47 @@ extern  NSMenu*                      ProjektMenu;
    [self.Leserfeld setFont: Lesernamenfont];
    [self.Leserfeld setTextColor: LesernamenFarbe];
    
+   NSRect f = Abspielanzeige.frame;
+   NSLog(@"didLoad x: %f y: %f w:%f h:%f",f.origin.x,f.origin.y,f.size.width,f.size.height);
 
    
+   NSRect v = Vertikalanzeige.frame;
+   NSLog(@"didLoad v.width: %f",v.size.width);
+   NSRect abspielanzeigerect = NSMakeRect(320,278,210,20);
 
+   Abspielanzeige = [[rAbspielanzeige alloc]initWithFrame:abspielanzeigerect];
+   
+   [[[self.RecPlayTab tabViewItemAtIndex:0] view]addSubview:Abspielanzeige];
+   
+   NSArray* viewArray0 = [[[self.RecPlayTab tabViewItemAtIndex:0]view]subviews];
+   NSLog(@"viewArray0: %@",[viewArray0 description]);
+   [Abspielanzeige setMax:abspielanzeigerect.size.width];
+   [self.Fortschritt startAnimation:nil];
    [self.RecPlayFenster setIsVisible:YES];
    
    //[Leserfeld setBackgroundColor:[NSColor lightGrayColor]];
    //NSImage* StartRecordImg=[[NSImage alloc]initWithContentsOfFile:@"StartPlayImg.tif"];
-   NSImage* StartRecordImg=[NSImage imageNamed:@"StartRecordIcon.gif"];
-   [[self.StartRecordKnopf cell]setImage:StartRecordImg];
    
-   self.StartStopKnopf.image=StartRecordImg;
-   [[self.StartStopKnopf cell]setImage:StartRecordImg];
+   NSImage* StartRecordImg=[NSImage imageNamed:@"recordicon_w.gif"];
+
+   //self.StartStopKnopf.image=StartRecordImg;
+   //[[self.StartStopKnopf cell]setImage:StartRecordImg];
    
-   NSImage* StopRecordImg=[NSImage imageNamed:@"StopRecordImg.tif"];
-   [[self.StopRecordKnopf cell]setImage:StopRecordImg];
+   NSImage* StopRecordImg=[NSImage imageNamed:@"stopicon_w.gif"];
+//   [[self.StopRecordKnopf cell]setImage:StopRecordImg];
    
-   NSImage* StartPlayImg=[NSImage imageNamed:@"StartPlayImg.tif"];
-   [[self.StartPlayKnopf cell]setImage:StartPlayImg];
+  // NSImage* StartPlayImg=[NSImage imageNamed:@"StartPlayImg.tif"];
+   NSImage* StartPlayImg=[NSImage imageNamed:@"playicon.gif"];
+//   [[self.StartPlayKnopf cell]setImage:StartPlayImg];
+ 
    
    [[self.ArchivPlayTaste cell]setImage:StartPlayImg];
    NSImage* StopPlayImg=[NSImage imageNamed:@"StopPlayImg.tif"];
-   [[self.StopPlayKnopf cell]setImage:StopPlayImg];
-   [[self.ArchivStopTaste cell]setImage:StopPlayImg];
+   //[[self.StopPlayKnopf cell]setImage:StopPlayImg];
+   //[[self.ArchivStopTaste cell]setImage:StopPlayImg];
    NSImage* BackImg=[NSImage imageNamed:@"Back.tif"];
-   [[self.BackKnopf cell]setImage:BackImg];
-   [[self.ArchivZumStartTaste cell]setImage:BackImg];
+   //[[self.BackKnopf cell]setImage:BackImg];
+   //[[self.ArchivZumStartTaste cell]setImage:BackImg];
    
    
    
@@ -465,33 +488,33 @@ extern  NSMenu*                      ProjektMenu;
    //NSLog(@"setRecPlay:	mitUserPasswort: %d",mitUserPasswort);
    if (self.mitUserPasswort)
    {
-      [self.PWFeld setStringValue:NSLocalizedString(@"With Password",@"Mit Passwort")];
+      [self.PWFeld setStringValue:@"Mit Passwort"];
    }
    else
    {
-      [self.PWFeld setStringValue:NSLocalizedString(@"Without Password",@"Ohne Passwort")];
+      [self.PWFeld setStringValue:@"Ohne Passwort"];
    }
    NSLog(@"TimeoutDelay: %f",self.TimeoutDelay);
    //Tooltips
    
-   [self.StartRecordKnopf setToolTip:NSLocalizedString(@"Start Record.\nAn existing unsaved Record is overridden.",@"Aufnahme beginnen\nEine schon vorhandene ungesicherte Aufnahme wird überschrieben")];
-   [self.StopRecordKnopf setToolTip:NSLocalizedString(@"Stop Record",@"Aufnahme beenden")];
-   [self.StartPlayKnopf setToolTip:NSLocalizedString(@"Start Play",@"Wiedergabe beginnen")];
-   [self.BackKnopf setToolTip:NSLocalizedString(@"Back to Start",@"Zurück an den Anfang")];
-   [self.StopPlayKnopf setToolTip:NSLocalizedString(@"Stop Play",@"Wiedergabe anhalten")];
-   [self.SichernKnopf setToolTip:NSLocalizedString(@"Save Record.\nThe record is saved in the Lecturebox",@"Aufnahme sichern.\nDie Aufnahme wird in der Lesebox gesichert.")];
-   [self.LogoutKnopf setToolTip:NSLocalizedString(@"Logout current user.",@"Abmelden des aktuellen Lesers.")];
-   //[[RecPlayTab tabViewItemAtIndex:1]setToolTip:NSLocalizedString(@"Achiv of recent records.",@"Archiv von bisherigen Aufnahmen.")];
-   [self.ArchivInListeTaste setToolTip:NSLocalizedString(@"Move current record back to the List.",@"Aktuelle Aufnahme in die Liste zurücklegen")];
-   [self.ArchivInPlayerTaste setToolTip:NSLocalizedString(@"Move selected record into player.",@"Ausgewählte Aufnahme in den Player verschieben.")];
-   [self.UserMarkCheckbox setToolTip:NSLocalizedString(@"Mark current Record.",@"Diese Aufnahme markieren.")];
-   [self.ArchivPlayTaste setToolTip:NSLocalizedString(@"Start Play",@"Wiedergabe beginnen")];
-   [self.ArchivZumStartTaste setToolTip:NSLocalizedString(@"Back to Start",@"Zurück an den Anfang")];
-   [self.ArchivStopTaste setToolTip:NSLocalizedString(@"Stop Play",@"Wiedergabe anhalten")];
-   [self.TitelPop setToolTip:NSLocalizedString(@"After Login:\nTitle of last Record.\nBelow: List of available titles",@"Nach dem Login:\n˙Titel der letzten Aufnahme.\nDarunter: Liste der vorhandenen Titel")];
-   [self.ArchivnamenPop setToolTip:NSLocalizedString(@"List of names in the current project.",@"Liste der Namen im aktuellen Projekt.")];
-   [self.Leserfeld setToolTip:NSLocalizedString(@"After Login:\nCurrent Reader.",@"Nach dem Login:\nAktueller Leser")];
-   [self.ProjektFeld setToolTip:NSLocalizedString(@"Current Project.\nOther projects can be choosen in the Recorder Menu if available.",@"Aktuelles Projekt")];
+   [self.StartRecordKnopf setToolTip:@"Aufnahme beginnen\nEine schon vorhandene ungesicherte Aufnahme wird überschrieben"];
+   [self.StopRecordKnopf setToolTip:@"Aufnahme beenden"];
+   [self.StartPlayKnopf setToolTip:@"Wiedergabe beginnen"];
+   [self.BackKnopf setToolTip:@"Zurück an den Anfang"];
+   [self.StopPlayKnopf setToolTip:@"Wiedergabe anhalten"];
+   [self.SichernKnopf setToolTip:@"Aufnahme sichern.\nDie Aufnahme wird in der Lesebox gesichert."];
+   [self.LogoutKnopf setToolTip:@"Abmelden des aktuellen Lesers."];
+   //[[RecPlayTab tabViewItemAtIndex:1]setToolTip:@"Archiv von bisherigen Aufnahmen."];
+   [self.ArchivInListeTaste setToolTip:@"Aktuelle Aufnahme in die Liste zurücklegen"];
+   [self.ArchivInPlayerTaste setToolTip:@"Ausgewählte Aufnahme in den Player verschieben."];
+   [self.UserMarkCheckbox setToolTip:@"Diese Aufnahme markieren."];
+   [self.ArchivPlayTaste setToolTip:@"Wiedergabe beginnen"];
+   [self.ArchivZumStartTaste setToolTip:@"Zurück an den Anfang"];
+   [self.ArchivStopTaste setToolTip:@"Wiedergabe anhalten"];
+   [self.TitelPop setToolTip:@"Nach dem Login:\n˙Titel der letzten Aufnahme.\nDarunter: Liste der vorhandenen Titel"];
+   [self.ArchivnamenPop setToolTip:@"Liste der Namen im aktuellen Projekt."];
+   [self.Leserfeld setToolTip:@"Nach dem Login:\nAktueller Leser"];
+   [self.ProjektFeld setToolTip:@"Aktuelles Projekt\nEin anderes Projekt kann im Menü Recorder ausgewählt werden."];
    [[self.ModusMenu itemWithTag:kAdminTag]setToolTip:@"Hallo"];
    [[self.ModusMenu itemWithTag:kRecPlayTag]setToolTip:@"Hallo"];
    [[self.ModusMenu itemWithTag:kKommentarTag]setToolTip:@"Hallo"];
@@ -616,9 +639,9 @@ extern  NSMenu*                      ProjektMenu;
       
       // run the save panel modally to get the filename
       //NSString* tempSavePfad=@"/users/sysadmin/documents/Lesebox";
-      if ([savePanel runModal ])//ForDirectory:LeseboxPfad file:NSLocalizedString(@"Anmerkungen.doc",@"Anmerkungen.doc")])
+      if ([savePanel runModal ])//ForDirectory:LeseboxPfad file:@"Anmerkungen.doc"])
       {
-         BOOL RemoveOK=[Filemanager removeItemAtURL:[NSURL fileURLWithPath:[self.LeseboxPfad stringByAppendingPathComponent:NSLocalizedString(@"Anmerkungen.doc",@"Anmerkungen.doc")]]error:nil];
+         BOOL RemoveOK=[Filemanager removeItemAtURL:[NSURL fileURLWithPath:[self.LeseboxPfad stringByAppendingPathComponent:@"Anmerkungen.doc"]]error:nil];
          // the text object knows how to save itself:
          //NSData* DataToSave=[DruckView RTFFromRange:NSMakeRange(0,[[DruckView textStorage] length])];
          //[DataToSave writeToFile:[[savePanel filename]stringByAppendingPathComponent:@"Kommentar.doc"]  atomically:YES];
@@ -754,8 +777,13 @@ extern  NSMenu*                      ProjektMenu;
    //[ArchivPlayTaste setEnabled:YES];
    [self resetArchivPlayer:nil];
    
+   NSString* tempAchivPlayPfad = [self.ArchivPlayPfad stringByAppendingPathExtension:@"m4a"];
+   
+   NSURL *ArchivURL = [NSURL fileURLWithPath:tempAchivPlayPfad];
+   [AVAbspielplayer prepareAufnahmeAnURL:ArchivURL];
+
    //sofort abspielen
-   [self startArchivPlayer:nil];
+   //[self startArchivPlayer:nil];
    
    [self.ArchivPlayTaste setEnabled:YES];
 //   BOOL erfolg=[RecPlayFenster makeFirstResponder:ArchivInListeTaste];
@@ -937,17 +965,17 @@ extern  NSMenu*                      ProjektMenu;
 //*   [RecPlayFenster setIsVisible:YES];
    //[Leserfeld setBackgroundColor:[NSColor lightGrayColor]];
    //NSImage* StartRecordImg=[[NSImage alloc]initWithContentsOfFile:@"StartPlayImg.tif"];
-   NSImage* StartRecordImg=[NSImage imageNamed:@"StartRecordIcon.gif"];
+   NSImage* StartRecordImg=[NSImage imageNamed:@"recordicon_k.gif"];
    [[self.StartRecordKnopf cell]setImage:StartRecordImg];
    NSImage* StopRecordImg=[NSImage imageNamed:@"StopRecordImg.tif"];
    [[self.StopRecordKnopf cell]setImage:StopRecordImg];
    
-   [[self.StartStopKnopf cell]setImage:StartRecordImg];
+   //[[self.StartStopKnopf cell]setImage:StartRecordImg];
    [self.StartStopString setStringValue:@"START"];
    NSImage* StartPlayImg=[NSImage imageNamed:@"StartPlayImg.tif"];
    [[self.StartPlayKnopf cell]setImage:StartPlayImg];
    NSImage* StopPlayImg=[NSImage imageNamed:@"StopPlayImg.tif"];
-   [[self.StopPlayKnopf cell]setImage:StopPlayImg];
+   //[[self.StopPlayKnopf cell]setImage:StopPlayImg];
    NSImage* BackImg=[NSImage imageNamed:@"Back.tif"];
    [[self.BackKnopf cell]setImage:BackImg];
    
@@ -959,11 +987,11 @@ extern  NSMenu*                      ProjektMenu;
    //NSLog(@"setRecPlay:	mitUserPasswort: %d",mitUserPasswort);
    if (self.mitUserPasswort)
    {
-      [self.PWFeld setStringValue:NSLocalizedString(@"With Password",@"Mit Passwort")];
+      [self.PWFeld setStringValue:@"Mit Passwort"];
    }
    else
    {
-      [self.PWFeld setStringValue:NSLocalizedString(@"Without Password",@"Ohne Passwort")];
+      [self.PWFeld setStringValue:@"Ohne Passwort"];
    }
    
 }
@@ -1317,7 +1345,7 @@ QTMovie* qtMovie;
       //Abspieldauer=GesamtAbspielzeit;
       
       [self.LevelMeter setFloatValue: 0];
-      [self.Abspielanzeige setLevel:0];
+      [self->Abspielanzeige setLevel:0];
 //*      [self.ArchivQTKitPlayer gotoBeginning:NULL];
    }
    //[ArchivQTKitPlayer play:NULL];
@@ -1329,7 +1357,7 @@ QTMovie* qtMovie;
    [self.SichernKnopf setEnabled:NO];
    [self.WeitereAufnahmeKnopf setEnabled:NO];
    [self.StopRecordKnopf setEnabled:NO];
-   [self.BackKnopf setEnabled:NO];
+   [self.BackKnopf setEnabled:YES];
    [self.StopPlayKnopf setEnabled:YES];
    
    
@@ -1395,9 +1423,9 @@ QTMovie* qtMovie;
    self.QTKitPause=0;
    [self.Abspieldauerfeld setStringValue:[self Zeitformatieren:self.QTKitGesamtAbspielzeit]];
    //Abspieldauer=GesamtAbspielzeit;
-   [self.Abspielanzeige setLevel:0];
+   [self->Abspielanzeige setLevel:0];
    //	[Utils startTimeout:TimeoutDelay];
-   [self.BackKnopf setEnabled:NO];
+   [self.BackKnopf setEnabled:YES];
    //[ArchivQTKitPlayer gotoBeginning:NULL];
  //*  [RecordQTKitPlayer gotoBeginning:NULL];
    [Utils startTimeout:self.TimeoutDelay];
@@ -1618,7 +1646,7 @@ QTMovie* qtMovie;
    /*
    if ([[RecordQTKitPlayer movie]rate])
    {
-      NSString* s=NSLocalizedString(@"Playing stopped",@"Wiedergabe gestoppt");
+      NSString* s=@"Wiedergabe gestoppt";
       NSDictionary* f=[NSDictionary dictionaryWithObject:s forKey:@"stopplaying"];
       [FehlerArray addObject: f];
       [self stopPlay:nil];
@@ -1638,7 +1666,7 @@ QTMovie* qtMovie;
    }
     */
    [self.Abspieldauerfeld setStringValue:@""];
-   [self.Abspielanzeige setLevel:0];
+   [self->Abspielanzeige setLevel:0];
    [self.Zeitfeld setStringValue:@""];
    
    NSString* tempAufnahmePfad;
@@ -1746,7 +1774,7 @@ QTMovie* qtMovie;
             OSErr err=[self finishMovie:self.neueAufnahmePfad zuPfad:tempAufnahmePfad];
             if (err)
             {
-               NSString* s=NSLocalizedString(@"Saving failed",@"Sichern misslungen");
+               NSString* s=@"Sichern misslungen";
                NSDictionary* f=[NSDictionary dictionaryWithObject:s forKey:@"finishfailed"];
                [FehlerArray addObject: f];
                
@@ -1768,7 +1796,7 @@ QTMovie* qtMovie;
       }
       else
       {
-         NSString* s=NSLocalizedString(@"Saving failed",@"Sichern misslungen");
+         NSString* s=@"Sichern misslungen";
          NSDictionary* f=[NSDictionary dictionaryWithObject:s forKey:@"savingfailed"];
          [FehlerArray addObject: f];
          
@@ -1993,7 +2021,7 @@ QTMovie* qtMovie;
    BOOL antwort=NO;
    NSFileManager *Filemanager=[NSFileManager defaultManager];
    NSString* tempLeseboxPfad=[NSString stringWithString:NSHomeDirectory()];
-   NSString* s=NSLocalizedString(@"Lesebox",@"Lesebox");
+   NSString* s=@"Lesebox";
    tempLeseboxPfad=[[tempLeseboxPfad stringByAppendingPathComponent:@"Documents"] stringByAppendingPathComponent:s];
    //tempLeseboxPfad=[tempLeseboxPfad stringByAppendingPathComponent:@"Lesebox"];
    if ([Filemanager fileExistsAtPath:tempLeseboxPfad])//Es gibt eine Lesebox auf Home
@@ -2035,7 +2063,7 @@ QTMovie* qtMovie;
         tempLeseboxPfad=[[LeseboxDialog URL]path]; //"home"
         
         tempLeseboxPfad=[tempLeseboxPfad stringByAppendingPathComponent:@"Documents"];
-        NSString* lb=NSLocalizedString(@"Lesebox",@"Lesebox");
+        NSString* lb=@"Lesebox";
         tempLeseboxPfad=[tempLeseboxPfad stringByAppendingPathComponent:lb];
         self.LeseboxPfad=(NSMutableString*)tempLeseboxPfad;
         NSLog(@"setNetworkLeseboxPfad:   LeseboxPfad: %@",self.LeseboxPfad);
@@ -2244,7 +2272,7 @@ QTMovie* qtMovie;
    NSString* tempString;
    
    NSString* ArchivString=[NSString stringWithFormat:@"Archiv"];
-   NSString* KommentarString=NSLocalizedString(@"Anmerkungen",@"Anmerkungen");
+   NSString* KommentarString=@"Anmerkungen";
    self.ArchivPfad=[self.LeseboxPfad stringByAppendingPathComponent:ArchivString];//Pfad des Archiv-Ordners
    
    if ([Filemanager fileExistsAtPath:self.ProjektPfad])
@@ -2381,7 +2409,7 @@ QTMovie* qtMovie;
    NSString* tempAufnahme;
    //[tempAufnahme retain];
    tempAufnahme=[dieAufnahme copy];
-   NSString* KommentarOrdnerString=NSLocalizedString(@"Anmerkungen",@"Anmerkungen");
+   NSString* KommentarOrdnerString=@"Anmerkungen";
    NSString* tempKommentarOrdnerPfad=[[self.LeserPfad copy]stringByAppendingPathComponent:KommentarOrdnerString];
    
    NSString* tempKommentarPfad=[NSString stringWithString:self.ProjektPfad];
@@ -2523,44 +2551,11 @@ QTMovie* qtMovie;
 
 - (IBAction)setzeLeser:(id)sender
 {
-   /*
-   if ([AufnahmeGrabber isRecording])
-   {
-      NSString* s1=NSLocalizedString(@"Still Playing",@"Wiedergabe läuft");
-      NSString* s2=NSLocalizedString(@"The Name cannot be altered while playing",@"Name kann nicht geändert werden während Abspielen");
-      int Antwort=NSRunAlertPanel(s1,s2,@"OK", @"Stop",NULL);
-      NSLog(@"Antwort: %d",Antwort);
-      if (Antwort==1)
-      {
-         NSLog(@"Wiedergabe lauft: Antwort=1  weiter");
-         return;
-      }
-      if (Antwort==0)
-      {
-         NSLog(@"Wiedergabe lauft: Antwort=0  stop");
-         [self stopAVRecord:nil];
-         NSString* s1=NSLocalizedString(@"Recording Stopped",@"Aufnahme abgebrochen");
-         NSString* s2=NSLocalizedString(@"Should the stopped record be saved?",@"Abgebrochene Aufnahme sichern?");
-         int Antwort=NSRunAlertPanel(s1, s2,NSLocalizedString(@"YES",@"JA"), NSLocalizedString(@"NO",@"NEIN"),NULL);
-         if (Antwort==0)
-         {
-            NSLog(@"Aufnahme abgebrochen: Antwort=0  return");
-            return;
-         }
-         if (Antwort==1)
-         {
-            NSLog(@"Aufnahme abgebrochen: Antwort=1  saveRecord");
-            [self saveRecord:nil];
-            
-         }
-      }
-   }
-    */
-   if ([AVRecorder isRecording])
+    if ([AVRecorder isRecording])
    {
       // ++
-      NSString* s1=NSLocalizedString(@"Still Playing",@"Wiedergabe läuft");
-      NSString* s2=NSLocalizedString(@"The Name cannot be altered while playing",@"Name kann nicht geändert werden während Abspielen");
+      NSString* s1=@"Wiedergabe läuft";
+      NSString* s2=@"Name kann nicht geändert werden während Abspielen";
       int Antwort=NSRunAlertPanel(s1,s2,@"OK", @"Stop",NULL);
       NSLog(@"Antwort: %d",Antwort);
       if (Antwort==1)
@@ -2572,9 +2567,9 @@ QTMovie* qtMovie;
       {
          NSLog(@"Wiedergabe lauft: Antwort=0  stop");
  //        [self stopAVRecord:nil];
-         NSString* s1=NSLocalizedString(@"Recording Stopped",@"Aufnahme abgebrochen");
-         NSString* s2=NSLocalizedString(@"Should the stopped record be saved?",@"Abgebrochene Aufnahme sichern?");
-         int Antwort=NSRunAlertPanel(s1, s2,NSLocalizedString(@"YES",@"JA"), NSLocalizedString(@"NO",@"NEIN"),NULL);
+         NSString* s1=@"Aufnahme abgebrochen";
+         NSString* s2=@"Abgebrochene Aufnahme sichern?";
+         int Antwort=NSRunAlertPanel(s1, s2,@"JA", @"NEIN",NULL);
          if (Antwort==0)
          {
             NSLog(@"Aufnahme abgebrochen: Antwort=0  return");
@@ -2720,11 +2715,20 @@ QTMovie* qtMovie;
       NSUInteger Kommentarindex=NSNotFound;
       for (k=0;k<self.aktuellAnzAufnahmen;k++)//'Kommentar' entfernen
       {
-         //if([[TitelArray objectAtIndex:k] isEqualToString:NSLocalizedString(@"Anmerkungen",@"Anmerkungen")])
-         if([[TitelArray objectAtIndex:k] isEqualToString:@"Anmerkungen"])
+         
+         NSString* tempAufnahme =[TitelArray objectAtIndex:k];
+         if ([tempAufnahme rangeOfString:@"m4a"].location <NSNotFound)
+         {
+            [TitelArray replaceObjectAtIndex:k withObject:[tempAufnahme stringByDeletingPathExtension]];
+         }
+         
+         //if([[TitelArray objectAtIndex:k] isEqualToString:@"Anmerkungen"])
+         if([tempAufnahme isEqualToString:@"Anmerkungen"])
          {
             Kommentarindex=k;
          }
+         
+         
       }
       //NSLog(@"Kommentarindex: %d",Kommentarindex);
       if (!(Kommentarindex==NSNotFound))
@@ -3020,8 +3024,8 @@ QTMovie* qtMovie;
       NSAlert *Warnung = [[NSAlert alloc] init];
       [Warnung addButtonWithTitle:@"OK"];
       //[Warnung addButtonWithTitle:@"Cancel"];
-      [Warnung setMessageText:NSLocalizedString(@"This Project is not activated",@"Projekt ist nicht aktiviert")];
-      [Warnung setInformativeText:NSLocalizedString(@"The recorder cannot be opened",@"Recorder kann nicht geöffnet werden.")];
+      [Warnung setMessageText:@"Projekt ist nicht aktiviert"];
+      [Warnung setInformativeText:@"Recorder kann nicht geöffnet werden."];
       [Warnung setAlertStyle:NSWarningAlertStyle];
       NSImage* RPImage = [NSImage imageNamed: @"MicroIcon"];
       [Warnung setIcon:RPImage];
@@ -3440,7 +3444,8 @@ QTMovie* qtMovie;
 {
    self.ArchivPlayPfad=[NSString stringWithString:self.LeserPfad];
    self.ArchivPlayPfad=[self.ArchivPlayPfad stringByAppendingPathComponent:[dieAufnahme copy]];
-   
+   NSLog(@"setArchivPfadFuerAufnahme ArchivPlayPfad: %@",self.ArchivPlayPfad);
+
    //	BOOL KommentarOK=[Utils setKommentar:@"Hallo" inAufnahmeAnPfad:ArchivPlayPfad];
    //	NSString* Kontrollstring=[Utils KommentarStringVonAufnahmeAnPfad:ArchivPlayPfad];
    //	NSLog(@"setArchivPfadFuerAufnahme ArchivPlayPfad: %@  Kontrollstring: %@",ArchivPlayPfad,Kontrollstring);
@@ -3448,14 +3453,14 @@ QTMovie* qtMovie;
    
    
    NSFileManager* Filemanager=[NSFileManager defaultManager];
-   if ([Filemanager fileExistsAtPath:self.ArchivPlayPfad])
+   if ([Filemanager fileExistsAtPath:[self.ArchivPlayPfad stringByAppendingPathExtension:@"m4a"]])
 	  {
         
         [self.ArchivInPlayerTaste setEnabled:YES];
         [self.ArchivInListeTaste setEnabled:NO];
         //NSLog(@"gueltiger ArchivPlayPfad: %@",ArchivPlayPfad);
         self.ArchivKommentarPfad=[NSString stringWithString:self.LeserPfad];
-        //self.ArchivKommentarPfad=[self.ArchivKommentarPfad stringByAppendingPathComponent:NSLocalizedString(@"Anmerkungen",@"Anmerkungen")];
+        //self.ArchivKommentarPfad=[self.ArchivKommentarPfad stringByAppendingPathComponent:@"Anmerkungen"];
         self.ArchivKommentarPfad=[self.ArchivKommentarPfad stringByAppendingPathComponent:@"Anmerkungen"];
         self.ArchivKommentarPfad=[self.ArchivKommentarPfad stringByAppendingPathComponent:[dieAufnahme copy]];
         if ([Filemanager fileExistsAtPath:self.ArchivKommentarPfad])
@@ -3558,22 +3563,19 @@ QTMovie* qtMovie;
 - (IBAction)startArchivPlayer:(id)sender
 {
    TimeValue ArchivDauer;
-   NSLog(@"startArchivPlayer:");
+  // NSLog(@"startArchivPlayer:");
+   NSLog(@"startArchivPlayer:			ArchivPlayPfad: %@",self.ArchivPlayPfad);
+   
+   NSString* tempAchivPlayPfad = [self.ArchivPlayPfad stringByAppendingPathExtension:@"m4a"];
+   
+   NSURL *ArchivURL = [NSURL fileURLWithPath:tempAchivPlayPfad];
+//   [AVAbspielplayer prepareAufnahmeAnURL:ArchivURL];
+   
+   [AVAbspielplayer playAufnahme];
    /*
    {
-      NSLog(@"startArchivPlayer:			ArchivPlayPfad: %@",ArchivPlayPfad);
-      NSURL *movieUrl = [NSURL fileURLWithPath:ArchivPlayPfad];
-      QTMovie *tempMovie = [QTMovie movieWithURL:[NSURL fileURLWithPath:ArchivPlayPfad]error:NULL];
-      
-      [ArchivQTKitPlayer setMovie:tempMovie];
-      [ArchivQTKitPlayer gotoBeginning:NULL];
-      [ArchivQTKitPlayer play:NULL];
-      
-      if (!tempMovie)
-      {
-         NSLog(@"Kein Movie da");
-      }
-      ArchivDauer=[tempMovie duration].timeValue/[tempMovie duration].timeScale;
+    
+       ArchivDauer=[tempMovie duration].timeValue/[tempMovie duration].timeScale;
       
       // ArchivAbspielanzeige wird mit timeValue ohne Umrechnung geladen
       [ArchivAbspielanzeige setMax: [tempMovie duration].timeValue];
@@ -3623,21 +3625,18 @@ QTMovie* qtMovie;
 
 - (IBAction)stopArchivPlayer:(id)sender
 {
-//   [ArchivQTKitPlayer pause:NULL];
+  [AVAbspielplayer stopTempAufnahme];
    self.Pause=self.ArchivLaufzeit/60;
    //NSLog(@"Laufzeit:%d  PauseZeit: %d",Laufzeit,Pause);
    
    [self.ArchivPlayTaste setEnabled:YES];
-   [self.ArchivStopTaste setEnabled:NO];
+ //  [self.ArchivStopTaste setEnabled:NO];
    [self.ArchivZumStartTaste setEnabled:YES];
    [Utils startTimeout:self.TimeoutDelay];
 }
 - (IBAction)backArchivPlayer:(id)sender
 {
-   /*
-   [ArchivQTKitPlayer gotoBeginning:NULL];
-   //	[RecordQTKitPlayer setMovie:NULL];
-    */
+   [AVAbspielplayer toStartTempAufnahme];
    [self.ArchivPlayTaste setEnabled:YES];
    [self.ArchivStopTaste setEnabled:YES];
    self.Pause=0;
@@ -3653,7 +3652,7 @@ QTMovie* qtMovie;
    NSFileManager *Filemanager=[NSFileManager defaultManager];
    NSMutableArray* AufnahmenArray;
    AufnahmenArray=[[NSMutableArray alloc] initWithArray:[Filemanager contentsOfDirectoryAtPath:self.LeserPfad error:NULL]];
-   //NSLog(@"AufnahmenArray: %@",[AufnahmenArray description]);
+   //NSLog(@"Archiv AufnahmenArray: %@",[AufnahmenArray description]);
    SEL DoppelSelektor;
    DoppelSelektor=@selector(ArchivaufnahmeInPlayer:);
    
@@ -3664,10 +3663,11 @@ QTMovie* qtMovie;
 {
 //   [self.ArchivQTKitPlayer pause:NULL];
 //   [self.ArchivQTKitPlayer setMovie:nil];
+   [AVAbspielplayer stopTempAufnahme];
    [self.ArchivAbspieldauerFeld setStringValue:@""];
    [self.Abspieldauerfeld setStringValue:@""];
    [self.ArchivAbspielanzeige setLevel:0];
-   [self.Abspielanzeige setLevel:0];
+   [self->Abspielanzeige setLevel:0];
    
 }
 
@@ -3803,11 +3803,33 @@ QTMovie* qtMovie;
 {
    BOOL umschalten=YES;
    //NSLog(@"vor shouldSelectTabViewItem: UserMarkCheckbox: %d",[UserMarkCheckbox state]);
-   if ([[tabViewItem identifier]isEqualToString:@"archiv"])
+   if ([[tabViewItem label]isEqualToString:@"Archiv"])
 	  {
-        /*
+        if ([self.ArchivnamenPop indexOfSelectedItem]==0)
+        {
+           NSImage* StartRecordImg=[NSImage imageNamed:@"recordicon_k.gif"];
+           //self.StartStopKnopf.image=StartRecordImg;
+           [self.StartStopString setStringValue:@"START"];
+           NSAlert *NamenWarnung = [[NSAlert alloc] init];
+           [NamenWarnung addButtonWithTitle:@"Mache ich"];
+           //[RecorderWarnung addButtonWithTitle:@"Cancel"];
+           [NamenWarnung setMessageText:@"Wer bist du?"];
+           [NamenWarnung setInformativeText:@"Du musst einen Namen auswählen, bevor du das Archiv anschauen kannst."];
+           [NamenWarnung setAlertStyle:NSWarningAlertStyle];
+           
+           
+           [NamenWarnung beginSheetModalForWindow:[[self view]window]
+                                    modalDelegate:nil
+                                   didEndSelector:nil
+                                      contextInfo:nil];
+           
+           
+           return NO;
+        }
+
+        [AVAbspielplayer invalTimer];
         NSLog(@"TabView:archiv");
-        if (aktuellAnzAufnahmen &&!([AufnahmeGrabber isRecording]))
+        if (self.aktuellAnzAufnahmen &&!([AVRecorder isRecording]))
         {
            [self resetArchivPlayer:nil];
            [self.ArchivnamenPop setEnabled:NO];
@@ -3820,17 +3842,21 @@ QTMovie* qtMovie;
         {
            umschalten=NO;
         }
-         */
+        
      }
    
 	  
-   if ([[tabViewItem identifier]isEqualToString:@"recorder"])
+   if ([[tabViewItem label]isEqualToString:@"Recorder"])
    {
       
       NSLog(@"TabView:recorder");
       //NSLog(@"vor shouldSelectTabViewItem: UserMarkCheckbox: %d",[UserMarkCheckbox state]);
-      
-      umschalten=0;//!MoviePlayerbusy;
+      umschalten=YES;
+      if (AVAbspielplayer && [AVAbspielplayer isPlaying])
+      {
+         umschalten=0;
+      }
+      //!MoviePlayerbusy;
       //NSLog(@"TabView:archiv: umschalten: %d isPlaying: %f",umschalten,[[RecordQTKitPlayer movie]rate]);
       if (umschalten)
       {
@@ -3906,11 +3932,11 @@ QTMovie* qtMovie;
    NSLog(@"StartStatusNotifikationAktion	mitPasswort: %@",[mitPasswort description]);
    if (self.mitUserPasswort)
    {
-      [self.PWFeld setStringValue:NSLocalizedString(@"With Password",@"Mit Passwort")];
+      [self.PWFeld setStringValue:@"Mit Passwort"];
    }
    else
    {
-      [self.PWFeld setStringValue:NSLocalizedString(@"Without Password",@"Ohne Passwort")];
+      [self.PWFeld setStringValue:@"Ohne Passwort"];
    }
    self.TimeoutDelay=[[[note userInfo]objectForKey:@"timeoutdelay"]intValue];
    self.BewertungZeigen=[[[note userInfo]objectForKey:@"bewertungstatus"]intValue];
@@ -4176,11 +4202,11 @@ QTMovie* qtMovie;
                {
                   NSAlert *Warnung = [[NSAlert alloc] init];
                   [Warnung addButtonWithTitle:@"OK"];
-                  [Warnung setMessageText:NSLocalizedString(@"No Folder 'Magazin'",@"Kein Ordner 'Magazin'")];
+                  [Warnung setMessageText:@"Kein Ordner 'Magazin'"];
                   
-                  NSString* s1=NSLocalizedString(@"The folder 'Magazin' could not be created",@"Der Ordner 'Magazin' konnte nicht angelegt werden.");
+                  NSString* s1=@"Der Ordner 'Magazin' konnte nicht angelegt werden.";
                   
-                  NSString* s2=NSLocalizedString(@"The folder for project '%@' must be removed manually.",@"Ordner für Projekt manuell entfernen");
+                  NSString* s2=@"Ordner für Projekt manuell entfernen";
                   NSString* s3=[NSString stringWithFormat:s2,clearProjekt];
                   NSString* InformationString=[NSString stringWithFormat:@"%@\n%@",s1,s3];
                   [Warnung setInformativeText:InformationString];
@@ -4291,4 +4317,107 @@ QTMovie* qtMovie;
 {
    NSLog(@"windowWillClose: %@",notification);
 }
+
+
+
+- (long)numberOfRowsInTableView:(NSTableView *)aTableView
+{
+   
+   long anzahl=0;
+   /*
+   switch([aTableView tag])
+	  {
+        case NamenViewTag:
+        {
+           anzahl= [NamenArray count];
+        }break;//NamenViewTag
+           
+        case TitelViewTag:
+        {
+           anzahl= [TitelArray count];
+           
+        }break;//TitelViewTag
+           
+           
+     }//switch tag
+   */
+   return anzahl;
+}
+
+- (void)setData: (NSDictionary *)someData forRow: (int)rowIndex
+{
+   /*
+    [aRow addEntriesFromDictionary: dataDic];
+   
+   NSMutableDictionary* dataDic=[NSMutableDictionary dictionaryWithDictionary:someData];
+   NSMutableDictionary *aRow;
+   NSString* view=@"view";
+   switch ([[dataDic objectForKey:view]intValue])
+	  {
+        case NamenViewTag:
+        {
+           aRow = [NamenArray objectAtIndex: rowIndex];
+        }break;//NamenViewTag
+           
+        case TitelViewTag:
+        {
+           if (rowIndex>=[TitelArray count])
+           {
+              //NSLog(@"neue Titelzeile");
+              [TitelArray addObject: [NSMutableDictionary dictionary]];
+           }
+           aRow = [TitelArray objectAtIndex: rowIndex];
+        }break;//TitelViewTag
+           
+           
+     }//switch tag
+   
+   
+   //aRow = [NamenArray objectAtIndex: rowIndex];
+   //NSLog(@"setData rowIndex: %d  someData: %@   aRow: %@",rowIndex,[someData description],[aRow description]);
+   NS_DURING
+   
+   NS_HANDLER
+   if ([[localException name] isEqual: @"NSRangeException"])
+   {
+      return;
+   }
+   else [localException raise];
+   NS_ENDHANDLER
+   
+   [dataDic removeObjectForKey:view];
+  
+   */
+}
+
+- (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(long)rowIndex
+{
+   id dieZeile, derWert;
+   //NSLog(@"objectValueForTableColumn tag: %d",[aTableView tag]);
+   /*
+   switch([aTableView tag])
+	  {
+        case NamenViewTag:
+        {
+           NSParameterAssert(rowIndex >= 0 && rowIndex < [NamenArray count]);
+           dieZeile = [NamenArray objectAtIndex:rowIndex];
+           derWert = [dieZeile objectForKey:[aTableColumn identifier]];
+           
+        }break;//NamenViewTag
+           
+        case TitelViewTag:
+        {
+           NSParameterAssert(rowIndex >= 0 && rowIndex < [TitelArray count]);
+           dieZeile = [TitelArray objectAtIndex:rowIndex];
+           derWert = [dieZeile objectForKey:[aTableColumn identifier]];
+           
+        }break;//TitelViewTag
+           
+           
+     }//switch tag
+   */
+   
+   return derWert;
+}
+
 @end

@@ -42,26 +42,96 @@
    NSError* err;
    AVAbspielplayer = [[AVAudioPlayer alloc] initWithContentsOfURL: url
                                                             error: &err];
-   NSLog(@"prepareAufnahmeAnURL err: %@",err);
+   
    [AVAbspielplayer prepareToPlay];
+   double dur = AVAbspielplayer.duration;
+
+   NSLog(@"prepareAufnahmeAnURL err: %@ dur: %f",err, dur);
 
 }
 
 - (void)playAufnahme
 {
-  //NSLog(@"playAufnahme: %@", AVAbspielplayer.url);
+ 
+   if (haltzeit)
    {
+      NSLog(@"playAufnahme nach halt: %2.2f",haltzeit);
+      AVAbspielplayer.currentTime = haltzeit;
+      [AVAbspielplayer play];
+   }
+   else
+  
+   {
+      NSLog(@"playAufnahme: %@", AVAbspielplayer.url);
       // http://stackoverflow.com/questions/1605846/avaudioplayer-with-external-url-to-m4p
       NSError* err;
       AVAbspielplayer = [[AVAudioPlayer alloc] initWithContentsOfURL: [NSURL fileURLWithPath:  self.hiddenAufnahmePfad]
                                                                error: &err];
       NSLog(@"playAufnahme err: %@",err);
       [AVAbspielplayer prepareToPlay];
-
+      double dur = AVAbspielplayer.duration;
+      haltzeit = 0;
       [AVAbspielplayer play];
+      
+      if ( [posTimer isValid])
+      {
+         [posTimer invalidate];
+      }
+      posTimer=[NSTimer scheduledTimerWithTimeInterval:0.1
+                                                          target:self
+                                                        selector:@selector(posAnzeigeFunktion:)
+                                                        userInfo:NULL
+                                                         repeats:YES];
+
       
    }
 }
+
+- (void)invalTimer
+{
+   if ( [posTimer isValid])
+   {
+      [posTimer invalidate];
+   }
+}
+
+- (void)posAnzeigeFunktion:(NSTimer*)timer
+{
+   NSTimeInterval pos =AVAbspielplayer.currentTime;
+   NSTimeInterval dur =AVAbspielplayer.duration;
+   
+   
+   if (pos)
+   {
+  //    NSLog(@"pos: %f dur: %f",pos,dur);
+      NSNotificationCenter * nc=[NSNotificationCenter defaultCenter];
+      [nc postNotificationName:@"abspielpos" object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                   [NSNumber numberWithDouble:pos] ,@"pos",
+                                                                   [NSNumber numberWithDouble:dur] ,@"dur",nil]];
+
+      
+      if (pos == dur)
+      {
+         [posTimer invalidate];
+      }
+   }
+}
+- (BOOL)isPlaying
+{
+   return [AVAbspielplayer isPlaying];
+}
+
+- (double)duration
+{
+   return AVAbspielplayer.duration;
+}
+
+- (double)position
+{
+   return AVAbspielplayer.currentTime;
+}
+
+
    - (void)openAufnahme
    {
    NSOpenPanel *playPanel = [NSOpenPanel openPanel];
@@ -96,11 +166,23 @@
 
 - (void)stopTempAufnahme
 {
-   [AVAbspielplayer stop];
+   haltzeit = [AVAbspielplayer currentTime];
+   [AVAbspielplayer pause];
 }
-- (void)backTempAufnahme
+
+- (void)toStartTempAufnahme
 {
-   NSLog(@"AVAbspielplayer backAVPlay");
+   NSLog(@"AVAbspielplayer toBeginTempAufnahme");
+   {
+      AVAbspielplayer.currentTime = 0;
+   }
+   [AVAbspielplayer play];
+}
+
+
+- (void)rewindTempAufnahme
+{
+   NSLog(@"AVAbspielplayer rewindTempAufnahme");
    NSTimeInterval playbackDelay = 3.0;              // must be ≥ 0
    NSTimeInterval pos =AVAbspielplayer.currentTime;
    NSLog(@"AVAbspielplayer pos: %f",pos);
@@ -114,4 +196,19 @@
    }
    [AVAbspielplayer play];
 }
+
+- (void)forewardTempAufnahme
+{
+   NSLog(@"AVAbspielplayer forewardTempAufnahme");
+   NSTimeInterval playbackDelay = 3.0;              // must be ≥ 0
+   NSTimeInterval pos =AVAbspielplayer.currentTime;
+    NSTimeInterval end =AVAbspielplayer.duration;
+   NSLog(@"AVAbspielplayer pos: %f",pos);
+   if (pos < end - playbackDelay)
+   {
+      AVAbspielplayer.currentTime = pos + playbackDelay;
+   }
+   [AVAbspielplayer play];
+}
+
 @end

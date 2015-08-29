@@ -208,9 +208,9 @@ Die Dics enthalten den Pfad und eine Anzeige für die Lesebox
 	NSString* HomeVolumeString=@"Auf diesem Computer hier";
 	NSFileManager *Filemanager = [NSFileManager defaultManager];
 
-	NSString* lb=NSLocalizedString(@"Lesebox",@"Lesebox");
+	NSString* lb=@"Lesebox"
    //NSString* lb=@"Lesebox";
-	NSString* cb=NSLocalizedString(@"Anmerkungen",@"Anmerkungen");
+	NSString* cb=@"Anmerkungen";
 	
 	NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
 	NSMutableArray * UserMitLeseboxArray=[NSMutableArray arrayWithCapacity:0];
@@ -1704,7 +1704,7 @@ return versionOK;
 					//NSLog(@"tempNamenordnerPfad: %@ erfolg: %d",tempNamenordnerPfad, erfolg);
 					if (erfolg)
 					{
-						NSString* tempAnmerkungenOrdnerPfad= [tempNamenordnerPfad stringByAppendingPathComponent:NSLocalizedString(@"Anmerkungen",@"Anmerkungen")];
+						NSString* tempAnmerkungenOrdnerPfad= [tempNamenordnerPfad stringByAppendingPathComponent:@"Anmerkungen"];
 						erfolg=[Filemanager createDirectoryAtPath:tempAnmerkungenOrdnerPfad  withIntermediateDirectories:NO attributes:NULL error:NULL];
 						//NSLog(@"tempAnmerkungenOrdnerPfad: %@ erfolg: %d",tempNamenordnerPfad, erfolg);
 					
@@ -2474,7 +2474,7 @@ if (UTimeoutDialogPanel)
 	}
 	NSString* tempAufnahme=[derAufnahmePfad lastPathComponent];	//Name der Aufnahme
 	NSString* tempLeserOrdnerPfad=[derAufnahmePfad stringByDeletingLastPathComponent];	//Leserordnerpfad
-	NSString* KommentarOrdnerString=NSLocalizedString(@"Anmerkungen",@"Anmerkungen");
+	NSString* KommentarOrdnerString=@"Anmerkungen";
 	NSString* tempKommentarOrdnerPfad=[tempLeserOrdnerPfad stringByAppendingPathComponent:KommentarOrdnerString];
 				//Pfad des Anmerkungen-Ordners
 	if (![Filemanager fileExistsAtPath:tempKommentarOrdnerPfad isDirectory:&istDirectory])//noch kein Kommentarordner des Lesers ist da
