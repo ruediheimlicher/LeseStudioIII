@@ -42,7 +42,7 @@ enum
 };
 
 extern NSString*	RPExportdatenKey;
-extern NSString*	RPExportformatKey;
+NSString*	RPExportformatKey;
 
 // current export settings
 //static QTAtomContainer gExportSettings = 0;
@@ -53,8 +53,8 @@ extern NSString*	RPExportformatKey;
 
  - (int)ExportPrefsLesen
  {
- 	RPExportdaten=[[NSUserDefaults standardUserDefaults]objectForKey:RPExportdatenKey];
-	ExportFormatString=[[NSUserDefaults standardUserDefaults]objectForKey:RPExportformatKey];
+ 	RPExportdaten=[[NSUserDefaults standardUserDefaults]objectForKey:@"RPExportdatenKey"];
+	ExportFormatString=[[NSUserDefaults standardUserDefaults]objectForKey:@"RPExportformatKey"];
  return[RPExportdaten length];
  }
  

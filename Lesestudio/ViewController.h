@@ -93,8 +93,8 @@
 @property (weak) IBOutlet NSProgressIndicator   *Fortschritt;
 
 
-@property NSMutableData*               RPDevicedaten;
-@property NSMutableData*						SystemDevicedaten;
+@property NSMutableData*                        RPDevicedaten;
+@property NSMutableData*                        SystemDevicedaten;
 
 @property (weak)IBOutlet NSSlider *					Volumesteller;
 @property (weak)IBOutlet rLevelmeter*				Levelmeter;
@@ -110,7 +110,7 @@
 @property  (weak) IBOutlet NSTextField *				Leserfeld;
 @property  (weak) IBOutlet NSTextField *				Abspieldauerfeld;
 @property  (weak) IBOutlet NSTextField *				Kommentarfeld;
-@property   IBOutlet NSTextView*					KommentarView;
+@property   IBOutlet NSTextView*                   KommentarView;
 @property  (weak) IBOutlet NSProgressIndicator*		Levelbalken;
 @property  (weak) IBOutlet NSPopUpButton *			ArchivnamenPop;
 @property  (weak) IBOutlet NSComboBox *				TitelPop;
@@ -121,14 +121,14 @@
 @property  (weak) IBOutlet NSTextField *				Testfeld;
 @property  (weak) IBOutlet NSButton*					StartRecordKnopf;
 @property  (weak) IBOutlet NSButton*					StopRecordKnopf;
+
+
 @property  (weak) IBOutlet NSButton*					StartPlayKnopf;
 @property  (weak) IBOutlet NSButton*					StopPlayKnopf;
 @property  (weak) IBOutlet NSButton*					StartStopKnopf;
 @property  (weak) IBOutlet NSTextField*				StartStopString;
-
 @property (weak)  IBOutlet NSButton*					BackKnopf;
 @property (weak)  IBOutlet NSButton*					RewindKnopf;
-
 @property (weak)  IBOutlet NSButton*					ForewardKnopf;
 
 @property  (weak) IBOutlet NSButton*					SichernKnopf;
@@ -243,11 +243,11 @@
 @property int                                   ArchivSelektierteZeile;
 
 @property UInt32                                ArchivAbspielzeit;
-@property NSString*							ArchivPlayPfad;
-@property NSString*							ArchivKommentarPfad;
-@property NSTextView*							ArchivKommentarView;
-@property BOOL									ArchivZeilenhit;
-@property int									RPDevicedatenlaenge;
+@property NSString*                             ArchivPlayPfad;
+@property NSString*                             ArchivKommentarPfad;
+@property NSTextView*                           ArchivKommentarView;
+@property BOOL                                  ArchivZeilenhit;
+@property int                                   RPDevicedatenlaenge;
 @property int									Wert1, Wert2, Wert3;
 @property int									aktuellAnzAufnahmen;
 

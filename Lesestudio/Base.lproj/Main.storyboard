@@ -858,6 +858,9 @@
                                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                             <font key="font" metaFont="system"/>
                                                                         </buttonCell>
+                                                                        <connections>
+                                                                            <action selector="ArchivZurListe:" target="XfG-lQ-9wD" id="oDK-Nv-dSd"/>
+                                                                        </connections>
                                                                     </button>
                                                                     <button verticalHuggingPriority="750" id="MuP-Ub-Rqe">
                                                                         <rect key="frame" x="5" y="5" width="246" height="32"/>
@@ -893,25 +896,14 @@
                                                                         </textFieldCell>
                                                                     </textField>
                                                                     <button verticalHuggingPriority="750" id="CBY-9I-BPq">
-                                                                        <rect key="frame" x="13" y="26" width="36" height="34"/>
+                                                                        <rect key="frame" x="12" y="18" width="32" height="32"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
-                                                                        <buttonCell key="cell" type="squareTextured" title="&gt;" bezelStyle="texturedSquare" alignment="center" enabled="NO" borderStyle="border" inset="2" id="zvO-hI-HIz">
+                                                                        <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="playicon_w" imagePosition="only" alignment="center" enabled="NO" imageScaling="proportionallyDown" inset="2" id="zvO-hI-HIz">
                                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                             <font key="font" metaFont="system"/>
                                                                         </buttonCell>
                                                                         <connections>
                                                                             <action selector="startArchivPlayer:" target="XfG-lQ-9wD" id="Gen-du-O9u"/>
-                                                                        </connections>
-                                                                    </button>
-                                                                    <button verticalHuggingPriority="750" id="hzb-yz-XQn">
-                                                                        <rect key="frame" x="172" y="26" width="32" height="34"/>
-                                                                        <autoresizingMask key="autoresizingMask"/>
-                                                                        <buttonCell key="cell" type="squareTextured" title="|&lt;" bezelStyle="texturedSquare" alignment="center" enabled="NO" borderStyle="border" inset="2" id="1LD-JH-hrW">
-                                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                                            <font key="font" metaFont="system"/>
-                                                                        </buttonCell>
-                                                                        <connections>
-                                                                            <action selector="backArchivPlayer:" target="XfG-lQ-9wD" id="Jkv-0v-eeB"/>
                                                                         </connections>
                                                                     </button>
                                                                     <customView id="o96-vH-NWh" customClass="rAbspielanzeige">
@@ -928,9 +920,9 @@
                                                                         </textFieldCell>
                                                                     </textField>
                                                                     <button verticalHuggingPriority="750" id="flA-uh-W6o">
-                                                                        <rect key="frame" x="97" y="26" width="32" height="34"/>
+                                                                        <rect key="frame" x="97" y="18" width="32" height="32"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
-                                                                        <buttonCell key="cell" type="squareTextured" title="||" bezelStyle="texturedSquare" alignment="center" enabled="NO" borderStyle="border" inset="2" id="n7G-H7-V8m">
+                                                                        <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="halticon_w" imagePosition="only" alignment="center" enabled="NO" imageScaling="proportionallyDown" inset="2" id="n7G-H7-V8m">
                                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                             <font key="font" metaFont="system"/>
                                                                         </buttonCell>
@@ -939,9 +931,9 @@
                                                                         </connections>
                                                                     </button>
                                                                     <button verticalHuggingPriority="750" id="3EL-J0-GZA">
-                                                                        <rect key="frame" x="133" y="25" width="32" height="34"/>
+                                                                        <rect key="frame" x="132" y="18" width="32" height="32"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
-                                                                        <buttonCell key="cell" type="squareTextured" title="&gt;&gt;" bezelStyle="texturedSquare" alignment="center" borderStyle="border" inset="2" id="bBy-hr-B1F">
+                                                                        <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="foreward_w" imagePosition="only" alignment="center" enabled="NO" imageScaling="proportionallyDown" inset="2" id="bBy-hr-B1F">
                                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                             <font key="font" metaFont="system"/>
                                                                         </buttonCell>
@@ -950,14 +942,25 @@
                                                                         </connections>
                                                                     </button>
                                                                     <button verticalHuggingPriority="750" id="TVt-ke-Byz">
-                                                                        <rect key="frame" x="62" y="26" width="32" height="34"/>
+                                                                        <rect key="frame" x="62" y="18" width="32" height="32"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
-                                                                        <buttonCell key="cell" type="squareTextured" title="||" bezelStyle="texturedSquare" alignment="center" borderStyle="border" inset="2" id="L7P-Dc-ZmZ">
+                                                                        <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="rewind_w" imagePosition="only" alignment="center" enabled="NO" imageScaling="proportionallyDown" inset="2" id="L7P-Dc-ZmZ">
                                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                             <font key="font" metaFont="system"/>
                                                                         </buttonCell>
                                                                         <connections>
                                                                             <action selector="rewindAVPlay:" target="XfG-lQ-9wD" id="iCh-ph-FlE"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <button verticalHuggingPriority="750" id="hzb-yz-XQn">
+                                                                        <rect key="frame" x="178" y="18" width="32" height="32"/>
+                                                                        <autoresizingMask key="autoresizingMask"/>
+                                                                        <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="gostarticon" imagePosition="only" alignment="center" enabled="NO" imageScaling="proportionallyDown" inset="2" id="1LD-JH-hrW">
+                                                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                                            <font key="font" metaFont="system"/>
+                                                                        </buttonCell>
+                                                                        <connections>
+                                                                            <action selector="backArchivPlayer:" target="XfG-lQ-9wD" id="Jkv-0v-eeB"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
@@ -1131,8 +1134,8 @@
                                                     <rect key="frame" x="390" y="41" width="176" height="42"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Recorder" id="2m6-6q-An6">
-                                                        <font key="font" metaFont="system"/>
-                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <font key="font" size="24" name=".HelveticaNeueDeskInterface-Regular"/>
+                                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
@@ -1140,15 +1143,15 @@
                                                     <rect key="frame" x="14" y="41" width="267" height="42"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="left" title="Lesestudio" id="E6N-wg-CP8">
-                                                        <font key="font" metaFont="system"/>
-                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <font key="font" metaFont="system" size="24"/>
+                                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                 </textField>
                                                 <textField verticalHuggingPriority="750" id="7iK-dm-zF8">
                                                     <rect key="frame" x="296" y="51" width="63" height="22"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" drawsBackground="YES" id="aDF-ZK-OJP">
+                                                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="aDF-ZK-OJP">
                                                         <font key="font" metaFont="system"/>
                                                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1273,6 +1276,7 @@
         <image name="halticon_w" width="101" height="102"/>
         <image name="mikrofonicon_w" width="938" height="938"/>
         <image name="playicon" width="101" height="102"/>
+        <image name="playicon_w" width="101" height="102"/>
         <image name="rewind_w" width="101" height="102"/>
     </resources>
     <inferredMetricsTieBreakers>

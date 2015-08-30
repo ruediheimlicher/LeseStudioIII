@@ -259,7 +259,7 @@ enum
 							schleifenindex--;
 						  }//while nochZeilenMitNull
 						[CleanFenster TitelListeLeeren];
-						[CleanFenster deselectself.NamenListe];
+						[CleanFenster deselectNamenListe];
 					  }//if (NamenWeg>0)
 					else
 					  {
@@ -404,7 +404,7 @@ enum
 				else
 				  {
 					NSLog(@"CleanTitelDicArray null: %@",[CleanTitelDicArray description]);
-					[CleanFenster deselectself.NamenListe];
+					[CleanFenster deselectNamenListe];
 									  }
 				//[CleanFenster deselectself.NamenListe];
 

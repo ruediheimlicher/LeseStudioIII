@@ -16,6 +16,9 @@
 #import "rKommentar.h"
 #import "rMarkierung.h"
 #import "rNamenListe.h"
+#import "rAVPlayer.h"
+
+#import "rAbspielanzeige.h"
 //#import "rUtils.h"
 //#import <fcntl.h>
 //#import <pthread.h>
@@ -29,6 +32,7 @@
 // menu item tags
 #define USE_POSIX_THREAD    2000
 #define USE_MAIN_THREAD     2001
+
 
 @class rProgressDialog;
 
@@ -45,6 +49,9 @@
 	rKommentar*                KommentarFenster;
 	rClean*                    CleanFenster;
 	rMarkierung*               MarkierungFenster;
+//   IBOutlet rAbspielanzeige*			Abspielanzeige;
+//      rAVPlayer*  AVAbspielplayer;
+
 //	IBOutlet NSMovieView*			AdminQTPlayer;
 //	IBOutlet QTMovieView*			AdminQTKitPlayer;
 	IBOutlet NSButton*			PlayTaste;
@@ -58,6 +65,7 @@
 	IBOutlet NSTextField*		AdminTitelfeld;
 	IBOutlet NSTextField*		AdminDatumfeld;
 	IBOutlet NSTextField*		AdminNamenfeld;
+   IBOutlet NSTextField*		AdminNummerfeld;
 	IBOutlet NSPopUpButton*		AdminBewertungfeld;
 	IBOutlet NSTextField*		AdminNotenfeld;
 	IBOutlet NSTextField*		AdminProjektFeld;
@@ -73,6 +81,10 @@
 	BOOL                       AufnahmeDa;
 	int                        selektierteAufnahmenTableZeile;
 	
+      rAVPlayer*						   AVAbspielplayer;
+      IBOutlet rAbspielanzeige*			Abspielanzeige;
+      
+
 //	Movie							AdminPlayerMovie;
 	UInt32						AdminAbspielzeit;
 	NSString*					AdminLeseboxPfad;
@@ -127,20 +139,18 @@
 	long                    UserExportParID;
    NSMutableArray*			ProjektArray;
 	
-
-	//rProgressDialog * progressDialog;
-	
-    //UInt32      _threadModelTag;        // the threading model for this document
-    //ThreadData  *_currThreadData;       // the thread data for the current export operation
-    //BOOL        _onlySafeComponents;	// do we require only thread-safe components?
-    //BOOL		_selectedMovie;         // has the user selected a movie for this document?
-    //BOOL		_ignoreUnsafeTypes;     // do we ignore unsafe media types during export?
-    
-    //WorkerThreadRef	_worker;            // a worker thread handler
-	
+// Player
+      
 	
 	}
 
+@property  (weak) IBOutlet NSButton*					StartPlayKnopf;
+@property  (weak) IBOutlet NSButton*					StopPlayKnopf;
+@property  (weak) IBOutlet NSButton*					StartStopKnopf;
+@property  (weak) IBOutlet NSTextField*				StartStopString;
+@property (weak)  IBOutlet NSButton*					BackKnopf;
+@property (weak)  IBOutlet NSButton*					RewindKnopf;
+@property (weak)  IBOutlet NSButton*					ForewardKnopf;
 
 - (void)setLeseboxPfad:(NSString*)derPfad inProjekt: (NSString*)dasProjekt;
 - (NSString*)AdminLeseboxPfad;
@@ -169,6 +179,7 @@
 - (int)selektierteZeile;
 
 - (void)backZurListe:(id)sender;
+- (void)Aufnahmezuruecklegen;
 
 - (void)setBackTaste:(BOOL)istDefault;
 - (IBAction) AufnahmeLoeschen:(id)sender;
@@ -220,6 +231,16 @@
 - (IBAction)AufnahmeExportieren:(id)sender;
 - (IBAction)reportAuswahlOption:(id)sender;
 - (IBAction)reportDelete:(id)sender;
+
+
+// Player
+- (IBAction)startAVPlay:(id)sender;
+- (IBAction)stopAVPlay:(id)sender;
+- (IBAction)backAVPlay:(id)sender;
+- (IBAction)saveRecord:(id)sender;
+- (IBAction)rewindAVPlay:(id)sender;
+- (IBAction)forewardAVPlay:(id)sender;
+
 @end
 
 

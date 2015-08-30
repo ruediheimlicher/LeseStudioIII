@@ -437,11 +437,11 @@ extern  NSMenu*                      ProjektMenu;
    [self.Leserfeld setTextColor: LesernamenFarbe];
    
    NSRect f = Abspielanzeige.frame;
-   NSLog(@"didLoad x: %f y: %f w:%f h:%f",f.origin.x,f.origin.y,f.size.width,f.size.height);
+   //NSLog(@"didLoad x: %f y: %f w:%f h:%f",f.origin.x,f.origin.y,f.size.width,f.size.height);
 
    
    NSRect v = Vertikalanzeige.frame;
-   NSLog(@"didLoad v.width: %f",v.size.width);
+   //NSLog(@"didLoad v.width: %f",v.size.width);
    NSRect abspielanzeigerect = NSMakeRect(320,278,210,20);
 
    Abspielanzeige = [[rAbspielanzeige alloc]initWithFrame:abspielanzeigerect];
@@ -449,7 +449,7 @@ extern  NSMenu*                      ProjektMenu;
    [[[self.RecPlayTab tabViewItemAtIndex:0] view]addSubview:Abspielanzeige];
    
    NSArray* viewArray0 = [[[self.RecPlayTab tabViewItemAtIndex:0]view]subviews];
-   NSLog(@"viewArray0: %@",[viewArray0 description]);
+   //NSLog(@"viewArray0: %@",[viewArray0 description]);
    [Abspielanzeige setMax:abspielanzeigerect.size.width];
    [self.Fortschritt startAnimation:nil];
    [self.RecPlayFenster setIsVisible:YES];
@@ -3463,6 +3463,8 @@ QTMovie* qtMovie;
         //self.ArchivKommentarPfad=[self.ArchivKommentarPfad stringByAppendingPathComponent:@"Anmerkungen"];
         self.ArchivKommentarPfad=[self.ArchivKommentarPfad stringByAppendingPathComponent:@"Anmerkungen"];
         self.ArchivKommentarPfad=[self.ArchivKommentarPfad stringByAppendingPathComponent:[dieAufnahme copy]];
+        NSLog(@"setArchivPfadFuerAufnahme ArchivKommentarPfad: %@",self.ArchivKommentarPfad);
+
         if ([Filemanager fileExistsAtPath:self.ArchivKommentarPfad])
         {
            [self setArchivKommentarFuerAufnahmePfad:self.ArchivKommentarPfad];

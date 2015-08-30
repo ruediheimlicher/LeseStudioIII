@@ -48,6 +48,17 @@ AdminMarkReturn,
 KommentarReturn
 };
 
+typedef NS_ENUM(NSInteger, A)
+{
+   Datum = 2,
+   Bewertung,
+   Noten,
+   UserMark,
+   AdminMark,
+   Kommentar
+};
+
+
 
 extern NSString* alle;
 
@@ -2674,6 +2685,7 @@ return tempTitelDicArray;
 	  }
 	return tempString;
 }//AufnahmeTitelVon
+
 
 - (NSString*)KommentarVon:(NSString*) derKommentarString
 {

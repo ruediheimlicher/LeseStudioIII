@@ -27,14 +27,6 @@ extern NSString* auswahl;//;//=@"auswahl";
 extern NSString* leser;//=@"leser";
 extern NSString* anzleser;//=@"anzleser";
 
-NSString* AIFF;//=@"AIFF";
-NSString* AIFC;//=@"AIFC";
-NSString* WAVE;//=@"WAVE";
-NSString* AVI;//=@"AVI";
-NSString* uLAW;//=@"uLAW";
-NSString* MP3;//=@"mp3";
-NSString* MOV;//=@"mp3";
-NSString* AudioCDTrack;//=@"AudioCDTrack";
 //extern NSString* Optionen;//=@"Optionen...";
 
 
@@ -119,7 +111,7 @@ NSString* AudioCDTrack;//=@"AudioCDTrack";
 	//NSLog(@"awake fertig");
 	
 	//NSArray* FormatArray =[NSArray arrayWithObjects: AIFF,WAVE,MOV,MP3,nil];
-	NSArray* FormatArray =[NSArray arrayWithObjects: AIFF,WAVE,nil];
+	NSArray* FormatArray =[NSArray arrayWithObjects: @"AIFF",@"WAVE",nil];
 	[ExportFormatPop removeAllItems];
 	[ExportFormatPop addItemsWithTitles:FormatArray];
 	NSString* item0=[[TaskTabSeite tabViewItemAtIndex:0]identifier];
@@ -668,6 +660,7 @@ if (dasItem<2)
 		index++;
 	  }//while eineZeile
 	[NamenView reloadData];
+   //[NamenListe deselectAll:NULL];
 }
 
 - (void)setTitelArray:(NSArray*)derTitelArray

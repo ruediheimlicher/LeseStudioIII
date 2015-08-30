@@ -16,6 +16,7 @@
 #import "rMarkierung.h"
 #import "rAdminDS.h"
 
+#import "rAbspielanzeige.h"
 
 
 
@@ -24,7 +25,8 @@
    NSView						*previewView;
   
    NSLevelIndicator			*LevelMeter;
-
+   IBOutlet rAbspielanzeige*			Abspielanzeige;
+  //rAVPlayer*  AVAbspielplayer;
 }
 
    @property  (weak)  IBOutlet NSWindow*			AdminFenster;
@@ -115,7 +117,16 @@
    @property  FSSpec                            UserExportSpec;
    @property  long                              UserExportParID;
    //NSMutableArray*				ProjektArray;
-   
+
+
+@property  (weak) IBOutlet NSButton*					StartPlayKnopf;
+@property  (weak) IBOutlet NSButton*					StopPlayKnopf;
+@property  (weak) IBOutlet NSButton*					StartStopKnopf;
+@property  (weak) IBOutlet NSTextField*				StartStopString;
+@property (weak)  IBOutlet NSButton*					BackKnopf;
+@property (weak)  IBOutlet NSButton*					RewindKnopf;
+@property (weak)  IBOutlet NSButton*					ForewardKnopf;
+
    
    //rProgressDialog * progressDialog;
    

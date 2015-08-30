@@ -177,8 +177,6 @@
 {
    NSLog(@"stopAVRecord");
 
-     NSImage* StartRecordImg=[NSImage imageNamed:@"recordicon_n.gif"];
-   //self.StartStopKnopf.image=StartRecordImg;
   [AVRecorder setRecording:NO mitLeserPfad:self.LeserPfad];
 
    /*
@@ -362,6 +360,8 @@
                
                [self.StartPlayKnopf setEnabled:YES];
                [self.SichernKnopf setEnabled:YES];
+               //[self.ForewardKnopf setEnabled:YES];
+               //[self.RewindKnopf setEnabled:YES];
                [self.WeitereAufnahmeKnopf setEnabled:YES];
                if ([[note userInfo ] objectForKey:@"desturl"] && [[[[note userInfo ] objectForKey:@"desturl"]path]length])
                {
@@ -491,6 +491,12 @@
    {
       NSNumber* durNumber=[[note userInfo]objectForKey:@"dur"];
       dur=[durNumber doubleValue];
+   }
+   //NSLog(@"dur: %2.2f pos: %2.2f",dur,pos);
+   if (dur - pos < 0.1)
+   {
+      NSLog(@"Ende erreicht");
+      [self.SichernKnopf setEnabled:YES];
    }
    NSNumber* durationNumber=[[note userInfo]objectForKey:@"duration"];
    
@@ -886,6 +892,8 @@
          [self.StartRecordKnopf setEnabled:YES];
          [self.StartPlayKnopf setEnabled:NO];
          [self.StopPlayKnopf setEnabled:NO];
+         [self.ForewardKnopf setEnabled:NO];
+         [self.RewindKnopf setEnabled:NO];
          [self.BackKnopf setEnabled:NO];
          [self.SichernKnopf setEnabled:NO];
          [self.WeitereAufnahmeKnopf setEnabled:NO];

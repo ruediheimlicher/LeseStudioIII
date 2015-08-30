@@ -208,7 +208,7 @@ Die Dics enthalten den Pfad und eine Anzeige für die Lesebox
 	NSString* HomeVolumeString=@"Auf diesem Computer hier";
 	NSFileManager *Filemanager = [NSFileManager defaultManager];
 
-	NSString* lb=@"Lesebox"
+	NSString* lb=@"Lesebox";
    //NSString* lb=@"Lesebox";
 	NSString* cb=@"Anmerkungen";
 	

@@ -22,11 +22,14 @@
 
 
 - (void)playAufnahme;
+- (void)playAdminAufnahme;
 - (void)stopTempAufnahme;
 - (void)rewindTempAufnahme;
 - (void)toStartTempAufnahme;
 
 - (void)prepareAufnahmeAnURL:(NSURL*)url;
+- (void)prepareAdminAufnahmeAnURL:(NSURL*)url;
+- (NSURL*)AufnahmeURL;
 - (BOOL)isPlaying;
 - (void)invalTimer;
 - (double)duration;

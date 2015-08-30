@@ -331,7 +331,7 @@ NSString*	RPExportdatenKey=	@"RPExportdaten";
         
         tempLeseboxPfad=[[AdminLeseboxDialog URL]path ]; //"home"
         tempLeseboxPfad=[tempLeseboxPfad stringByAppendingPathComponent:@"Documents"];
-        NSString* lb=@"Lesebox"
+        NSString* lb=@"Lesebox";
         tempLeseboxPfad=[tempLeseboxPfad stringByAppendingPathComponent:lb];
         
         if ([Filemanager fileExistsAtPath:tempLeseboxPfad ])
@@ -958,6 +958,8 @@ NSString*	RPExportdatenKey=	@"RPExportdaten";
       self.AdminAktuelleAufnahme=[[[self.AdminDaten AufnahmeFilesFuerZeile:hitZeile]objectAtIndex:hit]description];
       
       //NSLog(@"setLeserFuerZeile Leser: %@  zeile: %d  hit: %d   File:  %@",Leser, hitZeile, hit, Ziel);
+     
+      return;
       BOOL OK;
       OK=[self setPfadFuerLeser: Leser FuerAufnahme:Ziel];
       //Pfad für Aufnahme: AdminPlayPfad
@@ -979,7 +981,7 @@ NSString*	RPExportdatenKey=	@"RPExportdaten";
          
       }
       
-      [self.PlayTaste setEnabled:YES];
+     // [self.PlayTaste setEnabled:YES];
       //		[MarkCheckbox setEnabled:YES];
    }
    else
@@ -999,7 +1001,7 @@ NSString*	RPExportdatenKey=	@"RPExportdaten";
 
 - (BOOL)setPfadFuerLeser:(NSString*) derLeser FuerAufnahme:(NSString*)dieAufnahme
 {
-   //NSLog(@"setPfadFuerLeser:%@ dieAufnahme: %@",derLeser, dieAufnahme);
+   NSLog(@"setPfadFuerLeser:%@ dieAufnahme: %@",derLeser, dieAufnahme);
    NSFileManager *Filemanager=[NSFileManager defaultManager];
    NSString* Leser=[derLeser copy];
    
@@ -1739,6 +1741,9 @@ NSString*	RPExportdatenKey=	@"RPExportdaten";
    [self.MarkCheckbox setState:NO];
    [self.MarkCheckbox setEnabled:NO];
 }
+
+#pragma marl Player
+
 
 - (void)setMark:(BOOL)derStatus
 {
@@ -2815,10 +2820,9 @@ NSString*	RPExportdatenKey=	@"RPExportdaten";
 }
 
 - (void) AdminZeilenNotifikationAktion:(NSNotification*)note
-
 {
    BOOL erfolg;
-   //NSLog(@"AdminZeilenNotifikationAktion: note: %@",[[note object]description]);
+   NSLog(@"AdminZeilenNotifikationAktion: note: %@",[[note object]description]);
    NSDictionary* QuellenDic=[note object];
    
    [self.MarkCheckbox setEnabled:NO];
@@ -2832,7 +2836,7 @@ NSString*	RPExportdatenKey=	@"RPExportdaten";
         
         int lastZeilenNr=[[QuellenDic objectForKey:@"AdminLastZeilenNummer"] intValue];
         int nextZeilenNr=[[QuellenDic objectForKey:@"AdminNextZeilenNummer"] intValue];
-        //NSLog(@"lastZeilenNr: %d, lastZeilenNr: %d",lastZeilenNr,nextZeilenNummer);
+        NSLog(@"AdminZeilenNotifikationAktion lastZeilenNr: %d, lastZeilenNr: %d",lastZeilenNr,nextZeilenNr);
         //NSLog(@"keyDown AdminZeilenNotifikationAktion lastZeilenNr: %d",lastZeilenNr);
         
         if ((self.selektierteZeile>=0)&&(self.selektierteZeile != nextZeilenNr))//selektierte zeile ist nicht -1 wie beim ersten Klick
@@ -2862,6 +2866,7 @@ NSString*	RPExportdatenKey=	@"RPExportdaten";
         if ((nextZeilenNr>=0)&&AnzahlAufnahmenFuerZeile)
         {
            [self.PlayTaste setEnabled:YES];
+           [self.zurListeTaste setEnabled:NO];
            //erfolg=[AdminFenster makeFirstResponder:self.PlayTaste];
            [self.PlayTaste setKeyEquivalent:@"\r"];
            //[MarkCheckbox setEnabled:YES];
@@ -6088,7 +6093,7 @@ NSString*	RPExportdatenKey=	@"RPExportdaten";
 {
    
    NSArray* tempMarkArray=[derKommentarString componentsSeparatedByString:@"\r"];
-   //NSLog(@"tempMarkVon: anz Components: %d",[tempMarkArray count]);
+   NSLog(@"tempMarkVon: anz Components: %d",[tempMarkArray count]);
    if ([tempMarkArray count]==6)//noch keine Zeile für Mark
    {
       
@@ -8208,7 +8213,7 @@ objectValueForTableColumn:(NSTableColumn *)aTableColumn
        {
        [[NSUserDefaults standardUserDefaults]setObject:RPExportdaten forKey:@"RPExportdatenKey"];
        }
-       [[NSUserDefaults standardUserDefaults]setObject:ExportFormatString forKey:RPExportformatKey];
+       [[NSUserDefaults standardUserDefaults]setObject:ExportFormatString forKey:@"RPExportformatKey"];
        
        [[NSUserDefaults standardUserDefaults]synchronize];
        if (derExporter)

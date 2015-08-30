@@ -125,7 +125,7 @@
       AVCaptureDevice *videoDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
       if (videoDevice)
       {
-         NSLog(@"videoDevice yes");
+         //NSLog(@"videoDevice yes");
          [self setSelectedVideoDevice:videoDevice];
          [self setSelectedAudioDevice:[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio]];
       }
@@ -134,7 +134,7 @@
          NSLog(@"videoDevice no");
          [self setSelectedVideoDevice:[AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeMuxed]];
       }
-      NSLog(@"transportControlsSupported: %d",[[self selectedAudioDevice] transportControlsSupported]);
+      //NSLog(@"transportControlsSupported: %d",[[self selectedAudioDevice] transportControlsSupported]);
       // Initial refresh of device list
       [self refreshDevices];
       

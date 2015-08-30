@@ -85,7 +85,7 @@
       Max=dasMax;
    }
    
-   NSLog(@"Abspielanzeige max: %f dasMax: %f",Max, dasMax);
+   //NSLog(@"Abspielanzeige max: %f dasMax: %f",Max, dasMax);
 }
 
 @end

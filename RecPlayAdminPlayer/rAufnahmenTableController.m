@@ -135,7 +135,7 @@ NSLog(@"tempName: %@",tempName);
 		
 	}//while
 	AufnahmeDa=[tempAufnahmenDicArray count];
-	[self.PlayTaste setEnabled:AufnahmeDa];
+	[self->PlayTaste setEnabled:AufnahmeDa];
 	[DeleteTaste setEnabled:AufnahmeDa];
 	if ([tempAufnahmenDicArray count])//es hat Aufnahmen
 	{
@@ -273,7 +273,7 @@ NSLog(@"setObjectValueForTableColumn");
 	AdminAktuelleAufnahme=[[AufnahmenDicArray objectAtIndex:row]objectForKey:@"aufnahme"];//neu selektierte Aufnahme
 	
 	//[self clearKommentarfelder];
-	[self.PlayTaste setEnabled:YES];
+	[self->PlayTaste setEnabled:YES];
 	[zurListeTaste setEnabled:NO];
 	
 	
@@ -377,28 +377,28 @@ NSLog(@"setObjectValueForTableColumn");
 			NSString* Lesername=[LesernamenPop titleOfSelectedItem];
 			int LesernamenIndex=[AdminDaten ZeileVonLeser:Lesername];
 			//NSLog(@"Alle Namen: Lesername: %@, LesernamenIndex: %d",Lesername,LesernamenIndex);
-			[self.NamenListe selectRowIndexes:[NSIndexSet indexSetWithIndex:LesernamenIndex]byExtendingSelection:NO];
+			[self->NamenListe selectRowIndexes:[NSIndexSet indexSetWithIndex:LesernamenIndex]byExtendingSelection:NO];
 			[self setLeserFuerZeile:LesernamenIndex];
-			if ([self.NamenListe numberOfSelectedRows])
+			if ([NamenListe numberOfSelectedRows])
 			{
-			[self.PlayTaste setEnabled:YES];
+			[PlayTaste setEnabled:YES];
 			}
 		}
 		else
 		{
-		[self.NamenListe deselectAll:NULL];
-		[self.PlayTaste setEnabled:NO];
+		[NamenListe deselectAll:NULL];
+		[PlayTaste setEnabled:NO];
 		}
 	}
 	
 	if ([[tabViewItem identifier]intValue]==2)//zu 'Nach Namen'
 	{
 		//NSLog(@"Tab zu 'nach Namen'");
-		if ([self.NamenListe numberOfSelectedRows])//es ist eine zeile in der self.NamenListe selektiert
+		if ([NamenListe numberOfSelectedRows])//es ist eine zeile in der self.NamenListe selektiert
 		{
 			
 			int  Zeile;
-			Zeile=[self.NamenListe selectedRow];//selektierte Zeile in der self.NamenListe
+			Zeile=[NamenListe selectedRow];//selektierte Zeile in der self.NamenListe
 			//NSLog(@"nach Namen: Zeile: %d AdminAktuelleAufnahme: %@",Zeile,AdminAktuelleAufnahme);
 			
 			
@@ -416,7 +416,7 @@ NSLog(@"setObjectValueForTableColumn");
 			nc=[NSNotificationCenter defaultCenter];
 			[nc postNotificationName:@"AdminChangeTab" object:AdminZeilenDic];
 			
-			[self.PlayTaste setEnabled:AufnahmeDa];
+			[PlayTaste setEnabled:AufnahmeDa];
 			
 			
 			[LesernamenPop selectItemWithTitle:Lesername];
@@ -434,7 +434,7 @@ NSLog(@"setObjectValueForTableColumn");
 		else
 		{
 			[LesernamenPop selectItemAtIndex:0];
-			[self.PlayTaste setEnabled:NO];
+			[PlayTaste setEnabled:NO];
 			[self clearKommentarfelder];
 			return 0; // nicht umschalten
 		}

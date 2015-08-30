@@ -313,7 +313,7 @@ return index;
 
 - (BOOL)tableView:(NSTableView *)aTableView shouldEditTableColumn:(NSTableColumn *)aTableColumn row:(long)rowIndex
 {
-	//NSLog(@"shouldEditTableColumn");
+	NSLog(@"shouldEditTableColumn");
     return [self isEditable];
 }
 
@@ -463,7 +463,8 @@ return index;
 	//NSLog(@"**AdminDS tableView  shouldSelectRow: %d  [tableView clickedRow]:%d" ,row,[tableView clickedRow]);
 	
 	long selektierteZeile=[tableView selectedRow];//vorher selektierte Zeile
-	
+   NSLog(@"**AdminDS tableView  shouldSelectRow: %ld  [tableView clickedRow]:%d selectedRow: %d" ,row,[tableView clickedRow],[tableView selectedRow]);
+
 	NSString* tempLastLesernamen=[NSString string];//leer wenn zeilennummer=-1 beim ersten Klick
 	
 	NSMutableDictionary* AdminZeilenDic=[[NSMutableDictionary alloc]initWithCapacity:0];
@@ -474,7 +475,7 @@ return index;
 	[AdminZeilenDic setObject:[NSNumber numberWithLong:row] forKey:@"AdminNextZeilenNummer"];
 	[AdminZeilenDic setObject:[[rowData objectAtIndex:row]objectForKey:@"namen"] forKey:@"nextLeser"];
 
-	if (selektierteZeile>=0)//schon eine Zeile selektiert
+	if (selektierteZeile>=0)//schon eine Zeile selektiert, sonst -1
 	{
 		//NSLog(@"rowData last Zeile: %d  Daten: %@",selektierteZeile, [[rowData objectAtIndex:selektierteZeile]description]);
 		tempLastLesernamen= [[rowData objectAtIndex:selektierteZeile]objectForKey:@"namen"];

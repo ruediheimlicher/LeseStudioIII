@@ -359,7 +359,7 @@
       
       [self setArchivNamenPop];
       
-      NSLog(@"Lb vorbereiten tempProjektNamenArray: %@",[tempProjektNamenArray description]);
+      //NSLog(@"Lb vorbereiten tempProjektNamenArray: %@",[tempProjektNamenArray description]);
       
       [self.Zeitfeld setSelectable:NO];
       [[[self view] window] makeFirstResponder:[[self view] window]];
