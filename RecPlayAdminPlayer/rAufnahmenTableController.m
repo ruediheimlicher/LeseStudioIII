@@ -224,12 +224,12 @@ NSLog(@"tempName: %@",tempName);
    forTableColumn:(NSTableColumn *)aTableColumn 
 			  row:(int)rowIndex
 {
-NSLog(@"setObjectValueForTableColumn");
+   //NSLog(@"setObjectValueForTableColumn");
 
     NSMutableDictionary* einAufnahmenDic;
     if (rowIndex<[AufnahmenDicArray count])
 	{
-		NSLog(@"setObjectValueForTableColumn: anObject: %@ column: %@",[anObject description],[aTableColumn identifier]);
+		//NSLog(@"setObjectValueForTableColumn: anObject: %@ column: %@",[anObject description],[aTableColumn identifier]);
 		einAufnahmenDic=[AufnahmenDicArray objectAtIndex:rowIndex];
 		NSLog(@"einAufnahmenDic vor: %@",[einAufnahmenDic description]);
 		[einAufnahmenDic setObject:anObject forKey:[aTableColumn identifier]];

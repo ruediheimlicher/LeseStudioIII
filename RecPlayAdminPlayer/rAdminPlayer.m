@@ -441,10 +441,11 @@ OptionBString=[[NSString alloc]init];
 	[AufnahmenPop setAction:PopSelektor];
 	//[AufnahmenPop insertItemWithTitle:@"Neuste Aufnahme" atIndex:0];
 	[AufnahmenPop setPullsDown:NO];
+   
 	//[AufnahmenPop selectItemAtIndex:0];
 	//[self.NamenListe setEditable:YES];
 	[[NamenListe tableColumnWithIdentifier: @"aufnahmen"]setEditable:NO];
-	
+	//[[NamenListe tableColumnWithIdentifier: @"aufnahmen"] setDelegate:self];
 	[[NamenListe tableColumnWithIdentifier: @"aufnahmen"] setDataCell: (NSCell*)AufnahmenPop];
 	[NamenListe setRowHeight: PopButtonSize.height];
 	[[NamenListe tableColumnWithIdentifier: @"namen"]setEditable:NO];
@@ -1081,12 +1082,13 @@ OptionBString=[[NSString alloc]init];
    int Aufnahmenummer = [self AufnahmeNummerVon:Ziel];
    [AdminNummerfeld setIntValue:Aufnahmenummer];
 	[AdminTitelfeld setStringValue:[self AufnahmeTitelVon:Ziel]];
-	NSLog(@"setKommentarFuerLeser:%@		FuerAufnahme:%@",derLeser, dieAufnahme);
+	//NSLog(@"setKommentarFuerLeser:%@		FuerAufnahme:%@",derLeser, dieAufnahme);
 	BOOL istDirectory;
 	NSString* tempKommentarPfad=[NSString stringWithString:AdminProjektPfad];
 	NSString* KommentarOrdnerString=@"Anmerkungen";
 	NSString* KommentarString;
 	tempKommentarPfad=[tempKommentarPfad stringByAppendingPathComponent:Leser];
+   
 	[AdminKommentarView setString:@""];
 
 	[AdminKommentarView setEditable:YES];
@@ -1104,12 +1106,13 @@ OptionBString=[[NSString alloc]init];
 					if (istDirectory)
 					{
 						tempKommentarPfad=[tempKommentarPfad stringByAppendingPathComponent:Ziel];
+                  tempKommentarPfad = [tempKommentarPfad stringByAppendingPathExtension:@"txt"];
 						if ([Filemanager fileExistsAtPath:tempKommentarPfad])//Kommentar vorhanden
 						  {
 							  KommentarString=[NSString stringWithContentsOfFile:tempKommentarPfad encoding:NSMacOSRomanStringEncoding error:NULL];
 							  if ([KommentarString length])
 								{
-								  NSLog(@"setKommentar KommentarString: %@",KommentarString);
+								  //NSLog(@"setKommentar KommentarString: %@",KommentarString);
 								  //[AdminKommentarfeld setStringValue: KommentarString];
 								  
 								  [AdminKommentarView setString:[self KommentarVon:KommentarString]];
@@ -1182,7 +1185,7 @@ OptionBString=[[NSString alloc]init];
 	}
 	NSString* tempAufnahme;
 	tempAufnahme=[dieAufnahme copy];
-	//NSLog(@"");
+	NSLog(@"");
 	NSString* tempAdminAufnahmePfad=[NSString stringWithString:AdminProjektPfad];
 	tempAdminAufnahmePfad=[tempAdminAufnahmePfad stringByAppendingPathComponent:tempLeser];
 	if ([Filemanager fileExistsAtPath:tempAdminAufnahmePfad])//Ordner fŸr Aufnahmen des Lesers ist da
@@ -1190,7 +1193,7 @@ OptionBString=[[NSString alloc]init];
 		tempAdminAufnahmePfad=[tempAdminAufnahmePfad stringByAppendingPathComponent:tempAufnahme];
 		if ([Filemanager fileExistsAtPath:tempAdminAufnahmePfad])//Aufnahme gibt es
 		{
-			//NSLog(@"Aufnahme da");
+			NSLog(@"Aufnahme da");
 		}
 		else
 		{
@@ -1225,6 +1228,8 @@ OptionBString=[[NSString alloc]init];
 			
 			tempAdminKommentarPfad=[tempAdminKommentarPfad stringByAppendingPathComponent:[tempAufnahme stringByDeletingPathExtension]];
 			
+         tempAdminKommentarPfad= [tempAdminKommentarPfad stringByAppendingPathExtension:@"txt"];
+         NSLog(@"in saveKommentarFuerLeser: tempAdminKommentarPfad: %@",tempAdminKommentarPfad);
 			//Kopfstring aufbauen
 			tempKopfString=[NSString stringWithString:AdminAktuellerLeser];
 			tempKopfString=[tempKopfString stringByAppendingString:@"\r"];
@@ -1397,7 +1402,7 @@ OptionBString=[[NSString alloc]init];
 			[AufnahmeAttribute setObject:POSIXNumber forKey:NSFilePosixPermissions];
 			
 			erfolg=[Filemanager createFileAtPath:tempAdminKommentarPfad contents:tempData attributes:AufnahmeAttribute]; 
-			
+         NSLog(@"saveKommentar   save erfolg: %d",erfolg);
 		}
 	}
 	[self clearKommentarfelder];
@@ -1789,7 +1794,11 @@ OptionBString=[[NSString alloc]init];
 - (void)Aufnahmebereitstellen
 {	
 	NSLog(@"\n\nAufnahmebereitstellen: AufnahmenTab tab: %d",[[[AufnahmenTab selectedTabViewItem]identifier]intValue]);
-	
+   if (Textchanged)
+   {
+      [self Aufnahmezuruecklegen];
+      
+   }
    // von setLeser
   
    NSLog(@"Aufnahmebereitstellen AdminAktuellerLeser: %@ AdminAktuelleAufnahme: %@",AdminAktuellerLeser,AdminAktuelleAufnahme);
@@ -1945,12 +1954,15 @@ OptionBString=[[NSString alloc]init];
     [AdminQTKitPlayer gotoBeginning:nil];
     [AdminQTKitPlayer setMovie:nil];
     */
-   
+   NSLog(@"\n\nAufnahmezuruecklegen:");
    [AVAbspielplayer stopTempAufnahme];
    [self.BackKnopf setEnabled:NO];
    [self.StopPlayKnopf setEnabled:NO];
    [self.RewindKnopf setEnabled:NO];
    [self.ForewardKnopf setEnabled:NO];
+   [self.StartPlayKnopf setEnabled:NO];
+   [AbspieldauerFeld setStringValue:@"00:00"];
+   [AufnahmedauerFeld setStringValue:@"00:00"];
 
    NSString* EnterKeyQuelle;
    EnterKeyQuelle=@"MovieView";
@@ -1967,8 +1979,11 @@ OptionBString=[[NSString alloc]init];
    if ([AdminAktuellerLeser length]&&[AdminAktuelleAufnahme length]&&Textchanged)
 	  {
         BOOL OK=[self saveKommentarFuerLeser: AdminAktuellerLeser FuerAufnahme:AdminAktuelleAufnahme];
-        
-        //AdminAktuellerLeser=@"";//herausgenommen infolge KommentarfŸrLeser
+        if(OK)
+        {
+           Kommentarsaved = YES;
+        }
+         //AdminAktuellerLeser=@"";//herausgenommen infolge KommentarfŸrLeser
         
         AdminAktuelleAufnahme=@"";
         NSLog(@"backZurListe AdminMark: %ld UserMark: %ld",(long)[MarkCheckbox state],(long)[UserMarkCheckbox state]);
@@ -2053,9 +2068,8 @@ OptionBString=[[NSString alloc]init];
    
    double dur = AVAbspielplayer.duration;
    
-   NSLog(@"prepareAufnahmeAnURL err: %@ dur: %f",err, dur);
 
-   NSLog(@"prepareAdminAufnahmeAnURL err: %@ dur: %f",err, dur);
+   NSLog(@"setPlayerURL prepareAdminAufnahmeAnURL err: %@ dur: %f",err, dur);
    
 }
 
@@ -3586,6 +3600,7 @@ NSLog(@"result von Aufnahme insMagazin: %d",result);
 	  {
 		//NSLog(@"rAdminPlayer: NSTextDidChangeNotification textchanged YES");
 		Textchanged=YES;
+        Kommentarsaved=NO;
 	  }
 }
 
@@ -3597,6 +3612,7 @@ NSLog(@"result von Aufnahme insMagazin: %d",result);
 	  {
 		NSLog(@"rAdminPlayer: NSTableViewSelectionDidChangeNotification textchanged YES");
 		Textchanged=YES;
+        Kommentarsaved=NO;
 	  }
 }
 
@@ -3920,12 +3936,13 @@ if (entfernenOK==0)//allesOK
 		[self backZurListe:NULL];
 		[self->PlayTaste setEnabled:NO];
 		Textchanged=YES;
+      Kommentarsaved=NO;
 	}
 }
 
 - (void)ButtonWillPopUpAktion:(NSNotification*)note
 {
-	//NSLog(@"ButtonWillPopUpAktion note: %d",[[note object]tag]);
+	NSLog(@"ButtonWillPopUpAktion note: %d",[[note object]tag]);
 	
 	switch([[note object]tag])
 	{
@@ -3934,6 +3951,7 @@ if (entfernenOK==0)//allesOK
 	{
 	NSLog(@"rAdminPlayer: ButtonWillPopUpAktion textchanged YES");
 	Textchanged=YES;
+      Kommentarsaved=NO;
 	}break;
 	
 	}//switch tag
@@ -3946,7 +3964,7 @@ if (entfernenOK==0)//allesOK
 	//NSLog(@"ComboBoxAktion note: %d",[[note object]stringValue]);
 	NSLog(@"rAdminPlayer: ComboBoxAktion textchanged YES");
 	Textchanged=YES;
-	
+	Kommentarsaved=NO;
 }
 
 

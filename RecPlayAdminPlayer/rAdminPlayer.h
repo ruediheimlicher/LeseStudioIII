@@ -111,6 +111,7 @@
 	rAdminDS*					AdminDaten;
 	BOOL                    Moviegeladen;
 	BOOL                    Textchanged;
+   BOOL                    Kommentarsaved;
 	int							Umgebung;
 	
 	int							AuswahlOption;

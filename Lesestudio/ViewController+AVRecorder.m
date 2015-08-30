@@ -711,9 +711,8 @@
          }
          
          
-         tempAufnahmePfad=[self.LeserPfad stringByAppendingPathComponent:AufnahmeTitel];//Pfad im Ordner in der Lesebox
+         tempAufnahmePfad=[self.LeserPfad stringByAppendingPathComponent:[AufnahmeTitel stringByDeletingPathExtension]];//Pfad im Ordner in der Lesebox
         
-         
          
          
              
@@ -722,7 +721,7 @@
          
          // Kommentar einfuegen
          OSErr err=0;
-         BOOL createKommentarOK=[Utils createKommentarFuerLeser:self.Leser FuerAufnahmePfad:tempAufnahmePfad];
+         BOOL createKommentarOK=[Utils createKommentarFuerLeser:self.Leser FuerAufnahmePfad:[tempAufnahmePfad stringByAppendingPathExtension:@"txt"]];
          if (createKommentarOK)
          {
             // suffix anfuegen fuer Aufnahme

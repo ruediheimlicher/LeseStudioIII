@@ -145,11 +145,15 @@
 
 - (BOOL)tableView:(NSTableView *)aTableView shouldEditTableColumn:(NSTableColumn *)aTableColumn row:(long)rowIndex
 {
+   NSLog(@"Archiv Delegate tableView  shouldEditTableColumn: %ld",rowIndex);
+
     return YES;
 }
 
 - (void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(long)row
 {
+  
+
 	if ([[tableColumn identifier] isEqualToString:@"aufnahmen"])
 	{
 			

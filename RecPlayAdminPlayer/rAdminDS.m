@@ -268,6 +268,7 @@ return index;
     objectValueForTableColumn:(NSTableColumn *)aTableColumn 
     row:(long)rowIndex
 {
+   //NSLog(@"objectValueForTableColumn");
     NSDictionary *aRow;
         
     NS_DURING
@@ -288,6 +289,7 @@ return index;
     forTableColumn:(NSTableColumn *)aTableColumn 
     row:(long)rowIndex
 {
+   //NSLog(@"setObjectValue");
     NSString *columnName;
     NSMutableDictionary *aRow;
     
@@ -460,7 +462,7 @@ return index;
 - (BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(long)row
 {
 	
-	//NSLog(@"**AdminDS tableView  shouldSelectRow: %d  [tableView clickedRow]:%d" ,row,[tableView clickedRow]);
+	NSLog(@"**AdminDS tableView  shouldSelectRow: %d  [tableView clickedRow]:%d" ,row,[tableView clickedRow]);
 	
 	long selektierteZeile=[tableView selectedRow];//vorher selektierte Zeile
    NSLog(@"**AdminDS tableView  shouldSelectRow: %ld  [tableView clickedRow]:%d selectedRow: %d" ,row,[tableView clickedRow],[tableView selectedRow]);
@@ -494,5 +496,6 @@ return index;
 	
 	return YES;
 }
+
 
 @end
