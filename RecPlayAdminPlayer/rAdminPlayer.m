@@ -194,9 +194,10 @@ OptionBString=[[NSString alloc]init];
 			   name:@"NSComboBoxSelectionDidChangeNotification"
 			 object:nil];
 
+ 
    [nc addObserver:self
-          selector:@selector(RecordingAktion:)
-              name:@"recording"
+          selector:@selector(AbspielPosAktion:)
+              name:@"abspielpos"
             object:nil];
 
 	
@@ -1222,7 +1223,7 @@ OptionBString=[[NSString alloc]init];
 			}
 			//NSLog(@"in saveKommentarFuerLeser: Kommentarordner da");
 			
-			tempAdminKommentarPfad=[tempAdminKommentarPfad stringByAppendingPathComponent:tempAufnahme];
+			tempAdminKommentarPfad=[tempAdminKommentarPfad stringByAppendingPathComponent:[tempAufnahme stringByDeletingPathExtension]];
 			
 			//Kopfstring aufbauen
 			tempKopfString=[NSString stringWithString:AdminAktuellerLeser];
@@ -1354,11 +1355,33 @@ OptionBString=[[NSString alloc]init];
 			NSString* tempKommentarViewString=[NSString stringWithString:[AdminKommentarView string]];
 			if ([tempKommentarViewString length])
 			{
-				//	NSLog(@"tempKommentarViewString: substring bis 2: %@  substring ab 2: %@",[tempKommentarViewString substringToIndex:2],[tempKommentarViewString substringFromIndex:2]);
-				if ([[tempKommentarViewString substringToIndex:2] isEqualToString:@"--"])//entfernen
+            NSCharacterSet *s= [NSCharacterSet alphanumericCharacterSet];
+            
+            if ([s characterIsMember:[tempKommentarViewString characterAtIndex:0]])
+            {
+               NSLog(@"member");
+            }
+               
+            NSUInteger position = [tempKommentarViewString rangeOfString:@"*0"].location;
+            NSLog(@"position: %lul",(unsigned long)position);
+            unichar textCharacter = '*';
+            NSLog(@"tempKommentarViewString: 0: %C",[tempKommentarViewString characterAtIndex:0]);
+            
+            while (!([s characterIsMember:[tempKommentarViewString characterAtIndex:0]]))
+            {
+               tempKommentarViewString = [tempKommentarViewString substringFromIndex:1];
+               NSLog(@"tempKommentarViewString: substring: %@",tempKommentarViewString);
+            }
+            
+            NSLog(@"tempKommentarViewString: substring bis 2: %@  substring ab 2: %@",[tempKommentarViewString substringToIndex:2],[tempKommentarViewString substringFromIndex:2]);
+           
+				if ([[tempKommentarViewString substringToIndex:1] isEqualToString:@"--"])//entfernen
 				{
+               
 					tempKommentarViewString=[tempKommentarViewString substringFromIndex:2];
 				}
+            
+            
 				tempKommentarString=[tempKopfString stringByAppendingString:tempKommentarViewString];
 				//NSLog(@"saveKommentar:      tempKommentarString:\r %@",tempKommentarString);
 			}
@@ -1812,7 +1835,35 @@ OptionBString=[[NSString alloc]init];
                [AVAbspielplayer prepareAdminAufnahmeAnURL:[NSURL fileURLWithPath:AdminPlayPfad]];
             
             NSLog(@"Aufnahmebereitstellen AVAbspielplayer url: %@",[[AVAbspielplayer AufnahmeURL]path]);
-				erfolg=[AdminFenster makeFirstResponder:zurListeTaste];
+				
+            int posint =  [[NSNumber numberWithDouble:[AVAbspielplayer duration]] intValue];
+            
+            int Minuten = posint/60;
+            int Sekunden =posint%60;
+            //NSLog(@"Minuten: %d Sekunden: %d",Minuten,Sekunden);
+            NSString* MinutenString;
+            
+            NSString* SekundenString;
+            if (Sekunden<10)
+            {
+               SekundenString=[NSString stringWithFormat:@"0%d",Sekunden];
+            }
+            else
+            {
+               SekundenString=[NSString stringWithFormat:@"%d",Sekunden];
+            }
+            if (Minuten<10)
+            {
+               MinutenString=[NSString stringWithFormat:@"0%d",Minuten];
+            }
+            else
+            {
+               MinutenString=[NSString stringWithFormat:@"%d",Minuten];
+            }
+            [AufnahmedauerFeld setStringValue:[NSString stringWithFormat:@"%@:%@",MinutenString, SekundenString]];
+
+            
+            erfolg=[AdminFenster makeFirstResponder:zurListeTaste];
 				//NSLog(@"		Quelle: Aufnahmebereitstellen->QTPlayer: erfolg: %d",erfolg);
 				[AdminKommentarView setEditable:YES];
 				[AdminKommentarView setSelectable:YES];
@@ -2005,6 +2056,7 @@ OptionBString=[[NSString alloc]init];
    NSLog(@"prepareAufnahmeAnURL err: %@ dur: %f",err, dur);
 
    NSLog(@"prepareAdminAufnahmeAnURL err: %@ dur: %f",err, dur);
+   
 }
 
 - (IBAction)startAVPlay:(id)sender
@@ -2024,6 +2076,7 @@ OptionBString=[[NSString alloc]init];
    NSLog(@"startAVPlay dur: %f",dur);
    [Abspielanzeige setNeedsDisplay:YES];
    //[self.Fortschritt setDoubleValue:0];
+   
 }
 
 - (IBAction)stopAVPlay:(id)sender
@@ -2078,14 +2131,15 @@ OptionBString=[[NSString alloc]init];
       NSNumber* durNumber=[[note userInfo]objectForKey:@"dur"];
       dur=[durNumber doubleValue];
    }
-   NSLog(@"dur: %2.2f pos: %2.2f",dur,pos);
+   //NSLog(@"dur: %2.2f pos: %2.2f",dur,pos);
+   
    if (dur - pos < 0.1)
    {
       NSLog(@"Ende erreicht");
+      NSNumber* durationNumber=[NSNumber numberWithDouble:[AVAbspielplayer duration]];
+      posint=[durationNumber intValue];
+
    }
-   NSNumber* durationNumber=[[note userInfo]objectForKey:@"duration"];
-   
-   int WiedergabeZeit=[durationNumber intValue];
    //NSLog(@"duration: %2.2d",AufnahmeZeit);
    int Minuten = posint/60;
    int Sekunden =posint%60;
@@ -3526,11 +3580,11 @@ NSLog(@"result von Aufnahme insMagazin: %d",result);
 
 - (void)DidChangeNotificationAktion:(NSNotification*)note
 {
-	NSLog(@"rAdminPlayer: NSTextDidChangeNotification note: %@",[[note object]description]);
+	//NSLog(@"rAdminPlayer: NSTextDidChangeNotification note: %@",[[note object]description]);
 	if ([note object]==AdminKommentarView)
 		
 	  {
-		NSLog(@"rAdminPlayer: NSTextDidChangeNotification textchanged YES");
+		//NSLog(@"rAdminPlayer: NSTextDidChangeNotification textchanged YES");
 		Textchanged=YES;
 	  }
 }

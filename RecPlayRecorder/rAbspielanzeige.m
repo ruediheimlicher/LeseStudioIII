@@ -62,8 +62,10 @@
 	[NSBezierPath strokeRect:BalkenRect];
   // [NSBezierPath fillRect:BalkenRect];
 	//[[NSColor greenColor] set];
-	NSColor* BalkenFarbe=[NSColor colorWithDeviceRed:90.0/255 green:255.0/255 blue:130.0/255 alpha:1.0];
-	[BalkenFarbe set];
+//	NSColor* BalkenFarbe=[NSColor colorWithDeviceRed:90.0/255 green:255.0/255 blue:130.0/255 alpha:1.0];
+   NSColor* BalkenFarbe=[NSColor colorWithDeviceRed:90.0/255 green:90.0/255 blue:255.0/255 alpha:0.5];
+	
+   [BalkenFarbe set];
 	[NSBezierPath fillRect:f];
 	f=NSMakeRect(Feldbreite+1,Nullpunkt.y,Rahmenbreite-1,Feldhoehe-1);
 	[[NSColor blackColor]set];

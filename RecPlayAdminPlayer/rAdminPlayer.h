@@ -37,7 +37,7 @@
 @class rProgressDialog;
 
 
-@interface rAdminPlayer:NSWindowController <NSWindowDelegate, NSTabViewDelegate>
+@interface rAdminPlayer:NSWindowController <NSWindowDelegate, NSTabViewDelegate,NSMenuDelegate>
 	{
 	IBOutlet NSWindow*			AdminFenster;
 	IBOutlet NSTextField*		TitelString;
@@ -45,6 +45,7 @@
 	IBOutlet rAdminListe*		NamenListe;
 	
 	IBOutlet NSTextField*		AbspieldauerFeld;
+   IBOutlet NSTextField*		AufnahmedauerFeld;
 	rEntfernen*                EntfernenFenster;
 	rKommentar*                KommentarFenster;
 	rClean*                    CleanFenster;

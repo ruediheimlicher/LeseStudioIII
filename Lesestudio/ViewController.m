@@ -450,9 +450,10 @@ extern  NSMenu*                      ProjektMenu;
    
    NSRect v = Vertikalanzeige.frame;
    //NSLog(@"didLoad v.width: %f",v.size.width);
-   NSRect abspielanzeigerect = NSMakeRect(320,278,210,20);
+   NSRect abspielanzeigerect = NSMakeRect(315,295,225,20);
 
-   Abspielanzeige = [[rAbspielanzeige alloc]initWithFrame:abspielanzeigerect];
+   //Abspielanzeige = [[rAbspielanzeige alloc]initWithFrame:f];
+  Abspielanzeige = [[rAbspielanzeige alloc]initWithFrame:abspielanzeigerect];
    
    [[[self.RecPlayTab tabViewItemAtIndex:0] view]addSubview:Abspielanzeige];
    
@@ -503,6 +504,7 @@ extern  NSMenu*                      ProjektMenu;
       [self.PWFeld setStringValue:@"Ohne Passwort"];
    }
    NSLog(@"TimeoutDelay: %f",self.TimeoutDelay);
+   self.TimeoutDelay=20.0;
    //Tooltips
    
    [self.StartRecordKnopf setToolTip:@"Aufnahme beginnen\nEine schon vorhandene ungesicherte Aufnahme wird überschrieben"];
@@ -537,7 +539,7 @@ extern  NSMenu*                      ProjektMenu;
                                                           userInfo:nil 
                                                            repeats:YES];
    
-
+   [self.TimeoutFeld setStringValue:@"-"];
   // AVRecorder
    
    if (!(AVRecorder))
@@ -599,11 +601,35 @@ extern  NSMenu*                      ProjektMenu;
 
 - (void)TimeoutAktion:(NSNotification*)note
 {
-   NSLog(@"TimeoutAktion");
+   //NSLog(@"TimeoutAktion %@",[[note userInfo]description]);
+   
+   if ([[note userInfo]objectForKey:@"run"])
+   {
+      if ([[[note userInfo]objectForKey:@"run"]intValue])
+      {
+         if ([[note userInfo]objectForKey:@"counter"])
+         {
+            if ([[[note userInfo]objectForKey:@"counter"]intValue])
+            {
+               int timeoutcounter = [[[note userInfo]objectForKey:@"counter"]intValue];
+               [self.TimeoutFeld setIntValue:timeoutcounter];
+            }
+            else
+            {
+               [self.TimeoutFeld setStringValue:@"-"];
+            }
+         }
+      }
+      else
+      {
+         [self.TimeoutFeld setStringValue:@"-"];
+      }
+
+   }
    if ([[note userInfo]objectForKey:@"abmelden"])
    {
       int  AbmeldenCode=[[[note userInfo]objectForKey:@"abmelden"]intValue];
-      NSLog(@"TimeoutAktion: AbmeldenCode: %d",AbmeldenCode);
+      //NSLog(@"TimeoutAktion: AbmeldenCode: %d",AbmeldenCode);
       switch (AbmeldenCode)
       {
          case 2://Retten
@@ -1067,7 +1093,7 @@ extern  NSMenu*                      ProjektMenu;
 - (IBAction)showSettingsDialog:(id)sender
 {
    [Utils stopTimeout];
-   [Utils startTimeout:self.TimeoutDelay];
+   //[Utils startTimeout:self.TimeoutDelay];
 }
 
 #pragma mark QTKit
@@ -2956,7 +2982,7 @@ QTMovie* qtMovie;
    
    [self setArchivView];
    
-   [Utils startTimeout:self.TimeoutDelay];
+  // [Utils startTimeout:self.TimeoutDelay];
 }
 
 
@@ -3012,6 +3038,7 @@ QTMovie* qtMovie;
       NSLog(@"switchAdminPlayer ok");
       [[self.ModusMenu itemWithTag:kRecPlayTag]setEnabled:YES];
       [self beginAdminPlayer:nil];
+      [Utils stopTimeout];
    }
    else
    {
@@ -3836,7 +3863,7 @@ QTMovie* qtMovie;
            
            return NO;
         }
-
+        [Utils stopTimeout];
         [AVAbspielplayer invalTimer];
         NSLog(@"TabView:archiv");
         if (self.aktuellAnzAufnahmen &&!([AVRecorder isRecording]))
@@ -3864,12 +3891,14 @@ QTMovie* qtMovie;
       umschalten=YES;
       if (AVAbspielplayer && [AVAbspielplayer isPlaying])
       {
-         umschalten=0;
+         umschalten=NO;
+         
       }
       //!MoviePlayerbusy;
       //NSLog(@"TabView:archiv: umschalten: %d isPlaying: %f",umschalten,[[RecordQTKitPlayer movie]rate]);
       if (umschalten)
       {
+         [Utils stopTimeout];
          if (self.ArchivPlayerGeladen)
          {
             [self ArchivZurListe:nil];
@@ -4018,6 +4047,7 @@ QTMovie* qtMovie;
 
 - (void)neuesProjektAktion:(NSNotification*)note
 {
+   [Utils stopTimeout];
    //Note von Projektliste über neues Projekt: reportNeuesProjekt
    BOOL neuesProjektOK=NO;
    NSMutableDictionary* tempNeuesProjektDic=[[[note userInfo] objectForKey:@"neuesprojektdic"]mutableCopy];
@@ -4138,7 +4168,7 @@ QTMovie* qtMovie;
 {
    //NSLog(@"\nanderesProjektAktion start: \n%@",[[note userInfo] objectForKey:@"projekt"]);
    //NSLog(@"\nanderesProjektAktion start: %@",[[note userInfo] description]);
-   [Utils startTimeout:self.TimeoutDelay];
+   [Utils stopTimeout];
    
    NSArray* tempProjektArray=[[note userInfo] objectForKey:@"projektarray"];
    //NSLog(@"anderesProjektAktion tempProjektArray: %@",[tempProjektArray description]);

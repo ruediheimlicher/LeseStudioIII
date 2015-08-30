@@ -290,7 +290,7 @@
    NSLog(@"startAVPlay dur: %f",dur);
    [Abspielanzeige setNeedsDisplay:YES];
    [self.Fortschritt setDoubleValue:0];
-   [Utils startTimeout:self.TimeoutDelay];
+   //[Utils startTimeout:self.TimeoutDelay];
 }
 
 - (IBAction)stopAVPlay:(id)sender

@@ -2398,7 +2398,7 @@ NSLog(@"showTimeoutDialog");
 
 - (void)startTimeout:(NSTimeInterval)derTimeout
 {
-	NSDictionary* timeoutDic=[NSDictionary dictionaryWithObject:[NSNumber numberWithDouble:derTimeout] forKey:@"timeout"];
+	NSMutableDictionary* timeoutDic=[NSMutableDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:derTimeout],@"timeout",[NSNumber numberWithDouble:derTimeout],@"counter",[NSNumber numberWithInt:1],@"run",nil];
 	if ([TimeoutDialogTimer isValid])
 	{
 		[TimeoutDialogTimer invalidate];
@@ -2408,27 +2408,58 @@ NSLog(@"showTimeoutDialog");
 		[TimeoutTimer invalidate];
 	}
 	
-	TimeoutTimer=[NSTimer scheduledTimerWithTimeInterval:derTimeout
+	TimeoutTimer=[NSTimer scheduledTimerWithTimeInterval:1.0
 												   target:self 
 												 selector:@selector(TimeoutFunktion:) 
 												 userInfo:timeoutDic
-												  repeats:NO];
+												  repeats:YES];
 	//NSLog(@" userInfo:%@",[[TimeoutTimer userInfo] description]);
 	
 }
 
 - (void)TimeoutFunktion:(NSTimer*)timer
 {
-	int Zeit=[[[timer userInfo]objectForKey:@"timeout"]intValue];
-	//NSLog(@"Zeit: %@, num: %d, Zeit: %d",[[timer userInfo]description],[[[timer userInfo]objectForKey:@"timeout"]intValue],Zeit);
-	[TimeoutTimer invalidate];
-		if (!UTimeoutDialogPanel)
-	  {
-		UTimeoutDialogPanel=[[rTimeoutDialog alloc]init];
-	  }
+   NSMutableDictionary*tempTimerDic = (NSMutableDictionary*)[timer userInfo];
+   
+   int timeout=[[tempTimerDic objectForKey:@"timeout"]intValue];
+   int counter =[[tempTimerDic objectForKey:@"counter"]intValue];
+   if (counter)
+   {
+      counter--;
+      [[timer userInfo] setObject:[NSNumber numberWithInt:counter] forKey:@"counter"];
+      
+      [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:timeout],@"timeout",[NSNumber numberWithDouble:counter],@"counter",[NSNumber numberWithInt:1],@"run",nil];
 
-	[self showTimeoutDialog:NULL];
-	[UTimeoutDialogPanel setDialogTimer:20];
+       //NSLog(@"TimeoutFunktion: %@, Zeit: %d counter: %d",[[timer userInfo]description],timeout,counter);
+      NSMutableDictionary* NotificationDic=[[NSMutableDictionary alloc]initWithCapacity:0];
+      [NotificationDic setObject:[NSNumber numberWithInt:counter] forKey:@"counter"];
+      [NotificationDic setObject:[NSNumber numberWithInt:(counter > 0)] forKey:@"run"];
+
+      NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
+      [nc postNotificationName:@"timeout" object:self userInfo:NotificationDic];
+
+   }
+  
+   else
+   {
+      NSMutableDictionary* NotificationDic=[[NSMutableDictionary alloc]initWithCapacity:0];
+      [NotificationDic setObject:[NSNumber numberWithInt:0] forKey:@"counter"];
+      [NotificationDic setObject:[NSNumber numberWithInt:0] forKey:@"run"];
+      
+      NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
+      [nc postNotificationName:@"timeout" object:self userInfo:NotificationDic];
+
+      [TimeoutTimer invalidate];
+      
+      if (!UTimeoutDialogPanel)
+      {
+         UTimeoutDialogPanel=[[rTimeoutDialog alloc]init];
+      }
+      
+      [self showTimeoutDialog:NULL];
+      [UTimeoutDialogPanel setDialogTimer:20];
+      
+   }
 }
 
 
@@ -2443,6 +2474,7 @@ NSLog(@"showTimeoutDialog");
 
 - (void)stopTimeout
 {
+   
 if (UTimeoutDialogPanel)
 {
 [UTimeoutDialogPanel stopTimeoutDialogTimer:NULL];
@@ -2452,7 +2484,13 @@ if (UTimeoutDialogPanel)
 	if ([TimeoutTimer isValid])
 	{
 		[TimeoutTimer invalidate];
+      NSMutableDictionary* NotificationDic=[[NSMutableDictionary alloc]initWithCapacity:0];
+      [NotificationDic setObject:[NSNumber numberWithInt:0] forKey:@"run"];
+      NSNotificationCenter* nc=[NSNotificationCenter defaultCenter];
+      [nc postNotificationName:@"timeout" object:self userInfo:NotificationDic];
+
 	}
+   
 	
 }
 

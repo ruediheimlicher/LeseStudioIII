@@ -9,6 +9,14 @@
 #import "ViewController+Lesebox.h"
 
 //extern const short 0;
+enum
+{
+   kModusMenuTag=30000,
+   kRecPlayTag,
+   kAdminTag,
+   kKommentarTag,
+   kEinstellungenTag
+};
 
 @implementation ViewController (Lesebox)
 
@@ -684,7 +692,13 @@
    
    [self setArchivNamenPop];
    if (self.Umgebung==0)
+   {
       [Utils startTimeout:self.TimeoutDelay];
+   }
+   else
+   {
+      [Utils stopTimeout];
+   }
 }
 
 - (IBAction)anderesProjektMitTitel:(NSString*)derTitel
@@ -916,9 +930,11 @@
    
    if (anzOrdnerImArchiv)//es hat schon Ordner im Archiv
    {
+      NSLog(@"tempAdminProjektNamenArray: %@",[tempAdminProjektNamenArray description]);
       NSEnumerator* enumerator=[tempAdminProjektNamenArray objectEnumerator];
       NSString* tempObjekt;
       BOOL istOrdner=NO;
+      //NSLog(@"enumerator nextObject: %@",[[enumerator nextObject]description]);
       while (tempObjekt==[enumerator nextObject])
       {
          NSString* tempPfad=[derArchivPfad stringByAppendingPathComponent:tempObjekt];//Pfad des Userordners
@@ -1233,7 +1249,7 @@
    {
       self.ProjektPfad=[[note userInfo] objectForKey:@"projektpfad"];
    }
-   // NSLog(@"ArchivPfad :%@ * ProjektPfad: %@",self.ArchivPfad,self.ProjektPfad);
+    NSLog(@"ArchivPfad :%@ * ProjektPfad: %@",self.ArchivPfad,self.ProjektPfad);
    NSString* UmgebungString=[[note userInfo] objectForKey:@"umgebunglabel"];
    int UmgebungZahl=[[[note userInfo] objectForKey:@"umgebung"]intValue];
    self.Umgebung=UmgebungZahl;
@@ -1388,6 +1404,14 @@
     //[AdminPlayer showWindow:self];
     //[AdminPlayer setLeseboxPfad:LeseboxPfad];
     }
+   
+   [self.AblaufMenu setDelegate:AdminPlayer];
+   [self.ModusMenu setDelegate:AdminPlayer];
+   [self.RecorderMenu setDelegate:AdminPlayer];
+
+   [[self.ModusMenu itemWithTag:kRecPlayTag] setTarget:AdminPlayer];//Recorder
+   [[self.ModusMenu itemWithTag:kAdminTag] setTarget:AdminPlayer];//Admin
+
     [Utils stopTimeout];
     [AdminPlayer showWindow:self];
    
