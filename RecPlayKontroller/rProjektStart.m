@@ -223,7 +223,7 @@ extern const int StartmitDialog;//=2;
 }
 - (void)setProjektArray:(NSArray*)derProjektArray
 {
-   //NSLog(@"ProjektStartPanel setProjektArray:PderProjektArray: %@",[derProjektArray description]);
+   NSLog(@"ProjektStartPanel setProjektArray:PderProjektArray: %@",[derProjektArray description]);
    
    if ([derProjektArray count])
 	{

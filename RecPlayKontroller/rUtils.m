@@ -16,6 +16,8 @@ extern NSString* leseboxpfad;//=@"leseboxpfad";
 extern NSString* projektarray;//=@"projektarray";
 extern NSString* OK;//=@"OK";
 */
+
+
 @implementation rUtils
 
 
@@ -672,8 +674,8 @@ return versionOK;
 	  BOOL DeleteOK=[self deletePListAnPfad:derLeseboxPfad aufSystemVolume:istSystemVolume];
 	  NSLog(@"Keine Lesebox da: %@  DeleteOK: %d",derLeseboxPfad,DeleteOK);
 
-	  NSString* LString1=NSLocalizedString(@"The folder 'Lecturebox' can be created on the choosen computer",@"Lesebox kann anlegt werden");
-	  NSString* LString2=NSLocalizedString(@"\nA list of names in format .doc, .rtf, or .txt is needed",@"rtf-Klassenliste muss vorhanden sein");
+	  NSString* LString1=@"Lesebox kann anlegt werden";
+	  NSString* LString2=@"Klassenliste muss vorhanden sein";
 	  NSLog(@"LString1: %@ LString2: %@",LString1,LString2);
 	  NSString* LeseboxString=[LString1 stringByAppendingString:LString2];
 	  
@@ -1377,6 +1379,8 @@ return versionOK;
 		//NSLog(@"PList aus Data: tempUserPfad: %@",DataPfad);
 		PListPfad=[DataPfad stringByAppendingPathComponent:PListName];//Pfad der PList auf dem Vol der LB
 		//NSLog(@"PListPfad in Lesebox: %@",PListPfad);
+      
+      
 
 	}
 	
@@ -1392,6 +1396,7 @@ return versionOK;
 			[Warnung setMessageText:@"PList lesen: Kein PList-Eintrag fuer 'pw'"];
 			[Warnung setAlertStyle:NSWarningAlertStyle];
 //			int antwort=[Warnung runModal];
+         
 		}
 		
 		if (![tempPListDic objectForKey:@"adminpw"])
@@ -1434,7 +1439,41 @@ return versionOK;
 	}
 	else
 	{
+      const int UtilsStartmitRecPlay=0;
+      const int UtilsStartmitAdmin=1;
+      const int UtilsStartmitDialog=2;
+      
+      const short kUtilsAdminUmgebung=1;
+      const short kUtilsRecPlayUmgebung=0;
+
 		tempPListDic=[[NSMutableDictionary alloc]initWithCapacity:0];
+      NSMutableDictionary* tempPWDictionary=[[NSMutableDictionary alloc]initWithCapacity:0];
+      NSString* defaultPWString=@"homer";
+      const char* defaultpw=[defaultPWString UTF8String];
+      NSData* defaultPWData =[NSData dataWithBytes:defaultpw length:strlen(defaultpw)];
+      NSMutableDictionary* tempPWDic=[[NSMutableDictionary alloc]initWithCapacity:0];
+
+      [tempPWDic setObject:@"Admin" forKey:@"name"];
+      [tempPWDic setObject:[NSData data] forKey:@"pw"];
+      
+      [tempPListDic setObject:tempPWDic forKey:@"adminpw"];//AdminPasswort muss vorhanden sein
+      
+      [tempPListDic setObject: [NSCalendarDate calendarDate] forKey:@"lastdate"];
+      [tempPListDic setObject: [[NSMutableArray alloc]initWithCapacity:0] forKey:@"projektarray"];
+
+ //     [tempPListDic setObject: [self.ProjektPfad lastPathComponent] forKey:@"lastprojekt"];
+      NSNumber* RPModusNumber=[NSNumber numberWithInt:UtilsStartmitDialog];
+      
+      
+      [tempPListDic setObject:[NSNumber numberWithInt:UtilsStartmitDialog] forKey:@"modus"];
+      [tempPListDic setObject:[NSNumber numberWithInt:kUtilsRecPlayUmgebung] forKey:@"umgebung"];
+      [tempPListDic setObject:[NSNumber numberWithBool:YES] forKey:@"mitadminpasswort"];
+      [tempPListDic setObject:[NSNumber numberWithBool:NO] forKey:@"mituserpasswort"];
+      [tempPListDic setObject:[NSNumber numberWithInt:(int)60] forKey:@"timeoutdelay"];
+      [tempPListDic setObject:[NSNumber numberWithInt:2] forKey:@"knackdelay"];
+
+      
+      
 	}
 	
 	if (![tempPListDic objectForKey:@"mituserpasswort"])

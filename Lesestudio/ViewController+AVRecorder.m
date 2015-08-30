@@ -271,7 +271,11 @@
 - (IBAction)startAVPlay:(id)sender
 {
    [Vertikalanzeige setLevel:127];
-   NSLog(@"startAVPlay hiddenaufna pfad: %@",self.hiddenAufnahmePfad);
+   NSLog(@"startAVPlay hiddenaufnahmepfad: %@",self.hiddenAufnahmePfad);
+   if ([[NSFileManager defaultManager]fileExistsAtPath:self.hiddenAufnahmePfad ])
+   {
+      NSLog(@"startAVPlay Aufnahmeda");
+   }
   // [AVRecorder setPlaying:YES];
    [self.StartRecordKnopf setEnabled:NO];
    [self.SichernKnopf setEnabled:NO];
@@ -365,7 +369,7 @@
                [self.WeitereAufnahmeKnopf setEnabled:YES];
                if ([[note userInfo ] objectForKey:@"desturl"] && [[[[note userInfo ] objectForKey:@"desturl"]path]length])
                {
-                  //NSLog(@"RecordingAktion desturl: %@",[[note userInfo ]objectForKey:@"desturl"]);
+                  NSLog(@"RecordingAktion desturl: %@",[[note userInfo ]objectForKey:@"desturl"]);
                   NSURL* destURL = [[note userInfo ] objectForKey:@"desturl"];
                   self.hiddenAufnahmePfad = [destURL path];
                   [AVAbspielplayer prepareAufnahmeAnURL:destURL];
@@ -383,7 +387,6 @@
             else
             {
                // record fehler
-               NSImage* StartRecordImg=[NSImage imageNamed:@"recordicon_k.gif"];
                //self.StartStopKnopf.image=StartRecordImg;
                
                [self.SichernKnopf setEnabled:YES];

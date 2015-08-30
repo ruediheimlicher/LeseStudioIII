@@ -57,6 +57,7 @@ enum
 
 
 
+
 #import "ViewController.h"
 #import "rUtils.h"
 #import "ViewController+Lesebox.h"
@@ -2770,7 +2771,7 @@ QTMovie* qtMovie;
          [TitelArray removeObjectAtIndex:Kommentarindex];
          self.aktuellAnzAufnahmen--;
       }
-      NSLog(@"TitelArray vor Sortieren: %@",[TitelArray description]);
+      //NSLog(@"TitelArray vor Sortieren: %@",[TitelArray description]);
       
       //**
       

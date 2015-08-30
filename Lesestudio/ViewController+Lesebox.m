@@ -58,7 +58,7 @@ enum
    //NSLog(@"Leseboxvorbereiten vor LeseboxOK");
    
    LeseboxOK=[Utils LeseboxValidAnPfad:self.LeseboxPfad aufSystemVolume:self.istSystemVolume];//Lesebox checken, ev einrichten
-   //NSLog(@"Leseboxvorbereiten nach LeseboxOK: LeseboxOK: %d  self.istSystemVolume: %d",self.LeseboxOK,self.istSystemVolume);
+   NSLog(@"Leseboxvorbereiten nach LeseboxOK: LeseboxOK: %d  self.istSystemVolume: %d",self.LeseboxOK,self.istSystemVolume);
    
    
    if (LeseboxOK)
@@ -183,8 +183,8 @@ enum
       {
          [self.UserPasswortArray setArray:[self.PListDic objectForKey:@"userpasswortarray"]];//Aus PList einsetzen
       }
-      
-      if ([self.PListDic objectForKey:@"projektarray"])
+      NSLog(@"ProjektArray: %@",[self.ProjektArray description]);
+      if ([self.PListDic objectForKey:@"projektarray"] && [[self.PListDic objectForKey:@"projektarray"]count])
       {
          //NSLog(@"LB vorbereiten: ProjektArray: %@",[[self.PListDic objectForKey:@"projektarray"] description]);
          [self.ProjektArray setArray:[self.PListDic objectForKey:@"projektarray"]];
@@ -935,8 +935,10 @@ enum
       NSString* tempObjekt;
       BOOL istOrdner=NO;
       //NSLog(@"enumerator nextObject: %@",[[enumerator nextObject]description]);
-      while (tempObjekt==[enumerator nextObject])
+      //while (tempObjekt==[enumerator nextObject])
+      for (int projektindex=0;projektindex < [tempAdminProjektNamenArray count];projektindex++)
       {
+         tempObjekt =[tempAdminProjektNamenArray  objectAtIndex:projektindex];
          NSString* tempPfad=[derArchivPfad stringByAppendingPathComponent:tempObjekt];//Pfad des Userordners
          //NSLog(@"tempPfad: %@",tempPfad);
          
@@ -1193,8 +1195,8 @@ enum
    if ([self.ProjektArray count])
    {
       [ProjektStartPanel  setProjektArray:self.ProjektArray];
-      //NSLog(@"showProjektStart setRecorderTaste: ProjektArray count InputDeviceOK: %d",InputDeviceOK);
-      [ProjektStartPanel  setRecorderTaste:self.InputDeviceOK];
+      NSLog(@"showProjektStart setRecorderTaste: ProjektArray count InputDeviceOK: %d",self.InputDeviceOK);
+      [ProjektStartPanel  setRecorderTaste:YES];
       
    }
    if ([self checkAdminPW])
@@ -1457,7 +1459,7 @@ enum
 
 - (BOOL)checkAdminPW
 {
-  
+   NSLog(@"checkAdminPW PListDic: %@",[self.PListDic description]);
    BOOL  allOK = 0;
    if ([self.PListDic objectForKey:@"adminpw"]&&[[self.PListDic objectForKey:@"adminpw"]objectForKey:@"pw"])
    {
