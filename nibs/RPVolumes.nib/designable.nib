@@ -131,7 +131,7 @@
 							<object class="NSTextFieldCell" key="NSCell" id="776790535">
 								<int key="NSCellFlags">67108864</int>
 								<int key="NSCellFlags2">0</int>
-								<string key="NSContents">Where is the Lecturebox</string>
+								<string key="NSContents">Wo ist die Lesebox?</string>
 								<object class="NSFont" key="NSSupport" id="573560809">
 									<bool key="IBIsSystemFont">YES</bool>
 									<double key="NSSize">13</double>
@@ -204,7 +204,7 @@
 													<object class="NSTableHeaderCell" key="NSHeaderCell">
 														<int key="NSCellFlags">75497536</int>
 														<int key="NSCellFlags2">2048</int>
-														<string key="NSContents">User</string>
+														<string key="NSContents">Benutzer</string>
 														<object class="NSFont" key="NSSupport" id="59425841">
 															<bool key="IBIsSystemFont">YES</bool>
 															<double key="NSSize">13</double>
@@ -244,7 +244,7 @@
 													<object class="NSTableHeaderCell" key="NSHeaderCell">
 														<int key="NSCellFlags">75497536</int>
 														<int key="NSCellFlags2">2048</int>
-														<string key="NSContents">Lecturebox</string>
+														<string key="NSContents">Lesebox da</string>
 														<reference key="NSSupport" ref="59425841"/>
 														<object class="NSColor" key="NSBackgroundColor" id="805673353">
 															<int key="NSColorSpace">6</int>
@@ -258,7 +258,7 @@
 														<int key="NSCellFlags">67108864</int>
 														<int key="NSCellFlags2">0</int>
 														<string key="NSContents"/>
-														<object class="NSFont" key="NSSupport" id="137097461">
+														<object class="NSFont" key="NSSupport" id="1042289773">
 															<bool key="IBIsSystemFont">YES</bool>
 															<double key="NSSize">12</double>
 															<int key="NSfFlags">787</int>
@@ -416,7 +416,7 @@
 							<object class="NSTextFieldCell" key="NSCell" id="877137603">
 								<int key="NSCellFlags">67108864</int>
 								<int key="NSCellFlags2">4194304</int>
-								<string key="NSContents">Logged in Users</string>
+								<string key="NSContents">Verbundene Benutzer</string>
 								<reference key="NSSupport" ref="59425841"/>
 								<reference key="NSControlView" ref="677434620"/>
 								<bool key="NSDrawsBackground">YES</bool>
@@ -557,7 +557,7 @@
 					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="597116104"/>
 				</object>
-				<string key="NSScreenRect">{{0, 0}, {1680, 1027}}</string>
+				<string key="NSScreenRect">{{0, 0}, {1280, 777}}</string>
 				<string key="NSMinSize">{94, 29}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
@@ -658,7 +658,7 @@
 													<int key="NSCellFlags">67108864</int>
 													<int key="NSCellFlags2">0</int>
 													<string key="NSContents"/>
-													<reference key="NSSupport" ref="137097461"/>
+													<reference key="NSSupport" ref="1042289773"/>
 													<reference key="NSControlView" ref="770627633"/>
 													<int key="NSButtonFlags">1211912448</int>
 													<int key="NSButtonFlags2">2</int>
