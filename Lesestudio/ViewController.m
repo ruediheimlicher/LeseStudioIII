@@ -350,6 +350,7 @@ extern  NSMenu*                      ProjektMenu;
    
    [NotificationDic setObject:self.ProjektPfad forKey:@"projektpfad"];
    [NotificationDic setObject:self.ProjektArray forKey:@"projektarray"];
+   
    [nc postNotificationName:@"Utils" object:self userInfo:NotificationDic];
    [self.ProjektFeld setStringValue:[self.ProjektPfad lastPathComponent]];
    [self.RecorderMenu setSubmenu:self.ProjektMenu forItem:[self.RecorderMenu itemWithTag:kRecorderProjektWahlenTag]];

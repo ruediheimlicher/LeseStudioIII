@@ -1439,6 +1439,7 @@ return versionOK;
 	}
 	else
 	{
+      NSLog(@"PListDicVon... neue PList");
       const int UtilsStartmitRecPlay=0;
       const int UtilsStartmitAdmin=1;
       const int UtilsStartmitDialog=2;
@@ -1454,7 +1455,7 @@ return versionOK;
       NSMutableDictionary* tempPWDic=[[NSMutableDictionary alloc]initWithCapacity:0];
 
       [tempPWDic setObject:@"Admin" forKey:@"name"];
-      [tempPWDic setObject:[NSData data] forKey:@"pw"];
+      [tempPWDic setObject:defaultPWData forKey:@"pw"];
       
       [tempPListDic setObject:tempPWDic forKey:@"adminpw"];//AdminPasswort muss vorhanden sein
       
@@ -1471,6 +1472,8 @@ return versionOK;
       [tempPListDic setObject:[NSNumber numberWithBool:NO] forKey:@"mituserpasswort"];
       [tempPListDic setObject:[NSNumber numberWithInt:(int)60] forKey:@"timeoutdelay"];
       [tempPListDic setObject:[NSNumber numberWithInt:2] forKey:@"knackdelay"];
+      [tempPListDic setObject:[NSNumber numberWithInt:0] forKey:@"busy"];
+
 
       
       

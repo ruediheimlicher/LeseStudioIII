@@ -1188,10 +1188,10 @@ enum
    //NSLog(@"ProjektArray A: %@",[[Utils ProjektArrayAusPListAnPfad:self.LeseboxPfad] description]);
    [self.ProjektArray setArray:[Utils ProjektArrayAusPListAnPfad:self.LeseboxPfad]];
    NSArray*  tempProjektNamenArray = [NSArray arrayWithArray:[Utils ProjektNamenArrayVon:[self.LeseboxPfad stringByAppendingString:@"/Archiv"]]];
-   //NSLog(@"ProjektArray A: %@",[ProjektArray description]);
+   NSLog(@"ProjektArray A: %@",[self.ProjektArray description]);
    
    //   [ProjektArray addObjectsFromArray:tempProjektNamenArray];
-   //NSLog(@"ProjektArray B: %@",[ProjektArray description]);
+   NSLog(@"showProjektStart ProjektArray B: %@",[self.ProjektArray description]);
    if ([self.ProjektArray count])
    {
       [ProjektStartPanel  setProjektArray:self.ProjektArray];
@@ -1212,10 +1212,10 @@ enum
       
    }
    
-   
+   NSLog(@"showProjektStart start PListDic: %@",[self.PListDic description]);
    if ([self.PListDic objectForKey:@"lastprojekt"])
    {
-      //NSLog(@"showProjektStart start lastproject: %@",[PListDic objectForKey:@"lastprojekt"]);
+      NSLog(@"showProjektStart start lastproject: %@",[self.PListDic objectForKey:@"lastprojekt"]);
       [ProjektStartPanel selectProjekt:[self.PListDic objectForKey:@"lastprojekt"]];
    }
    
