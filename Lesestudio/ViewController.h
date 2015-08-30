@@ -52,6 +52,7 @@
    
    rAdminPlayer*						   AdminPlayer;
    
+   IBOutlet NSWindow*              RecorderFenster;
   IBOutlet rAbspielanzeige*			Abspielanzeige;
  IBOutlet   rVertikalanzeige*       Vertikalanzeige;
    rAVPlayer*  AVAbspielplayer;

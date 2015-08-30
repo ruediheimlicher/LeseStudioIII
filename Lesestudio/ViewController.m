@@ -270,6 +270,14 @@ extern  NSMenu*                      ProjektMenu;
    //BOOL istOrdner;
 //   [self.RecPlayFenster setDelegate:self];
 //   [self.RecPlayFenster setBackgroundColor:HintergrundFarbe];
+   NSColor* FensterFarbe=[NSColor colorWithDeviceRed: 194.0/255 green:249.0/255 blue:194.0/255 alpha:1.0];
+ //  self.view.backgroundColor=FensterFarbe;
+ //[[self view]window].backgroundColor=FensterFarbe;
+   
+   [self.view setWantsLayer:YES];
+   [self.view.layer setBackgroundColor:[FensterFarbe CGColor]];
+   
+   
    
    [[self.view window ]setDelegate:self];
    //	NSColor * TitelFarbe=[NSColor whiteColor];

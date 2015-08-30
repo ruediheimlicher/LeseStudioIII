@@ -255,7 +255,10 @@ OptionBString=[[NSString alloc]init];
 	//NSLog(@"awake: ExportFormatString; %@",ExportFormatString);
 	
 	//NSColor * FensterFarbe=[NSColor windowBackgroundColor];
-	NSColor* FensterFarbe=[NSColor colorWithDeviceRed:100.0/255 green:200.0/255 blue:150.0/255 alpha:1.0];
+//   NSColor* FensterFarbe=[NSColor colorWithDeviceRed:100.0/255 green:200.0/255 blue:150.0/255 alpha:1.0];
+//	NSColor* FensterFarbe=[NSColor colorWithDeviceRed:94.0/255 green:249.0/255 blue:94.0/255 alpha:1.0];
+   NSColor* FensterFarbe=[NSColor colorWithDeviceRed: 150.0/255 green:249.0/255 blue:150.0/255 alpha:1.0];
+
 	[AdminFenster setBackgroundColor:FensterFarbe];
 	
 	AufnahmenDicArray=[[NSMutableArray alloc]initWithCapacity:0];
