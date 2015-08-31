@@ -275,6 +275,7 @@ extern  NSMenu*                      ProjektMenu;
  //  self.view.backgroundColor=FensterFarbe;
  //[[self view]window].backgroundColor=FensterFarbe;
    
+   // http://stackoverflow.com/questions/2962790/best-way-to-change-the-background-color-for-an-nsview
    [self.view setWantsLayer:YES];
    [self.view.layer setBackgroundColor:[FensterFarbe CGColor]];
    

@@ -493,26 +493,7 @@
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="31" y="243"/>
-        </scene>
-        <!--Admin Player Controller-->
-        <scene sceneID="Y1Q-uc-aBh">
-            <objects>
-                <viewController id="y7D-v2-fxF" customClass="AdminPlayerController" sceneMemberID="viewController">
-                    <slider key="view" verticalHuggingPriority="750" id="LuF-xD-Fm7">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <sliderCell key="cell" controlSize="mini" continuous="YES" alignment="left" maxValue="1" tickMarkPosition="above" allowsTickMarkValuesOnly="YES" sliderType="linear" id="9zL-Tp-htb">
-                            <font key="font" size="12" name="Helvetica"/>
-                        </sliderCell>
-                    </slider>
-                    <connections>
-                        <segue destination="XfG-lQ-9wD" kind="show" id="Owa-f7-553"/>
-                    </connections>
-                </viewController>
-                <customObject id="8xT-vy-E0k" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="432" y="237"/>
+            <point key="canvasLocation" x="-23" y="437"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="hIz-AP-VOD">
@@ -810,7 +791,7 @@
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                             <subviews>
                                                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="16" headerView="E13-fn-K0O" id="GI5-jq-DA3" customClass="rArchivView">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="456" height="18"/>
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="503" height="58"/>
                                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1228,6 +1209,7 @@
                     </view>
                     <connections>
                         <outlet property="Abspieldauerfeld" destination="PYR-dB-vrZ" id="NIb-OW-iTA"/>
+                        <outlet property="ArchivAbspielanzeige" destination="o96-vH-NWh" id="3Kx-Z4-Y38"/>
                         <outlet property="ArchivAbspieldauerFeld" destination="Acm-lw-z0M" id="bQ7-XY-UVZ"/>
                         <outlet property="ArchivBewertungfeld" destination="wy2-Pr-AoX" id="Bn8-gM-c8a"/>
                         <outlet property="ArchivDatumfeld" destination="bh6-yK-V0C" id="q25-dJ-Hge"/>
@@ -1261,7 +1243,7 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="47.5" y="913"/>
+            <point key="canvasLocation" x="-22.5" y="1347"/>
         </scene>
     </scenes>
     <resources>
@@ -1273,7 +1255,4 @@
         <image name="playicon_w" width="101" height="102"/>
         <image name="rewind_w" width="101" height="102"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="cq2-FE-JQM"/>
-    </inferredMetricsTieBreakers>
 </document>
