@@ -173,6 +173,14 @@
       }
    }
 }
+- (void)resetTimer
+{
+   if ([posTimer isValid])
+   {
+      [posTimer invalidate];
+   }
+}
+
 - (BOOL)isPlaying
 {
    return [AVAbspielplayer isPlaying];

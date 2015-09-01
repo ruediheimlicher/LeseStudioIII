@@ -2090,7 +2090,6 @@ OptionBString=[[NSString alloc]init];
    NSLog(@"startAVPlay dur: %f",dur);
    [Abspielanzeige setNeedsDisplay:YES];
    //[self.Fortschritt setDoubleValue:0];
-   
 }
 
 - (IBAction)stopAVPlay:(id)sender

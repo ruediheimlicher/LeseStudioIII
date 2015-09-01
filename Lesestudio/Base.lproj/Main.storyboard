@@ -883,10 +883,6 @@
                                                                             <action selector="startArchivPlayer:" target="XfG-lQ-9wD" id="Gen-du-O9u"/>
                                                                         </connections>
                                                                     </button>
-                                                                    <customView id="o96-vH-NWh" customClass="rAbspielanzeige">
-                                                                        <rect key="frame" x="13" y="114" width="187" height="21"/>
-                                                                        <autoresizingMask key="autoresizingMask"/>
-                                                                    </customView>
                                                                     <textField verticalHuggingPriority="750" id="PVo-Lb-vU0">
                                                                         <rect key="frame" x="101" y="88" width="60" height="13"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
@@ -940,6 +936,10 @@
                                                                             <action selector="backArchivPlayer:" target="XfG-lQ-9wD" id="Jkv-0v-eeB"/>
                                                                         </connections>
                                                                     </button>
+                                                                    <customView id="o96-vH-NWh" customClass="rAbspielanzeige">
+                                                                        <rect key="frame" x="23" y="125" width="187" height="21"/>
+                                                                        <autoresizingMask key="autoresizingMask"/>
+                                                                    </customView>
                                                                 </subviews>
                                                             </view>
                                                             <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
@@ -1209,7 +1209,7 @@
                     </view>
                     <connections>
                         <outlet property="Abspieldauerfeld" destination="PYR-dB-vrZ" id="NIb-OW-iTA"/>
-                        <outlet property="ArchivAbspielanzeige" destination="o96-vH-NWh" id="3Kx-Z4-Y38"/>
+                        <outlet property="ArchivAbspielanzeige" destination="o96-vH-NWh" id="y5M-1N-eMa"/>
                         <outlet property="ArchivAbspieldauerFeld" destination="Acm-lw-z0M" id="bQ7-XY-UVZ"/>
                         <outlet property="ArchivBewertungfeld" destination="wy2-Pr-AoX" id="Bn8-gM-c8a"/>
                         <outlet property="ArchivDatumfeld" destination="bh6-yK-V0C" id="q25-dJ-Hge"/>

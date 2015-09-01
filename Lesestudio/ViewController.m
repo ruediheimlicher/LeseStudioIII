@@ -454,12 +454,17 @@ extern  NSMenu*                      ProjektMenu;
    NSRect v = Vertikalanzeige.frame;
    //NSLog(@"didLoad v.width: %f",v.size.width);
    NSRect abspielanzeigerect = NSMakeRect(315,295,225,20);
-
-   //Abspielanzeige = [[rAbspielanzeige alloc]initWithFrame:f];
   Abspielanzeige = [[rAbspielanzeige alloc]initWithFrame:abspielanzeigerect];
-   
+  
+
+  
    [[[self.RecPlayTab tabViewItemAtIndex:0] view]addSubview:Abspielanzeige];
+  
+   f = self.ArchivAbspielanzeige.frame;
+   self.ArchivAbspielanzeige = [[rAbspielanzeige alloc]initWithFrame:f];
    
+   [[[self.RecPlayTab tabViewItemAtIndex:1] view]addSubview:self.ArchivAbspielanzeige];
+  
    NSArray* viewArray0 = [[[self.RecPlayTab tabViewItemAtIndex:0]view]subviews];
    //NSLog(@"viewArray0: %@",[viewArray0 description]);
    [Abspielanzeige setMax:abspielanzeigerect.size.width];
@@ -858,7 +863,10 @@ extern  NSMenu*                      ProjektMenu;
    
    [self clearArchivKommentar];
 //   int	erfolg=[RecPlayFenster makeFirstResponder:ArchivView];
-   
+   [self.ArchivAbspielanzeige setLevel:0];
+   [self.ArchivAbspielanzeige setNeedsDisplay:YES];
+   [self.ArchivAbspieldauerFeld setStringValue:@""];
+   [AVAbspielplayer resetTimer];
    [Utils startTimeout:self.TimeoutDelay];
    
 }
@@ -3708,7 +3716,7 @@ QTMovie* qtMovie;
    [self.Abspieldauerfeld setStringValue:@""];
    [self.ArchivAbspielanzeige setLevel:0];
    [self->Abspielanzeige setLevel:0];
-   
+   //AVAbspielplayer=nil;
 }
 
 - (void)clearArchiv
@@ -3876,7 +3884,7 @@ QTMovie* qtMovie;
            [self.ArchivInPlayerTaste setEnabled:NO];
            [self.ArchivView deselectAll:NULL];
            [self.RecPlayFenster makeFirstResponder:self.ArchivView];
-           
+           //AVAbspielplayer=nil;
         }
         else
         {
@@ -3915,6 +3923,7 @@ QTMovie* qtMovie;
          [self.ArchivView deselectAll:NULL];
          [self.ArchivnamenPop setEnabled:YES];
          [self.RecPlayFenster makeFirstResponder:self.RecPlayFenster];
+         
          //umschalten=YES;
       }
    }

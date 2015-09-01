@@ -34,4 +34,5 @@
 - (void)invalTimer;
 - (double)duration;
 - (double)position;
+- (void)resetTimer;
 @end

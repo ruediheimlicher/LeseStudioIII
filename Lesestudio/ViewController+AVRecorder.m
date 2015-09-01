@@ -293,6 +293,8 @@
    [Abspielanzeige setMax:dur];
    NSLog(@"startAVPlay dur: %f",dur);
    [Abspielanzeige setNeedsDisplay:YES];
+   [self.ArchivAbspielanzeige setMax:dur];
+   
    [self.Fortschritt setDoubleValue:0];
    //[Utils startTimeout:self.TimeoutDelay];
 }
@@ -315,6 +317,7 @@
 {
    NSLog(@"backAVPlay");
    [AVAbspielplayer toStartTempAufnahme];
+   
    [self.BackKnopf setEnabled:NO];
    [self.StopPlayKnopf setEnabled:YES];
    [Utils stopTimeout];
@@ -495,11 +498,12 @@
       NSNumber* durNumber=[[note userInfo]objectForKey:@"dur"];
       dur=[durNumber doubleValue];
    }
-   //NSLog(@"dur: %2.2f pos: %2.2f",dur,pos);
+   NSLog(@"dur: %2.2f pos: %2.2f",dur,pos);
    if (dur - pos < 0.1)
    {
       NSLog(@"Ende erreicht");
       [self.SichernKnopf setEnabled:YES];
+      [AVAbspielplayer resetTimer];
    }
    NSNumber* durationNumber=[[note userInfo]objectForKey:@"duration"];
    
@@ -528,7 +532,9 @@
       MinutenString=[NSString stringWithFormat:@"%d",Minuten];
    }
    [self.Abspieldauerfeld setStringValue:[NSString stringWithFormat:@"%@:%@",MinutenString, SekundenString]];
-   
+
+   [self.ArchivAbspieldauerFeld setStringValue:[NSString stringWithFormat:@"%@:%@",MinutenString, SekundenString]];
+
    
 
    int max =[self.Fortschritt maxValue];
@@ -536,6 +542,10 @@
  //  [self.Abspielanzeige setMax:dur];
    [Abspielanzeige setLevel:pos];
    [Abspielanzeige display];
+   [self.ArchivAbspielanzeige setMax:dur];
+   [self.ArchivAbspielanzeige setLevel:pos];
+   [self.ArchivAbspielanzeige display];
+
    
    
    
