@@ -370,6 +370,8 @@
                //[self.ForewardKnopf setEnabled:YES];
                //[self.RewindKnopf setEnabled:YES];
                [self.WeitereAufnahmeKnopf setEnabled:YES];
+               
+               // Player vorbereiten
                if ([[note userInfo ] objectForKey:@"desturl"] && [[[[note userInfo ] objectForKey:@"desturl"]path]length])
                {
                   NSLog(@"RecordingAktion desturl: %@",[[note userInfo ]objectForKey:@"desturl"]);

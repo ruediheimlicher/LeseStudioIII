@@ -36,11 +36,14 @@
 
 - (void)prepareAufnahmeAnURL:(NSURL*)url
 {
-   NSLog(@"prepareAufnahmeAnURL: %@",url.path);
-   self.hiddenAufnahmePfad = [url path];
-   if ([AVAbspielplayer isPlaying])
+   if (url)
    {
-      [AVAbspielplayer stop];
+      NSLog(@"prepareAufnahmeAnURL: %@",url.path);
+      self.hiddenAufnahmePfad = [url path];
+      if ([AVAbspielplayer isPlaying])
+      {
+         [AVAbspielplayer stop];
+      }
    }
    return;
    // an url muss schon ein lokales file sein, nicht nur eine adresse
@@ -50,9 +53,9 @@
    
    [AVAbspielplayer prepareToPlay];
    double dur = AVAbspielplayer.duration;
-
+   
    NSLog(@"prepareAufnahmeAnURL err: %@ dur: %f",err, dur);
-
+   
 }
 
 - (void)prepareAdminAufnahmeAnURL:(NSURL*)url
