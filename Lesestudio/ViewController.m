@@ -1286,175 +1286,14 @@ QTMovie* qtMovie;
     */
 }
 
-- (IBAction)startPlay:(id)sender
-{
-   NSLog(@"startPlay");
-   if([self isRecording])
-   {
-      NSBeep();
-      return;
-   }
-   //BOOL result=NO;
-   
-   
-   /*
-   if (![RecordQTKitPlayer movie])
-   {
-      NSLog(@"Noch kein Movie da");
-      
-      NSURL *movieUrl = [NSURL fileURLWithPath:hiddenAufnahmePfad];
-      NSError* startErr=0;
-      //QTMovie *tempMovie = [QTMovie movieWithURL:[NSURL fileURLWithPath:neueAufnahmePfad]error:NULL];
-      QTMovie *tempMovie = [[QTMovie alloc]initWithURL:[NSURL fileURLWithPath:hiddenAufnahmePfad]error:&startErr];
-      if (startErr)
-      {
-         NSAlert *theAlert = [NSAlert alertWithError:startErr];
-         [theAlert runModal]; // Ignore return value.
-      }
-      else
-      {
-         [tempMovie play];
-      }
-      
-      //[ArchivQTKitPlayer setMovie:tempMovie];
-      [RecordQTKitPlayer setMovie:tempMovie];
-      if (!tempMovie)
-      {
-         NSLog(@"Kein Movie da");
-      }
-      // retrieve the QuickTime-style movie (type "Movie" from QuickTime/Movies.h)
-      //PlayerMovie =[tempMovie quickTimeMovie];
-      
-      //NSLog(@"Beginn startPlay: Dauer in s:%2.2f ",Dauer/600.0);
-      
-      double PlayerVolume=120.0;
-   }
-*/
-   //NSLog(@"startPlay hiddenAufnahmePfad: %@",hiddenAufnahmePfad);
-   NSURL *movieURL = [NSURL fileURLWithPath:self.hiddenAufnahmePfad];
-   NSError* err1;
-   
-   /*
-   QTMovie *tempMovie=[QTMovie movieWithURL:movieURL error:&err1];
-   
-   if (err1)
-   {
-      NSAlert *theAlert = [NSAlert alertWithError:err1];
-      [theAlert runModal]; // Ignore return value.
-      
-   }
-   */
-   
-   
-   //[Volumesteller setFloatValue: GetMovieVolume(PlayerMovie)];
-   
-   //	QTMovie *tempMovie=[RecordQTKitPlayer movie];
-   //Dauer=[tempMovie duration].timeValue/[tempMovie duration].timeScale;
-   //NSLog(@"startPlay Dauer: %d",Dauer);
-//   QTKitDauer=(float)[tempMovie duration].timeValue/[tempMovie duration].timeScale;
-   //NSLog(@"startPlay QTKitDauer: %2.2f",QTKitDauer);
-   [Utils stopTimeout];
-   //GesamtAbspielzeit=Dauer;
-// self.QTKitGesamtAbspielzeit=self.QTKitDauer;
-//   [self.Abspielanzeige setMax: [tempMovie duration].timeValue];
-   
-   if ([self.playBalkenTimer isValid])
-   {
-      [self.playBalkenTimer invalidate];
-   }
-   self.playBalkenTimer = [NSTimer scheduledTimerWithTimeInterval:0.1
-                                                      target:self
-                                                    selector:@selector(updatePlayBalken:)
-                                                    userInfo:nil
-                                                     repeats:YES];
-   
-   
-   //NSLog(@"startPlay QTKitPause: %2.2f", QTKitPause);
-   
-   if (self.QTKitPause)
-   {
-      [self.Abspieldauerfeld setStringValue:[self Zeitformatieren:self.QTKitPause]];
-      //Abspieldauer=Pause;
-      
-      //[Levelbalken setDoubleValue: Pause];
-//      [self.Abspielanzeige setLevel:QTKitPause];
-      self.Pause=0;
-      //QTKitPause=0;
-      
-   }
-   else
-   {
-      
-      [self.Abspieldauerfeld setStringValue:[self Zeitformatieren:self.QTKitGesamtAbspielzeit]];
-      
-      //Abspieldauer=GesamtAbspielzeit;
-      
-      [self.LevelMeter setFloatValue: 0];
-      [self->Abspielanzeige setLevel:0];
-//*      [self.ArchivQTKitPlayer gotoBeginning:NULL];
-   }
-   //[ArchivQTKitPlayer play:NULL];
-//*   [RecordQTKitPlayer play:NULL];
-   
-   //NSLog(@"MovieDuration: %d", GesamtAbspielzeit);
-   //[tempMovie release];
-   [self.StartRecordKnopf setEnabled:NO];
-   [self.SichernKnopf setEnabled:NO];
-   [self.WeitereAufnahmeKnopf setEnabled:NO];
-   [self.StopRecordKnopf setEnabled:NO];
-   [self.BackKnopf setEnabled:YES];
-   [self.StopPlayKnopf setEnabled:YES];
-   
-   
-}
 
 
 - (void)AbspielenFertigAktion:(NSNotification *)aNotification
 {
-   /*
-   if ([[self.RecordQTKitPlayer movie]duration].timeValue)
-   {
-      if ([self.playBalkenTimer isValid])
-      {
-         [playBalkenTimer invalidate];
-      }
-      
-      [StartRecordKnopf setEnabled:YES];
-      [SichernKnopf setEnabled:YES];
-      [WeitereAufnahmeKnopf setEnabled:YES];
-      [StopRecordKnopf setEnabled:YES];
-      [BackKnopf setEnabled:NO];
-      [StopPlayKnopf setEnabled:NO];
-      [Abspieldauerfeld setStringValue:[self Zeitformatieren:(int)QTKitGesamtAbspielzeit]];
-      //Abspieldauer=GesamtAbspielzeit;
-      [Abspielanzeige setLevel:0];
-      [ArchivQTKitPlayer gotoBeginning:NULL];
-      Pause=0;
-      QTKitPause=0;
-   }
-   */
 }
 
 - (IBAction)stopPlay:(id)sender
 {
-   
-   //*[self.RecordQTKitPlayer pause:NULL];
-   int PauseZeit=(self.Laufzeit)/60;
-   //NSLog(@"Laufzeit:%d  PauseZeit: %d",Laufzeit,PauseZeit);
-   self.Pause=self.Laufzeit/60;
-   
-//*   self.QTKitPause=(float)[[RecordQTKitPlayer movie] duration].timeValue/[[RecordQTKitPlayer movie] duration].timeScale;
-   self.Pause=self.QTKitPause;
-   NSLog(@"stopPlay: Pause: %ld QTKitPause: %2.1f",self.Pause, self.QTKitPause);
-   
-   [self.StartRecordKnopf setEnabled:YES];
-   [self.SichernKnopf setEnabled:YES];
-   [self.WeitereAufnahmeKnopf setEnabled:YES];
-   [self.StopRecordKnopf setEnabled:NO];
-   [self.BackKnopf setEnabled:YES];
-   [self.StopPlayKnopf setEnabled:NO];
-   [Utils startTimeout:self.TimeoutDelay];
-   
 }
 
 - (IBAction)goStart:(id)sender
@@ -3611,63 +3450,23 @@ QTMovie* qtMovie;
 - (IBAction)startArchivPlayer:(id)sender
 {
    TimeValue ArchivDauer;
-  // NSLog(@"startArchivPlayer:");
+   // NSLog(@"startArchivPlayer:");
    NSLog(@"startArchivPlayer:			ArchivPlayPfad: %@",self.ArchivPlayPfad);
    
    NSString* tempAchivPlayPfad = [self.ArchivPlayPfad stringByAppendingPathExtension:@"m4a"];
    
-   NSURL *ArchivURL = [NSURL fileURLWithPath:tempAchivPlayPfad];
-//   [AVAbspielplayer prepareAufnahmeAnURL:ArchivURL];
-   
-   [AVAbspielplayer playAufnahme];
-   /*
+   if ([[NSFileManager defaultManager]fileExistsAtPath:tempAchivPlayPfad])
    {
-    
-       ArchivDauer=[tempMovie duration].timeValue/[tempMovie duration].timeScale;
+      NSURL *ArchivURL = [NSURL fileURLWithPath:tempAchivPlayPfad];
+      //   [AVAbspielplayer prepareAufnahmeAnURL:ArchivURL];
       
-      // ArchivAbspielanzeige wird mit timeValue ohne Umrechnung geladen
-      [ArchivAbspielanzeige setMax: [tempMovie duration].timeValue];
+      [AVAbspielplayer playAufnahme];
       
-      //		NSLog(@"Beginn startArchivPlayer: Dauer in s:%2.2f ",(float)ArchivDauer);
-      
-      if (!tempMovie)
-      {
-         NSLog(@"startArchivPlayer: Kein Movie da");
-         //return;
-      }
-      
-      playArchivBalkenTimer = [NSTimer scheduledTimerWithTimeInterval:0.1
-                                                               target:self
-                                                             selector:@selector(updateArchivPlayBalken:)
-                                                             userInfo:nil
-                                                              repeats:YES];
-      
-      [ArchivAbspieldauerFeld setStringValue:[self Zeitformatieren:ArchivDauer]];
-      [ArchivAbspieldauerFeld setNeedsDisplay:YES];
-      
-      [Utils stopTimeout];
-      
+      [self.ArchivPlayTaste setEnabled:NO];
+      //[self setBackTaste:YES];
+      [self.ArchivStopTaste setEnabled:YES];
+      [self.ArchivZumStartTaste setEnabled:YES];
    }
-   
-   if (QTKitPause)
-   {
-      [ArchivAbspieldauerFeld setStringValue:[self Zeitformatieren:QTKitPause]];
-      //Abspieldauer=QTKitPause;
-      [ArchivAbspielanzeige setLevel:QTKitPause];
-      QTKitPause=0;
-   }
-   else
-   {
-      [ArchivAbspieldauerFeld setStringValue:[self Zeitformatieren:QTKitGesamtAbspielzeit]];
-      //Abspieldauer=GesamtAbspielzeit;
-      [ArchivAbspielanzeige setLevel:0];
-   }
-   */
-   
-   [self.ArchivPlayTaste setEnabled:NO];
-   //[self setBackTaste:YES];
-   [self.ArchivStopTaste setEnabled:YES];
-   [self.ArchivZumStartTaste setEnabled:YES];
    
 }
 
@@ -3715,7 +3514,10 @@ QTMovie* qtMovie;
    [self.ArchivAbspieldauerFeld setStringValue:@""];
    [self.Abspieldauerfeld setStringValue:@""];
    [self.ArchivAbspielanzeige setLevel:0];
-   [self->Abspielanzeige setLevel:0];
+   [self.ArchivAbspielanzeige setNeedsDisplay:YES];
+   [Abspielanzeige setLevel:0];
+   [Abspielanzeige setNeedsDisplay:YES];
+ 
    //AVAbspielplayer=nil;
 }
 
@@ -3876,8 +3678,8 @@ QTMovie* qtMovie;
         }
         [Utils stopTimeout];
         [AVAbspielplayer invalTimer];
-        NSLog(@"TabView:archiv");
-        if (self.aktuellAnzAufnahmen &&!([AVRecorder isRecording]))
+        NSLog(@"TabView zu Archiv");
+        if (self.aktuellAnzAufnahmen &&!([AVRecorder isRecording])&& !([AVAbspielplayer isPlaying]))
         {
            [self resetArchivPlayer:nil];
            [self.ArchivnamenPop setEnabled:NO];
@@ -3888,6 +3690,7 @@ QTMovie* qtMovie;
         }
         else
         {
+           NSLog(@"TabView:archiv NO, isRecording");
            umschalten=NO;
         }
         
@@ -3897,11 +3700,12 @@ QTMovie* qtMovie;
    if ([[tabViewItem label]isEqualToString:@"Recorder"])
    {
       
-      NSLog(@"TabView:recorder");
+      NSLog(@"TabView zu Recorder");
       //NSLog(@"vor shouldSelectTabViewItem: UserMarkCheckbox: %d",[UserMarkCheckbox state]);
       umschalten=YES;
       if (AVAbspielplayer && [AVAbspielplayer isPlaying])
       {
+         NSLog(@"TabView:recorder AVPlayer isPlaying");
          umschalten=NO;
          
       }

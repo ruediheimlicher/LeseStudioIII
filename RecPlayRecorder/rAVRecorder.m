@@ -585,7 +585,7 @@
 - (int)cutFileAtURL:(NSURL*)sourceURL toURL:(NSURL*)destURL
 {
    int cutsuccess=0;
-   //NSLog(@"cutFileAtURL: \n\tsourceURL: %@\n\tdestURL: %@",sourceURL,destURL);
+   NSLog(@"cutFileAtURL: \n\tsourceURL: %@\n\tdestURL: %@",sourceURL,destURL);
    // http://www.rockhoppertech.com/blog/ios-trimming-audio-files
    // http://stackoverflow.com/questions/23752671/avassetexportsession-not-exporting-metadata
    AVAsset* asset = [AVAsset assetWithURL:sourceURL];
@@ -622,6 +622,7 @@
          NSArray* tracks = [asset tracksWithMediaType:AVMediaTypeAudio];
          if (tracks.count == 0)
          {
+            NSLog(@"cut no track");
             return cutsuccess;
          }
          

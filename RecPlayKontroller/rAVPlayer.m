@@ -23,10 +23,16 @@
 
 - (void)setURL:(NSURL*)playerURL
 {
-   
+   if (playerURL)
+   {
    AVAbspielplayer = [[AVAudioPlayer alloc] initWithContentsOfURL: playerURL
                                                             error: nil];
    [AVAbspielplayer prepareToPlay];
+   }
+   else
+   {
+      AVAbspielplayer=nil;
+   }
 }
 
 - (NSURL*)AufnahmeURL
@@ -37,71 +43,93 @@
 - (void)prepareAufnahmeAnURL:(NSURL*)url
 {
    NSLog(@"prepareAufnahmeAnURL: %@",url.path);
-   self.hiddenAufnahmePfad = [url path];
-   if ([AVAbspielplayer isPlaying])
+   if (AVAbspielplayer && url)
    {
-      [AVAbspielplayer stop];
+      self.hiddenAufnahmePfad = [url path];
+      if ([AVAbspielplayer isPlaying])
+      {
+         [AVAbspielplayer stop];
+         //AVAbspielplayer=nil;
+      }
+      return;
+      
+      
+      // an url muss schon ein lokales file sein, nicht nur eine adresse
+      NSError* err;
+      AVAbspielplayer = [[AVAudioPlayer alloc] initWithContentsOfURL: url
+                                                               error: &err];
+      
+      [AVAbspielplayer prepareToPlay];
+      double dur = AVAbspielplayer.duration;
+      
+      NSLog(@"prepareAufnahmeAnURL err: %@ dur: %f",err, dur);
    }
-   return;
-   // an url muss schon ein lokales file sein, nicht nur eine adresse
-   NSError* err;
-   AVAbspielplayer = [[AVAudioPlayer alloc] initWithContentsOfURL: url
-                                                            error: &err];
+   else
+   {
+      AVAbspielplayer=nil;
+   }
    
-   [AVAbspielplayer prepareToPlay];
-   double dur = AVAbspielplayer.duration;
-
-   NSLog(@"prepareAufnahmeAnURL err: %@ dur: %f",err, dur);
-
 }
 
 - (void)prepareAdminAufnahmeAnURL:(NSURL*)url
 {
+   
+   
    NSLog(@"prepareAdminAufnahmeAnURL: %@",url.path);
-   if ([AVAbspielplayer isPlaying])
+   if (AVAbspielplayer && url)
    {
-      [AVAbspielplayer stop];
+      if ([AVAbspielplayer isPlaying])
+      {
+         [AVAbspielplayer stop];
+         AVAbspielplayer=nil;
+      }
+      // an url muss schon ein lokales file sein, nicht nur eine adresse
+      NSError* err;
+      AVAbspielplayer = [[AVAudioPlayer alloc] initWithContentsOfURL: url
+                                                               error: &err];
+      
+      [AVAbspielplayer prepareToPlay];
+      double dur = AVAbspielplayer.duration;
+      
+      NSLog(@"prepareAdminAufnahmeAnURL err: %@ dur: %f",err, dur);
    }
-   // an url muss schon ein lokales file sein, nicht nur eine adresse
-   NSError* err;
-   AVAbspielplayer = [[AVAudioPlayer alloc] initWithContentsOfURL: url
-                                                            error: &err];
-   
-   [AVAbspielplayer prepareToPlay];
-   double dur = AVAbspielplayer.duration;
-   
-   NSLog(@"prepareAdminAufnahmeAnURL err: %@ dur: %f",err, dur);
    
 }
 
 - (void)playAdminAufnahme
 {
-   
-   if (haltzeit)
+   if (AVAbspielplayer && self.AufnahmeURL)
    {
-      NSLog(@"playAufnahme nach halt: %2.2f",haltzeit);
-      AVAbspielplayer.currentTime = haltzeit;
-      [AVAbspielplayer play];
+      if (haltzeit)
+      {
+         NSLog(@"playAufnahme nach halt: %2.2f",haltzeit);
+         AVAbspielplayer.currentTime = haltzeit;
+         [AVAbspielplayer play];
+      }
+      else
+         
+      {
+         NSLog(@"playAdminAufnahme: %@", AVAbspielplayer.url.path);
+         // http://stackoverflow.com/questions/1605846/avaudioplayer-with-external-url-to-m4p
+         double dur = AVAbspielplayer.duration;
+         haltzeit = 0;
+         [AVAbspielplayer play];
+         
+         if ( [posTimer isValid])
+         {
+            [posTimer invalidate];
+         }
+         posTimer=[NSTimer scheduledTimerWithTimeInterval:0.1
+                                                   target:self
+                                                 selector:@selector(posAnzeigeFunktion:)
+                                                 userInfo:NULL
+                                                  repeats:YES];
+         
+         
+      }
    }
    else
-      
    {
-      NSLog(@"playAdminAufnahme: %@", AVAbspielplayer.url.path);
-      // http://stackoverflow.com/questions/1605846/avaudioplayer-with-external-url-to-m4p
-      double dur = AVAbspielplayer.duration;
-      haltzeit = 0;
-      [AVAbspielplayer play];
-      
-      if ( [posTimer isValid])
-      {
-         [posTimer invalidate];
-      }
-      posTimer=[NSTimer scheduledTimerWithTimeInterval:0.1
-                                                target:self
-                                              selector:@selector(posAnzeigeFunktion:)
-                                              userInfo:NULL
-                                               repeats:YES];
-      
       
    }
 }
@@ -109,11 +137,11 @@
 
 - (void)playAufnahme
 {
- 
    if (haltzeit)
    {
       NSLog(@"playAufnahme nach halt: %2.2f",haltzeit);
       AVAbspielplayer.currentTime = haltzeit;
+      
       [AVAbspielplayer play];
    }
    else
@@ -122,6 +150,10 @@
       NSLog(@"playAufnahme: %@", AVAbspielplayer.url.path);
       // http://stackoverflow.com/questions/1605846/avaudioplayer-with-external-url-to-m4p
       NSError* err;
+      if (AVAbspielplayer)
+      {
+         AVAbspielplayer=nil;
+      }
       AVAbspielplayer = [[AVAudioPlayer alloc] initWithContentsOfURL: [NSURL fileURLWithPath:  self.hiddenAufnahmePfad]
                                                                error: &err];
       NSLog(@"playAufnahme err: %@",err);
@@ -241,6 +273,7 @@
    {
       AVAbspielplayer.currentTime = 0;
    }
+   haltzeit = 0;
    [AVAbspielplayer play];
 }
 
@@ -251,6 +284,7 @@
    NSTimeInterval playbackDelay = 3.0;              // must be ≥ 0
    NSTimeInterval pos =AVAbspielplayer.currentTime;
    NSLog(@"AVAbspielplayer pos: %f",pos);
+   haltzeit = 0;
    if (pos > playbackDelay)
    {
    AVAbspielplayer.currentTime = pos - playbackDelay;
@@ -268,6 +302,7 @@
    NSTimeInterval playbackDelay = 3.0;              // must be ≥ 0
    NSTimeInterval pos =AVAbspielplayer.currentTime;
     NSTimeInterval end =AVAbspielplayer.duration;
+   haltzeit = 0;
    NSLog(@"AVAbspielplayer pos: %f",pos);
    if (pos < end - playbackDelay)
    {

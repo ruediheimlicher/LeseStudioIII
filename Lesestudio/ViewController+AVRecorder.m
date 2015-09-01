@@ -270,33 +270,42 @@
 
 - (IBAction)startAVPlay:(id)sender
 {
-   [Vertikalanzeige setLevel:127];
    NSLog(@"startAVPlay hiddenaufnahmepfad: %@",self.hiddenAufnahmePfad);
-   if ([[NSFileManager defaultManager]fileExistsAtPath:self.hiddenAufnahmePfad ])
-   {
-      NSLog(@"startAVPlay Aufnahmeda");
-   }
-  // [AVRecorder setPlaying:YES];
-   [self.StartRecordKnopf setEnabled:NO];
-   [self.SichernKnopf setEnabled:NO];
-   [self.WeitereAufnahmeKnopf setEnabled:NO];
-   [self.StopRecordKnopf setEnabled:NO];
-   [self.BackKnopf setEnabled:YES];
-   [self.StopPlayKnopf setEnabled:YES];
-   [self.RewindKnopf setEnabled:YES];
-   [self.ForewardKnopf setEnabled:YES];
 
-   [self.Abspieldauerfeld setStringValue:@"00:00"];
-  
-   [AVAbspielplayer playAufnahme];
-   float dur = ([AVAbspielplayer duration]);
-   [Abspielanzeige setMax:dur];
-   NSLog(@"startAVPlay dur: %f",dur);
-   [Abspielanzeige setNeedsDisplay:YES];
-   [self.ArchivAbspielanzeige setMax:dur];
-   
-   [self.Fortschritt setDoubleValue:0];
-   //[Utils startTimeout:self.TimeoutDelay];
+   if (self.hiddenAufnahmePfad)
+   {
+            if ([[NSFileManager defaultManager]fileExistsAtPath:self.hiddenAufnahmePfad ])
+      {
+         NSLog(@"startAVPlay Aufnahmeda");
+      }
+      // [AVRecorder setPlaying:YES];
+      [self.StartRecordKnopf setEnabled:NO];
+      [self.SichernKnopf setEnabled:NO];
+      [self.WeitereAufnahmeKnopf setEnabled:NO];
+      [self.StopRecordKnopf setEnabled:NO];
+      [self.BackKnopf setEnabled:YES];
+      [self.StopPlayKnopf setEnabled:YES];
+      [self.RewindKnopf setEnabled:YES];
+      [self.ForewardKnopf setEnabled:YES];
+      
+      [self.Abspieldauerfeld setStringValue:@"00:00"];
+      
+      [AVAbspielplayer playAufnahme];
+      
+      float dur = ([AVAbspielplayer duration]);
+      
+      NSLog(@"startAVPlay dur: %f",dur);
+      
+      [Abspielanzeige setMax:dur];
+      [Abspielanzeige setNeedsDisplay:YES];
+      [self.ArchivAbspielanzeige setMax:dur];
+      [self.ArchivAbspielanzeige setNeedsDisplay:YES];
+      
+   }
+   else
+   {
+      NSLog(@"startAVPlay kein hiddenaufnahmepfad");
+   }
 }
 
 - (IBAction)stopAVPlay:(id)sender
