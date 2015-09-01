@@ -45,17 +45,11 @@
          [AVAbspielplayer stop];
       }
    }
-   return;
-   // an url muss schon ein lokales file sein, nicht nur eine adresse
-   NSError* err;
-   AVAbspielplayer = [[AVAudioPlayer alloc] initWithContentsOfURL: url
-                                                            error: &err];
-   
-   [AVAbspielplayer prepareToPlay];
-   double dur = AVAbspielplayer.duration;
-   
-   NSLog(@"prepareAufnahmeAnURL err: %@ dur: %f",err, dur);
-   
+   else
+   {
+      NSLog(@"prepareAufnahmeAnURL: url nil");
+            
+   }
 }
 
 - (void)prepareAdminAufnahmeAnURL:(NSURL*)url
@@ -86,7 +80,7 @@
       AVAbspielplayer.currentTime = haltzeit;
       [AVAbspielplayer play];
    }
-   else
+   else if (self.AufnahmeURL)
       
    {
       NSLog(@"playAdminAufnahme: %@", AVAbspielplayer.url.path);
@@ -107,6 +101,10 @@
       
       
    }
+   else
+   {
+      NSLog(@"playAdminAufnahme: url nil");
+   }
 }
 
 
@@ -119,7 +117,7 @@
       AVAbspielplayer.currentTime = haltzeit;
       [AVAbspielplayer play];
    }
-   else
+   else if (self.AufnahmeURL)
   
    {
       NSLog(@"playAufnahme: %@", AVAbspielplayer.url.path);
@@ -144,6 +142,10 @@
                                                          repeats:YES];
 
       
+   }
+   else
+   {
+      NSLog(@"playAufnahme url nil");
    }
 }
 
