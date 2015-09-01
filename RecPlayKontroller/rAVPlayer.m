@@ -117,9 +117,14 @@
       AVAbspielplayer.currentTime = haltzeit;
       [AVAbspielplayer play];
    }
-   else if (self.AufnahmeURL)
+   else //if (self.AufnahmeURL)
   
    {
+      if (AVAbspielplayer)
+      {
+         NSLog(@"playAufnahme: AVAbspielplayer schon da.url: %@ ",self.AufnahmeURL.path);
+        // AVAbspielplayer=nil;
+      }
       NSLog(@"playAufnahme: %@", AVAbspielplayer.url.path);
       // http://stackoverflow.com/questions/1605846/avaudioplayer-with-external-url-to-m4p
       NSError* err;
@@ -143,9 +148,9 @@
 
       
    }
-   else
+  // else
    {
-      NSLog(@"playAufnahme url nil");
+  //    NSLog(@"playAufnahme url nil");
    }
 }
 
@@ -242,11 +247,19 @@
 
 - (void)toStartTempAufnahme
 {
-   NSLog(@"AVAbspielplayer toBeginTempAufnahme");
+   NSLog(@"AVAbspielplayer toStartTempAufnahme");
    {
       AVAbspielplayer.currentTime = 0;
+      [AVAbspielplayer stop];
    }
-   [AVAbspielplayer play];
+   NSTimeInterval pos =AVAbspielplayer.currentTime;
+   NSTimeInterval dur =AVAbspielplayer.duration;
+
+   [[NSNotificationCenter defaultCenter] postNotificationName:@"abspielpos" object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                [NSNumber numberWithDouble:0] ,@"pos",
+                                                                [NSNumber numberWithDouble:dur] ,@"dur",nil]];
+
+   
 }
 
 
@@ -264,6 +277,11 @@
    {
       AVAbspielplayer.currentTime = 0;
    }
+   
+   [[NSNotificationCenter defaultCenter] postNotificationName:@"abspielpos" object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                                                  [NSNumber numberWithDouble:AVAbspielplayer.currentTime] ,@"pos",
+                                                                                                  [NSNumber numberWithDouble:AVAbspielplayer.duration] ,@"dur",nil]];
+
    [AVAbspielplayer play];
 }
 
@@ -278,6 +296,10 @@
    {
       AVAbspielplayer.currentTime = pos + playbackDelay;
    }
+   [[NSNotificationCenter defaultCenter] postNotificationName:@"abspielpos" object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                                                  [NSNumber numberWithDouble:AVAbspielplayer.currentTime] ,@"pos",
+                                                                                                  [NSNumber numberWithDouble:AVAbspielplayer.duration] ,@"dur",nil]];
+
    [AVAbspielplayer play];
 }
 

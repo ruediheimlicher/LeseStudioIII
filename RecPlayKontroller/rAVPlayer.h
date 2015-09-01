@@ -25,6 +25,7 @@
 - (void)playAdminAufnahme;
 - (void)stopTempAufnahme;
 - (void)rewindTempAufnahme;
+- (void)forewardTempAufnahme;
 - (void)toStartTempAufnahme;
 
 - (void)prepareAufnahmeAnURL:(NSURL*)url;

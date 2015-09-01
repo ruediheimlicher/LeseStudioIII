@@ -2105,7 +2105,7 @@ OptionBString=[[NSString alloc]init];
 {
    NSLog(@"backAVPlay");
    [AVAbspielplayer toStartTempAufnahme];
-   [self.BackKnopf setEnabled:NO];
+   //[self.BackKnopf setEnabled:NO];
    [self.StopPlayKnopf setEnabled:YES];
 }
 
@@ -2113,7 +2113,7 @@ OptionBString=[[NSString alloc]init];
 {
    NSLog(@"backAVPlay");
    [AVAbspielplayer rewindTempAufnahme];
-   [self.BackKnopf setEnabled:NO];
+  // [self.BackKnopf setEnabled:NO];
    [self.StopPlayKnopf setEnabled:YES];
 }
 
@@ -2121,7 +2121,7 @@ OptionBString=[[NSString alloc]init];
 {
    NSLog(@"backAVPlay");
    [AVAbspielplayer toStartTempAufnahme];
-   [self.BackKnopf setEnabled:NO];
+   //[self.BackKnopf setEnabled:NO];
    [self.StopPlayKnopf setEnabled:YES];
 }
 

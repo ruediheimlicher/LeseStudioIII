@@ -681,7 +681,7 @@
                                                             <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                                                             <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         </box>
-                                                        <button verticalHuggingPriority="750" tag="1" id="ikF-UM-ogz">
+                                                        <button verticalHuggingPriority="750" id="ikF-UM-ogz">
                                                             <rect key="frame" x="16" y="109" width="336" height="32"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <buttonCell key="cell" type="squareTextured" title="Aufnahme sichern" bezelStyle="texturedSquare" imagePosition="right" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="MEa-Md-9lt">
