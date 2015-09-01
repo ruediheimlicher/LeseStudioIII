@@ -928,7 +928,7 @@
                                                                     <button verticalHuggingPriority="750" id="hzb-yz-XQn">
                                                                         <rect key="frame" x="178" y="18" width="32" height="32"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
-                                                                        <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="gostarticon" imagePosition="only" alignment="center" enabled="NO" imageScaling="proportionallyDown" inset="2" id="1LD-JH-hrW">
+                                                                        <buttonCell key="cell" type="squareTextured" bezelStyle="texturedSquare" image="gostarticon_w" imagePosition="only" alignment="center" enabled="NO" imageScaling="proportionallyDown" inset="2" id="1LD-JH-hrW">
                                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                             <font key="font" metaFont="system"/>
                                                                         </buttonCell>
@@ -1213,18 +1213,20 @@
                         <outlet property="ArchivAbspieldauerFeld" destination="Acm-lw-z0M" id="bQ7-XY-UVZ"/>
                         <outlet property="ArchivBewertungfeld" destination="wy2-Pr-AoX" id="Bn8-gM-c8a"/>
                         <outlet property="ArchivDatumfeld" destination="bh6-yK-V0C" id="q25-dJ-Hge"/>
+                        <outlet property="ArchivForewardTaste" destination="3EL-J0-GZA" id="eP2-9m-Tva"/>
                         <outlet property="ArchivInListeTaste" destination="BQg-XB-b3y" id="gNA-Eo-Aja"/>
                         <outlet property="ArchivInPlayerTaste" destination="MuP-Ub-Rqe" id="gFO-1b-M5K"/>
+                        <outlet property="ArchivKommentarView" destination="mbs-Vo-qRn" id="pVg-hV-QIy"/>
                         <outlet property="ArchivNotenfeld" destination="ako-ou-AjJ" id="1Uu-NY-Fwy"/>
                         <outlet property="ArchivPlayTaste" destination="CBY-9I-BPq" id="j04-hO-Vi4"/>
+                        <outlet property="ArchivRewindTaste" destination="TVt-ke-Byz" id="Yuh-x6-CeB"/>
                         <outlet property="ArchivStopTaste" destination="flA-uh-W6o" id="bQ5-Ak-HfR"/>
                         <outlet property="ArchivTitelfeld" destination="Wgr-MV-gmz" id="DXT-Nn-F0K"/>
-                        <outlet property="ArchivView" destination="GI5-jq-DA3" id="uzA-km-LbK"/>
+                        <outlet property="ArchivView" destination="GI5-jq-DA3" id="CnR-Pa-Axg"/>
                         <outlet property="ArchivZumStartTaste" destination="hzb-yz-XQn" id="b6I-MO-ttd"/>
                         <outlet property="ArchivnamenPop" destination="UKH-Hf-iIT" id="mdk-lj-BcF"/>
                         <outlet property="BackKnopf" destination="vno-P7-yPk" id="G6x-CP-Jjv"/>
                         <outlet property="ForewardKnopf" destination="cfS-3Q-P7X" id="XZd-7R-2pu"/>
-                        <outlet property="KommentarView" destination="mbs-Vo-qRn" id="2ba-Gw-qc6"/>
                         <outlet property="Leserfeld" destination="QuZ-T6-yDB" id="uQq-o6-c1p"/>
                         <outlet property="LogoutKnopf" destination="8G8-4L-vDp" id="h16-tE-lv0"/>
                         <outlet property="ProjektFeld" destination="zdb-GZ-vfA" id="3do-Hw-THh"/>
@@ -1249,6 +1251,7 @@
     <resources>
         <image name="foreward_w" width="101" height="102"/>
         <image name="gostarticon" width="101" height="103"/>
+        <image name="gostarticon_w" width="101" height="101"/>
         <image name="halticon_w" width="101" height="102"/>
         <image name="mikrofonicon_w" width="938" height="938"/>
         <image name="playicon" width="101" height="102"/>

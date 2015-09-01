@@ -512,7 +512,7 @@ extern  NSMenu*                      ProjektMenu;
       [self.PWFeld setStringValue:@"Ohne Passwort"];
    }
    NSLog(@"TimeoutDelay: %f",self.TimeoutDelay);
-   self.TimeoutDelay=20.0;
+   self.TimeoutDelay=40.0;
    //Tooltips
    
    [self.StartRecordKnopf setToolTip:@"Aufnahme beginnen\nEine schon vorhandene ungesicherte Aufnahme wird überschrieben"];
@@ -547,7 +547,7 @@ extern  NSMenu*                      ProjektMenu;
                                                           userInfo:nil 
                                                            repeats:YES];
    
-   [self.TimeoutFeld setStringValue:@"-"];
+   [self.TimeoutFeld setIntValue:self.TimeoutDelay];
   // AVRecorder
    
    if (!(AVRecorder))
@@ -624,13 +624,13 @@ extern  NSMenu*                      ProjektMenu;
             }
             else
             {
-               [self.TimeoutFeld setStringValue:@"-"];
+               [self.TimeoutFeld setIntValue:self.TimeoutDelay];
             }
          }
       }
       else
       {
-         [self.TimeoutFeld setStringValue:@"-"];
+         [self.TimeoutFeld setIntValue:self.TimeoutDelay];
       }
 
    }
@@ -813,14 +813,17 @@ extern  NSMenu*                      ProjektMenu;
 
 - (IBAction)ArchivaufnahmeInPlayer:(id)sender
 {
+   [self resetArchivPlayer:nil];
    self.ArchivPlayerGeladen=YES;
    [self.ArchivInListeTaste setEnabled:YES];
    [self.ArchivInPlayerTaste setEnabled:NO];
    //[ArchivPlayTaste setEnabled:YES];
-   [self resetArchivPlayer:nil];
+   
    
    NSString* tempAchivPlayPfad = [self.ArchivPlayPfad stringByAppendingPathExtension:@"m4a"];
    
+   NSLog(@"ArchivaufnahmeInPlayertempAchivPlayPfad: %@",tempAchivPlayPfad);
+
    NSURL *ArchivURL = [NSURL fileURLWithPath:tempAchivPlayPfad];
    [AVAbspielplayer prepareAufnahmeAnURL:ArchivURL];
 
@@ -840,34 +843,22 @@ extern  NSMenu*                      ProjektMenu;
    //NSLog(@"ArchivZurListe");
    self.ArchivPlayerGeladen=NO;
    NSFileManager *Filemanager=[NSFileManager defaultManager];
-   //NSLog(@"ArchivZurListe: ArchivKommentarPfad: %@",ArchivKommentarPfad);
-   if ([Filemanager fileExistsAtPath:self.ArchivKommentarPfad])
+   NSLog(@"ArchivZurListe: ArchivKommentarPfad: %@",self.ArchivKommentarPfad);
+   if ([Filemanager fileExistsAtPath:[self.ArchivKommentarPfad stringByAppendingPathExtension:@"txt"]])
 			{
             //NSLog(@"vor saveUserMarkFuerAufnahmePfad: UserMarkCheckbox: %d",[UserMarkCheckbox state]);
-            [self saveUserMarkFuerAufnahmePfad:self.ArchivKommentarPfad];
+            [self saveUserMarkFuerAufnahmePfad:[self.ArchivKommentarPfad stringByAppendingPathExtension:@"txt"]];
             //NSLog(@"nach saveUserMarkFuerAufnahmePfad");
             
          }
    
    [self resetArchivPlayer:nil];
    
-   [self.ArchivInListeTaste setEnabled:NO];
-   [self.ArchivInListeTaste setKeyEquivalent:@""];
-   [self.ArchivInPlayerTaste setEnabled:YES];
-   [self.ArchivPlayTaste setEnabled:NO];
-   [self.ArchivStopTaste setEnabled:NO];
-   [self.ArchivZumStartTaste setEnabled:NO];
-   //NSLog(@"reset UserMarkCheckbox");
-   [self.UserMarkCheckbox setState:NO];
-   [self.UserMarkCheckbox setEnabled:NO];
+  // [self.ArchivZurListeTaste setEnabled:YES];
    
-   [self clearArchivKommentar];
 //   int	erfolg=[RecPlayFenster makeFirstResponder:ArchivView];
-   [self.ArchivAbspielanzeige setLevel:0];
-   [self.ArchivAbspielanzeige setNeedsDisplay:YES];
-   [self.ArchivAbspieldauerFeld setStringValue:@""];
    [AVAbspielplayer resetTimer];
-   [Utils startTimeout:self.TimeoutDelay];
+ //  [Utils startTimeout:self.TimeoutDelay];
    
 }
 
@@ -1902,10 +1893,6 @@ QTMovie* qtMovie;
 - (void)resetRecPlay
 {
    //NSLog(@"resetRecPlay");
-   if ([self.playBalkenTimer isValid])
-   {
-      [self.playBalkenTimer invalidate];
-   }
    
    [self stopAVRecord:NULL];
    [Utils stopTimeout];
@@ -1922,11 +1909,17 @@ QTMovie* qtMovie;
    [self clearArchiv];
    self.QTKitGesamtAufnahmezeit=0;
    self.Leser =@"";
-   [self.Abspieldauerfeld setStringValue:@""];
+   
+   [self.Abspieldauerfeld setStringValue:@"00:00"];
+   [self.ArchivAbspieldauerFeld setStringValue:@"00:00"];
+   
    [self.Zeitfeld setStringValue:@"00:00"];
+   
 //   [RecPlayFenster makeFirstResponder:RecPlayFenster];
    
    self.aktuellAnzAufnahmen=0;
+   //[self backArchivPlayer:NULL];
+   [self backAVPlay:NULL];
    [self.StartRecordKnopf setEnabled:YES];
    [self.StopRecordKnopf setEnabled:NO];
    [self.StartPlayKnopf setEnabled:NO];
@@ -1936,6 +1929,15 @@ QTMovie* qtMovie;
    [self.WeitereAufnahmeKnopf setEnabled:NO];
    [self.LogoutKnopf setEnabled:NO];
    
+   [self ArchivZurListe:nil];
+
+   [self.ArchivAbspielanzeige setLevel:0];
+   [self.ArchivAbspielanzeige setNeedsDisplay:YES];
+
+
+   [Abspielanzeige setLevel:0];
+   [Abspielanzeige setNeedsDisplay:YES];
+
    //LeserPfad  =@"";
 }
 
@@ -2452,7 +2454,6 @@ QTMovie* qtMovie;
    NSString* tempLeser=[derLeser copy];
    
    NSString* tempAufnahme;
-   //[tempAufnahme retain];
    tempAufnahme=[dieAufnahme copy];
    NSString* KommentarOrdnerString=@"Anmerkungen";
    NSString* tempKommentarOrdnerPfad=[[self.LeserPfad copy]stringByAppendingPathComponent:KommentarOrdnerString];
@@ -2476,7 +2477,7 @@ QTMovie* qtMovie;
    {
       NSString* testString;
       testString=@"Bemerkungen:";
-      tempKommentarPfad=[tempKommentarOrdnerPfad stringByAppendingPathComponent:tempAufnahme];
+      tempKommentarPfad=[tempKommentarOrdnerPfad stringByAppendingPathComponent:[tempAufnahme stringByAppendingPathExtension:@"txt"]];
       if (![Filemanager fileExistsAtPath:tempAufnahme])
       {
          NSString* Kommentarstring=[NSString stringWithContentsOfFile:tempKommentarPfad encoding:NSMacOSRomanStringEncoding error:NULL];
@@ -2496,6 +2497,53 @@ QTMovie* qtMovie;
    return erfolg;
 }//Beurteilungvorbereiten
 
+- (NSString*)KommentarstringFuerLeser:(NSString*) derLeser vonAufnahme:(NSString*)dieAufnahme
+{
+   NSLog(@"KommentarstringFuerLeser Leser: %@ Aufnahme: %@",derLeser, dieAufnahme);
+   NSString* Kommentarstring;
+   BOOL erfolg=YES;
+   BOOL istDirectory;
+   NSString* tempLeser=[derLeser copy];
+   
+   NSString* tempAufnahme;
+   tempAufnahme=[dieAufnahme copy];
+   NSString* KommentarOrdnerString=@"Anmerkungen";
+   NSString* tempKommentarOrdnerPfad=[[self.LeserPfad copy]stringByAppendingPathComponent:KommentarOrdnerString];
+   
+   NSString* tempKommentarPfad=[NSString stringWithString:self.ProjektPfad];
+   
+   
+   NSFileManager *Filemanager=[NSFileManager defaultManager];
+   
+   if ([Filemanager fileExistsAtPath:tempKommentarOrdnerPfad])
+   {
+      erfolg=YES;
+   }
+   else
+   {
+      erfolg=[Filemanager createDirectoryAtPath:tempKommentarOrdnerPfad  withIntermediateDirectories:NO attributes:NULL error:NULL];
+      
+   }
+   
+   if (erfolg)
+   {
+      NSString* testString;
+      testString=@"Bemerkungen:";
+      tempKommentarPfad=[tempKommentarOrdnerPfad stringByAppendingPathComponent:[tempAufnahme stringByAppendingPathExtension:@"txt"]];
+      NSLog(@"KommentarstringFuerLeser tempKommentarPfad: %@ ",tempKommentarPfad);
+
+      if (![Filemanager fileExistsAtPath:tempAufnahme])
+      {
+         Kommentarstring=[NSString stringWithContentsOfFile:tempKommentarPfad encoding:NSMacOSRomanStringEncoding error:NULL];
+         
+         NSLog(@"KommentarstringFuerLeser Kommentarstring: %@ ",Kommentarstring);
+         //[KommentarView setEditable:NO];
+      }
+      
+   }
+   
+   return Kommentarstring;
+}
 
 - (void)setTimerfunktion:(NSTimer *)derTimer
 {
@@ -2545,7 +2593,7 @@ QTMovie* qtMovie;
 
 - (IBAction)Logout:(id)sender
 {
-   [NSApp terminate:self];
+   //[NSApp terminate:self];
    NSAlert *Warnung = [[NSAlert alloc] init];
    [Warnung addButtonWithTitle:@"OK"];
    [Warnung addButtonWithTitle:@"Abbrechen"];
@@ -2568,7 +2616,9 @@ QTMovie* qtMovie;
          
    }//switch
    
-   
+   [self resetRecPlay];
+  
+   return;
    [self ArchivZurListe:nil];
    
    [self stopPlay:nil];
@@ -2580,6 +2630,8 @@ QTMovie* qtMovie;
    [self.StartPlayKnopf setEnabled:NO];
    [self.StopPlayKnopf setEnabled:NO];
    [self.BackKnopf setEnabled:NO];
+   [self.ForewardKnopf setEnabled:NO];
+   [self.RewindKnopf setEnabled:NO];
    [self.SichernKnopf setEnabled:NO];
    [self.WeitereAufnahmeKnopf setEnabled:NO];
    [self.LogoutKnopf setEnabled:NO];
@@ -2589,8 +2641,12 @@ QTMovie* qtMovie;
    [self.KommentarView setEditable:NO];
    [self.TitelPop setEnabled:NO];
    [self clearArchiv];
-   self.QTKitGesamtAufnahmezeit=0;
    self.aktuellAnzAufnahmen=0;
+   
+   [AVAbspielplayer stopTempAufnahme];
+   [Abspielanzeige setLevel:0];
+   [Abspielanzeige setNeedsDisplay:YES];
+   
 }
 
 
@@ -2989,11 +3045,10 @@ QTMovie* qtMovie;
    
    
    
-   //	[AufnahmeGrabber prepare];
    
    [self setArchivView];
    
-  // [Utils startTimeout:self.TimeoutDelay];
+   [Utils startTimeout:self.TimeoutDelay];
 }
 
 
@@ -3247,12 +3302,10 @@ QTMovie* qtMovie;
 
 - (NSString*)KommentarVon:(NSString*) derKommentarString
 {
-   
    NSArray* tempMarkArray=[derKommentarString componentsSeparatedByString:@"\r"];
-   //NSLog(@"UserMarkVon: anz Components: %d",[tempMarkArray count]);
+   NSLog(@"UserMarkVon: anz Components: %d",[tempMarkArray count]);
    if ([tempMarkArray count]==6)//noch keine Zeile für Mark
    {
-      
       NSString* tempKommentarString=[tempMarkArray objectAtIndex:5];
       return [tempMarkArray objectAtIndex:5];
       //[tempKommentarString release];
@@ -3269,15 +3322,16 @@ QTMovie* qtMovie;
          pos++;
       }//while
       tempKommentarString=[tempKommentarString substringFromIndex:pos];
-      NSLog(@"******  tempKommentarString: %@", tempKommentarString);
+      NSLog(@" *** 6 el ***  tempKommentarString: %@", tempKommentarString);
       
       return tempKommentarString;
    }//noch keine Zeile für Mark
    else
    {
-      
       //		NSString* tempKommentarString=[tempMarkArray objectAtIndex:Kommentar];
       NSString* tempKommentarString=[tempMarkArray lastObject];
+      NSLog(@" *** else  ***  tempKommentarString: %@", tempKommentarString);
+
       //		return [tempMarkArray objectAtIndex:Kommentar];
       return [tempMarkArray lastObject];
       
@@ -3510,10 +3564,11 @@ QTMovie* qtMovie;
         self.ArchivKommentarPfad=[self.ArchivKommentarPfad stringByAppendingPathComponent:@"Anmerkungen"];
         self.ArchivKommentarPfad=[self.ArchivKommentarPfad stringByAppendingPathComponent:[dieAufnahme copy]];
         NSLog(@"setArchivPfadFuerAufnahme ArchivKommentarPfad: %@",self.ArchivKommentarPfad);
-
-        if ([Filemanager fileExistsAtPath:self.ArchivKommentarPfad])
+        
+        NSString* tempArchivKommentarPfad = [self.ArchivKommentarPfad stringByAppendingPathExtension:@"txt"];
+        if ([Filemanager fileExistsAtPath:tempArchivKommentarPfad])
         {
-           [self setArchivKommentarFuerAufnahmePfad:self.ArchivKommentarPfad];
+           [self setArchivKommentarFuerAufnahmePfad:tempArchivKommentarPfad];
         }
         else //Kein Kommentar da
         {
@@ -3540,11 +3595,11 @@ QTMovie* qtMovie;
 {
    
    //NSFileManager *Filemanager=[NSFileManager defaultManager];
-   //NSLog(@"setArchivKommentarFuerAufnahmePfad: derAufnahmePfad: %@",derAufnahmePfad);
+   NSLog(@"setArchivKommentarFuerAufnahmePfad: derAufnahmePfad: %@",derAufnahmePfad);
    NSString* tempKommentarString=[NSString stringWithContentsOfFile:derAufnahmePfad encoding:NSMacOSRomanStringEncoding error:NULL];
-   //NSLog(@"\nsetArchivKommentarFuerAufnahmePfad: tempKommentarString: %@",tempKommentarString);
+   NSLog(@"\nsetArchivKommentarFuerAufnahmePfad: tempKommentarString: %@",tempKommentarString);
    NSString* inhalt =[self KommentarVon:tempKommentarString];
-   //NSLog(@"setArchivKommentarFuerAufnahmePfad: inhalt: %@",inhalt);
+   NSLog(@"setArchivKommentarFuerAufnahmePfad: inhalt: %@",inhalt);
    if (inhalt)
       [self.ArchivKommentarView setString:inhalt];
    [self.ArchivKommentarView setSelectable:NO];
@@ -3668,6 +3723,9 @@ QTMovie* qtMovie;
    //[self setBackTaste:YES];
    [self.ArchivStopTaste setEnabled:YES];
    [self.ArchivZumStartTaste setEnabled:YES];
+   [self.ArchivRewindTaste setEnabled:YES];
+   [self.ArchivForewardTaste setEnabled:YES];
+
    
 }
 
@@ -3709,14 +3767,30 @@ QTMovie* qtMovie;
 
 - (IBAction)resetArchivPlayer:(id)sender
 {
-//   [self.ArchivQTKitPlayer pause:NULL];
-//   [self.ArchivQTKitPlayer setMovie:nil];
    [AVAbspielplayer stopTempAufnahme];
    [self.ArchivAbspieldauerFeld setStringValue:@""];
    [self.Abspieldauerfeld setStringValue:@""];
    [self.ArchivAbspielanzeige setLevel:0];
-   [self->Abspielanzeige setLevel:0];
-   //AVAbspielplayer=nil;
+   [self.ArchivAbspielanzeige setNeedsDisplay:YES];
+
+   [Abspielanzeige setLevel:0];
+   [Abspielanzeige setNeedsDisplay:YES];
+//
+   [self.ArchivInListeTaste setEnabled:NO];
+   [self.ArchivInListeTaste setKeyEquivalent:@""];
+   [self.ArchivInPlayerTaste setEnabled:YES];
+   [self.ArchivPlayTaste setEnabled:NO];
+   [self.ArchivStopTaste setEnabled:NO];
+   [self.ArchivRewindTaste setEnabled:NO];
+   [self.ArchivForewardTaste setEnabled:NO];
+
+   [self.ArchivZumStartTaste setEnabled:NO];
+   //NSLog(@"reset UserMarkCheckbox");
+   [self.UserMarkCheckbox setState:NO];
+   [self.UserMarkCheckbox setEnabled:NO];
+   
+   [self clearArchivKommentar];
+
 }
 
 - (void)clearArchiv
@@ -3883,6 +3957,7 @@ QTMovie* qtMovie;
            [self.ArchivnamenPop setEnabled:NO];
            [self.ArchivInPlayerTaste setEnabled:NO];
            [self.ArchivView deselectAll:NULL];
+           [self.ArchivPlayTaste setEnabled:NO];
            [self.RecPlayFenster makeFirstResponder:self.ArchivView];
            //AVAbspielplayer=nil;
         }

@@ -221,9 +221,11 @@ extern const int StartmitDialog;//=2;
       //8.11.06	[nc postNotificationName:@"externbeenden" object:self userInfo:BeendenDic];
    }
 }
+
+
 - (void)setProjektArray:(NSArray*)derProjektArray
 {
-   NSLog(@"ProjektStartPanel setProjektArray:PderProjektArray: %@",[derProjektArray description]);
+   //NSLog(@"ProjektStartPanel setProjektArray:derProjektArray: %@",[derProjektArray description]);
    
    if ([derProjektArray count])
 	{

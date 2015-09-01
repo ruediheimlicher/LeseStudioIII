@@ -229,6 +229,10 @@
 @property (weak) IBOutlet NSButton*					ArchivPlayTaste;
 @property (weak) IBOutlet NSButton*					ArchivStopTaste;
 @property (weak) IBOutlet NSButton*					ArchivZumStartTaste;
+@property (weak) IBOutlet NSButton*					ArchivRewindTaste;
+
+@property (weak) IBOutlet NSButton*					ArchivForewardTaste;
+
 @property (weak) IBOutlet NSButton*					ArchivInListeTaste;
 @property (weak) IBOutlet NSButton*					ArchivInPlayerTaste;
 @property (weak) IBOutlet NSTextField*				ArchivTitelfeld;
@@ -246,7 +250,7 @@
 @property UInt32                                ArchivAbspielzeit;
 @property NSString*                             ArchivPlayPfad;
 @property NSString*                             ArchivKommentarPfad;
-@property NSTextView*                           ArchivKommentarView;
+@property  IBOutlet NSTextView*          ArchivKommentarView;
 @property BOOL                                  ArchivZeilenhit;
 @property int                                   RPDevicedatenlaenge;
 @property int									Wert1, Wert2, Wert3;

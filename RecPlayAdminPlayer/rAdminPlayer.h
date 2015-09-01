@@ -61,6 +61,8 @@
 	IBOutlet NSButton*			LoeschenTaste;
 	IBOutlet NSButton*			MarkCheckbox;
 	IBOutlet NSButton*			UserMarkCheckbox;
+   IBOutlet NSButton*			SchliessenTaste;
+      
 	IBOutlet NSTextField*		ProjektFeld;
 	IBOutlet NSTextView*       AdminKommentarView;
 	IBOutlet NSTextField*		AdminTitelfeld;
@@ -203,7 +205,7 @@
 - (IBAction)reportAktualisieren:(id)sender;
 - (void)reportUserMark:(id)sender;
 - (void)reportAdminMark:(id)sender;
-
+- (IBAction)reportFensterschliessen:(id)sender;
 - (NSString*)neuerNameVonAufnahme:(NSString*)dieAufnahme mitNummer:(int)dieNummer;
 - (void)alertDidEnd:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo;
 

@@ -295,7 +295,7 @@
    [Abspielanzeige setNeedsDisplay:YES];
    [self.ArchivAbspielanzeige setMax:dur];
    
-   [self.Fortschritt setDoubleValue:0];
+//   [self.Fortschritt setDoubleValue:0];
    //[Utils startTimeout:self.TimeoutDelay];
 }
 

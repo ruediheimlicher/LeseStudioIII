@@ -1188,10 +1188,10 @@ enum
    //NSLog(@"ProjektArray A: %@",[[Utils ProjektArrayAusPListAnPfad:self.LeseboxPfad] description]);
    [self.ProjektArray setArray:[Utils ProjektArrayAusPListAnPfad:self.LeseboxPfad]];
    NSArray*  tempProjektNamenArray = [NSArray arrayWithArray:[Utils ProjektNamenArrayVon:[self.LeseboxPfad stringByAppendingString:@"/Archiv"]]];
-   NSLog(@"ProjektArray A: %@",[self.ProjektArray description]);
+   //NSLog(@"ProjektArray A: %@",[self.ProjektArray description]);
    
    //   [ProjektArray addObjectsFromArray:tempProjektNamenArray];
-   NSLog(@"showProjektStart ProjektArray B: %@",[self.ProjektArray description]);
+   //NSLog(@"showProjektStart ProjektArray B: %@",[self.ProjektArray description]);
    if ([self.ProjektArray count])
    {
       [ProjektStartPanel  setProjektArray:self.ProjektArray];
@@ -1212,7 +1212,7 @@ enum
       
    }
    
-   NSLog(@"showProjektStart start PListDic: %@",[self.PListDic description]);
+   //NSLog(@"showProjektStart start PListDic: %@",[self.PListDic description]);
    if ([self.PListDic objectForKey:@"lastprojekt"])
    {
       NSLog(@"showProjektStart start lastproject: %@",[self.PListDic objectForKey:@"lastprojekt"]);
@@ -1459,7 +1459,7 @@ enum
 
 - (BOOL)checkAdminPW
 {
-   NSLog(@"checkAdminPW PListDic: %@",[self.PListDic description]);
+   //NSLog(@"checkAdminPW PListDic: %@",[self.PListDic description]);
    BOOL  allOK = 0;
    if ([self.PListDic objectForKey:@"adminpw"]&&[[self.PListDic objectForKey:@"adminpw"]objectForKey:@"pw"])
    {

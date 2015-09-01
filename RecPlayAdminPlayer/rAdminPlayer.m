@@ -1955,7 +1955,11 @@ OptionBString=[[NSString alloc]init];
     [AdminQTKitPlayer setMovie:nil];
     */
    NSLog(@"\n\nAufnahmezuruecklegen:");
+   
+   [AVAbspielplayer toStartTempAufnahme];
+   
    [AVAbspielplayer stopTempAufnahme];
+   
    [self.BackKnopf setEnabled:NO];
    [self.StopPlayKnopf setEnabled:NO];
    [self.RewindKnopf setEnabled:NO];
@@ -1963,6 +1967,9 @@ OptionBString=[[NSString alloc]init];
    [self.StartPlayKnopf setEnabled:NO];
    [AbspieldauerFeld setStringValue:@"00:00"];
    [AufnahmedauerFeld setStringValue:@"00:00"];
+   [Abspielanzeige setLevel:0.0];
+   [Abspielanzeige setNeedsDisplay:YES];
+
 
    NSString* EnterKeyQuelle;
    EnterKeyQuelle=@"MovieView";
@@ -2052,6 +2059,11 @@ OptionBString=[[NSString alloc]init];
 	[MarkCheckbox setState:NO];
 	[MarkCheckbox setEnabled:NO];
 }
+- (IBAction)reportFensterschliessen:(id)sender
+{
+   [self resetAdminPlayer];
+   [[self window]orderOut:nil];
+}
 
 #pragma mark Player
 
@@ -2105,6 +2117,7 @@ OptionBString=[[NSString alloc]init];
 {
    NSLog(@"backAVPlay");
    [AVAbspielplayer toStartTempAufnahme];
+   
    //[self.BackKnopf setEnabled:NO];
    [self.StopPlayKnopf setEnabled:YES];
 }
@@ -2120,7 +2133,7 @@ OptionBString=[[NSString alloc]init];
 - (IBAction)forewardAVPlay:(id)sender
 {
    NSLog(@"backAVPlay");
-   [AVAbspielplayer toStartTempAufnahme];
+   [AVAbspielplayer forewardTempAufnahme];
    //[self.BackKnopf setEnabled:NO];
    [self.StopPlayKnopf setEnabled:YES];
 }
